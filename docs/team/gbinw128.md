@@ -1,4 +1,4 @@
-# gbinw128 - Project Portfolio Page
+# Goh Bin Wee - Project Portfolio Page
 
 ## Overview
 
