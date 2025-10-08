@@ -10,13 +10,13 @@ import java.time.format.DateTimeFormatter;
  * @since 2025-10-08
  */
 public class Loan {
+    public static int numberOfLoans = 0;
+    protected static DateTimeFormatter inputDateFormat = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+    protected static DateTimeFormatter outputDateFormat = DateTimeFormatter.ofPattern("yyyy MMM dd, hh:mm a");
     protected String description;
     protected Double amountLoaned;
     protected boolean isRepaid;
     protected LocalDateTime loanReturnDate;
-    protected static DateTimeFormatter inputDateFormat = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
-    protected static DateTimeFormatter outputDateFormat = DateTimeFormatter.ofPattern("yyyy MMM dd, hh:mm a");
-    public static int numberOfLoans = 0;
 
     /**
      * Constructor defaults to not repaid

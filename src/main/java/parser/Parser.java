@@ -40,7 +40,8 @@ public class Parser {
      * throw exceptions as necessary
      *
      * @param userInput String input by the user
-     * @throws AddLoanCommandWrongFormatException         If add loan command has empty fields or missing sub commands or sub commands in wrong order
+     * @throws AddLoanCommandWrongFormatException         If add loan command has empty fields or missing sub commands
+     *                                                    or sub commands in wrong order
      * @throws DeleteLoanCommandIndexOutOfBoundsException If delete loan command used with non-existing index
      */
     public void handleCommand(String userInput)
@@ -93,7 +94,8 @@ public class Parser {
         final int SIZE_OF_SUBCOMMAND = 2;
         String[] commandParameters = new String[NUMBER_OF_ADD_LOAN_COMMAND_PARAMETERS];
 
-        boolean hasInvalidSubcommand = !userInput.contains("d/") || !userInput.contains("a/") || !userInput.contains("r/");
+        boolean hasInvalidSubcommand = !userInput.contains("d/") || !userInput.contains("a/") ||
+                !userInput.contains("r/");
         boolean hasInvalidSubcommandOrder = (userInput.indexOf("a/") < userInput.indexOf("d/")) ||
                 (userInput.indexOf("r/") < userInput.indexOf("a/")) ||
                 (userInput.indexOf("r/") < userInput.indexOf("d/"));
@@ -102,11 +104,14 @@ public class Parser {
             throw new AddLoanCommandWrongFormatException();
         }
 
-        commandParameters[0] = userInput.substring(userInput.indexOf("d/") + SIZE_OF_SUBCOMMAND, userInput.indexOf("a/")).trim();
-        commandParameters[1] = userInput.substring(userInput.indexOf("a/") + SIZE_OF_SUBCOMMAND, userInput.indexOf("r/")).trim();
+        commandParameters[0] = userInput.substring(userInput.indexOf("d/") + SIZE_OF_SUBCOMMAND,
+                userInput.indexOf("a/")).trim();
+        commandParameters[1] = userInput.substring(userInput.indexOf("a/") + SIZE_OF_SUBCOMMAND,
+                userInput.indexOf("r/")).trim();
         commandParameters[2] = userInput.substring(userInput.indexOf("r/") + SIZE_OF_SUBCOMMAND).trim();
 
-        boolean hasInvalidParameters = commandParameters[0].isEmpty() || commandParameters[1].isEmpty() || commandParameters[2].isEmpty();
+        boolean hasInvalidParameters = commandParameters[0].isEmpty() || commandParameters[1].isEmpty() ||
+                commandParameters[2].isEmpty();
 
         if (hasInvalidParameters) {
             throw new AddLoanCommandWrongFormatException();
