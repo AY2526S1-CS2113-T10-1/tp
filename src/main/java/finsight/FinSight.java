@@ -1,8 +1,5 @@
 package finsight;
 
-import java.util.ArrayList;
-
-import loan.Loan;
 import loan.loanlist.LoanList;
 import parser.Parser;
 import ui.Ui;
@@ -16,8 +13,6 @@ import ui.Ui;
  * @since 2025-10-08
  */
 public class FinSight {
-    protected static ArrayList<Loan> loans = new ArrayList<>();
-
     /**
      * Main entry-point for the FinSight application.
      */

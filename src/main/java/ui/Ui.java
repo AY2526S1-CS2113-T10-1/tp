@@ -3,7 +3,6 @@ package ui;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import finsight.FinSight;
 import loan.Loan;
 
 /**
@@ -51,6 +50,7 @@ public class Ui {
      * Prints Bye Message
      */
     public void printByeMessage() {
+        System.out.print(SPACING);
         System.out.println("Goodbye, see you again!");
         System.out.print(SPACING);
     }
