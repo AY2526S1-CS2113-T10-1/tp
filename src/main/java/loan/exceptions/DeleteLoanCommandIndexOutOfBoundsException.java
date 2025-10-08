@@ -1,4 +1,4 @@
-package exceptions;
+package loan.exceptions;
 
 /**
  * Exception thrown if delete loan command used with non-existing index

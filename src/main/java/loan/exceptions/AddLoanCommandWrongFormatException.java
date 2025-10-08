@@ -1,4 +1,4 @@
-package exceptions;
+package loan.exceptions;
 
 /**
  * Exception thrown if add loan command has empty fields or missing sub commands or sub commands in wrong order
