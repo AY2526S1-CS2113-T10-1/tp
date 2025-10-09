@@ -69,8 +69,8 @@ public class Parser {
      * @throws DeleteLoanCommandIndexOutOfBoundsException If index to delete does not exist
      */
     public int parseDeleteLoanCommand(String userInput) throws DeleteLoanCommandIndexOutOfBoundsException {
-        final int SIZE_OF_DELETE_LOAN = 11;
-        int indexToDelete = Integer.parseInt(userInput.substring(SIZE_OF_DELETE_LOAN).trim());
+        final int sizeOfDeleteLoan = 11;
+        int indexToDelete = Integer.parseInt(userInput.substring(sizeOfDeleteLoan).trim());
 
         if (indexToDelete <= 0 || indexToDelete > Loan.numberOfLoans - 1) {
             throw new DeleteLoanCommandIndexOutOfBoundsException();
@@ -90,9 +90,9 @@ public class Parser {
      * @throws AddLoanCommandWrongFormatException If any empty fields or wrong sub command or wrong sub command order
      */
     public String[] parseAddLoanCommand(String userInput) throws AddLoanCommandWrongFormatException {
-        final int NUMBER_OF_ADD_LOAN_COMMAND_PARAMETERS = 3;
-        final int SIZE_OF_SUBCOMMAND = 2;
-        String[] commandParameters = new String[NUMBER_OF_ADD_LOAN_COMMAND_PARAMETERS];
+        final int numberOfAddLoanCommandParameters = 3;
+        final int sizeOfSubcommand = 2;
+        String[] commandParameters = new String[numberOfAddLoanCommandParameters];
 
         boolean hasInvalidSubcommand = !userInput.contains("d/") || !userInput.contains("a/") ||
                 !userInput.contains("r/");
@@ -104,11 +104,11 @@ public class Parser {
             throw new AddLoanCommandWrongFormatException();
         }
 
-        commandParameters[0] = userInput.substring(userInput.indexOf("d/") + SIZE_OF_SUBCOMMAND,
+        commandParameters[0] = userInput.substring(userInput.indexOf("d/") + sizeOfSubcommand,
                 userInput.indexOf("a/")).trim();
-        commandParameters[1] = userInput.substring(userInput.indexOf("a/") + SIZE_OF_SUBCOMMAND,
+        commandParameters[1] = userInput.substring(userInput.indexOf("a/") + sizeOfSubcommand,
                 userInput.indexOf("r/")).trim();
-        commandParameters[2] = userInput.substring(userInput.indexOf("r/") + SIZE_OF_SUBCOMMAND).trim();
+        commandParameters[2] = userInput.substring(userInput.indexOf("r/") + sizeOfSubcommand).trim();
 
         boolean hasInvalidParameters = commandParameters[0].isEmpty() || commandParameters[1].isEmpty() ||
                 commandParameters[2].isEmpty();
