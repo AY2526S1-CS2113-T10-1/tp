@@ -38,20 +38,17 @@ public class Loan {
      * @return String output of current status and loan amount and return date
      */
     public String toString() {
-        String outputString = "[";
+        StringBuilder outputStringBuilder = new StringBuilder();
+        outputStringBuilder.append("[");
 
-        if (isRepaid) {
-            outputString += "repaid     ";
-        } else {
-            outputString += "outstanding";
-        }
+        outputStringBuilder.append((isRepaid) ? "repaid     " : "outstanding");
 
-        outputString += "]" +
-                "\nDescription: " + description +
-                "\nAmount: $" + String.format("%.2f", amountLoaned) +
-                "\nRepayment Deadline: " + loanReturnDate.format(outputDateFormat);
+        outputStringBuilder.append("]");
+        outputStringBuilder.append("\nDescription: ").append(description);
+        outputStringBuilder.append("\nAmount: $").append(String.format("%.2f", amountLoaned));
+        outputStringBuilder.append("\nRepayment Deadline: ").append(loanReturnDate.format(outputDateFormat));
 
-        return outputString;
+        return outputStringBuilder.toString();
     }
 
     /**

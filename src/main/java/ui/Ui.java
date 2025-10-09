@@ -14,7 +14,7 @@ import loan.Loan;
  */
 public class Ui {
     // Create Constants
-    protected static final int LENGTH_OF_SPACING = 70;
+    protected static final int LENGTH_OF_SPACING = 80;
     protected static final String SPACING = "-".repeat(LENGTH_OF_SPACING) + "\n";
     protected static Scanner input = new Scanner(System.in);
 
