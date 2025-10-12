@@ -1,5 +1,6 @@
 package finsight;
 
+import finsight.income.incomelist.IncomeList;
 import finsight.loan.loanlist.LoanList;
 import finsight.parser.Parser;
 import finsight.ui.Ui;
@@ -9,6 +10,7 @@ import finsight.ui.Ui;
  * FinSight is a
  *
  * @author Emannuel Tan Jing Yue
+ * @author Lai Kai Jie Jeremy
  * @version 0.1
  * @since 2025-10-08
  */
@@ -19,7 +21,8 @@ public class FinSight {
     public static void main(String[] args) {
         Ui ui = new Ui();
         LoanList loanList = new LoanList(ui);
-        Parser parser = new Parser(loanList, ui);
+        IncomeList incomeList = new IncomeList(ui);
+        Parser parser = new Parser(loanList,incomeList, ui);
 
         ui.printWelcomeMessage();
 

@@ -3,6 +3,7 @@ package finsight.ui;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import finsight.income.Income;
 import finsight.loan.Loan;
 
 /**
@@ -10,6 +11,7 @@ import finsight.loan.Loan;
  * takes input from the user
  *
  * @author Emannuel Tan Jing Yue
+ * @author Lai Kai Jie Jeremy
  * @since 2025-10-08
  */
 public class Ui {
@@ -110,6 +112,31 @@ public class Ui {
             System.out.println(loans.get(i).toString());
             System.out.print(SPACING);
         }
+    }
+
+    /**
+     * Prints the details of the income added
+     *
+     * @param incomes ArrayList of incomes
+     */
+    public void printAddIncomeOutput(ArrayList<Income> incomes) {
+        System.out.print(SPACING);
+        System.out.println("Added Income:");
+        System.out.println(incomes.get(Income.numberOfIncomes).toString());
+        System.out.print(SPACING);
+    }
+
+    /**
+     * Prints the details of the income to be deleted
+     *
+     * @param incomes       ArrayList of incomes
+     * @param indexToDelete Index of income to delete
+     */
+    public void printDeleteIncomeOutput(ArrayList<Income> incomes, int indexToDelete) {
+        System.out.print(SPACING);
+        System.out.println("Deleted Income:");
+        System.out.println(incomes.get(indexToDelete).toString());
+        System.out.print(SPACING);
     }
 
     /**
