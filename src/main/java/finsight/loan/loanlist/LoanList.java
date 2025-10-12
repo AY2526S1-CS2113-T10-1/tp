@@ -1,9 +1,9 @@
-package loan.loanlist;
+package finsight.loan.loanlist;
 
 import java.util.ArrayList;
 
-import loan.Loan;
-import ui.Ui;
+import finsight.loan.Loan;
+import finsight.ui.Ui;
 
 /**
  * Contains a ArrayList of Loan class and manipulate it

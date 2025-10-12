@@ -1,11 +1,11 @@
-package parser;
+package finsight.parser;
 
-import loan.exceptions.AddLoanCommandWrongFormatException;
-import loan.exceptions.DeleteLoanCommandIndexOutOfBoundsException;
+import finsight.loan.exceptions.AddLoanCommandWrongFormatException;
+import finsight.loan.exceptions.DeleteLoanCommandIndexOutOfBoundsException;
 
-import loan.Loan;
-import loan.loanlist.LoanList;
-import ui.Ui;
+import finsight.loan.Loan;
+import finsight.loan.loanlist.LoanList;
+import finsight.ui.Ui;
 
 /**
  * Takes in the user input and interpret which command to run

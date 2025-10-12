@@ -1,4 +1,4 @@
-package loan;
+package finsight.loan;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
