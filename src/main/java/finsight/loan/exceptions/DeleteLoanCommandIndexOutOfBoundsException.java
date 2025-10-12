@@ -1,4 +1,4 @@
-package loan.exceptions;
+package finsight.loan.exceptions;
 
 /**
  * Exception thrown if delete loan command used with non-existing index

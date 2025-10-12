@@ -1,8 +1,8 @@
 package finsight;
 
-import loan.loanlist.LoanList;
-import parser.Parser;
-import ui.Ui;
+import finsight.loan.loanlist.LoanList;
+import finsight.parser.Parser;
+import finsight.ui.Ui;
 
 /**
  * <h1>FinSight</h1>

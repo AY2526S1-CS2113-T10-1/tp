@@ -1,9 +1,9 @@
-package ui;
+package finsight.ui;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import loan.Loan;
+import finsight.loan.Loan;
 
 /**
  * Outputs on the terminal and
