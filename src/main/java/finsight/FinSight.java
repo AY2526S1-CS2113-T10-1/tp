@@ -21,7 +21,6 @@ public class FinSight {
      * Main entry-point for the FinSight application.
      */
     public static void main(String[] args) throws IOException {
-
         Ui ui = new Ui();
         LoanList loanList = new LoanList(ui);
         ExpenseList expenseList = new ExpenseList(ui);

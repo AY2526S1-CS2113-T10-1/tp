@@ -1,7 +1,6 @@
 package finsight.storage;
 
 import finsight.loan.Loan;
-import finsight.loan.loanlist.LoanList;
 
 import java.io.BufferedWriter;
 import java.io.IOException;

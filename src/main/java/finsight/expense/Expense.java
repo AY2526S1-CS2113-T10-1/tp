@@ -21,6 +21,14 @@ public class Expense {
         }
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public Double getExpenseAmount() {
+        return expenseAmount;
+    }
+
     @Override
     public String toString() {
         StringBuilder outputStringBuilder = new StringBuilder();

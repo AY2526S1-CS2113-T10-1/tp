@@ -1,8 +1,10 @@
 package finsight.expense.expenselist;
 
 import finsight.expense.Expense;
+import finsight.storage.ExpenseDataManager;
 import finsight.ui.Ui;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -16,13 +18,14 @@ import java.util.ArrayList;
 public class ExpenseList {
     protected ArrayList<Expense> expenses;
     protected Ui ui;
+    private final ExpenseDataManager dataManager = new ExpenseDataManager("./data/expense.txt");
 
     public ExpenseList(ArrayList<Expense> expenses, Ui ui) {
         this.expenses = expenses;
         this.ui = ui;
     }
-    public ExpenseList(Ui ui) {
-        this.expenses = new ArrayList<>();
+    public ExpenseList(Ui ui) throws IOException {
+        this.expenses = dataManager.load();
         this.ui = ui;
     }
 
@@ -40,9 +43,10 @@ public class ExpenseList {
      *
      * @param expense the expense object to be added
      */
-    public void addExpense(Expense expense) {
+    public void addExpense(Expense expense) throws IOException {
         expenses.add(expense);
         ui.printAddExpenseOutput(expenses);
+        dataManager.appendToFile(expense);
     }
 
     /**
@@ -51,9 +55,10 @@ public class ExpenseList {
      * @param indexToDelete the index in the ExpenseList to be deleted
      */
 
-    public void deleteExpense(int indexToDelete) {
+    public void deleteExpense(int indexToDelete) throws IOException {
         ui.printDeleteExpenseOutput(expenses, indexToDelete);
         expenses.remove(indexToDelete);
+        dataManager.writeToFile(expenses);
     }
 
     /**
