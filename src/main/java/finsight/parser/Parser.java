@@ -66,9 +66,12 @@ public class Parser {
             loanList.listLoans();
         } else if (userInput.toLowerCase().startsWith("add loan")) {
             String[] commandParameters = parseAddLoanCommand(userInput);
+            assert(!commandParameters[0].isEmpty() && !commandParameters[1].isEmpty()
+                    && !commandParameters[2].isEmpty());
             loanList.addLoan(new Loan(commandParameters[0], commandParameters[1], commandParameters[2]));
         } else if (userInput.toLowerCase().startsWith("delete loan")) {
             int indexToDelete = parseDeleteLoanCommand(userInput);
+            assert(indexToDelete >= 0 && indexToDelete < Loan.numberOfLoans);
             loanList.deleteLoan(indexToDelete);
         } else if (userInput.toLowerCase().startsWith("list expense")) {
             expenseList.listExpenses();
