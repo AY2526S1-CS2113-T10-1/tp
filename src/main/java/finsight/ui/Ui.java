@@ -11,6 +11,7 @@ import finsight.loan.Loan;
  * takes input from the user
  *
  * @author Emannuel Tan Jing Yue
+ * @author Goh Bin Wee 
  * @since 2025-10-08
  */
 public class Ui {

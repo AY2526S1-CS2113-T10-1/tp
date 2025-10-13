@@ -15,6 +15,7 @@ import finsight.ui.Ui;
  * Takes in the user input and interpret which command to run
  *
  * @author Emannuel Tan Jing Yue
+ * @author Goh Bin Wee
  * @since 2025-10-08
  */
 public class Parser {
