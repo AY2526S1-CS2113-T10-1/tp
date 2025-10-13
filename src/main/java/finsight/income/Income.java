@@ -1,5 +1,7 @@
 package finsight.income;
 
+import finsight.income.exceptions.AddIncomeCommandWrongFormatException;
+
 /**
  * Represents an Income made of a certain income amount earned
  *
@@ -17,9 +19,14 @@ public class Income {
      * @param description          String description of the loan
      * @param amountEarned         String of amount earned
      */
-    public Income(String description, String amountEarned) {
+    public Income(String description, String amountEarned) throws AddIncomeCommandWrongFormatException {
         this.description = description;
-        this.amountEarned = Float.parseFloat(amountEarned);
+
+        try{
+            this.amountEarned = Float.parseFloat(amountEarned);
+        }catch(NumberFormatException e){
+            throw new AddIncomeCommandWrongFormatException();
+        }
     }
 
     /**

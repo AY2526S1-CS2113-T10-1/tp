@@ -139,6 +139,13 @@ public class Ui {
         System.out.print(SPACING);
     }
 
+    public void printEditIncomeOutput(ArrayList<Income> incomes, int indexToEdit) {
+        System.out.print(SPACING);
+        System.out.println("Edited Income:");
+        System.out.println(incomes.get(indexToEdit).toString());
+        System.out.print(SPACING);
+    }
+
     /**
      * Prints all possible commands and their formats
      */

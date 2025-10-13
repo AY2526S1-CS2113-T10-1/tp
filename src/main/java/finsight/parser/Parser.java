@@ -3,6 +3,7 @@ package finsight.parser;
 import finsight.income.Income;
 import finsight.income.exceptions.AddIncomeCommandWrongFormatException;
 import finsight.income.exceptions.DeleteIncomeCommandIndexOutOfBoundsException;
+import finsight.income.exceptions.EditIncomeCommandIndexOutOfBoundsException;
 import finsight.income.incomelist.IncomeList;
 import finsight.loan.exceptions.AddLoanCommandWrongFormatException;
 import finsight.loan.exceptions.DeleteLoanCommandIndexOutOfBoundsException;
@@ -38,7 +39,8 @@ public class Parser {
         try {
             handleCommand(userInput);
         } catch (AddLoanCommandWrongFormatException | DeleteLoanCommandIndexOutOfBoundsException |
-                AddIncomeCommandWrongFormatException | DeleteIncomeCommandIndexOutOfBoundsException e) {
+                 AddIncomeCommandWrongFormatException | DeleteIncomeCommandIndexOutOfBoundsException |
+                 EditIncomeCommandIndexOutOfBoundsException e) {
             ui.printErrorMessage(e.getMessage());
         }
     }
@@ -53,7 +55,7 @@ public class Parser {
      * @throws DeleteLoanCommandIndexOutOfBoundsException If delete loan command used with non-existing index
      */
     public void handleCommand(String userInput)
-            throws AddLoanCommandWrongFormatException, DeleteLoanCommandIndexOutOfBoundsException, AddIncomeCommandWrongFormatException, DeleteIncomeCommandIndexOutOfBoundsException {
+            throws AddLoanCommandWrongFormatException, DeleteLoanCommandIndexOutOfBoundsException, AddIncomeCommandWrongFormatException, DeleteIncomeCommandIndexOutOfBoundsException, EditIncomeCommandIndexOutOfBoundsException {
 
         if (userInput.startsWith("list loan")) {
             loanList.listLoans();
@@ -69,7 +71,11 @@ public class Parser {
         }else if(userInput.startsWith("delete income")) {
             int indexToDelete = parseDeleteIncomeCommand(userInput);
             incomeList.deleteIncome(indexToDelete);
-        } else {
+        }else if(userInput.startsWith("edit income")) {
+            String[] commandParameters = parseEditIncomeCommand(userInput);
+            incomeList.editIncome(commandParameters[0],commandParameters[1],commandParameters[2]);
+        }
+        else {
             ui.printPossibleCommands();
         }
     }
@@ -86,11 +92,11 @@ public class Parser {
         final int sizeOfDeleteLoan = 11;
         int indexToDelete = Integer.parseInt(userInput.substring(sizeOfDeleteLoan).trim());
 
-        if (indexToDelete <= 0 || indexToDelete > Loan.numberOfLoans) {
+        if (indexToDelete <= 0 || indexToDelete > Loan.numberOfLoans - 1) {
             throw new DeleteLoanCommandIndexOutOfBoundsException();
         }
 
-        return indexToDelete - 1;
+        return indexToDelete;
     }
 
     /**
@@ -168,5 +174,25 @@ public class Parser {
         }
 
         return indexToDelete - 1;
+    }
+
+    public String[] parseEditIncomeCommand(String userInput) throws EditIncomeCommandIndexOutOfBoundsException {
+        final int numberOfAddIncomeCommandParameters = 3;
+        final int sizeOfSubcommand = 2;
+        final int sizeOfEditIncome = 11;
+        String[] commandParameters = new String[numberOfAddIncomeCommandParameters];
+
+        String indexToEdit = userInput.substring(sizeOfEditIncome,userInput.indexOf("d/")).trim();
+
+        if (Float.parseFloat(indexToEdit) <= 0 || Float.parseFloat(indexToEdit) > Income.numberOfIncomes){
+            throw new EditIncomeCommandIndexOutOfBoundsException();
+        }
+
+        commandParameters[0] = indexToEdit;
+        commandParameters[1] = userInput.substring(userInput.indexOf("d/") + sizeOfSubcommand,
+                userInput.indexOf("a/")).trim();
+        commandParameters[2] = userInput.substring(userInput.indexOf("a/") + sizeOfSubcommand).trim();
+
+        return commandParameters;
     }
 }

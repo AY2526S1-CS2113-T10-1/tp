@@ -21,6 +21,9 @@ public class IncomeList {
         this.ui = ui;
     }
 
+    /**
+     * Adds new Income
+     */
     public void addIncome(Income income){
         incomes.add(income);
         ui.printAddIncomeOutput(incomes);
@@ -28,10 +31,23 @@ public class IncomeList {
         Income.numberOfIncomes++;
     }
 
+    /**
+     * Deletes Income
+     */
     public void deleteIncome(int indexToDelete) {
         ui.printDeleteIncomeOutput(incomes, indexToDelete);
         incomes.remove(indexToDelete);
 
         Income.numberOfIncomes--;
+    }
+
+    /**
+     * Edits Income
+     */
+    public void editIncome(String indexToEdit, String description, String amountEarned){
+        incomes.get(Integer.parseInt(indexToEdit) - 1).setDescription(description);
+        incomes.get(Integer.parseInt(indexToEdit) - 1).setAmountEarned(Float.parseFloat(amountEarned));
+
+        ui.printEditIncomeOutput(incomes, Integer.parseInt(indexToEdit) - 1);
     }
 }
