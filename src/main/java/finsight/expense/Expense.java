@@ -4,9 +4,9 @@ public class Expense {
     protected String description;
     protected Double expenseAmount;
 
-    public Expense(String description, Double expenseAmount) {
+    public Expense(String description, String expenseAmount) {
         this.description = description;
-        this.expenseAmount = expenseAmount;
+        this.expenseAmount = Double.parseDouble(expenseAmount);
     }
 
     @Override

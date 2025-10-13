@@ -1,5 +1,7 @@
 package finsight.parser;
 
+import finsight.expense.Expense;
+import finsight.expense.expenselist.ExpenseList;
 import finsight.loan.exceptions.AddLoanCommandWrongFormatException;
 import finsight.loan.exceptions.DeleteLoanCommandIndexOutOfBoundsException;
 
@@ -15,10 +17,12 @@ import finsight.ui.Ui;
  */
 public class Parser {
     protected LoanList loanList;
+    protected ExpenseList expenseList;
     protected Ui ui;
 
-    public Parser(LoanList loanList, Ui ui) {
+    public Parser(LoanList loanList, Ui ui, ExpenseList expenseList) {
         this.loanList = loanList;
+        this.expenseList = expenseList;
         this.ui = ui;
     }
 
@@ -47,17 +51,46 @@ public class Parser {
     public void handleCommand(String userInput)
             throws AddLoanCommandWrongFormatException, DeleteLoanCommandIndexOutOfBoundsException {
 
-        if (userInput.startsWith("list loan")) {
+        if (userInput.toLowerCase().startsWith("list loan")) {
             loanList.listLoans();
-        } else if (userInput.startsWith("add loan")) {
+        } else if (userInput.toLowerCase().startsWith("add loan")) {
             String[] commandParameters = parseAddLoanCommand(userInput);
             loanList.addLoan(new Loan(commandParameters[0], commandParameters[1], commandParameters[2]));
-        } else if (userInput.startsWith("delete loan")) {
+        } else if (userInput.toLowerCase().startsWith("delete loan")) {
             int indexToDelete = parseDeleteLoanCommand(userInput);
             loanList.deleteLoan(indexToDelete);
+        } else if (userInput.toLowerCase().startsWith("list expense")) {
+            expenseList.listExpenses();
+        } else if (userInput.toLowerCase().startsWith("add expense")) {
+            String[] commandParameters = parseAddExpenseCommand(userInput);
+            Expense expenseToAdd = new Expense(commandParameters[0], commandParameters[1]);
+            expenseList.addExpense(expenseToAdd);
+        } else if (userInput.toLowerCase().startsWith("delete expense")) {
+            int indexToDelete = parseDeleteExpenseCommand(userInput);
+            expenseList.deleteExpense(indexToDelete);
         } else {
             ui.printPossibleCommands();
         }
+    }
+
+    private int parseDeleteExpenseCommand(String userInput) {
+        final int sizeOfDeleteExpense = "delete expense".length();
+        int indexToDelete = Integer.parseInt(userInput.substring(sizeOfDeleteExpense).trim())-1;
+
+        return indexToDelete;
+    }
+
+    private String[] parseAddExpenseCommand(String userInput) {
+        //throws if 'amount' contains alphabets -- "NumberFormatException"
+        final int numberOfAddLoanCommandParameters = 2;
+        final int sizeOfSubcommand = 2;
+        String[] commandParameters = new String[numberOfAddLoanCommandParameters];
+
+        commandParameters[0] = userInput.substring(userInput.indexOf("d/") + sizeOfSubcommand,
+                userInput.indexOf("a/")).trim();
+        commandParameters[1] = userInput.substring(userInput.indexOf("a/") + sizeOfSubcommand).trim();
+
+        return commandParameters;
     }
 
     /**

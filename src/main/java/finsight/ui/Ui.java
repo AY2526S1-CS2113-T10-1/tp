@@ -3,6 +3,8 @@ package finsight.ui;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import finsight.expense.Expense;
+import finsight.expense.expenselist.ExpenseList;
 import finsight.loan.Loan;
 
 /**
@@ -122,6 +124,32 @@ public class Ui {
         System.out.println("2. add loan d/<DESCRIPTION> a/<AMOUNT_LOANED> r/<LOAN_RETURN_DATE_AND_TIME>");
         System.out.println("   where <LOAN_RETURN_DATE_AND_TIME> is of format 'DD-mm-YYYY HH:mm'");
         System.out.println("3. delete loan <INDEX>");
+        System.out.println("4. list expense");
+        System.out.println("5. add expense d/<DESCRIPTION> a/<AMOUNT_LOANED>");
+        System.out.println("6. delete expense <INDEX>");
+        System.out.print(SPACING);
+    }
+
+    public void printAllExpenses(ArrayList<Expense> expenses) {
+        System.out.print(SPACING);
+        for (int i = 0; i < expenses.size() ; i++) {
+            System.out.println("Loan " + (i + 1) + ":");
+            System.out.println(expenses.get(i).toString());
+            System.out.print(SPACING);
+        }
+    }
+
+    public void printAddExpenseOutput(ArrayList<Expense> expenses) {
+        System.out.print(SPACING);
+        System.out.println("Added Expense:");
+        System.out.println(expenses.get(expenses.size()-1).toString());
+        System.out.print(SPACING);
+    }
+
+    public void printDeleteExpenseOutput(ArrayList<Expense> expenses, int indexToDelete) {
+        System.out.print(SPACING);
+        System.out.println("Deleted Expense:");
+        System.out.println(expenses.get(indexToDelete).toString());
         System.out.print(SPACING);
     }
 }
