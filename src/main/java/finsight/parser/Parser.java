@@ -41,8 +41,9 @@ public class Parser {
      *
      * @param userInput String input by the user
      * @throws AddLoanCommandWrongFormatException         If add loan command has empty fields or missing sub commands
-     *                                                    or sub commands in wrong order
-     * @throws DeleteLoanCommandIndexOutOfBoundsException If delete loan command used with non-existing index
+     *                                                    or sub commands in wrong order or date field in wrong format
+     * @throws DeleteLoanCommandIndexOutOfBoundsException If delete loan command used with non-existing index or
+     *                                                    index missing
      */
     public void handleCommand(String userInput)
             throws AddLoanCommandWrongFormatException, DeleteLoanCommandIndexOutOfBoundsException {
@@ -66,7 +67,7 @@ public class Parser {
      *
      * @param userInput String input by user
      * @return The index to delete
-     * @throws DeleteLoanCommandIndexOutOfBoundsException If index to delete does not exist
+     * @throws DeleteLoanCommandIndexOutOfBoundsException If index to delete does not exist or missing
      */
     public int parseDeleteLoanCommand(String userInput) throws DeleteLoanCommandIndexOutOfBoundsException {
         final int sizeOfDeleteLoan = 11;
@@ -81,13 +82,16 @@ public class Parser {
 
     /**
      * Returns the parameters used for add loan command as a String Array of size 3
+     * <pre>
      * commandParameters[0]: Description
      * commandParameters[1]: Amount Loaned
      * commandParameters[2]: Loan Return Date & Time
+     * </pre>
      *
      * @param userInput String input by user
      * @return The parameters used for add loan command
      * @throws AddLoanCommandWrongFormatException If any empty fields or wrong sub command or wrong sub command order
+     *                                            or wrong format of amount field (alphabets instead of numbers)
      */
     public String[] parseAddLoanCommand(String userInput) throws AddLoanCommandWrongFormatException {
         final int numberOfAddLoanCommandParameters = 3;
