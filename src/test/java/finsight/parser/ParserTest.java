@@ -4,6 +4,10 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
+import finsight.expense.exceptions.AddExpenseCommandWrongFormatException;
+import finsight.expense.exceptions.DeleteExpenseCommandIndexOutOfBoundsException;
+import finsight.expense.expenselist.ExpenseList;
+
 import finsight.loan.exceptions.AddLoanCommandWrongFormatException;
 import finsight.loan.exceptions.DeleteLoanCommandIndexOutOfBoundsException;
 import finsight.loan.loanlist.LoanList;
@@ -16,7 +20,8 @@ public class ParserTest {
         Ui ui = new Ui();
 
         LoanList loanList = new LoanList(ui);
-        Parser parser = new Parser(loanList, ui);
+        ExpenseList expenseList = new ExpenseList(ui);
+        Parser parser = new Parser(loanList, ui, expenseList);
 
         String inputTestString = "add loan a/ 1000 d/ loan r/ 10-10-2026 19:00";
 
@@ -29,7 +34,8 @@ public class ParserTest {
         Ui ui = new Ui();
 
         LoanList loanList = new LoanList(ui);
-        Parser parser = new Parser(loanList, ui);
+        ExpenseList expenseList = new ExpenseList(ui);
+        Parser parser = new Parser(loanList, ui, expenseList);
 
         String inputTestString = "add loan r/ 10-10-2026 19:00 d/ loan a/ 1000";
 
@@ -42,7 +48,8 @@ public class ParserTest {
         Ui ui = new Ui();
 
         LoanList loanList = new LoanList(ui);
-        Parser parser = new Parser(loanList, ui);
+        ExpenseList expenseList = new ExpenseList(ui);
+        Parser parser = new Parser(loanList, ui, expenseList);
 
         String inputTestString = "add loan a/ 1000 r/ 10-10-2026 19:00 d/ loan";
 
@@ -55,7 +62,8 @@ public class ParserTest {
         Ui ui = new Ui();
 
         LoanList loanList = new LoanList(ui);
-        Parser parser = new Parser(loanList, ui);
+        ExpenseList expenseList = new ExpenseList(ui);
+        Parser parser = new Parser(loanList, ui, expenseList);
 
         String inputTestString = "add loan d/ a/ 1000 r/ 10-10-2026 19:00";
 
@@ -68,7 +76,8 @@ public class ParserTest {
         Ui ui = new Ui();
 
         LoanList loanList = new LoanList(ui);
-        Parser parser = new Parser(loanList, ui);
+        ExpenseList expenseList = new ExpenseList(ui);
+        Parser parser = new Parser(loanList, ui, expenseList);
 
         String inputTestString = "add loan d/ loan a/ r/ 10-10-2026 19:00";
 
@@ -81,7 +90,8 @@ public class ParserTest {
         Ui ui = new Ui();
 
         LoanList loanList = new LoanList(ui);
-        Parser parser = new Parser(loanList, ui);
+        ExpenseList expenseList = new ExpenseList(ui);
+        Parser parser = new Parser(loanList, ui, expenseList);
 
         String inputTestString = "add loan d/ loan a/ 1000 r/";
 
@@ -94,7 +104,8 @@ public class ParserTest {
         Ui ui = new Ui();
 
         LoanList loanList = new LoanList(ui);
-        Parser parser = new Parser(loanList, ui);
+        ExpenseList expenseList = new ExpenseList(ui);
+        Parser parser = new Parser(loanList, ui, expenseList);
 
         String inputTestString = "add loan d/ loan 1000 r/ 10-10-2026 19:00";
 
@@ -107,7 +118,8 @@ public class ParserTest {
         Ui ui = new Ui();
 
         LoanList loanList = new LoanList(ui);
-        Parser parser = new Parser(loanList, ui);
+        ExpenseList expenseList = new ExpenseList(ui);
+        Parser parser = new Parser(loanList, ui, expenseList);
 
         String inputTestString = "add loan loan a/ 1000 r/ 10-10-2026 19:00";
 
@@ -120,7 +132,8 @@ public class ParserTest {
         Ui ui = new Ui();
 
         LoanList loanList = new LoanList(ui);
-        Parser parser = new Parser(loanList, ui);
+        ExpenseList expenseList = new ExpenseList(ui);
+        Parser parser = new Parser(loanList, ui, expenseList);
 
         String inputTestString = "add loan d/ loan a/ 1000 10-10-2026 19:00";
 
@@ -133,7 +146,8 @@ public class ParserTest {
         Ui ui = new Ui();
 
         LoanList loanList = new LoanList(ui);
-        Parser parser = new Parser(loanList, ui);
+        ExpenseList expenseList = new ExpenseList(ui);
+        Parser parser = new Parser(loanList, ui, expenseList);
 
         String inputTestString = "delete loan";
 
@@ -146,7 +160,8 @@ public class ParserTest {
         Ui ui = new Ui();
 
         LoanList loanList = new LoanList(ui);
-        Parser parser = new Parser(loanList, ui);
+        ExpenseList expenseList = new ExpenseList(ui);
+        Parser parser = new Parser(loanList, ui, expenseList);
 
         String inputTestString = "delete loan -1";
 
@@ -159,7 +174,8 @@ public class ParserTest {
         Ui ui = new Ui();
 
         LoanList loanList = new LoanList(ui);
-        Parser parser = new Parser(loanList, ui);
+        ExpenseList expenseList = new ExpenseList(ui);
+        Parser parser = new Parser(loanList, ui, expenseList);
 
         String inputTestString = "delete loan 0";
 
