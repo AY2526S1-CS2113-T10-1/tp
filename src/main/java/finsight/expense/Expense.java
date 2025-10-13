@@ -2,6 +2,12 @@ package finsight.expense;
 
 import finsight.expense.exceptions.AddExpenseCommandWrongFormatException;
 
+/**
+ * Represents an expense object with the item/description and the amount used
+ *
+ * @author Goh Bin Wee
+ * @since 13/Oct/2025
+ */
 public class Expense {
     protected String description;
     protected Double expenseAmount;

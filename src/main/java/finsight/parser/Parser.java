@@ -52,11 +52,15 @@ public class Parser {
      * @throws AddLoanCommandWrongFormatException         If add loan command has empty fields or missing sub commands
      *                                                    or sub commands in wrong order
      * @throws DeleteLoanCommandIndexOutOfBoundsException If delete loan command used with non-existing index
+     * @throws AddExpenseCommandWrongFormatException      If add expense command has empty fields, incorrect format
+     *                                                    or incorrect sub commands
+     * @throws DeleteLoanCommandIndexOutOfBoundsException If delete expense command used with out-of-bounds index
      */
     public void handleCommand(String userInput)
             throws AddLoanCommandWrongFormatException,
+            AddExpenseCommandWrongFormatException,
             DeleteLoanCommandIndexOutOfBoundsException,
-            AddExpenseCommandWrongFormatException {
+            DeleteExpenseCommandIndexOutOfBoundsException {
 
         if (userInput.toLowerCase().startsWith("list loan")) {
             loanList.listLoans();
@@ -70,8 +74,7 @@ public class Parser {
             expenseList.listExpenses();
         } else if (userInput.toLowerCase().startsWith("add expense")) {
             String[] commandParameters = parseAddExpenseCommand(userInput);
-            Expense expenseToAdd = new Expense(commandParameters[0], commandParameters[1]);
-            expenseList.addExpense(expenseToAdd);
+            expenseList.addExpense(new Expense(commandParameters[0], commandParameters[1]));
         } else if (userInput.toLowerCase().startsWith("delete expense")) {
             int indexToDelete = parseDeleteExpenseCommand(userInput);
             expenseList.deleteExpense(indexToDelete);
@@ -90,9 +93,13 @@ public class Parser {
      */
     private int parseDeleteExpenseCommand(String userInput) throws DeleteExpenseCommandIndexOutOfBoundsException {
         final int sizeOfDeleteExpense = "delete expense".length();
+        String indexToDeleteString = userInput.substring(sizeOfDeleteExpense).trim();
+        if(indexToDeleteString.isEmpty()) {
+            throw new DeleteExpenseCommandIndexOutOfBoundsException();
+        }
         int indexToDelete = Integer.parseInt(userInput.substring(sizeOfDeleteExpense).trim()) - 1;
 
-        if (indexToDelete <= 0 || indexToDelete > Loan.numberOfLoans - 1) {
+        if (indexToDelete < 0 || indexToDelete >= expenseList.getSize() ) {
             throw new DeleteExpenseCommandIndexOutOfBoundsException();
         }
 
@@ -104,7 +111,7 @@ public class Parser {
      * commandParameters[1]: Expended amount
      *
      * @param userInput String input by user
-     * @return The parameters used for add loan command
+     * @return The parameters used for add expense command
      * @throws AddExpenseCommandWrongFormatException If any empty fields or wrong sub command or wrong sub command order
      */
     private String[] parseAddExpenseCommand(String userInput) throws
