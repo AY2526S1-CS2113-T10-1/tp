@@ -9,7 +9,10 @@ import finsight.loan.exceptions.DeleteLoanCommandIndexOutOfBoundsException;
 
 import finsight.loan.Loan;
 import finsight.loan.loanlist.LoanList;
+import finsight.storage.LoanDataManager;
 import finsight.ui.Ui;
+
+import java.io.IOException;
 
 /**
  * Takes in the user input and interpret which command to run
@@ -40,6 +43,7 @@ public class Parser {
         } catch (AddLoanCommandWrongFormatException |
                  DeleteLoanCommandIndexOutOfBoundsException |
                  DeleteExpenseCommandIndexOutOfBoundsException |
+                 IOException |
                  AddExpenseCommandWrongFormatException e) {
             ui.printErrorMessage(e.getMessage());
         }
@@ -61,7 +65,8 @@ public class Parser {
             throws AddLoanCommandWrongFormatException,
             AddExpenseCommandWrongFormatException,
             DeleteLoanCommandIndexOutOfBoundsException,
-            DeleteExpenseCommandIndexOutOfBoundsException {
+            DeleteExpenseCommandIndexOutOfBoundsException,
+            IOException {
 
         if (userInput.toLowerCase().startsWith("list loan")) {
             loanList.listLoans();
