@@ -1,10 +1,13 @@
 package finsight.loan;
 
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.time.LocalDateTime;
+
+import finsight.loan.exceptions.AddLoanCommandWrongFormatException;
 
 /**
- * Represents a Loan made of a certain loan amount with a repayment date
+ * Represents a Loan made of a description, a loan amount and a repayment date
  *
  * @author Emannuel Tan Jing Yue
  * @since 2025-10-08
@@ -24,12 +27,19 @@ public class Loan {
      * @param description          String description of the loan
      * @param amountLoanedString   String of amount loaned
      * @param loanReturnDateString String of loan return date
+     * @throws AddLoanCommandWrongFormatException If amount loaned or loan return date string is not of correct format
      */
-    public Loan(String description, String amountLoanedString, String loanReturnDateString) {
+    public Loan(String description, String amountLoanedString, String loanReturnDateString)
+            throws AddLoanCommandWrongFormatException {
         this.description = description;
-        this.amountLoaned = Double.parseDouble(amountLoanedString);
-        this.loanReturnDate = LocalDateTime.parse(loanReturnDateString, inputDateFormat);
         isRepaid = false;
+
+        try {
+            this.amountLoaned = Double.parseDouble(amountLoanedString);
+            this.loanReturnDate = LocalDateTime.parse(loanReturnDateString, inputDateFormat);
+        } catch (DateTimeParseException | NumberFormatException e) {
+            throw new AddLoanCommandWrongFormatException();
+        }
     }
 
     /**
@@ -37,18 +47,17 @@ public class Loan {
      *
      * @return String output of current status and loan amount and return date
      */
+    @Override
     public String toString() {
-        StringBuilder outputStringBuilder = new StringBuilder();
-        outputStringBuilder.append("[");
+        String outputString = "[";
 
-        outputStringBuilder.append((isRepaid) ? "repaid     " : "outstanding");
+        outputString += (isRepaid) ? "repaid     ]" : "outstanding]";
 
-        outputStringBuilder.append("]");
-        outputStringBuilder.append("\nDescription: ").append(description);
-        outputStringBuilder.append("\nAmount: $").append(String.format("%.2f", amountLoaned));
-        outputStringBuilder.append("\nRepayment Deadline: ").append(loanReturnDate.format(outputDateFormat));
+        outputString += "\nDescription: " + description;
+        outputString += "\nAmount: $" + String.format("%.2f", amountLoaned);
+        outputString += "\nRepayment Deadline: " + loanReturnDate.format(outputDateFormat);
 
-        return outputStringBuilder.toString();
+        return outputString;
     }
 
     /**
