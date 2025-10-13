@@ -1,7 +1,6 @@
 package finsight.expense.expenselist;
 
 import finsight.expense.Expense;
-import finsight.loan.Loan;
 import finsight.ui.Ui;
 
 import java.util.ArrayList;

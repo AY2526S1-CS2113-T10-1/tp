@@ -1,6 +1,7 @@
 package finsight.parser;
 
 import finsight.expense.Expense;
+import finsight.expense.exceptions.AddExpenseCommandWrongFormatException;
 import finsight.expense.expenselist.ExpenseList;
 import finsight.loan.exceptions.AddLoanCommandWrongFormatException;
 import finsight.loan.exceptions.DeleteLoanCommandIndexOutOfBoundsException;
@@ -34,8 +35,12 @@ public class Parser {
     public void tryCommand(String userInput) {
         try {
             handleCommand(userInput);
-        } catch (AddLoanCommandWrongFormatException | DeleteLoanCommandIndexOutOfBoundsException e) {
+        } catch (AddLoanCommandWrongFormatException |
+                 DeleteLoanCommandIndexOutOfBoundsException |
+                AddExpenseCommandWrongFormatException e) {
             ui.printErrorMessage(e.getMessage());
+        } catch (NumberFormatException e) {
+            ui.printErrorMessage("Wrong number format");
         }
     }
 
@@ -49,7 +54,9 @@ public class Parser {
      * @throws DeleteLoanCommandIndexOutOfBoundsException If delete loan command used with non-existing index
      */
     public void handleCommand(String userInput)
-            throws AddLoanCommandWrongFormatException, DeleteLoanCommandIndexOutOfBoundsException {
+            throws AddLoanCommandWrongFormatException,
+            DeleteLoanCommandIndexOutOfBoundsException,
+            AddExpenseCommandWrongFormatException {
 
         if (userInput.toLowerCase().startsWith("list loan")) {
             loanList.listLoans();
@@ -80,15 +87,25 @@ public class Parser {
         return indexToDelete;
     }
 
-    private String[] parseAddExpenseCommand(String userInput) {
-        //throws if 'amount' contains alphabets -- "NumberFormatException"
-        final int numberOfAddLoanCommandParameters = 2;
+    private String[] parseAddExpenseCommand(String userInput) throws AddExpenseCommandWrongFormatException,NumberFormatException {
+        final int numberOfAddExpenseCommandParameters = 2;
         final int sizeOfSubcommand = 2;
-        String[] commandParameters = new String[numberOfAddLoanCommandParameters];
+        String[] commandParameters = new String[numberOfAddExpenseCommandParameters];
+
+        boolean hasInvalidSubcommand = !userInput.contains("d/") || !userInput.contains("a/");
+        if (hasInvalidSubcommand) {
+            throw new AddExpenseCommandWrongFormatException();
+        }
 
         commandParameters[0] = userInput.substring(userInput.indexOf("d/") + sizeOfSubcommand,
                 userInput.indexOf("a/")).trim();
         commandParameters[1] = userInput.substring(userInput.indexOf("a/") + sizeOfSubcommand).trim();
+
+        boolean hasInvalidParameters = commandParameters[0].isEmpty() || commandParameters[1].isEmpty();
+        if (hasInvalidParameters) {
+            throw new AddExpenseCommandWrongFormatException();
+        }
+
 
         return commandParameters;
     }

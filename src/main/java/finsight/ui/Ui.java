@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import finsight.expense.Expense;
-import finsight.expense.expenselist.ExpenseList;
 import finsight.loan.Loan;
 
 /**
@@ -130,15 +129,23 @@ public class Ui {
         System.out.print(SPACING);
     }
 
+    /**
+     * Prints all expenses
+     */
     public void printAllExpenses(ArrayList<Expense> expenses) {
         System.out.print(SPACING);
         for (int i = 0; i < expenses.size() ; i++) {
-            System.out.println("Loan " + (i + 1) + ":");
+            System.out.println("Expense " + (i + 1) + ":");
             System.out.println(expenses.get(i).toString());
             System.out.print(SPACING);
         }
     }
 
+    /**
+     * Prints the details of the expense added
+     *
+     * @param expenses ArrayList of expenses
+     */
     public void printAddExpenseOutput(ArrayList<Expense> expenses) {
         System.out.print(SPACING);
         System.out.println("Added Expense:");
@@ -146,6 +153,12 @@ public class Ui {
         System.out.print(SPACING);
     }
 
+    /**
+     * Prints the details of the expense to be deleted
+     *
+     * @param expenses         ArrayList of expenses
+     * @param indexToDelete Index of expense to delete
+     */
     public void printDeleteExpenseOutput(ArrayList<Expense> expenses, int indexToDelete) {
         System.out.print(SPACING);
         System.out.println("Deleted Expense:");
