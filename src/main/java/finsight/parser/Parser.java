@@ -2,6 +2,7 @@ package finsight.parser;
 
 import finsight.expense.Expense;
 import finsight.expense.exceptions.AddExpenseCommandWrongFormatException;
+import finsight.expense.exceptions.DeleteExpenseCommandIndexOutOfBoundsException;
 import finsight.expense.expenselist.ExpenseList;
 import finsight.loan.exceptions.AddLoanCommandWrongFormatException;
 import finsight.loan.exceptions.DeleteLoanCommandIndexOutOfBoundsException;
@@ -37,10 +38,9 @@ public class Parser {
             handleCommand(userInput);
         } catch (AddLoanCommandWrongFormatException |
                  DeleteLoanCommandIndexOutOfBoundsException |
-                AddExpenseCommandWrongFormatException e) {
+                 DeleteExpenseCommandIndexOutOfBoundsException |
+                 AddExpenseCommandWrongFormatException e) {
             ui.printErrorMessage(e.getMessage());
-        } catch (NumberFormatException e) {
-            ui.printErrorMessage("Wrong number format");
         }
     }
 
@@ -80,14 +80,35 @@ public class Parser {
         }
     }
 
-    private int parseDeleteExpenseCommand(String userInput) {
+    /**
+     * Returns the index to delete expense if index exists,
+     * else throws exception
+     *
+     * @param userInput String input by user
+     * @return The index to delete
+     * @throws DeleteExpenseCommandIndexOutOfBoundsException If index to delete does not exist
+     */
+    private int parseDeleteExpenseCommand(String userInput) throws DeleteExpenseCommandIndexOutOfBoundsException {
         final int sizeOfDeleteExpense = "delete expense".length();
-        int indexToDelete = Integer.parseInt(userInput.substring(sizeOfDeleteExpense).trim())-1;
+        int indexToDelete = Integer.parseInt(userInput.substring(sizeOfDeleteExpense).trim()) - 1;
+
+        if (indexToDelete <= 0 || indexToDelete > Loan.numberOfLoans - 1) {
+            throw new DeleteExpenseCommandIndexOutOfBoundsException();
+        }
 
         return indexToDelete;
     }
-
-    private String[] parseAddExpenseCommand(String userInput) throws AddExpenseCommandWrongFormatException,NumberFormatException {
+    /**
+     * Returns the parameters used for add expense command as a String Array of size 2
+     * commandParameters[0]: Description
+     * commandParameters[1]: Expended amount
+     *
+     * @param userInput String input by user
+     * @return The parameters used for add loan command
+     * @throws AddExpenseCommandWrongFormatException If any empty fields or wrong sub command or wrong sub command order
+     */
+    private String[] parseAddExpenseCommand(String userInput) throws
+            AddExpenseCommandWrongFormatException{
         final int numberOfAddExpenseCommandParameters = 2;
         final int sizeOfSubcommand = 2;
         String[] commandParameters = new String[numberOfAddExpenseCommandParameters];
@@ -105,7 +126,6 @@ public class Parser {
         if (hasInvalidParameters) {
             throw new AddExpenseCommandWrongFormatException();
         }
-
 
         return commandParameters;
     }

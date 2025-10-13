@@ -1,12 +1,18 @@
 package finsight.expense;
 
+import finsight.expense.exceptions.AddExpenseCommandWrongFormatException;
+
 public class Expense {
     protected String description;
     protected Double expenseAmount;
 
-    public Expense(String description, String expenseAmount) {
+    public Expense(String description, String expenseAmount) throws AddExpenseCommandWrongFormatException {
         this.description = description;
-        this.expenseAmount = Double.parseDouble(expenseAmount);
+        try{
+            this.expenseAmount = Double.parseDouble(expenseAmount);
+        } catch (NumberFormatException e){
+            throw new AddExpenseCommandWrongFormatException();
+        }
     }
 
     @Override
