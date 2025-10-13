@@ -4,8 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
-import finsight.expense.exceptions.AddExpenseCommandWrongFormatException;
-import finsight.expense.exceptions.DeleteExpenseCommandIndexOutOfBoundsException;
+//import finsight.expense.exceptions.AddExpenseCommandWrongFormatException;
+//import finsight.expense.exceptions.DeleteExpenseCommandIndexOutOfBoundsException;
 import finsight.expense.expenselist.ExpenseList;
 
 import finsight.loan.exceptions.AddLoanCommandWrongFormatException;
