@@ -1,5 +1,6 @@
 package finsight;
 
+import finsight.expense.expenselist.ExpenseList;
 import finsight.loan.loanlist.LoanList;
 import finsight.parser.Parser;
 import finsight.ui.Ui;
@@ -19,7 +20,8 @@ public class FinSight {
     public static void main(String[] args) {
         Ui ui = new Ui();
         LoanList loanList = new LoanList(ui);
-        Parser parser = new Parser(loanList, ui);
+        ExpenseList expenseList = new ExpenseList(ui);
+        Parser parser = new Parser(loanList, ui, expenseList);
 
         ui.printWelcomeMessage();
 
