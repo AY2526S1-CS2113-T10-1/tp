@@ -21,6 +21,7 @@ public class ExpenseList {
         this.expenses = expenses;
         this.ui = ui;
     }
+
     public ExpenseList(Ui ui) {
         this.expenses = new ArrayList<>();
         this.ui = ui;

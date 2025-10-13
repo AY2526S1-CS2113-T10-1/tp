@@ -11,7 +11,7 @@ import finsight.loan.Loan;
  * takes input from the user
  *
  * @author Emannuel Tan Jing Yue
- * @author Goh Bin Wee 
+ * @author Goh Bin Wee
  * @since 2025-10-08
  */
 public class Ui {
@@ -91,6 +91,8 @@ public class Ui {
 
     /**
      * Prints the details of the loan set as repaid
+     *
+     * @param loan Loan set as repaid
      */
     public void printLoanRepaid(Loan loan) {
         System.out.print(SPACING);
@@ -101,6 +103,8 @@ public class Ui {
 
     /**
      * Prints the details of the loan set as not repaid
+     *
+     * @param loan Loan set as not repaid
      */
     public void printLoanNotRepaid(Loan loan) {
         System.out.print(SPACING);
@@ -111,6 +115,8 @@ public class Ui {
 
     /**
      * Prints all Loans
+     *
+     * @param loans ArrayList of Loans
      */
     public void printAllLoans(ArrayList<Loan> loans) {
         System.out.print(SPACING);
@@ -139,10 +145,12 @@ public class Ui {
 
     /**
      * Prints all expenses
+     *
+     * @param expenses ArrayList of Expenses
      */
     public void printAllExpenses(ArrayList<Expense> expenses) {
         System.out.print(SPACING);
-        for (int i = 0; i < expenses.size() ; i++) {
+        for (int i = 0; i < expenses.size(); i++) {
             System.out.println("Expense " + (i + 1) + ":");
             System.out.println(expenses.get(i).toString());
             System.out.print(SPACING);
@@ -157,14 +165,14 @@ public class Ui {
     public void printAddExpenseOutput(ArrayList<Expense> expenses) {
         System.out.print(SPACING);
         System.out.println("Added Expense:");
-        System.out.println(expenses.get(expenses.size()-1).toString());
+        System.out.println(expenses.get(expenses.size() - 1).toString());
         System.out.print(SPACING);
     }
 
     /**
      * Prints the details of the expense to be deleted
      *
-     * @param expenses         ArrayList of expenses
+     * @param expenses      ArrayList of expenses
      * @param indexToDelete Index of expense to delete
      */
     public void printDeleteExpenseOutput(ArrayList<Expense> expenses, int indexToDelete) {

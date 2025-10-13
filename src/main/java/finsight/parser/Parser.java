@@ -1,14 +1,15 @@
 package finsight.parser;
 
-import finsight.expense.Expense;
 import finsight.expense.exceptions.AddExpenseCommandWrongFormatException;
 import finsight.expense.exceptions.DeleteExpenseCommandIndexOutOfBoundsException;
+import finsight.expense.Expense;
 import finsight.expense.expenselist.ExpenseList;
+
 import finsight.loan.exceptions.AddLoanCommandWrongFormatException;
 import finsight.loan.exceptions.DeleteLoanCommandIndexOutOfBoundsException;
-
 import finsight.loan.Loan;
 import finsight.loan.loanlist.LoanList;
+
 import finsight.ui.Ui;
 
 /**
@@ -37,10 +38,8 @@ public class Parser {
     public void tryCommand(String userInput) {
         try {
             handleCommand(userInput);
-        } catch (AddLoanCommandWrongFormatException |
-                 DeleteLoanCommandIndexOutOfBoundsException |
-                 DeleteExpenseCommandIndexOutOfBoundsException |
-                 AddExpenseCommandWrongFormatException e) {
+        } catch (AddExpenseCommandWrongFormatException | AddLoanCommandWrongFormatException |
+                 DeleteExpenseCommandIndexOutOfBoundsException | DeleteLoanCommandIndexOutOfBoundsException e) {
             ui.printErrorMessage(e.getMessage());
         }
     }
@@ -52,11 +51,12 @@ public class Parser {
      * @param userInput String input by the user
      * @throws AddExpenseCommandWrongFormatException         If add expense command has empty fields, incorrect format
      *                                                       or incorrect sub commands
-     * @throws AddLoanCommandWrongFormatException            If add loan command has empty fields or missing sub commands
-     *                                                       or sub commands in wrong order or date field in wrong format
+     * @throws AddLoanCommandWrongFormatException            If add loan command has empty fields or
+     *                                                       missing sub commands or sub commands in wrong order or
+     *                                                       date field in wrong format
+     * @throws DeleteExpenseCommandIndexOutOfBoundsException If delete expense command used with out-of-bounds index
      * @throws DeleteLoanCommandIndexOutOfBoundsException    If delete loan command used with non-existing index or
      *                                                       index missing
-     * @throws DeleteExpenseCommandIndexOutOfBoundsException If delete expense command used with out-of-bounds index
      */
     public void handleCommand(String userInput)
             throws AddExpenseCommandWrongFormatException, AddLoanCommandWrongFormatException,
@@ -108,8 +108,10 @@ public class Parser {
 
     /**
      * Returns the parameters used for add expense command as a String Array of size 2
+     * <pre>
      * commandParameters[0]: Description
      * commandParameters[1]: Expended amount
+     * </pre>
      *
      * @param userInput String input by user
      * @return The parameters used for add expense command
