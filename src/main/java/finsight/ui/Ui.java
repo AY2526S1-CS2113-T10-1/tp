@@ -16,7 +16,14 @@ public class Ui {
     // Create Constants
     protected static final int LENGTH_OF_SPACING = 80;
     protected static final String SPACING = "-".repeat(LENGTH_OF_SPACING) + "\n";
-    protected static Scanner input = new Scanner(System.in);
+    protected static Scanner input;
+
+    /**
+     * Constructor
+     */
+    public Ui() {
+        input = new Scanner(System.in);
+    }
 
     /**
      * Returns next line of input by the user

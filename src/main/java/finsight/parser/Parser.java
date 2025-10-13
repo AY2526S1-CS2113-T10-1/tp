@@ -71,9 +71,13 @@ public class Parser {
      */
     public int parseDeleteLoanCommand(String userInput) throws DeleteLoanCommandIndexOutOfBoundsException {
         final int sizeOfDeleteLoan = 11;
-        int indexToDelete = Integer.parseInt(userInput.substring(sizeOfDeleteLoan).trim());
+        String indexToDeleteString = userInput.substring(sizeOfDeleteLoan).trim();
+        if (indexToDeleteString.isEmpty()) {
+            throw new DeleteLoanCommandIndexOutOfBoundsException();
+        }
 
-        if (indexToDelete <= 0 || indexToDelete > Loan.numberOfLoans - 1) {
+        int indexToDelete = Integer.parseInt(indexToDeleteString) - 1;
+        if (indexToDelete < 0 || indexToDelete >= Loan.numberOfLoans) {
             throw new DeleteLoanCommandIndexOutOfBoundsException();
         }
 
