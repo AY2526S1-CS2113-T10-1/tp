@@ -78,12 +78,12 @@ public class Ui {
     /**
      * Prints the details of the loan added
      *
-     * @param loans ArrayList of loans
+     * @param loan Loan Added
      */
-    public void printAddLoanOutput(ArrayList<Loan> loans) {
+    public void printAddLoanOutput(Loan loan) {
         System.out.print(SPACING);
         System.out.println("Added Loan:");
-        System.out.println(loans.get(Loan.numberOfLoans).toString());
+        System.out.println(loan.toString());
         System.out.print(SPACING);
     }
 

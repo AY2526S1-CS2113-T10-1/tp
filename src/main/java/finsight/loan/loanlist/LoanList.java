@@ -49,7 +49,7 @@ public class LoanList {
      */
     public void addLoan(Loan loan) {
         loans.add(loan);
-        ui.printAddLoanOutput(loans);
+        ui.printAddLoanOutput(loan);
 
         Loan.numberOfLoans++;
     }
