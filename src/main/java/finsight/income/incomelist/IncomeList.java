@@ -21,6 +21,20 @@ public class IncomeList {
         this.ui = ui;
     }
 
+    public IncomeList(ArrayList<Income> incomes, Ui ui) {
+        this.incomes = incomes;
+        this.ui = ui;
+    }
+
+    /**
+     * Returns Income ArrayList
+     *
+     * @return ArrayList of income
+     */
+    public ArrayList<Income> getIncomes(){
+        return incomes;
+    }
+
     /**
      * Adds new Income
      */

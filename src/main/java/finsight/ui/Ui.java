@@ -135,7 +135,7 @@ public class Ui {
     public void printDeleteIncomeOutput(ArrayList<Income> incomes, int indexToDelete) {
         System.out.print(SPACING);
         System.out.println("Deleted Income:");
-        System.out.println(incomes.get(indexToDelete).toString());
+        System.out.println(incomes.get(indexToDelete - 1).toString());
         System.out.print(SPACING);
     }
 

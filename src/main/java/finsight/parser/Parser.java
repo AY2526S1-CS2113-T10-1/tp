@@ -4,6 +4,7 @@ import finsight.income.Income;
 import finsight.income.exceptions.AddIncomeCommandWrongFormatException;
 import finsight.income.exceptions.DeleteIncomeCommandIndexOutOfBoundsException;
 import finsight.income.exceptions.EditIncomeCommandIndexOutOfBoundsException;
+import finsight.income.exceptions.EditIncomeCommandWrongFormatException;
 import finsight.income.incomelist.IncomeList;
 import finsight.loan.exceptions.AddLoanCommandWrongFormatException;
 import finsight.loan.exceptions.DeleteLoanCommandIndexOutOfBoundsException;
@@ -40,7 +41,7 @@ public class Parser {
             handleCommand(userInput);
         } catch (AddLoanCommandWrongFormatException | DeleteLoanCommandIndexOutOfBoundsException |
                  AddIncomeCommandWrongFormatException | DeleteIncomeCommandIndexOutOfBoundsException |
-                 EditIncomeCommandIndexOutOfBoundsException e) {
+                 EditIncomeCommandIndexOutOfBoundsException |EditIncomeCommandWrongFormatException e) {
             ui.printErrorMessage(e.getMessage());
         }
     }
@@ -55,7 +56,8 @@ public class Parser {
      * @throws DeleteLoanCommandIndexOutOfBoundsException If delete loan command used with non-existing index
      */
     public void handleCommand(String userInput)
-            throws AddLoanCommandWrongFormatException, DeleteLoanCommandIndexOutOfBoundsException, AddIncomeCommandWrongFormatException, DeleteIncomeCommandIndexOutOfBoundsException, EditIncomeCommandIndexOutOfBoundsException {
+            throws AddLoanCommandWrongFormatException, DeleteLoanCommandIndexOutOfBoundsException, AddIncomeCommandWrongFormatException, DeleteIncomeCommandIndexOutOfBoundsException,
+            EditIncomeCommandIndexOutOfBoundsException, EditIncomeCommandWrongFormatException {
 
         if (userInput.startsWith("list loan")) {
             loanList.listLoans();
@@ -74,8 +76,7 @@ public class Parser {
         }else if(userInput.startsWith("edit income")) {
             String[] commandParameters = parseEditIncomeCommand(userInput);
             incomeList.editIncome(commandParameters[0],commandParameters[1],commandParameters[2]);
-        }
-        else {
+        } else {
             ui.printPossibleCommands();
         }
     }
@@ -140,6 +141,15 @@ public class Parser {
         return commandParameters;
     }
 
+    /**
+     * Returns the parameters used for add income command as a String Array of size 2
+     * commandParameters[0]: Description
+     * commandParameters[1]: Amount Earned
+     *
+     * @param userInput String input by user
+     * @return The parameters used for add income command
+     * @throws AddIncomeCommandWrongFormatException If any empty fields or wrong sub command or wrong sub command order
+     */
     public String[] parseAddIncomeCommmand(String userInput) throws AddIncomeCommandWrongFormatException {
         final int numberOfAddIncomeCommandParameters = 2;
         final int sizeOfSubcommand = 2;
@@ -165,6 +175,14 @@ public class Parser {
         return commandParameters;
     }
 
+    /**
+     * Returns the index to delete if index exists,
+     * else throws exception
+     *
+     * @param userInput String input by user
+     * @return The index to delete
+     * @throws DeleteIncomeCommandIndexOutOfBoundsException If index to delete does not exist
+     */
     public int parseDeleteIncomeCommand(String userInput) throws DeleteIncomeCommandIndexOutOfBoundsException {
         final int sizeOfDeleteIncome = 13;
         int indexToDelete = Integer.parseInt(userInput.substring(sizeOfDeleteIncome).trim());
@@ -176,11 +194,31 @@ public class Parser {
         return indexToDelete - 1;
     }
 
-    public String[] parseEditIncomeCommand(String userInput) throws EditIncomeCommandIndexOutOfBoundsException {
+    /**
+     * Returns the parameters used for edit income command as a String Array of size 3
+     * commandParameters[0]: Index To Edit
+     * commandParameters[1]: Description
+     * commandParameters[2]: Amount Earned
+     *
+     * @param userInput String input by user
+     * @return The parameters used for edit income command
+     * @throws EditIncomeCommandIndexOutOfBoundsException If index does not exist
+     * @throws EditIncomeCommandWrongFormatException If any empty fields or wrong sub command or wrong sub command order
+     */
+    public String[] parseEditIncomeCommand(String userInput)
+            throws EditIncomeCommandIndexOutOfBoundsException, EditIncomeCommandWrongFormatException {
+
         final int numberOfAddIncomeCommandParameters = 3;
         final int sizeOfSubcommand = 2;
         final int sizeOfEditIncome = 11;
         String[] commandParameters = new String[numberOfAddIncomeCommandParameters];
+
+        boolean hasInvalidSubcommand = !userInput.contains("d/") || !userInput.contains("a/");
+        boolean hasInvalidSubcommandOrder = (userInput.indexOf("a/") < userInput.indexOf("d/"));
+
+        if (hasInvalidSubcommand || hasInvalidSubcommandOrder) {
+            throw new EditIncomeCommandWrongFormatException();
+        }
 
         String indexToEdit = userInput.substring(sizeOfEditIncome,userInput.indexOf("d/")).trim();
 
@@ -192,6 +230,12 @@ public class Parser {
         commandParameters[1] = userInput.substring(userInput.indexOf("d/") + sizeOfSubcommand,
                 userInput.indexOf("a/")).trim();
         commandParameters[2] = userInput.substring(userInput.indexOf("a/") + sizeOfSubcommand).trim();
+
+        boolean hasInvalidParameters = commandParameters[0].isEmpty() || commandParameters[1].isEmpty();
+
+        if (hasInvalidParameters) {
+            throw new EditIncomeCommandWrongFormatException();
+        }
 
         return commandParameters;
     }
