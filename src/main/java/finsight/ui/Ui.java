@@ -132,12 +132,12 @@ public class Ui {
     /**
      * Prints the details of the income added
      *
-     * @param incomes ArrayList of incomes
+     * @param income Income added
      */
-    public void printAddIncomeOutput(ArrayList<Income> incomes) {
+    public void printAddIncomeOutput(Income income) {
         System.out.print(SPACING);
         System.out.println("Added Income:");
-        System.out.println(incomes.get(Income.numberOfIncomes).toString());
+        System.out.println(income.toString());
         System.out.print(SPACING);
     }
 

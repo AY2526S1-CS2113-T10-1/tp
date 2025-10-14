@@ -1,6 +1,5 @@
-package seedu.duke;
+package finsight.income;
 
-import finsight.income.Income;
 import finsight.income.exceptions.AddIncomeCommandWrongFormatException;
 
 import org.junit.jupiter.api.Test;

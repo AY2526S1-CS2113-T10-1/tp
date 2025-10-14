@@ -1,4 +1,4 @@
-package seedu.duke;
+package finsight.income.incomeList;
 
 import finsight.income.Income;
 import finsight.income.exceptions.AddIncomeCommandWrongFormatException;

@@ -40,7 +40,7 @@ public class IncomeList {
      */
     public void addIncome(Income income){
         incomes.add(income);
-        ui.printAddIncomeOutput(incomes);
+        ui.printAddIncomeOutput(income);
 
         Income.numberOfIncomes++;
     }
