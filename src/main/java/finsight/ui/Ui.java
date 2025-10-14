@@ -137,9 +137,10 @@ public class Ui {
         System.out.println("2. add loan d/<DESCRIPTION> a/<AMOUNT_LOANED> r/<LOAN_RETURN_DATE_AND_TIME>");
         System.out.println("   where <LOAN_RETURN_DATE_AND_TIME> is of format 'DD-mm-YYYY HH:mm'");
         System.out.println("3. delete loan <INDEX>");
-        System.out.println("4. list expense");
-        System.out.println("5. add expense d/<DESCRIPTION> a/<AMOUNT_LOANED>");
-        System.out.println("6. delete expense <INDEX>");
+        System.out.println("4. loan repaid <INDEX>");
+        System.out.println("5. list expense");
+        System.out.println("6. add expense d/<DESCRIPTION> a/<AMOUNT_SPENT>");
+        System.out.println("7. delete expense <INDEX>");
         System.out.print(SPACING);
     }
 

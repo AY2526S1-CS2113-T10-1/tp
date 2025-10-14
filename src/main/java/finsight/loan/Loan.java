@@ -51,7 +51,7 @@ public class Loan {
     public String toString() {
         String outputString = "[";
 
-        outputString += (isRepaid) ? "repaid     ]" : "outstanding]";
+        outputString += (isRepaid) ? "repaid]" : "outstanding]";
 
         outputString += "\nDescription: " + description;
         outputString += "\nAmount: $" + String.format("%.2f", amountLoaned);

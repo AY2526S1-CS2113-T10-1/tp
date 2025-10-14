@@ -7,6 +7,7 @@ import finsight.expense.expenselist.ExpenseList;
 
 import finsight.loan.exceptions.AddLoanCommandWrongFormatException;
 import finsight.loan.exceptions.DeleteLoanCommandIndexOutOfBoundsException;
+import finsight.loan.exceptions.LoanRepaidCommandIndexOutOfBoundsException;
 import finsight.loan.Loan;
 import finsight.loan.loanlist.LoanList;
 
@@ -39,7 +40,8 @@ public class Parser {
         try {
             handleCommand(userInput);
         } catch (AddExpenseCommandWrongFormatException | AddLoanCommandWrongFormatException |
-                 DeleteExpenseCommandIndexOutOfBoundsException | DeleteLoanCommandIndexOutOfBoundsException e) {
+                 DeleteExpenseCommandIndexOutOfBoundsException | DeleteLoanCommandIndexOutOfBoundsException |
+                 LoanRepaidCommandIndexOutOfBoundsException e) {
             ui.printErrorMessage(e.getMessage());
         }
     }
@@ -57,22 +59,29 @@ public class Parser {
      * @throws DeleteExpenseCommandIndexOutOfBoundsException If delete expense command used with out-of-bounds index
      * @throws DeleteLoanCommandIndexOutOfBoundsException    If delete loan command used with non-existing index or
      *                                                       index missing
+     * @throws LoanRepaidCommandIndexOutOfBoundsException    If loan repaid command used with non-existing index or
+     *                                                       index missing
      */
     public void handleCommand(String userInput)
             throws AddExpenseCommandWrongFormatException, AddLoanCommandWrongFormatException,
-            DeleteExpenseCommandIndexOutOfBoundsException, DeleteLoanCommandIndexOutOfBoundsException {
+            DeleteExpenseCommandIndexOutOfBoundsException, DeleteLoanCommandIndexOutOfBoundsException,
+            LoanRepaidCommandIndexOutOfBoundsException {
 
         if (userInput.toLowerCase().startsWith("list loan")) {
             loanList.listLoans();
         } else if (userInput.toLowerCase().startsWith("add loan")) {
             String[] commandParameters = parseAddLoanCommand(userInput);
-            assert(!commandParameters[0].isEmpty() && !commandParameters[1].isEmpty()
+            assert (!commandParameters[0].isEmpty() && !commandParameters[1].isEmpty()
                     && !commandParameters[2].isEmpty());
             loanList.addLoan(new Loan(commandParameters[0], commandParameters[1], commandParameters[2]));
         } else if (userInput.toLowerCase().startsWith("delete loan")) {
             int indexToDelete = parseDeleteLoanCommand(userInput);
-            assert(indexToDelete >= 0 && indexToDelete < Loan.numberOfLoans);
+            assert (indexToDelete >= 0 && indexToDelete < Loan.numberOfLoans);
             loanList.deleteLoan(indexToDelete);
+        } else if (userInput.toLowerCase().startsWith("loan repaid")) {
+            int indexToSetRepaid = parseLoanRepaidCommand(userInput);
+            assert (indexToSetRepaid >= 0 && indexToSetRepaid < Loan.numberOfLoans);
+            loanList.setRepaid(indexToSetRepaid);
         } else if (userInput.toLowerCase().startsWith("list expense")) {
             expenseList.listExpenses();
         } else if (userInput.toLowerCase().startsWith("add expense")) {
@@ -152,7 +161,7 @@ public class Parser {
      * @throws DeleteLoanCommandIndexOutOfBoundsException If index to delete does not exist or missing
      */
     public int parseDeleteLoanCommand(String userInput) throws DeleteLoanCommandIndexOutOfBoundsException {
-        final int sizeOfDeleteLoan = 11;
+        final int sizeOfDeleteLoan = "delete loan".length();
         String indexToDeleteString = userInput.substring(sizeOfDeleteLoan).trim();
         if (indexToDeleteString.isEmpty()) {
             throw new DeleteLoanCommandIndexOutOfBoundsException();
@@ -208,5 +217,28 @@ public class Parser {
         }
 
         return commandParameters;
+    }
+
+    /**
+     * Returns the index to mark if index exists,
+     * else throws exception
+     *
+     * @param userInput String input by user
+     * @return The index to set repaid
+     * @throws LoanRepaidCommandIndexOutOfBoundsException If index to set repaid does not exist or missing
+     */
+    public int parseLoanRepaidCommand(String userInput) throws LoanRepaidCommandIndexOutOfBoundsException {
+        final int sizeOfLoanRepaid = "loan repaid".length();
+        String indexToDeleteString = userInput.substring(sizeOfLoanRepaid).trim();
+        if (indexToDeleteString.isEmpty()) {
+            throw new LoanRepaidCommandIndexOutOfBoundsException();
+        }
+
+        int indexToSetRepaid = Integer.parseInt(indexToDeleteString) - 1;
+        if (indexToSetRepaid < 0 || indexToSetRepaid >= Loan.numberOfLoans) {
+            throw new LoanRepaidCommandIndexOutOfBoundsException();
+        }
+
+        return indexToSetRepaid;
     }
 }
