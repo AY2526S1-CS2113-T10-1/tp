@@ -48,9 +48,11 @@ public class Parser {
     public void tryCommand(String userInput) {
         try {
             handleCommand(userInput);
-        } catch (AddExpenseCommandWrongFormatException | AddLoanCommandWrongFormatException | AddIncomeCommandWrongFormatException |
-                 DeleteIncomeCommandIndexOutOfBoundsException | DeleteExpenseCommandIndexOutOfBoundsException | DeleteLoanCommandIndexOutOfBoundsException |
-                 EditIncomeCommandIndexOutOfBoundsException | EditIncomeCommandWrongFormatException | LoanRepaidCommandIndexOutOfBoundsException e) {
+        } catch (AddExpenseCommandWrongFormatException | AddLoanCommandWrongFormatException |
+                 AddIncomeCommandWrongFormatException | DeleteIncomeCommandIndexOutOfBoundsException |
+                 DeleteExpenseCommandIndexOutOfBoundsException | DeleteLoanCommandIndexOutOfBoundsException |
+                 EditIncomeCommandIndexOutOfBoundsException | EditIncomeCommandWrongFormatException |
+                 LoanRepaidCommandIndexOutOfBoundsException e) {
             ui.printErrorMessage(e.getMessage());
         }
     }
@@ -80,9 +82,11 @@ public class Parser {
      *                                                       index missing
      */
     public void handleCommand(String userInput)
-            throws AddExpenseCommandWrongFormatException, AddLoanCommandWrongFormatException,AddIncomeCommandWrongFormatException,
-            DeleteExpenseCommandIndexOutOfBoundsException, DeleteLoanCommandIndexOutOfBoundsException, DeleteIncomeCommandIndexOutOfBoundsException,
-            EditIncomeCommandWrongFormatException, EditIncomeCommandIndexOutOfBoundsException, LoanRepaidCommandIndexOutOfBoundsException {
+            throws AddExpenseCommandWrongFormatException, AddLoanCommandWrongFormatException,
+            AddIncomeCommandWrongFormatException, DeleteExpenseCommandIndexOutOfBoundsException,
+            DeleteLoanCommandIndexOutOfBoundsException, DeleteIncomeCommandIndexOutOfBoundsException,
+            EditIncomeCommandWrongFormatException, EditIncomeCommandIndexOutOfBoundsException,
+            LoanRepaidCommandIndexOutOfBoundsException {
 
         if (userInput.toLowerCase().startsWith("list loan")) {
             loanList.listLoans();
@@ -95,17 +99,17 @@ public class Parser {
             int indexToDelete = parseDeleteLoanCommand(userInput);
             assert (indexToDelete >= 0 && indexToDelete < Loan.numberOfLoans);
             loanList.deleteLoan(indexToDelete);
-        }else if (userInput.toLowerCase().startsWith("loan repaid")) {
-                int indexToSetRepaid = parseLoanRepaidCommand(userInput);
-                assert (indexToSetRepaid >= 0 && indexToSetRepaid < Loan.numberOfLoans);
-                loanList.setRepaid(indexToSetRepaid);
-        }else if(userInput.startsWith("add income")) {
+        } else if (userInput.toLowerCase().startsWith("loan repaid")) {
+            int indexToSetRepaid = parseLoanRepaidCommand(userInput);
+            assert (indexToSetRepaid >= 0 && indexToSetRepaid < Loan.numberOfLoans);
+            loanList.setRepaid(indexToSetRepaid);
+        } else if(userInput.startsWith("add income")) {
             String[] commandParameters = parseAddIncomeCommand(userInput);
             incomeList.addIncome(new Income(commandParameters[0], commandParameters[1]));
-        }else if(userInput.startsWith("delete income")) {
+        } else if(userInput.startsWith("delete income")) {
             int indexToDelete = parseDeleteIncomeCommand(userInput);
             incomeList.deleteIncome(indexToDelete);
-        }else if(userInput.startsWith("edit income")) {
+        } else if(userInput.startsWith("edit income")) {
             String[] commandParameters = parseEditIncomeCommand(userInput);
             incomeList.editIncome(commandParameters[0],commandParameters[1],commandParameters[2]);
         } else if (userInput.toLowerCase().startsWith("list expense")) {
@@ -344,7 +348,8 @@ public class Parser {
                 userInput.indexOf("a/")).trim();
         commandParameters[2] = userInput.substring(userInput.indexOf("a/") + sizeOfSubcommand).trim();
 
-        boolean hasInvalidParameters = commandParameters[0].isEmpty() || commandParameters[1].isEmpty() || commandParameters[2].isEmpty();
+        boolean hasInvalidParameters = commandParameters[0].isEmpty() || commandParameters[1].isEmpty() ||
+                commandParameters[2].isEmpty();
 
         if (hasInvalidParameters) {
             throw new EditIncomeCommandWrongFormatException();
