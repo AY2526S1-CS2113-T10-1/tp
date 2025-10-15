@@ -6,8 +6,11 @@ import finsight.expense.Expense;
 import finsight.expense.expenselist.ExpenseList;
 
 import finsight.investment.Investment;
+import finsight.investment.exceptions.AddInvestmentDateOutOfBoundsException;
+import finsight.investment.exceptions.AddInvestmentSubcommandException;
 import finsight.investment.exceptions.AddInvestmentWrongNumberFormatException;
 import finsight.investment.exceptions.DeleteInvestmentIndexOutOfBoundsException;
+import finsight.investment.exceptions.DeleteInvestmentMissingIndexException;
 import finsight.investment.investmentlist.InvestmentList;
 import finsight.loan.exceptions.AddLoanCommandWrongFormatException;
 import finsight.loan.exceptions.DeleteLoanCommandIndexOutOfBoundsException;
@@ -47,7 +50,9 @@ public class Parser {
             handleCommand(userInput);
         } catch (AddExpenseCommandWrongFormatException | AddLoanCommandWrongFormatException |
                  DeleteExpenseCommandIndexOutOfBoundsException | DeleteLoanCommandIndexOutOfBoundsException |
-                 LoanRepaidCommandIndexOutOfBoundsException e) {
+                 LoanRepaidCommandIndexOutOfBoundsException | AddInvestmentWrongNumberFormatException |
+                 AddInvestmentSubcommandException | DeleteInvestmentMissingIndexException |
+                 AddInvestmentDateOutOfBoundsException | DeleteInvestmentIndexOutOfBoundsException e) {
             ui.printErrorMessage(e.getMessage());
         }
     }
@@ -71,7 +76,7 @@ public class Parser {
     public void handleCommand(String userInput)
             throws AddExpenseCommandWrongFormatException, AddLoanCommandWrongFormatException,
             DeleteExpenseCommandIndexOutOfBoundsException, DeleteLoanCommandIndexOutOfBoundsException,
-            LoanRepaidCommandIndexOutOfBoundsException, AddInvestmentWrongNumberFormatException {
+            LoanRepaidCommandIndexOutOfBoundsException, AddInvestmentWrongNumberFormatException, AddInvestmentSubcommandException, DeleteInvestmentMissingIndexException, AddInvestmentDateOutOfBoundsException, DeleteInvestmentIndexOutOfBoundsException {
 
         if (userInput.toLowerCase().startsWith("list loan")) {
             loanList.listLoans();
@@ -256,7 +261,7 @@ public class Parser {
         return indexToSetRepaid;
     }
 
-    public String[] parseAddInvestmentCommand(String userInput) throws AddInvestmentWrongNumberFormatException {
+    private String[] parseAddInvestmentCommand(String userInput) throws AddInvestmentSubcommandException {
         final int numberOfAddInvestmentCommandParameters = 3;
         final int sizeOfSubcommand = 2;
         String[] commandParameters = new String[numberOfAddInvestmentCommandParameters];
@@ -264,31 +269,29 @@ public class Parser {
         boolean hasInvalidSubcommand = !userInput.contains("d/") || !userInput.contains("a/")
                 || !userInput.contains("m/");
         if (hasInvalidSubcommand) {
-            throw new AddInvestmentWrongNumberFormatException();
-            //Todo make new exception
+            throw new AddInvestmentSubcommandException();
         }
-        commandParameters[0] = userInput.substring(userInput.indexOf("/d") + sizeOfSubcommand, userInput.indexOf("a/")).trim();
+        commandParameters[0] = userInput.substring(userInput.indexOf("d/") + sizeOfSubcommand, userInput.indexOf("a/")).trim();
         commandParameters[1] = userInput.substring(userInput.indexOf("a/") + sizeOfSubcommand, userInput.indexOf("m/")).trim();
         commandParameters[2] = userInput.substring(userInput.indexOf("m/") + sizeOfSubcommand).trim();
 
-        boolean hasInvalidParameters = commandParameters[0].isEmpty() || commandParameters[1].isEmpty();
+        boolean hasInvalidParameters = commandParameters[0].isEmpty() || commandParameters[1].isEmpty() ||
+                commandParameters[2].isEmpty();
         if (hasInvalidParameters) {
-            throw new AddInvestmentWrongNumberFormatException();
-            //Todo make new exception
+            throw new AddInvestmentSubcommandException();
         }
 
         return commandParameters;
     }
 
-    public int parseDeleteInvestmentCommand(String userInput) throws DeleteInvestmentIndexOutOfBoundsException {
+    private int parseDeleteInvestmentCommand(String userInput) throws DeleteInvestmentIndexOutOfBoundsException, DeleteInvestmentMissingIndexException {
         final int sizeOfInvestmentCommand = "delete investment".length();
         String indexToDeleteString = userInput.substring(sizeOfInvestmentCommand).trim();
         if (indexToDeleteString.isEmpty()) {
-            // todo add new exception
-            throw new DeleteInvestmentIndexOutOfBoundsException();
+            throw new DeleteInvestmentMissingIndexException();
         }
         int indexToDelete = Integer.parseInt(indexToDeleteString) - 1;
-        if (indexToDelete <= 0 || indexToDelete >= investmentList.getSize()) {
+        if (indexToDelete < 0 || indexToDelete >= investmentList.getSize()) {
             throw new DeleteInvestmentIndexOutOfBoundsException();
         }
 

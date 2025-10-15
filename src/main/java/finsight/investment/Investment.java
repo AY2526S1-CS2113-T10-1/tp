@@ -1,5 +1,6 @@
 package finsight.investment;
 
+import finsight.investment.exceptions.AddInvestmentDateOutOfBoundsException;
 import finsight.investment.exceptions.AddInvestmentWrongNumberFormatException;
 
 
