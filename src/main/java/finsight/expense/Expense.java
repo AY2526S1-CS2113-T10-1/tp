@@ -14,6 +14,7 @@ public class Expense {
 
     public Expense(String description, String expenseAmount) throws AddExpenseCommandWrongFormatException {
         this.description = description;
+
         try{
             this.expenseAmount = Double.parseDouble(expenseAmount);
         } catch (NumberFormatException e){

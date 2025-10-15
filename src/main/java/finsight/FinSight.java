@@ -13,7 +13,8 @@ import java.io.IOException;
  * FinSight is a
  *
  * @author Emannuel Tan Jing Yue
- * @version 0.1
+ * @author Goh Bin Wee
+ * @version 1.0
  * @since 2025-10-08
  */
 public class FinSight {
@@ -29,7 +30,7 @@ public class FinSight {
         ui.printWelcomeMessage();
 
         String userInput = ui.getNextLine();
-        while (!userInput.startsWith("bye")) {
+        while (!userInput.toLowerCase().startsWith("bye")) {
             parser.tryCommand(userInput);
 
             userInput = ui.getNextLine();

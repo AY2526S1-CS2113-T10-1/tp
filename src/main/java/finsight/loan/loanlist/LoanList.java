@@ -48,10 +48,12 @@ public class LoanList {
 
     /**
      * Adds new Loan
+     *
+     * @param loan Loan to be added
      */
     public void addLoan(Loan loan) throws IOException {
         loans.add(loan);
-        ui.printAddLoanOutput(loans);
+        ui.printAddLoanOutput(loan);
 
         Loan.numberOfLoans++;
         loanDataManager.appendToFile(loan);
@@ -59,6 +61,8 @@ public class LoanList {
 
     /**
      * Deletes Loan
+     *
+     * @param indexToDelete Index of Loan to be deleted
      */
     public void deleteLoan(int indexToDelete) throws IOException {
         ui.printDeleteLoanOutput(loans, indexToDelete);
@@ -70,6 +74,8 @@ public class LoanList {
 
     /**
      * Sets loan to be repaid
+     *
+     * @param indexToSet Index of Loan to be set as repaid
      */
     public void setRepaid(int indexToSet) {
         loans.get(indexToSet).setRepaid();
@@ -78,6 +84,8 @@ public class LoanList {
 
     /**
      * Sets loan to be not repaid
+     *
+     * @param indexToSet Index of Loan to be set as not repaid
      */
     public void setNotRepaid(int indexToSet) {
         loans.get(indexToSet).setNotRepaid();
