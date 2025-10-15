@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import finsight.loan.Loan;
+import finsight.loan.exceptions.AddLoanCommandWrongFormatException;
 import finsight.storage.LoanDataManager;
 import finsight.ui.Ui;
 
@@ -24,7 +25,7 @@ public class LoanList {
         this.ui = ui;
     }
 
-    public LoanList(Ui ui) throws IOException {
+    public LoanList(Ui ui) throws IOException, AddLoanCommandWrongFormatException {
         this.loans = loanDataManager.load();
         this.ui = ui;
         Loan.numberOfLoans = loans.size();

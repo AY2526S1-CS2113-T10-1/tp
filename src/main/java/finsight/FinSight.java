@@ -1,6 +1,7 @@
 package finsight;
 
 import finsight.expense.expenselist.ExpenseList;
+import finsight.loan.exceptions.AddLoanCommandWrongFormatException;
 import finsight.loan.loanlist.LoanList;
 import finsight.parser.Parser;
 import finsight.storage.LoanDataManager;
@@ -21,7 +22,7 @@ public class FinSight {
     /**
      * Main entry-point for the FinSight application.
      */
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, AddLoanCommandWrongFormatException {
         Ui ui = new Ui();
         LoanList loanList = new LoanList(ui);
         ExpenseList expenseList = new ExpenseList(ui);

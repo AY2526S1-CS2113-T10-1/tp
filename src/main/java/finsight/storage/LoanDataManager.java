@@ -1,6 +1,7 @@
 package finsight.storage;
 
 import finsight.loan.Loan;
+import finsight.loan.exceptions.AddLoanCommandWrongFormatException;
 
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -40,7 +41,7 @@ public class LoanDataManager {
         }
     }
 
-    public ArrayList<Loan> load() throws IOException {
+    public ArrayList<Loan> load() throws IOException, AddLoanCommandWrongFormatException {
         ensureFileExist();
         List<String> lines = Files.readAllLines(dataPath, StandardCharsets.UTF_8);
         ArrayList<Loan> loans = new ArrayList<>(lines.size());
@@ -84,7 +85,7 @@ public class LoanDataManager {
         return String.join("|", repaid, description, loanAmount, returnBy);
     }
 
-    private Loan parseRecord(String line) {
+    private Loan parseRecord(String line) throws AddLoanCommandWrongFormatException {
         String[] parts = line.split("\\|", -1);
         if (parts.length != 4) {
             return null;
