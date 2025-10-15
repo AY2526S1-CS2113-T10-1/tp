@@ -122,7 +122,8 @@ public class Parser {
             investmentList.listAllInvestments();
         } else if (userInput.toLowerCase().startsWith("add investment")) {
             String[] commandParameters = parseAddInvestmentCommand(userInput);
-            investmentList.addInvestment(new Investment(commandParameters[0], commandParameters[1], commandParameters[2]));
+            investmentList.addInvestment(new Investment(commandParameters[0],
+                    commandParameters[1], commandParameters[2]));
         } else if (userInput.toLowerCase().startsWith("delete investment")) {
             int indexToDelete = parseDeleteInvestmentCommand(userInput);
             investmentList.deleteInvestment(indexToDelete);
@@ -298,6 +299,9 @@ public class Parser {
 
         boolean hasInvalidSubcommand = !userInput.contains("d/") || !userInput.contains("a/")
                 || !userInput.contains("m/");
+        boolean hasInvalidSubcommandOrder = (userInput.indexOf("a/") < userInput.indexOf("d/")) ||
+                (userInput.indexOf("m/") < userInput.indexOf("a/")) ||
+                (userInput.indexOf("m/") < userInput.indexOf("d/"));
         if (hasInvalidSubcommand) {
             throw new AddInvestmentSubcommandException();
         }
@@ -348,7 +352,6 @@ public class Parser {
 
         return indexToDelete;
     }
-
 
 
 }

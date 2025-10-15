@@ -186,6 +186,7 @@ public class Ui {
 
     /**
      * Prints all investments
+     *
      * @param investments ArrayList of investments
      */
     public void printAllInvestments(ArrayList<Investment> investments) {
@@ -199,6 +200,7 @@ public class Ui {
 
     /**
      * Prints the details of the newly added investment
+     *
      * @param investments ArrayList of investments
      */
     public void printAddInvestmentOutput(ArrayList<Investment> investments) {
@@ -210,7 +212,8 @@ public class Ui {
 
     /**
      * Prints the details of the newly deleted investment
-     * @param investments ArrayList of investments
+     *
+     * @param investments   ArrayList of investments
      * @param indexToDelete Index of investment in ArrayList to delete
      */
     public void printDeleteInvestmentOutput(ArrayList<Investment> investments, int indexToDelete) {

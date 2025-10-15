@@ -10,7 +10,8 @@ public class Investment {
     protected String investmentType;
     protected int investmentDateOfMonth;
 
-    public Investment(String description, String investmentAmount, String investmentDateOfMonth) throws AddInvestmentWrongNumberFormatException, AddInvestmentDateOutOfBoundsException {
+    public Investment(String description, String investmentAmount, String investmentDateOfMonth)
+            throws AddInvestmentWrongNumberFormatException, AddInvestmentDateOutOfBoundsException {
         this.description = description;
         try {
             this.investmentAmount = Double.parseDouble(investmentAmount);
@@ -27,7 +28,7 @@ public class Investment {
     @Override
     public String toString() {
         String output = "Description: " + description;
-        output += "\nAmount: " + investmentAmount;
+        output += "\nAmount: $" + String.format("%.2f", investmentAmount);
         output += "\nRecurring Deposit Date of Month: " + investmentDateOfMonth;
         return output;
     }
