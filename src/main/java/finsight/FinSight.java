@@ -1,5 +1,6 @@
 package finsight;
 
+import finsight.income.incomelist.IncomeList;
 import finsight.expense.expenselist.ExpenseList;
 import finsight.loan.exceptions.AddLoanCommandWrongFormatException;
 import finsight.loan.loanlist.LoanList;
@@ -14,6 +15,7 @@ import java.io.IOException;
  * FinSight is a
  *
  * @author Emannuel Tan Jing Yue
+ * @author Lai Kai Jie Jeremy
  * @author Goh Bin Wee
  * @version 1.0
  * @since 2025-10-08
@@ -25,8 +27,9 @@ public class FinSight {
     public static void main(String[] args) {
         Ui ui = new Ui();
         LoanList loanList = new LoanList(ui);
+        IncomeList incomeList = new IncomeList(ui);
         ExpenseList expenseList = new ExpenseList(ui);
-        Parser parser = new Parser(loanList, ui, expenseList);
+        Parser parser = new Parser(loanList, incomeList, expenseList, ui);
 
         ui.printWelcomeMessage();
 
