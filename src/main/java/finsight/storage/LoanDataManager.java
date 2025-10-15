@@ -26,6 +26,9 @@ import java.time.format.DateTimeFormatter;
  * @implNote The field delimiter is {@code "|"}; descriptions are sanitized to avoid
  * delimiter collisions before writing and are passed through {@link #unsanitize(String)}
  * when reading.
+ *
+ * @author Royden Lim Yi Ren
+ * @since 15 Oct 2025
  */
 public class LoanDataManager extends DataManager<Loan, AddLoanCommandWrongFormatException> {
 

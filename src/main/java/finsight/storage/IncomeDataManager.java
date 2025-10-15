@@ -22,6 +22,8 @@ import java.nio.file.Path;
  * It provides consistent storage and retrieval using the {@link DataManager} abstraction.</p>
  *
  * @see DataManager
+ * @author Royden Lim Yi Ren
+ * @since 15 Oct 2025
  */
 public class IncomeDataManager extends DataManager<Income, AddIncomeCommandWrongFormatException> {
 

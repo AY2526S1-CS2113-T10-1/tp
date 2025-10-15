@@ -21,6 +21,9 @@ import java.nio.file.Path;
  * of expense records in the {@code data} directory.</p>
  *
  * @see DataManager
+ *
+ * @author Royden Lim Yi Ren
+ * @since 15 Oct 2025
  */
 public class ExpenseDataManager extends DataManager<Expense, Exception> {
 

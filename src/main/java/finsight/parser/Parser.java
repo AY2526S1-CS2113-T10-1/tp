@@ -37,6 +37,7 @@ import java.io.IOException;
  * @author Lai Kai Jie Jeremy
  * @author Goh Bin Wee
  * @author L'kesh Nair
+ * @author Royden Lim Yi Ren
  * @since 2025-10-08
  */
 public class Parser {
