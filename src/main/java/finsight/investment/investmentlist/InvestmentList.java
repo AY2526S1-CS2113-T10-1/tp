@@ -5,6 +5,14 @@ import finsight.ui.Ui;
 
 import java.util.ArrayList;
 
+/**
+ * Represents an ArrayList of objects of the Investment class
+ * This class manipulates the Investment objects in the ArrayList
+ * according to the user's command.
+ *
+ * @author L'kesh Nair
+ * @since 15/Oct/2025
+ */
 public class InvestmentList {
     protected ArrayList<Investment> investmentList;
     protected Ui ui;
@@ -19,17 +27,17 @@ public class InvestmentList {
     }
 
     public void listAllInvestments() {
-        ui.printAllInvestments();
+        ui.printAllInvestments(this.investmentList);
     }
 
     public void addInvestment(Investment investment) {
         investmentList.add(investment);
-        ui.printAddInvestmentOutput();
+        ui.printAddInvestmentOutput(this.investmentList);
     }
 
-    public void deleteInvestment(Investment indexToDelete) {
+    public void deleteInvestment(int indexToDelete) {
         investmentList.remove(indexToDelete);
-        ui.printDeleteInvestmentOutput();
+        ui.printDeleteInvestmentOutput(this.investmentList,indexToDelete);
     }
 
     public int getSize() {

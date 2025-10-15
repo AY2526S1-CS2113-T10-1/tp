@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import finsight.expense.Expense;
+import finsight.investment.Investment;
 import finsight.loan.Loan;
 
 /**
@@ -182,4 +183,41 @@ public class Ui {
         System.out.println(expenses.get(indexToDelete).toString());
         System.out.print(SPACING);
     }
+
+    /**
+     * Prints all investments
+     * @param investments ArrayList of investments
+     */
+    public void printAllInvestments(ArrayList<Investment> investments) {
+        System.out.print(SPACING);
+        for (int i = 0; i < investments.size(); i++) {
+            System.out.println("Investment " + (i + 1) + ":");
+            System.out.println(investments.get(i).toString());
+            System.out.print(SPACING);
+        }
+    }
+
+    /**
+     * Prints the details of the newly added investment
+     * @param investments ArrayList of investments
+     */
+    public void printAddInvestmentOutput(ArrayList<Investment> investments) {
+        System.out.print(SPACING);
+        System.out.println("Added Investment:");
+        System.out.println(investments.get(investments.size() - 1).toString());
+        System.out.print(SPACING);
+    }
+
+    /**
+     * Prints the details of the newly deleted investment
+     * @param investments ArrayList of investments
+     * @param indexToDelete Index of investment in ArrayList to delete
+     */
+    public void printDeleteInvestmentOutput(ArrayList<Investment> investments, int indexToDelete) {
+        System.out.print(SPACING);
+        System.out.println("Deleted Investment:");
+        System.out.println(investments.get(indexToDelete).toString());
+        System.out.print(SPACING);
+    }
+
 }
