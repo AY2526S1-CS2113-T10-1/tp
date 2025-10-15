@@ -82,4 +82,16 @@ public class Loan {
     public void setNotRepaid() {
         isRepaid = false;
     }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public Double getAmountLoaned() {
+        return amountLoaned;
+    }
+
+    public LocalDateTime getLoanReturnDate() {
+        return loanReturnDate;
+    }
 }

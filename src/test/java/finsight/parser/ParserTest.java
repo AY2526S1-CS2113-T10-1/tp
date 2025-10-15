@@ -21,6 +21,8 @@ import finsight.loan.loanlist.LoanList;
 
 import finsight.ui.Ui;
 
+import java.io.IOException;
+
 public class ParserTest {
     @Test
     void parseAddLoanCommand_aSubcommandBeforeDSubcommand_exceptionThrown() {
@@ -324,7 +326,8 @@ public class ParserTest {
     }
 
     @Test
-    void parseEditIncomeCommand_missingDescription_exceptionThrown() throws AddIncomeCommandWrongFormatException {
+    void parseEditIncomeCommand_missingDescription_exceptionThrown()
+            throws AddIncomeCommandWrongFormatException, IOException {
         Ui ui = new Ui();
         ExpenseList expenseList = new ExpenseList(ui);
         IncomeList incomeList = new IncomeList(ui);
@@ -341,7 +344,8 @@ public class ParserTest {
     }
 
     @Test
-    void parseEditIncomeCommand_missingAmount_exceptionThrown() throws AddIncomeCommandWrongFormatException {
+    void parseEditIncomeCommand_missingAmount_exceptionThrown()
+            throws AddIncomeCommandWrongFormatException, IOException {
         Ui ui = new Ui();
         ExpenseList expenseList = new ExpenseList(ui);
         IncomeList incomeList = new IncomeList(ui);

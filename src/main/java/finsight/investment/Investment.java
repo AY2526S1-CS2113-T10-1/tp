@@ -32,4 +32,16 @@ public class Investment {
         output += "\nRecurring Deposit Date of Month: " + investmentDateOfMonth;
         return output;
     }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public Double getInvestmentAmount() {
+        return investmentAmount;
+    }
+
+    public int getInvestmentDateOfMonth() {
+        return investmentDateOfMonth;
+    }
 }

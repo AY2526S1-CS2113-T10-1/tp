@@ -1,8 +1,8 @@
 package finsight.parser;
 
+import finsight.expense.Expense;
 import finsight.expense.exceptions.AddExpenseCommandWrongFormatException;
 import finsight.expense.exceptions.DeleteExpenseCommandIndexOutOfBoundsException;
-import finsight.expense.Expense;
 import finsight.expense.expenselist.ExpenseList;
 
 import finsight.investment.Investment;
@@ -28,6 +28,8 @@ import finsight.loan.loanlist.LoanList;
 
 import finsight.ui.Ui;
 
+import java.io.IOException;
+
 /**
  * Takes in the user input and interpret which command to run
  *
@@ -35,6 +37,7 @@ import finsight.ui.Ui;
  * @author Lai Kai Jie Jeremy
  * @author Goh Bin Wee
  * @author L'kesh Nair
+ * @author Royden Lim Yi Ren
  * @since 2025-10-08
  */
 public class Parser {
@@ -69,7 +72,7 @@ public class Parser {
                  AddInvestmentSubcommandException | DeleteInvestmentMissingIndexException |
                  AddInvestmentDateOutOfBoundsException | DeleteInvestmentIndexOutOfBoundsException |
                  AddInvestmentSubcommandOrderException | EditIncomeCommandIndexOutOfBoundsException |
-                 EditIncomeCommandWrongFormatException | DeleteInvestmentWrongNumberFormatException e) {
+                 EditIncomeCommandWrongFormatException | DeleteInvestmentWrongNumberFormatException | IOException e) {
             ui.printErrorMessage(e.getMessage());
         }
     }
@@ -117,7 +120,7 @@ public class Parser {
             DeleteIncomeCommandIndexOutOfBoundsException, DeleteInvestmentIndexOutOfBoundsException,
             DeleteInvestmentMissingIndexException, DeleteInvestmentWrongNumberFormatException,
             DeleteLoanCommandIndexOutOfBoundsException, EditIncomeCommandWrongFormatException,
-            EditIncomeCommandIndexOutOfBoundsException, LoanRepaidCommandIndexOutOfBoundsException {
+            EditIncomeCommandIndexOutOfBoundsException, LoanRepaidCommandIndexOutOfBoundsException, IOException {
 
         if (userInput.toLowerCase().startsWith("list loan")) {
             loanList.listLoans();
@@ -143,6 +146,8 @@ public class Parser {
         } else if (userInput.toLowerCase().startsWith("edit income")) {
             String[] commandParameters = parseEditIncomeCommand(userInput);
             incomeList.editIncome(commandParameters[0], commandParameters[1], commandParameters[2]);
+        } else if (userInput.toLowerCase().startsWith("list income")) {
+            incomeList.listIncomes();
         } else if (userInput.toLowerCase().startsWith("list expense")) {
             expenseList.listExpenses();
         } else if (userInput.toLowerCase().startsWith("add expense")) {

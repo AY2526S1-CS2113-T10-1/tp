@@ -1,8 +1,10 @@
 package finsight.loan.loanlist;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import finsight.loan.Loan;
+import finsight.storage.LoanDataManager;
 import finsight.ui.Ui;
 
 /**
@@ -15,6 +17,7 @@ import finsight.ui.Ui;
 public class LoanList {
     protected ArrayList<Loan> loans;
     protected Ui ui;
+    private final LoanDataManager loanDataManager = new LoanDataManager("./data/loan.txt");
 
     public LoanList(ArrayList<Loan> loans, Ui ui) {
         this.loans = loans;
@@ -22,8 +25,9 @@ public class LoanList {
     }
 
     public LoanList(Ui ui) {
-        this.loans = new ArrayList<>();
+        this.loans = loanDataManager.tryLoad();
         this.ui = ui;
+        Loan.numberOfLoans = loans.size();
     }
 
     /**
@@ -47,11 +51,12 @@ public class LoanList {
      *
      * @param loan Loan to be added
      */
-    public void addLoan(Loan loan) {
+    public void addLoan(Loan loan) throws IOException {
         loans.add(loan);
         ui.printAddLoanOutput(loan);
 
         Loan.numberOfLoans++;
+        loanDataManager.appendToFile(loan);
     }
 
     /**
@@ -59,11 +64,12 @@ public class LoanList {
      *
      * @param indexToDelete Index of Loan to be deleted
      */
-    public void deleteLoan(int indexToDelete) {
+    public void deleteLoan(int indexToDelete) throws IOException {
         ui.printDeleteLoanOutput(loans, indexToDelete);
         loans.remove(indexToDelete);
 
         Loan.numberOfLoans--;
+        loanDataManager.writeToFile(loans);
     }
 
     /**
