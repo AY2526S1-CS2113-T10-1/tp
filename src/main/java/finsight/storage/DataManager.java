@@ -99,7 +99,7 @@ public abstract class DataManager<T, X extends Exception> {
         } catch (Exception e) {
             Ui ui = new Ui();
             ui.printErrorMessage(e.getMessage());
-            return new ArrayList<>();
+            return new ArrayList<T>();
         }
     }
 
