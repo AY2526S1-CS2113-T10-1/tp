@@ -1,8 +1,10 @@
 package finsight.investment.investmentlist;
 
 import finsight.investment.Investment;
+import finsight.storage.InvestDataManager;
 import finsight.ui.Ui;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -17,6 +19,7 @@ import java.util.ArrayList;
 public class InvestmentList {
     protected ArrayList<Investment> investmentList;
     protected Ui ui;
+    private InvestDataManager dataManager = new InvestDataManager("./data/invest.txt");
 
     /**
      * Constructs an InvestmentList Class from a pre-assembled ArrayList of Investment objects
@@ -35,7 +38,7 @@ public class InvestmentList {
      * @param ui Ui Class for Terminal input and output
      */
     public InvestmentList(Ui ui) {
-        this.investmentList = new ArrayList<>();
+        this.investmentList = dataManager.tryLoad();
         this.ui = ui;
     }
 
@@ -51,9 +54,10 @@ public class InvestmentList {
      *
      * @param investment the investment object to be added
      */
-    public void addInvestment(Investment investment) {
+    public void addInvestment(Investment investment) throws IOException {
         investmentList.add(investment);
         ui.printAddInvestmentOutput(this.investmentList);
+        dataManager.appendToFile(investment);
     }
 
     /**
@@ -61,9 +65,10 @@ public class InvestmentList {
      *
      * @param indexToDelete the index of the investment object in the list to delete
      */
-    public void deleteInvestment(int indexToDelete) {
+    public void deleteInvestment(int indexToDelete) throws IOException {
         ui.printDeleteInvestmentOutput(this.investmentList, indexToDelete);
         investmentList.remove(indexToDelete);
+        dataManager.writeToFile(investmentList);
     }
 
     /**

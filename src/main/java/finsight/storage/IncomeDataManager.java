@@ -40,10 +40,10 @@ public class IncomeDataManager extends DataManager<Income, AddIncomeCommandWrong
     /**
      * Creates an instance of {@code IncomeDataManager} from a file name.
      *
-     * @param filename name of the data file (absolute or relative)
+     * @param fileName name of the data file (absolute or relative)
      */
-    public IncomeDataManager(String filename) {
-        this(Path.of(filename));
+    public IncomeDataManager(String fileName) {
+        this(Path.of(fileName));
     }
 
     /**
