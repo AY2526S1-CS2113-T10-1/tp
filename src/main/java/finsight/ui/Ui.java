@@ -129,6 +129,15 @@ public class Ui {
         }
     }
 
+    public void printAllIncomes(ArrayList<Income> incomes) {
+        System.out.print(SPACING);
+        for (int i = 0; i < incomes.size(); i++) {
+            System.out.println("Income " + (i + 1) + ":");
+            System.out.println(incomes.get(i).toString());
+            System.out.print(SPACING);
+        }
+    }
+
     /**
      * Prints the details of the income added
      *

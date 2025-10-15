@@ -114,6 +114,8 @@ public class Parser {
         } else if(userInput.startsWith("edit income")) {
             String[] commandParameters = parseEditIncomeCommand(userInput);
             incomeList.editIncome(commandParameters[0],commandParameters[1],commandParameters[2]);
+        } else if (userInput.toLowerCase().startsWith("list income")) {
+            incomeList.listIncomes();
         } else if (userInput.toLowerCase().startsWith("list expense")) {
             expenseList.listExpenses();
         } else if (userInput.toLowerCase().startsWith("add expense")) {
