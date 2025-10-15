@@ -1,8 +1,7 @@
-package finsight.income.incomeList;
+package finsight.income.incomelist;
 
 import finsight.income.Income;
 import finsight.income.exceptions.AddIncomeCommandWrongFormatException;
-import finsight.income.incomelist.IncomeList;
 import finsight.ui.Ui;
 import org.junit.jupiter.api.Test;
 
