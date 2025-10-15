@@ -22,6 +22,7 @@ public class IncomeList {
     public IncomeList(Ui ui) {
         this.incomes = dataManager.tryLoad();
         this.ui = ui;
+        Income.numberOfIncomes = incomes.size();
     }
 
     public IncomeList(ArrayList<Income> incomes, Ui ui) {
