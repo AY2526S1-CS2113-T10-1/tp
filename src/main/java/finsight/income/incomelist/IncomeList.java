@@ -37,6 +37,7 @@ public class IncomeList {
 
     /**
      * Adds new Income
+     * @params income Income class
      */
     public void addIncome(Income income){
         incomes.add(income);
@@ -47,6 +48,7 @@ public class IncomeList {
 
     /**
      * Deletes Income
+     * @params indexToDelete
      */
     public void deleteIncome(int indexToDelete) {
         ui.printDeleteIncomeOutput(incomes, indexToDelete);
@@ -57,6 +59,9 @@ public class IncomeList {
 
     /**
      * Edits Income
+     * @params indexToEdit
+     * @params description
+     * @params amountEarned
      */
     public void editIncome(String indexToEdit, String description, String amountEarned){
         incomes.get(Integer.parseInt(indexToEdit) - 1).setDescription(description);
