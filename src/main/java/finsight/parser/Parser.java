@@ -14,6 +14,12 @@ import finsight.investment.exceptions.DeleteInvestmentIndexOutOfBoundsException;
 import finsight.investment.exceptions.DeleteInvestmentMissingIndexException;
 import finsight.investment.exceptions.DeleteInvestmentWrongNumberFormatException;
 import finsight.investment.investmentlist.InvestmentList;
+import finsight.income.Income;
+import finsight.income.exceptions.AddIncomeCommandWrongFormatException;
+import finsight.income.exceptions.DeleteIncomeCommandIndexOutOfBoundsException;
+import finsight.income.exceptions.EditIncomeCommandIndexOutOfBoundsException;
+import finsight.income.exceptions.EditIncomeCommandWrongFormatException;
+import finsight.income.incomelist.IncomeList;
 import finsight.loan.exceptions.AddLoanCommandWrongFormatException;
 import finsight.loan.exceptions.DeleteLoanCommandIndexOutOfBoundsException;
 import finsight.loan.exceptions.LoanRepaidCommandIndexOutOfBoundsException;
@@ -26,19 +32,24 @@ import finsight.ui.Ui;
  * Takes in the user input and interpret which command to run
  *
  * @author Emannuel Tan Jing Yue
+ * @author Lai Kai Jie Jeremy
  * @author Goh Bin Wee
+ * @author L'kesh Nair
  * @since 2025-10-08
  */
 public class Parser {
-    protected LoanList loanList;
     protected ExpenseList expenseList;
+    protected IncomeList incomeList;
     protected InvestmentList investmentList;
+    protected LoanList loanList;
     protected Ui ui;
 
-    public Parser(LoanList loanList, Ui ui, ExpenseList expenseList, InvestmentList investmentList) {
-        this.loanList = loanList;
+
+    public Parser(ExpenseList expenseList,IncomeList incomeList,InvestmentList investmentList,LoanList loanList, Ui ui) {
         this.expenseList = expenseList;
+        this.incomeList = incomeList;
         this.investmentList = investmentList;
+        this.loanList = loanList;
         this.ui = ui;
     }
 
@@ -51,11 +62,13 @@ public class Parser {
         try {
             handleCommand(userInput);
         } catch (AddExpenseCommandWrongFormatException | AddLoanCommandWrongFormatException |
+                 AddIncomeCommandWrongFormatException | DeleteIncomeCommandIndexOutOfBoundsException |
                  DeleteExpenseCommandIndexOutOfBoundsException | DeleteLoanCommandIndexOutOfBoundsException |
                  LoanRepaidCommandIndexOutOfBoundsException | AddInvestmentWrongNumberFormatException |
                  AddInvestmentSubcommandException | DeleteInvestmentMissingIndexException |
                  AddInvestmentDateOutOfBoundsException | DeleteInvestmentIndexOutOfBoundsException |
-                 AddInvestmentSubcommandOrderException e) {
+                 AddInvestmentSubcommandOrderException | EditIncomeCommandIndexOutOfBoundsException |
+                 EditIncomeCommandWrongFormatException | DeleteInvestmentWrongNumberFormatException e) {
             ui.printErrorMessage(e.getMessage());
         }
     }
@@ -77,12 +90,20 @@ public class Parser {
      * @throws AddLoanCommandWrongFormatException            If add loan command has empty fields or
      *                                                       missing sub commands or sub commands in wrong order or
      *                                                       date field in wrong format
+     * @throws AddIncomeCommandWrongFormatException          If add income command has empty fields, incorrect format
+     *                                                       or incorrect sub commands
      * @throws DeleteExpenseCommandIndexOutOfBoundsException If delete expense command used with out-of-bounds index
      * @throws DeleteInvestmentIndexOutOfBoundsException     If delete investment command is used with non-existing
      *                                                       index
      * @throws DeleteInvestmentMissingIndexException         If delete investment command is used without inserting an
      *                                                       index
      * @throws DeleteLoanCommandIndexOutOfBoundsException    If delete loan command used with non-existing index or
+     *                                                       index missing
+     * @throws DeleteIncomeCommandIndexOutOfBoundsException  If delete income command used with non-existing index or
+     *                                                       index missing
+     * @throws EditIncomeCommandWrongFormatException         If edit income command has empty fields, incorrect format
+     *                                                       or incorrect sub commands
+     * @throws EditIncomeCommandIndexOutOfBoundsException    If edit income command used with non-existing index or
      *                                                       index missing
      * @throws LoanRepaidCommandIndexOutOfBoundsException    If loan repaid command used with non-existing index or
      *                                                       index missing
@@ -92,8 +113,11 @@ public class Parser {
             AddInvestmentSubcommandException, AddInvestmentSubcommandOrderException,
             AddInvestmentWrongNumberFormatException, AddLoanCommandWrongFormatException,
             DeleteExpenseCommandIndexOutOfBoundsException, DeleteInvestmentIndexOutOfBoundsException,
-            DeleteInvestmentMissingIndexException, DeleteLoanCommandIndexOutOfBoundsException,
-            LoanRepaidCommandIndexOutOfBoundsException {
+            DeleteInvestmentMissingIndexException, DeleteLoanCommandIndexOutOfBoundsException, AddExpenseCommandWrongFormatException, AddLoanCommandWrongFormatException,
+            AddIncomeCommandWrongFormatException, DeleteExpenseCommandIndexOutOfBoundsException,
+            DeleteLoanCommandIndexOutOfBoundsException, DeleteIncomeCommandIndexOutOfBoundsException,
+            EditIncomeCommandWrongFormatException, EditIncomeCommandIndexOutOfBoundsException,
+            LoanRepaidCommandIndexOutOfBoundsException, DeleteInvestmentWrongNumberFormatException {
 
         if (userInput.toLowerCase().startsWith("list loan")) {
             loanList.listLoans();
@@ -110,6 +134,15 @@ public class Parser {
             int indexToSetRepaid = parseLoanRepaidCommand(userInput);
             assert (indexToSetRepaid >= 0 && indexToSetRepaid < Loan.numberOfLoans);
             loanList.setRepaid(indexToSetRepaid);
+        } else if(userInput.startsWith("add income")) {
+            String[] commandParameters = parseAddIncomeCommand(userInput);
+            incomeList.addIncome(new Income(commandParameters[0], commandParameters[1]));
+        } else if(userInput.startsWith("delete income")) {
+            int indexToDelete = parseDeleteIncomeCommand(userInput);
+            incomeList.deleteIncome(indexToDelete);
+        } else if(userInput.startsWith("edit income")) {
+            String[] commandParameters = parseEditIncomeCommand(userInput);
+            incomeList.editIncome(commandParameters[0],commandParameters[1],commandParameters[2]);
         } else if (userInput.toLowerCase().startsWith("list expense")) {
             expenseList.listExpenses();
         } else if (userInput.toLowerCase().startsWith("add expense")) {
@@ -251,6 +284,115 @@ public class Parser {
 
         if (hasInvalidParameters) {
             throw new AddLoanCommandWrongFormatException();
+        }
+
+        return commandParameters;
+    }
+
+    /**
+     * Returns the parameters used for add income command as a String Array of size 2
+     * commandParameters[0]: Description
+     * commandParameters[1]: Amount Earned
+     *
+     * @param userInput String input by user
+     * @return The parameters used for add income command
+     * @throws AddIncomeCommandWrongFormatException If any empty fields or wrong sub command or wrong sub command order
+     */
+    public String[] parseAddIncomeCommand(String userInput) throws AddIncomeCommandWrongFormatException {
+        final int numberOfAddIncomeCommandParameters = 2;
+        final int sizeOfSubcommand = 2;
+        String[] commandParameters = new String[numberOfAddIncomeCommandParameters];
+
+        boolean hasInvalidSubcommand = !userInput.contains("d/") || !userInput.contains("a/");
+        boolean hasInvalidSubcommandOrder = (userInput.indexOf("a/") < userInput.indexOf("d/"));
+
+        if (hasInvalidSubcommand || hasInvalidSubcommandOrder) {
+            throw new AddIncomeCommandWrongFormatException();
+        }
+
+        commandParameters[0] = userInput.substring(userInput.indexOf("d/") + sizeOfSubcommand,
+                userInput.indexOf("a/")).trim();
+        commandParameters[1] = userInput.substring(userInput.indexOf("a/") + sizeOfSubcommand).trim();
+
+        boolean hasInvalidParameters = commandParameters[0].isEmpty() || commandParameters[1].isEmpty();
+
+        if (hasInvalidParameters) {
+            throw new AddIncomeCommandWrongFormatException();
+        }
+
+        return commandParameters;
+    }
+
+    /**
+     * Returns the index to delete if index exists,
+     * else throws exception
+     *
+     * @param userInput String input by user
+     * @return The index to delete
+     * @throws DeleteIncomeCommandIndexOutOfBoundsException If index to delete does not exist
+     */
+    public int parseDeleteIncomeCommand(String userInput) throws DeleteIncomeCommandIndexOutOfBoundsException {
+        final int sizeOfDeleteIncome = "delete income".length();
+
+        if(userInput.substring(sizeOfDeleteIncome).trim().isEmpty()){
+            throw new DeleteIncomeCommandIndexOutOfBoundsException();
+        }
+
+        int indexToDelete = Integer.parseInt(userInput.substring(sizeOfDeleteIncome).trim());
+
+        if (indexToDelete <= 0 || indexToDelete > Income.numberOfIncomes) {
+            throw new DeleteIncomeCommandIndexOutOfBoundsException();
+        }
+
+        return indexToDelete - 1;
+    }
+
+    /**
+     * Returns the parameters used for edit income command as a String Array of size 3
+     * commandParameters[0]: Index To Edit
+     * commandParameters[1]: Description
+     * commandParameters[2]: Amount Earned
+     *
+     * @param userInput String input by user
+     * @return The parameters used for edit income command
+     * @throws EditIncomeCommandIndexOutOfBoundsException If index does not exist
+     * @throws EditIncomeCommandWrongFormatException If any empty fields or wrong sub command or wrong sub command order
+     */
+    public String[] parseEditIncomeCommand(String userInput)
+            throws EditIncomeCommandIndexOutOfBoundsException, EditIncomeCommandWrongFormatException {
+
+        final int numberOfAddIncomeCommandParameters = 3;
+        final int sizeOfSubcommand = 2;
+        final int sizeOfEditIncome = "edit income".length();
+        String[] commandParameters = new String[numberOfAddIncomeCommandParameters];
+
+        boolean hasInvalidSubcommand = !userInput.contains("d/") || !userInput.contains("a/");
+        boolean hasInvalidSubcommandOrder = (userInput.indexOf("a/") < userInput.indexOf("d/"));
+
+        if (hasInvalidSubcommand || hasInvalidSubcommandOrder) {
+            throw new EditIncomeCommandWrongFormatException();
+        }
+
+        String indexToEdit = userInput.substring(sizeOfEditIncome,userInput.indexOf("d/")).trim();
+
+        if(indexToEdit.isEmpty()){
+            throw new EditIncomeCommandIndexOutOfBoundsException();
+        }
+
+        if (Float.parseFloat(indexToEdit) <= 0 || Float.parseFloat(indexToEdit) > Income.numberOfIncomes){
+            throw new EditIncomeCommandIndexOutOfBoundsException();
+        }
+
+        commandParameters[0] = indexToEdit;
+        commandParameters[1] = userInput.substring(userInput.indexOf("d/") + sizeOfSubcommand,
+                userInput.indexOf("a/")).trim();
+        commandParameters[2] = userInput.substring(userInput.indexOf("a/") + sizeOfSubcommand).trim();
+
+        boolean hasInvalidParameters = commandParameters[0].isEmpty() || commandParameters[1].isEmpty() ||
+                commandParameters[2].isEmpty();
+
+        if (hasInvalidParameters) {
+            throw new EditIncomeCommandWrongFormatException();
         }
 
         return commandParameters;
