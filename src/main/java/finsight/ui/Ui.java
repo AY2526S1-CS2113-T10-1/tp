@@ -185,12 +185,13 @@ public class Ui {
         System.out.println("5. list expense");
         System.out.println("6. add expense d/<DESCRIPTION> a/<AMOUNT_SPENT>");
         System.out.println("7. delete expense <INDEX>");
-        System.out.println("8. add income d/<DESCRIPTION> a/<AMOUNT_EARNED>");
-        System.out.println("9. delete income <INDEX>");
-        System.out.println("10. edit income <INDEX> d/<DESCRIPTION> a/<AMOUNT_EARNED>");
-        System.out.println("11. list investment");
-        System.out.println("12. add investment d/<DESCRIPTION> a/<AMOUNT_INVESTED> m/<DEPOSIT_DATE_EACH_MONTH");
-        System.out.println("13. delete investment <INDEX>");
+        System.out.println("8. list income");
+        System.out.println("9. add income d/<DESCRIPTION> a/<AMOUNT_EARNED>");
+        System.out.println("10. delete income <INDEX>");
+        System.out.println("11. edit income <INDEX> d/<DESCRIPTION> a/<AMOUNT_EARNED>");
+        System.out.println("12. list investment");
+        System.out.println("13. add investment d/<DESCRIPTION> a/<AMOUNT_INVESTED> m/<DEPOSIT_DATE_EACH_MONTH");
+        System.out.println("14. delete investment <INDEX>");
         System.out.print(SPACING);
     }
 
