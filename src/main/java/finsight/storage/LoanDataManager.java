@@ -23,19 +23,20 @@ import java.time.format.DateTimeFormatter;
  * <p>This class focuses on I/O and record formatting; domain validation is delegated
  * to {@link Loan} construction and related logic.</p>
  *
- * @implNote The field delimiter is {@code "|"}; descriptions are sanitized to avoid
- * delimiter collisions before writing and are passed through {@link #unsanitize(String)}
- * when reading.
- *
  * @author Royden Lim Yi Ren
+ *
  * @since 15 Oct 2025
  */
 public class LoanDataManager extends DataManager<Loan, AddLoanCommandWrongFormatException> {
 
-    /** Date/time pattern used when formatting and parsing {@code returnBy}. */
+    /**
+     * Date/time pattern used when formatting and parsing {@code returnBy}.
+     */
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
 
-    /** Absolute or relative path to the data file. */
+    /**
+     * Absolute or relative path to the data file.
+     */
     private final Path dataPath;
 
     /**
@@ -93,7 +94,8 @@ public class LoanDataManager extends DataManager<Loan, AddLoanCommandWrongFormat
      * @param line serialized line from the data file
      * @return parsed {@link Loan}, or {@code null} if the line is malformed
      * @throws AddLoanCommandWrongFormatException if the content is syntactically correct
-     *         but cannot be mapped to a valid {@link Loan} (e.g., invalid date/amount)
+     *                                            but cannot be mapped to a valid {@link Loan}
+     *                                            (e.g., invalid date/amount)
      */
     @Override
     protected Loan parseRecord(String line) throws AddLoanCommandWrongFormatException {

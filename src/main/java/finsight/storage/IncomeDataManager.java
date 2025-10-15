@@ -21,13 +21,15 @@ import java.nio.file.Path;
  * validation and domain-specific parsing to the {@link Income} class.
  * It provides consistent storage and retrieval using the {@link DataManager} abstraction.</p>
  *
- * @see DataManager
  * @author Royden Lim Yi Ren
+ * @see DataManager
  * @since 15 Oct 2025
  */
 public class IncomeDataManager extends DataManager<Income, AddIncomeCommandWrongFormatException> {
 
-    /** Path to the file storing income records. */
+    /**
+     * Path to the file storing income records.
+     */
     private final Path dataPath;
 
     /**
@@ -79,7 +81,7 @@ public class IncomeDataManager extends DataManager<Income, AddIncomeCommandWrong
      * @param line a single line read from the data file
      * @return a parsed {@link Income} record, or {@code null} if the line is malformed
      * @throws AddIncomeCommandWrongFormatException if the content cannot be converted
-     *         into a valid {@link Income} object (e.g., invalid numeric format)
+     *                                              into a valid {@link Income} object (e.g., invalid numeric format)
      */
     @Override
     protected Income parseRecord(String line) throws AddIncomeCommandWrongFormatException {

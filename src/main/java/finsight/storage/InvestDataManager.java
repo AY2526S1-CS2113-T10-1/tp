@@ -24,15 +24,16 @@ import java.nio.file.Path;
  * exceptions. It ensures consistent serialization and deserialization
  * of investment data across program executions.</p>
  *
+ * @author Royden Lim Yi Ren
  * @see DataManager
  * @see Investment
- *
- * @author Royden Lim Yi Ren
  * @since 15 Oct 2025
  */
 public class InvestDataManager extends DataManager<Investment, Exception> {
 
-    /** Path to the data file storing investment records. */
+    /**
+     * Path to the data file storing investment records.
+     */
     private final Path dataPath;
 
     /**
@@ -85,7 +86,7 @@ public class InvestDataManager extends DataManager<Investment, Exception> {
      * @param line the raw line read from the data file
      * @return a parsed {@link Investment} instance, or {@code null} if malformed
      * @throws AddInvestmentWrongNumberFormatException if the amount field cannot be parsed as a valid number
-     * @throws AddInvestmentDateOutOfBoundsException if the day of month is not within valid bounds (1–31)
+     * @throws AddInvestmentDateOutOfBoundsException   if the day of month is not within valid bounds (1–31)
      */
     @Override
     protected Investment parseRecord(String line)

@@ -20,14 +20,15 @@ import java.nio.file.Path;
  * of domain data to the {@link Expense} class. It ensures consistent storage and retrieval
  * of expense records in the {@code data} directory.</p>
  *
- * @see DataManager
- *
  * @author Royden Lim Yi Ren
+ * @see DataManager
  * @since 15 Oct 2025
  */
 public class ExpenseDataManager extends DataManager<Expense, Exception> {
 
-    /** Path to the underlying data file where expense records are stored. */
+    /**
+     * Path to the underlying data file where expense records are stored.
+     */
     private final Path dataPath;
 
     /**
@@ -67,7 +68,7 @@ public class ExpenseDataManager extends DataManager<Expense, Exception> {
      */
     @Override
     protected String formatRecord(Expense expense) {
-        String description =  sanitize(expense.getDescription());
+        String description = sanitize(expense.getDescription());
         String expenseAmount = expense.getExpenseAmount().toString();
         return String.join("|", description, expenseAmount);
     }
@@ -81,12 +82,12 @@ public class ExpenseDataManager extends DataManager<Expense, Exception> {
      */
     @Override
     protected Expense parseRecord(String line) {
-       String[] parts = line.split("\\|", -1);
-       if (parts.length < 2) {
-           return null;
-       }
-       String description = unsanitize(parts[0]);
-       String expenseAmount = parts[1];
-       return new Expense(description, expenseAmount);
+        String[] parts = line.split("\\|", -1);
+        if (parts.length < 2) {
+            return null;
+        }
+        String description = unsanitize(parts[0]);
+        String expenseAmount = parts[1];
+        return new Expense(description, expenseAmount);
     }
 }

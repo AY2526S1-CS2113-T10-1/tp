@@ -27,10 +27,11 @@ import java.util.List;
  * managers while adhering to the Single Responsibility Principle (SRP)
  * by separating I/O management from domain-specific parsing logic.</p>
  *
+ * @author Royden Lim Yi Ren
+ *
  * @param <T> the type of record stored and managed (e.g. Loan, Investment)
  * @param <X> the type of exception thrown during parsing operations
  *
- * @author Royden Lim Yi Ren
  * @since 15 Oct 2025
  */
 public abstract class DataManager<T, X extends Exception> {
@@ -67,7 +68,7 @@ public abstract class DataManager<T, X extends Exception> {
      *
      * @return a list of parsed records
      * @throws IOException if an I/O error occurs while reading the file
-     * @throws X if parsing any record fails
+     * @throws X           if parsing any record fails
      */
     private ArrayList<T> load() throws IOException, X {
         ensureFileExist();
@@ -112,7 +113,7 @@ public abstract class DataManager<T, X extends Exception> {
     public void writeToFile(List<T> records) throws IOException {
         ensureFileExist();
         Path tmp = dataFilePath().resolveSibling(dataFilePath().getFileName() + ".temp");
-        try  (BufferedWriter writer = Files.newBufferedWriter(tmp, StandardCharsets.UTF_8)) {
+        try (BufferedWriter writer = Files.newBufferedWriter(tmp, StandardCharsets.UTF_8)) {
             for (T record : records) {
                 writer.write(formatRecord(record));
                 writer.newLine();
@@ -130,7 +131,8 @@ public abstract class DataManager<T, X extends Exception> {
      */
     public void appendToFile(T record) throws IOException {
         ensureFileExist();
-        try  (BufferedWriter writer = Files.newBufferedWriter(dataFilePath(), StandardCharsets.UTF_8, StandardOpenOption.APPEND)) {
+        try (BufferedWriter writer = Files.newBufferedWriter(dataFilePath(), StandardCharsets.UTF_8,
+                StandardOpenOption.APPEND)) {
             writer.write(formatRecord(record));
             writer.newLine();
         }
@@ -170,7 +172,7 @@ public abstract class DataManager<T, X extends Exception> {
      * @return a sanitized version of the string
      */
     protected String sanitize(String line) {
-        return line == null? "" : line.replace("|", "/");
+        return line == null ? "" : line.replace("|", "/");
     }
 
     /**
