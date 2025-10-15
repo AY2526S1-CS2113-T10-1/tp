@@ -179,7 +179,13 @@ public class Parser {
         if (indexToDeleteString.isEmpty()) {
             throw new DeleteExpenseCommandIndexOutOfBoundsException();
         }
-        int indexToDelete = Integer.parseInt(userInput.substring(sizeOfDeleteExpense).trim()) - 1;
+
+        int indexToDelete;
+        try {
+            indexToDelete = Integer.parseInt(indexToDeleteString) - 1;
+        } catch (NumberFormatException e) {
+            throw new DeleteExpenseCommandIndexOutOfBoundsException();
+        }
 
         if (indexToDelete < 0 || indexToDelete >= expenseList.getSize()) {
             throw new DeleteExpenseCommandIndexOutOfBoundsException();
@@ -206,9 +212,11 @@ public class Parser {
         String[] commandParameters = new String[numberOfAddExpenseCommandParameters];
 
         boolean hasInvalidSubcommand = !userInput.contains("d/") || !userInput.contains("a/");
-        if (hasInvalidSubcommand) {
+        boolean hasInvalidSubcommandOrder = (userInput.indexOf("a/") < userInput.indexOf("d/"));
+        if (hasInvalidSubcommand || hasInvalidSubcommandOrder) {
             throw new AddExpenseCommandWrongFormatException();
         }
+
 
         commandParameters[0] = userInput.substring(userInput.indexOf("d/") + sizeOfSubcommand,
                 userInput.indexOf("a/")).trim();
@@ -237,7 +245,13 @@ public class Parser {
             throw new DeleteLoanCommandIndexOutOfBoundsException();
         }
 
-        int indexToDelete = Integer.parseInt(indexToDeleteString) - 1;
+        int indexToDelete;
+        try {
+            indexToDelete = Integer.parseInt(indexToDeleteString) - 1;
+        } catch (NumberFormatException e) {
+            throw new DeleteLoanCommandIndexOutOfBoundsException();
+        }
+
         if (indexToDelete < 0 || indexToDelete >= Loan.numberOfLoans) {
             throw new DeleteLoanCommandIndexOutOfBoundsException();
         }
@@ -338,13 +352,18 @@ public class Parser {
             throw new DeleteIncomeCommandIndexOutOfBoundsException();
         }
 
-        int indexToDelete = Integer.parseInt(userInput.substring(sizeOfDeleteIncome).trim());
-
-        if (indexToDelete <= 0 || indexToDelete > Income.numberOfIncomes) {
+        int indexToDelete;
+        try {
+            indexToDelete = Integer.parseInt(userInput.substring(sizeOfDeleteIncome).trim()) - 1;
+        } catch (NumberFormatException e) {
             throw new DeleteIncomeCommandIndexOutOfBoundsException();
         }
 
-        return indexToDelete - 1;
+        if (indexToDelete < 0 || indexToDelete >= Income.numberOfIncomes) {
+            throw new DeleteIncomeCommandIndexOutOfBoundsException();
+        }
+
+        return indexToDelete;
     }
 
     /**
