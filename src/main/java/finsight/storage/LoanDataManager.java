@@ -2,6 +2,7 @@ package finsight.storage;
 
 import finsight.loan.Loan;
 import finsight.loan.exceptions.AddLoanCommandWrongFormatException;
+import finsight.ui.Ui;
 
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -55,6 +56,16 @@ public class LoanDataManager {
             }
         }
         return loans;
+    }
+
+    public ArrayList<Loan> tryLoad() {
+        try {
+            return load();
+        } catch (IOException | AddLoanCommandWrongFormatException e) {
+            Ui ui = new Ui();
+            ui.printErrorMessage(e.getMessage());
+            return new ArrayList<>();
+        }
     }
 
     public void writeToFile(List<Loan> loans) throws IOException {

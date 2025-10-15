@@ -20,13 +20,13 @@ public class LoanList {
     protected Ui ui;
     private final LoanDataManager loanDataManager = new LoanDataManager("./data/loan.txt");;
 
-    public LoanList(ArrayList<Loan> loans, Ui ui) throws IOException {
+    public LoanList(ArrayList<Loan> loans, Ui ui) {
         this.loans = loans;
         this.ui = ui;
     }
 
-    public LoanList(Ui ui) throws IOException, AddLoanCommandWrongFormatException {
-        this.loans = loanDataManager.load();
+    public LoanList(Ui ui) {
+        this.loans = loanDataManager.tryLoad();
         this.ui = ui;
         Loan.numberOfLoans = loans.size();
     }

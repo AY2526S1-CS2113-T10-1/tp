@@ -24,8 +24,8 @@ public class ExpenseList {
         this.expenses = expenses;
         this.ui = ui;
     }
-    public ExpenseList(Ui ui) throws IOException {
-        this.expenses = dataManager.load();
+    public ExpenseList(Ui ui) {
+        this.expenses = dataManager.tryLoad();
         this.ui = ui;
     }
 

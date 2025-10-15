@@ -14,7 +14,7 @@ import finsight.ui.Ui;
 
 public class LoanListTest {
     @Test
-    void getLoans_emptyLoanList_returnEmptyArrayList() throws IOException {
+    void getLoans_emptyLoanList_returnEmptyArrayList() {
         Ui ui = new Ui();
         LoanList loanList = new LoanList(ui);
 
@@ -22,7 +22,7 @@ public class LoanListTest {
     }
 
     @Test
-        void getLoans_multipleLoans_returnCorrectArrayList() throws AddLoanCommandWrongFormatException, IOException {
+        void getLoans_multipleLoans_returnCorrectArrayList() throws AddLoanCommandWrongFormatException {
         Ui ui = new Ui();
 
         ArrayList<Loan> loans = new ArrayList<>();

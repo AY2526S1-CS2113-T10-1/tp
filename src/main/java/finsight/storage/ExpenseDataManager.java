@@ -1,6 +1,7 @@
 package finsight.storage;
 
 import finsight.expense.Expense;
+import finsight.ui.Ui;
 
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -51,6 +52,16 @@ public class ExpenseDataManager {
             }
         }
         return expenses;
+    }
+
+    public ArrayList<Expense> tryLoad() {
+        try {
+            return load();
+        } catch (IOException e) {
+            Ui ui = new Ui();
+            ui.printErrorMessage(e.getMessage());
+            return new ArrayList<>();
+        }
     }
 
     public void writeToFile(List<Expense> expenses) throws IOException {

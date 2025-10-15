@@ -18,7 +18,7 @@ import java.io.IOException;
 
 public class ParserTest {
     @Test
-    void parseAddLoanCommand_aSubcommandBeforeDSubcommand_exceptionThrown() throws IOException {
+    void parseAddLoanCommand_aSubcommandBeforeDSubcommand_exceptionThrown() {
         Ui ui = new Ui();
 
         LoanList loanList = new LoanList(ui);
@@ -32,7 +32,7 @@ public class ParserTest {
     }
 
     @Test
-    void parseAddLoanCommand_rSubcommandBeforeASubcommand_exceptionThrown() throws IOException {
+    void parseAddLoanCommand_rSubcommandBeforeASubcommand_exceptionThrown() {
         Ui ui = new Ui();
 
         LoanList loanList = new LoanList(ui);
@@ -46,7 +46,7 @@ public class ParserTest {
     }
 
     @Test
-    void parseAddLoanCommand_rSubcommandBeforeDSubcommand_exceptionThrown() throws IOException {
+    void parseAddLoanCommand_rSubcommandBeforeDSubcommand_exceptionThrown() {
         Ui ui = new Ui();
 
         LoanList loanList = new LoanList(ui);
@@ -60,7 +60,7 @@ public class ParserTest {
     }
 
     @Test
-    void parseAddLoanCommand_missingDescription_exceptionThrown() throws IOException {
+    void parseAddLoanCommand_missingDescription_exceptionThrown() {
         Ui ui = new Ui();
 
         LoanList loanList = new LoanList(ui);
@@ -74,7 +74,7 @@ public class ParserTest {
     }
 
     @Test
-    void parseAddLoanCommand_missingAmount_exceptionThrown() throws IOException {
+    void parseAddLoanCommand_missingAmount_exceptionThrown() {
         Ui ui = new Ui();
 
         LoanList loanList = new LoanList(ui);
@@ -88,7 +88,7 @@ public class ParserTest {
     }
 
     @Test
-    void parseAddLoanCommand_missingDateTime_exceptionThrown() throws IOException {
+    void parseAddLoanCommand_missingDateTime_exceptionThrown() {
         Ui ui = new Ui();
 
         LoanList loanList = new LoanList(ui);
@@ -102,7 +102,7 @@ public class ParserTest {
     }
 
     @Test
-    void parseAddLoanCommand_missingASubcommand_exceptionThrown() throws IOException {
+    void parseAddLoanCommand_missingASubcommand_exceptionThrown() {
         Ui ui = new Ui();
 
         LoanList loanList = new LoanList(ui);
@@ -116,7 +116,7 @@ public class ParserTest {
     }
 
     @Test
-    void parseAddLoanCommand_missingDSubcommand_exceptionThrown() throws IOException {
+    void parseAddLoanCommand_missingDSubcommand_exceptionThrown() {
         Ui ui = new Ui();
 
         LoanList loanList = new LoanList(ui);
@@ -130,7 +130,7 @@ public class ParserTest {
     }
 
     @Test
-    void parseAddLoanCommand_missingRSubcommand_exceptionThrown() throws IOException {
+    void parseAddLoanCommand_missingRSubcommand_exceptionThrown() {
         Ui ui = new Ui();
 
         LoanList loanList = new LoanList(ui);
@@ -144,7 +144,7 @@ public class ParserTest {
     }
 
     @Test
-    void parseDeleteLoanCommand_missingIndex_exceptionThrown() throws IOException {
+    void parseDeleteLoanCommand_missingIndex_exceptionThrown() {
         Ui ui = new Ui();
 
         LoanList loanList = new LoanList(ui);
@@ -158,7 +158,7 @@ public class ParserTest {
     }
 
     @Test
-    void parseDeleteLoanCommand_negativeIndex_exceptionThrown() throws IOException {
+    void parseDeleteLoanCommand_negativeIndex_exceptionThrown() {
         Ui ui = new Ui();
 
         LoanList loanList = new LoanList(ui);
@@ -172,7 +172,7 @@ public class ParserTest {
     }
 
     @Test
-    void parseDeleteLoanCommand_zeroIndex_exceptionThrown() throws IOException {
+    void parseDeleteLoanCommand_zeroIndex_exceptionThrown() {
         Ui ui = new Ui();
 
         LoanList loanList = new LoanList(ui);
