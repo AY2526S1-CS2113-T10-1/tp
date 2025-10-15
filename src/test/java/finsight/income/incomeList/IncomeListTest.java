@@ -6,6 +6,7 @@ import finsight.income.incomelist.IncomeList;
 import finsight.ui.Ui;
 import org.junit.jupiter.api.Test;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -36,7 +37,7 @@ public class IncomeListTest {
 
 
     @Test
-    void addIncome_singleIncome_returnSize() throws AddIncomeCommandWrongFormatException {
+    void addIncome_singleIncome_returnSize() throws AddIncomeCommandWrongFormatException, IOException {
         Ui ui = new Ui();
         IncomeList incomeList = new IncomeList(ui);
 
@@ -46,7 +47,7 @@ public class IncomeListTest {
     }
 
     @Test
-    void deleteIncome_singleIncome_returnSize() throws AddIncomeCommandWrongFormatException {
+    void deleteIncome_singleIncome_returnSize() throws AddIncomeCommandWrongFormatException, IOException {
         Ui ui = new Ui();
         IncomeList incomeList = new IncomeList(ui);
 
@@ -58,7 +59,7 @@ public class IncomeListTest {
     }
 
     @Test
-    void editIncome_singleIncome_returnIncomeParameters() throws AddIncomeCommandWrongFormatException {
+    void editIncome_singleIncome_returnIncomeParameters() throws AddIncomeCommandWrongFormatException, IOException {
         Ui ui = new Ui();
         IncomeList incomeList = new IncomeList(ui);
 

@@ -324,7 +324,7 @@ public class ParserTest {
     }
 
     @Test
-    void parseEditIncomeCommand_missingDescription_exceptionThrown() throws AddIncomeCommandWrongFormatException {
+    void parseEditIncomeCommand_missingDescription_exceptionThrown() throws AddIncomeCommandWrongFormatException, IOException {
         Ui ui = new Ui();
 
         LoanList loanList = new LoanList(ui);
@@ -341,7 +341,7 @@ public class ParserTest {
     }
 
     @Test
-    void parseEditIncomeCommand_missingAmount_exceptionThrown() throws AddIncomeCommandWrongFormatException {
+    void parseEditIncomeCommand_missingAmount_exceptionThrown() throws AddIncomeCommandWrongFormatException, IOException {
         Ui ui = new Ui();
 
         LoanList loanList = new LoanList(ui);

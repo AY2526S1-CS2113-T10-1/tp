@@ -1,8 +1,10 @@
 package finsight.income.incomelist;
 
 import finsight.income.Income;
+import finsight.storage.IncomeDataManager;
 import finsight.ui.Ui;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -15,9 +17,10 @@ import java.util.ArrayList;
 public class IncomeList {
     protected ArrayList<Income> incomes;
     protected Ui ui;
+    private final IncomeDataManager dataManager = new IncomeDataManager("./data/income.txt");
 
     public IncomeList(Ui ui) {
-        this.incomes = new ArrayList<>();
+        this.incomes = dataManager.tryLoad();
         this.ui = ui;
     }
 
@@ -39,22 +42,24 @@ public class IncomeList {
      * Adds new Income
      * @params income Income class
      */
-    public void addIncome(Income income){
+    public void addIncome(Income income) throws IOException {
         incomes.add(income);
         ui.printAddIncomeOutput(income);
 
         Income.numberOfIncomes++;
+        dataManager.appendToFile(income);
     }
 
     /**
      * Deletes Income
      * @params indexToDelete
      */
-    public void deleteIncome(int indexToDelete) {
+    public void deleteIncome(int indexToDelete) throws IOException {
         ui.printDeleteIncomeOutput(incomes, indexToDelete);
         incomes.remove(indexToDelete);
 
         Income.numberOfIncomes--;
+        dataManager.writeToFile(incomes);
     }
 
     /**
