@@ -10,11 +10,15 @@ public class Investment {
     protected String investmentType;
     protected int investmentDateOfMonth;
 
-    public Investment(String description, String investmentAmount, String investmentDateOfMonth) throws AddInvestmentWrongNumberFormatException {
+    public Investment(String description, String investmentAmount, String investmentDateOfMonth) throws AddInvestmentWrongNumberFormatException, AddInvestmentDateOutOfBoundsException {
         this.description = description;
         try {
             this.investmentAmount = Double.parseDouble(investmentAmount);
-            this.investmentDateOfMonth = Integer.parseInt(investmentDateOfMonth);
+            int investmentDate = Integer.parseInt(investmentDateOfMonth);
+            if (investmentDate < 1 || investmentDate > 31) {
+                throw new AddInvestmentDateOutOfBoundsException();
+            }
+            this.investmentDateOfMonth = investmentDate;
         } catch (NumberFormatException e) {
             throw new AddInvestmentWrongNumberFormatException();
         }
@@ -22,7 +26,7 @@ public class Investment {
 
     @Override
     public String toString() {
-        String output = "Investment Description: " + description;
+        String output = "Description: " + description;
         output += "\nAmount: " + investmentAmount;
         output += "\nRecurring Deposit Date of Month: " + investmentDateOfMonth;
         return output;

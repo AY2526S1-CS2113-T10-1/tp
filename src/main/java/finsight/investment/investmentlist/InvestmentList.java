@@ -23,6 +23,7 @@ public class InvestmentList {
     }
 
     public InvestmentList(Ui ui) {
+        this.investmentList = new ArrayList<>();
         this.ui = ui;
     }
 
@@ -36,8 +37,8 @@ public class InvestmentList {
     }
 
     public void deleteInvestment(int indexToDelete) {
-        investmentList.remove(indexToDelete);
         ui.printDeleteInvestmentOutput(this.investmentList,indexToDelete);
+        investmentList.remove(indexToDelete);
     }
 
     public int getSize() {
