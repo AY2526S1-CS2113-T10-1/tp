@@ -278,7 +278,20 @@ public class Parser {
         return indexToSetRepaid;
     }
 
-    private String[] parseAddInvestmentCommand(String userInput) throws AddInvestmentSubcommandException {
+    /**
+     * Returns the parameters required for the add investment command as a String Array of size 3
+     * <pre>
+     * commandParameters[0]: Description
+     * commandParameters[1]: Amount Invested
+     * commandParameters[2]: Monthly Deposit Date
+     * </pre>
+     *
+     * @param userInput String input by user
+     * @return The parameters used for add investment command
+     * @throws AddInvestmentSubcommandException If the required parameters inserted by the user are missing or empty
+     */
+    private String[] parseAddInvestmentCommand(String userInput)
+            throws AddInvestmentSubcommandException, AddInvestmentSubcommandOrderException {
         final int numberOfAddInvestmentCommandParameters = 3;
         final int sizeOfSubcommand = 2;
         String[] commandParameters = new String[numberOfAddInvestmentCommandParameters];
@@ -307,7 +320,17 @@ public class Parser {
         return commandParameters;
     }
 
-    private int parseDeleteInvestmentCommand(String userInput) throws DeleteInvestmentIndexOutOfBoundsException, DeleteInvestmentMissingIndexException {
+    /**
+     * Returns the index of an investment object to delete as requested by the user.
+     *
+     * @param userInput String input by user
+     * @return The index of an investment object to delete in the Investment ArrayList
+     * @throws DeleteInvestmentIndexOutOfBoundsException  If the user requested index does not exist
+     * @throws DeleteInvestmentMissingIndexException      If the user did not indicate an index to delete
+     * @throws DeleteInvestmentWrongNumberFormatException If the user uses non-numeric value for the index
+     */
+    private int parseDeleteInvestmentCommand(String userInput) throws DeleteInvestmentIndexOutOfBoundsException,
+            DeleteInvestmentMissingIndexException, DeleteInvestmentWrongNumberFormatException {
         final int sizeOfInvestmentCommand = "delete investment".length();
         String indexToDeleteString = userInput.substring(sizeOfInvestmentCommand).trim();
         if (indexToDeleteString.isEmpty()) {
