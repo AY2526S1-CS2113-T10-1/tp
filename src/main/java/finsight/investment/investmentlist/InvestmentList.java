@@ -19,7 +19,7 @@ import java.util.ArrayList;
 public class InvestmentList {
     protected ArrayList<Investment> investmentList;
     protected Ui ui;
-    private InvestDataManager dataManager = new InvestDataManager("./data/invest.txt");
+    private final InvestDataManager dataManager = new InvestDataManager("./data/invest.txt");
 
     /**
      * Constructs an InvestmentList Class from a pre-assembled ArrayList of Investment objects
