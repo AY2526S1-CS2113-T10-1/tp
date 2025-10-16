@@ -8,7 +8,7 @@ public class AddLoanCommandWrongFormatException extends Exception {
     public String getMessage() {
         return "Add Loan Command is in the wrong format!!! Please try again with the format:\n" +
                 "add loan d/<DESCRIPTION> a/<AMOUNT_LOANED> r/<LOAN_RETURN_DATE>\n" +
-                "where <LOAN_RETURN_DATE> is of format 'DD-mm-YYYY HH:mm' and \n" +
+                "where <LOAN_RETURN_DATE> is of format 'DD-mm-YYYY HH:mm' and\n" +
                 "<AMOUNT_LOANED> is only numbers";
     }
 }
