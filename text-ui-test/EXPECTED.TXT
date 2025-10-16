@@ -1,9 +1,121 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
-
-What is your name?
-Hello James Gosling
+Welcome to FinSight, what can i do for you?
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+Add Loan Command is in the wrong format!!! Please try again with the format:
+add loan d/<DESCRIPTION> a/<AMOUNT_LOANED> r/<LOAN_RETURN_DATE>
+where <LOAN_RETURN_DATE> is of format 'DD-mm-YYYY HH:mm' and
+<AMOUNT_LOANED> is only numbers
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+Add Loan Command is in the wrong format!!! Please try again with the format:
+add loan d/<DESCRIPTION> a/<AMOUNT_LOANED> r/<LOAN_RETURN_DATE>
+where <LOAN_RETURN_DATE> is of format 'DD-mm-YYYY HH:mm' and
+<AMOUNT_LOANED> is only numbers
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+Add Loan Command is in the wrong format!!! Please try again with the format:
+add loan d/<DESCRIPTION> a/<AMOUNT_LOANED> r/<LOAN_RETURN_DATE>
+where <LOAN_RETURN_DATE> is of format 'DD-mm-YYYY HH:mm' and
+<AMOUNT_LOANED> is only numbers
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+Add Loan Command is in the wrong format!!! Please try again with the format:
+add loan d/<DESCRIPTION> a/<AMOUNT_LOANED> r/<LOAN_RETURN_DATE>
+where <LOAN_RETURN_DATE> is of format 'DD-mm-YYYY HH:mm' and
+<AMOUNT_LOANED> is only numbers
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+Add Loan Command is in the wrong format!!! Please try again with the format:
+add loan d/<DESCRIPTION> a/<AMOUNT_LOANED> r/<LOAN_RETURN_DATE>
+where <LOAN_RETURN_DATE> is of format 'DD-mm-YYYY HH:mm' and
+<AMOUNT_LOANED> is only numbers
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+Add Loan Command is in the wrong format!!! Please try again with the format:
+add loan d/<DESCRIPTION> a/<AMOUNT_LOANED> r/<LOAN_RETURN_DATE>
+where <LOAN_RETURN_DATE> is of format 'DD-mm-YYYY HH:mm' and
+<AMOUNT_LOANED> is only numbers
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+Add Loan Command is in the wrong format!!! Please try again with the format:
+add loan d/<DESCRIPTION> a/<AMOUNT_LOANED> r/<LOAN_RETURN_DATE>
+where <LOAN_RETURN_DATE> is of format 'DD-mm-YYYY HH:mm' and
+<AMOUNT_LOANED> is only numbers
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+Add Loan Command is in the wrong format!!! Please try again with the format:
+add loan d/<DESCRIPTION> a/<AMOUNT_LOANED> r/<LOAN_RETURN_DATE>
+where <LOAN_RETURN_DATE> is of format 'DD-mm-YYYY HH:mm' and
+<AMOUNT_LOANED> is only numbers
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+Add Loan Command is in the wrong format!!! Please try again with the format:
+add loan d/<DESCRIPTION> a/<AMOUNT_LOANED> r/<LOAN_RETURN_DATE>
+where <LOAN_RETURN_DATE> is of format 'DD-mm-YYYY HH:mm' and
+<AMOUNT_LOANED> is only numbers
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+Added Loan:
+[outstanding]
+Description: test1
+Amount: $1000.00
+Repayment Deadline: 2209 Oct 10, 07:00 pm
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+Loan 1:
+[outstanding]
+Description: test1
+Amount: $1000.00
+Repayment Deadline: 2209 Oct 10, 07:00 pm
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+Add Loan Command is in the wrong format!!! Please try again with the format:
+add loan d/<DESCRIPTION> a/<AMOUNT_LOANED> r/<LOAN_RETURN_DATE>
+where <LOAN_RETURN_DATE> is of format 'DD-mm-YYYY HH:mm' and
+<AMOUNT_LOANED> is only numbers
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+Added Loan:
+[outstanding]
+Description: test2
+Amount: $1000.00
+Repayment Deadline: 2209 Oct 10, 07:00 pm
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+Delete Loan index does not exist!!! Please try again with the format:
+delete loan <INDEX>
+where <INDEX> is a existing loan index shown by the 'list loan' command
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+Delete Loan index does not exist!!! Please try again with the format:
+delete loan <INDEX>
+where <INDEX> is a existing loan index shown by the 'list loan' command
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+Delete Loan index does not exist!!! Please try again with the format:
+delete loan <INDEX>
+where <INDEX> is a existing loan index shown by the 'list loan' command
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+Deleted Loan:
+[outstanding]
+Description: test1
+Amount: $1000.00
+Repayment Deadline: 2209 Oct 10, 07:00 pm
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+Delete Loan index does not exist!!! Please try again with the format:
+delete loan <INDEX>
+where <INDEX> is a existing loan index shown by the 'list loan' command
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+Loan 1:
+[outstanding]
+Description: test2
+Amount: $1000.00
+Repayment Deadline: 2209 Oct 10, 07:00 pm
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+Goodbye, see you again!
+--------------------------------------------------------------------------------
