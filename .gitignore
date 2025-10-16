@@ -19,3 +19,6 @@ text-ui-test/EXPECTED-UNIX.TXT
 /data/
 /META-INF
 *.jar
+
+/text-ui-test/EXPECTED.TXT
+/text-ui-test/input.txt
