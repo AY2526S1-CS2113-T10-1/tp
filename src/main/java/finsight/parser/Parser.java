@@ -14,12 +14,14 @@ import finsight.investment.exceptions.DeleteInvestmentIndexOutOfBoundsException;
 import finsight.investment.exceptions.DeleteInvestmentMissingIndexException;
 import finsight.investment.exceptions.DeleteInvestmentWrongNumberFormatException;
 import finsight.investment.investmentlist.InvestmentList;
+
 import finsight.income.Income;
 import finsight.income.exceptions.AddIncomeCommandWrongFormatException;
 import finsight.income.exceptions.DeleteIncomeCommandIndexOutOfBoundsException;
 import finsight.income.exceptions.EditIncomeCommandIndexOutOfBoundsException;
 import finsight.income.exceptions.EditIncomeCommandWrongFormatException;
 import finsight.income.incomelist.IncomeList;
+
 import finsight.loan.exceptions.AddLoanCommandWrongFormatException;
 import finsight.loan.exceptions.DeleteLoanCommandIndexOutOfBoundsException;
 import finsight.loan.exceptions.LoanRepaidCommandIndexOutOfBoundsException;
@@ -45,16 +47,12 @@ public class Parser {
     protected IncomeList incomeList;
     protected InvestmentList investmentList;
     protected LoanList loanList;
-    protected Ui ui;
 
-
-    public Parser(ExpenseList expenseList, IncomeList incomeList, InvestmentList investmentList, LoanList loanList,
-                  Ui ui) {
+    public Parser(ExpenseList expenseList, IncomeList incomeList, InvestmentList investmentList, LoanList loanList) {
         this.expenseList = expenseList;
         this.incomeList = incomeList;
         this.investmentList = investmentList;
         this.loanList = loanList;
-        this.ui = ui;
     }
 
     /**
@@ -73,7 +71,7 @@ public class Parser {
                  AddInvestmentDateOutOfBoundsException | DeleteInvestmentIndexOutOfBoundsException |
                  AddInvestmentSubcommandOrderException | EditIncomeCommandIndexOutOfBoundsException |
                  EditIncomeCommandWrongFormatException | DeleteInvestmentWrongNumberFormatException | IOException e) {
-            ui.printErrorMessage(e.getMessage());
+            Ui.printErrorMessage(e.getMessage());
         }
     }
 
@@ -166,7 +164,7 @@ public class Parser {
             int indexToDelete = parseDeleteInvestmentCommand(userInput);
             investmentList.deleteInvestment(indexToDelete);
         } else {
-            ui.printPossibleCommands();
+            Ui.printPossibleCommands();
         }
     }
 

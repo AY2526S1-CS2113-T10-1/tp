@@ -25,7 +25,7 @@ public class UiTest {
         System.setIn(testInput);
 
         Ui ui = new Ui();
-        String actualString = ui.getNextLine();
+        String actualString = Ui.getNextLine();
 
         assertEquals(expectedString, actualString);
     }
@@ -39,7 +39,7 @@ public class UiTest {
         System.setIn(testInput);
 
         Ui ui = new Ui();
-        String actualString = ui.getNextLine();
+        String actualString = Ui.getNextLine();
 
         assertEquals(expectedString, actualString);
     }
@@ -53,7 +53,7 @@ public class UiTest {
         System.setIn(testInput);
 
         Ui ui = new Ui();
-        String actualString = ui.getNextLine();
+        String actualString = Ui.getNextLine();
 
         assertEquals(expectedString, actualString);
     }
