@@ -17,25 +17,23 @@ import java.util.ArrayList;
  */
 public class ExpenseList {
     protected ArrayList<Expense> expenses;
-    protected Ui ui;
     private final ExpenseDataManager dataManager = new ExpenseDataManager("./data/expense.txt");
 
-    public ExpenseList(ArrayList<Expense> expenses, Ui ui) {
+    public ExpenseList(ArrayList<Expense> expenses) {
         this.expenses = expenses;
-        this.ui = ui;
     }
-    public ExpenseList(Ui ui) {
+
+    public ExpenseList() {
         this.expenses = dataManager.tryLoad();
-        this.ui = ui;
     }
 
 
     /**
-     *  Displays all the expenses in the list by calling Ui class
+     * Displays all the expenses in the list by calling Ui class
      *
      **/
     public void listExpenses() {
-        ui.printAllExpenses(expenses);
+        Ui.printAllExpenses(expenses);
     }
 
     /**
@@ -45,7 +43,7 @@ public class ExpenseList {
      */
     public void addExpense(Expense expense) throws IOException {
         expenses.add(expense);
-        ui.printAddExpenseOutput(expenses);
+        Ui.printAddExpenseOutput(expenses);
         dataManager.appendToFile(expense);
     }
 
@@ -56,13 +54,14 @@ public class ExpenseList {
      */
 
     public void deleteExpense(int indexToDelete) throws IOException {
-        ui.printDeleteExpenseOutput(expenses, indexToDelete);
+        Ui.printDeleteExpenseOutput(expenses, indexToDelete);
         expenses.remove(indexToDelete);
         dataManager.writeToFile(expenses);
     }
 
     /**
-     *  Returns size of arrayList of expenseList
+     * Returns size of arrayList of expenseList
+     *
      * @return size of expenseList
      */
 

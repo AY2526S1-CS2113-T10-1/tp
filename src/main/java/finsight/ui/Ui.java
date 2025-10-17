@@ -35,8 +35,8 @@ public class Ui {
      *
      * @return User Input
      */
-    public String getNextLine() {
-        return input.nextLine().trim();
+    public static String getNextLine() {
+        return input.nextLine().trim().toLowerCase();
     }
 
     /**
@@ -44,7 +44,7 @@ public class Ui {
      *
      * @param message Error Message
      */
-    public void printErrorMessage(String message) {
+    public static void printErrorMessage(String message) {
         System.out.print(SPACING);
         System.out.println(message);
         System.out.print(SPACING);
@@ -53,7 +53,7 @@ public class Ui {
     /**
      * Prints Welcome Message
      */
-    public void printWelcomeMessage() {
+    public static void printWelcomeMessage() {
         System.out.println("Welcome to FinSight, what can i do for you?");
         System.out.print(SPACING);
     }
@@ -61,7 +61,7 @@ public class Ui {
     /**
      * Prints Bye Message
      */
-    public void printByeMessage() {
+    public static void printByeMessage() {
         System.out.print(SPACING);
         System.out.println("Goodbye, see you again!");
         System.out.print(SPACING);
@@ -73,7 +73,7 @@ public class Ui {
      * @param loans         ArrayList of loans
      * @param indexToDelete Index of loan to delete
      */
-    public void printDeleteLoanOutput(ArrayList<Loan> loans, int indexToDelete) {
+    public static void printDeleteLoanOutput(ArrayList<Loan> loans, int indexToDelete) {
         System.out.print(SPACING);
         System.out.println("Deleted Loan:");
         System.out.println(loans.get(indexToDelete).toString());
@@ -85,7 +85,7 @@ public class Ui {
      *
      * @param loan Loan Added
      */
-    public void printAddLoanOutput(Loan loan) {
+    public static void printAddLoanOutput(Loan loan) {
         System.out.print(SPACING);
         System.out.println("Added Loan:");
         System.out.println(loan.toString());
@@ -97,7 +97,7 @@ public class Ui {
      *
      * @param loan Loan set as repaid
      */
-    public void printLoanRepaid(Loan loan) {
+    public static void printLoanRepaid(Loan loan) {
         System.out.print(SPACING);
         System.out.println("Set Loan as Repaid:");
         System.out.println(loan.toString());
@@ -109,7 +109,7 @@ public class Ui {
      *
      * @param loan Loan set as not repaid
      */
-    public void printLoanNotRepaid(Loan loan) {
+    public static void printLoanNotRepaid(Loan loan) {
         System.out.print(SPACING);
         System.out.println("Set Loan as Not Repaid:");
         System.out.println(loan.toString());
@@ -121,7 +121,7 @@ public class Ui {
      *
      * @param loans ArrayList of Loans
      */
-    public void printAllLoans(ArrayList<Loan> loans) {
+    public static void printAllLoans(ArrayList<Loan> loans) {
         System.out.print(SPACING);
         for (int i = 0; i < Loan.numberOfLoans; i++) {
             System.out.println("Loan " + (i + 1) + ":");
@@ -130,7 +130,7 @@ public class Ui {
         }
     }
 
-    public void printAllIncomes(ArrayList<Income> incomes) {
+    public static void printAllIncomes(ArrayList<Income> incomes) {
         System.out.print(SPACING);
         for (int i = 0; i < incomes.size(); i++) {
             System.out.println("Income " + (i + 1) + ":");
@@ -144,7 +144,7 @@ public class Ui {
      *
      * @param income Income added
      */
-    public void printAddIncomeOutput(Income income) {
+    public static void printAddIncomeOutput(Income income) {
         System.out.print(SPACING);
         System.out.println("Added Income:");
         System.out.println(income.toString());
@@ -157,14 +157,14 @@ public class Ui {
      * @param incomes       ArrayList of incomes
      * @param indexToDelete Index of income to delete
      */
-    public void printDeleteIncomeOutput(ArrayList<Income> incomes, int indexToDelete) {
+    public static void printDeleteIncomeOutput(ArrayList<Income> incomes, int indexToDelete) {
         System.out.print(SPACING);
         System.out.println("Deleted Income:");
         System.out.println(incomes.get(indexToDelete).toString());
         System.out.print(SPACING);
     }
 
-    public void printEditIncomeOutput(ArrayList<Income> incomes, int indexToEdit) {
+    public static void printEditIncomeOutput(ArrayList<Income> incomes, int indexToEdit) {
         System.out.print(SPACING);
         System.out.println("Edited Income:");
         System.out.println(incomes.get(indexToEdit).toString());
@@ -174,7 +174,7 @@ public class Ui {
     /**
      * Prints all possible commands and their formats
      */
-    public void printPossibleCommands() {
+    public static void printPossibleCommands() {
         System.out.print(SPACING);
         System.out.println("Invalid command. Please use one of the following commands:");
         System.out.println("1. list loan");
@@ -200,7 +200,7 @@ public class Ui {
      *
      * @param expenses ArrayList of Expenses
      */
-    public void printAllExpenses(ArrayList<Expense> expenses) {
+    public static void printAllExpenses(ArrayList<Expense> expenses) {
         System.out.print(SPACING);
         for (int i = 0; i < expenses.size(); i++) {
             System.out.println("Expense " + (i + 1) + ":");
@@ -214,7 +214,7 @@ public class Ui {
      *
      * @param expenses ArrayList of expenses
      */
-    public void printAddExpenseOutput(ArrayList<Expense> expenses) {
+    public static void printAddExpenseOutput(ArrayList<Expense> expenses) {
         System.out.print(SPACING);
         System.out.println("Added Expense:");
         System.out.println(expenses.get(expenses.size() - 1).toString());
@@ -227,7 +227,7 @@ public class Ui {
      * @param expenses      ArrayList of expenses
      * @param indexToDelete Index of expense to delete
      */
-    public void printDeleteExpenseOutput(ArrayList<Expense> expenses, int indexToDelete) {
+    public static void printDeleteExpenseOutput(ArrayList<Expense> expenses, int indexToDelete) {
         System.out.print(SPACING);
         System.out.println("Deleted Expense:");
         System.out.println(expenses.get(indexToDelete).toString());
@@ -239,7 +239,7 @@ public class Ui {
      *
      * @param investments ArrayList of investments
      */
-    public void printAllInvestments(ArrayList<Investment> investments) {
+    public static void printAllInvestments(ArrayList<Investment> investments) {
         System.out.print(SPACING);
         for (int i = 0; i < investments.size(); i++) {
             System.out.println("Investment " + (i + 1) + ":");
@@ -253,7 +253,7 @@ public class Ui {
      *
      * @param investments ArrayList of investments
      */
-    public void printAddInvestmentOutput(ArrayList<Investment> investments) {
+    public static void printAddInvestmentOutput(ArrayList<Investment> investments) {
         System.out.print(SPACING);
         System.out.println("Added Investment:");
         System.out.println(investments.get(investments.size() - 1).toString());
@@ -266,7 +266,7 @@ public class Ui {
      * @param investments   ArrayList of investments
      * @param indexToDelete Index of investment in ArrayList to delete
      */
-    public void printDeleteInvestmentOutput(ArrayList<Investment> investments, int indexToDelete) {
+    public static void printDeleteInvestmentOutput(ArrayList<Investment> investments, int indexToDelete) {
         System.out.print(SPACING);
         System.out.println("Deleted Investment:");
         System.out.println(investments.get(indexToDelete).toString());

@@ -55,7 +55,7 @@ public class Loan {
 
         outputString += "\nDescription: " + description;
         outputString += "\nAmount: $" + String.format("%.2f", amountLoaned);
-        outputString += "\nRepayment Deadline: " + loanReturnDate.format(outputDateFormat);
+        outputString += "\nRepayment Deadline: " + loanReturnDate.format(outputDateFormat).toUpperCase();
 
         return outputString;
     }
