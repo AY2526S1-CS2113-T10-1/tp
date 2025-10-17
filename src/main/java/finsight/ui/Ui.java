@@ -36,7 +36,7 @@ public class Ui {
      * @return User Input
      */
     public static String getNextLine() {
-        return input.nextLine().trim();
+        return input.nextLine().trim().toLowerCase();
     }
 
     /**

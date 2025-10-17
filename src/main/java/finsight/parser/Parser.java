@@ -122,45 +122,45 @@ public class Parser {
 
         if (userInput.toLowerCase().startsWith("list loan")) {
             loanList.listLoans();
-        } else if (userInput.toLowerCase().startsWith("add loan")) {
+        } else if (userInput.startsWith("add loan")) {
             String[] commandParameters = parseAddLoanCommand(userInput);
             assert (!commandParameters[0].isEmpty() && !commandParameters[1].isEmpty()
                     && !commandParameters[2].isEmpty());
             loanList.addLoan(new Loan(commandParameters[0], commandParameters[1], commandParameters[2]));
-        } else if (userInput.toLowerCase().startsWith("delete loan")) {
+        } else if (userInput.startsWith("delete loan")) {
             int indexToDelete = parseDeleteLoanCommand(userInput);
             assert (indexToDelete >= 0 && indexToDelete < Loan.numberOfLoans);
             loanList.deleteLoan(indexToDelete);
-        } else if (userInput.toLowerCase().startsWith("loan repaid")) {
+        } else if (userInput.startsWith("loan repaid")) {
             int indexToSetRepaid = parseLoanRepaidCommand(userInput);
             assert (indexToSetRepaid >= 0 && indexToSetRepaid < Loan.numberOfLoans);
             loanList.setRepaid(indexToSetRepaid);
-        } else if (userInput.toLowerCase().startsWith("add income")) {
+        } else if (userInput.startsWith("add income")) {
             String[] commandParameters = parseAddIncomeCommand(userInput);
             incomeList.addIncome(new Income(commandParameters[0], commandParameters[1]));
-        } else if (userInput.toLowerCase().startsWith("delete income")) {
+        } else if (userInput.startsWith("delete income")) {
             int indexToDelete = parseDeleteIncomeCommand(userInput);
             incomeList.deleteIncome(indexToDelete);
-        } else if (userInput.toLowerCase().startsWith("edit income")) {
+        } else if (userInput.startsWith("edit income")) {
             String[] commandParameters = parseEditIncomeCommand(userInput);
             incomeList.editIncome(commandParameters[0], commandParameters[1], commandParameters[2]);
-        } else if (userInput.toLowerCase().startsWith("list income")) {
+        } else if (userInput.startsWith("list income")) {
             incomeList.listIncomes();
-        } else if (userInput.toLowerCase().startsWith("list expense")) {
+        } else if (userInput.startsWith("list expense")) {
             expenseList.listExpenses();
-        } else if (userInput.toLowerCase().startsWith("add expense")) {
+        } else if (userInput.startsWith("add expense")) {
             String[] commandParameters = parseAddExpenseCommand(userInput);
             expenseList.addExpense(new Expense(commandParameters[0], commandParameters[1]));
-        } else if (userInput.toLowerCase().startsWith("delete expense")) {
+        } else if (userInput.startsWith("delete expense")) {
             int indexToDelete = parseDeleteExpenseCommand(userInput);
             expenseList.deleteExpense(indexToDelete);
-        } else if (userInput.toLowerCase().startsWith("list investment")) {
+        } else if (userInput.startsWith("list investment")) {
             investmentList.listAllInvestments();
-        } else if (userInput.toLowerCase().startsWith("add investment")) {
+        } else if (userInput.startsWith("add investment")) {
             String[] commandParameters = parseAddInvestmentCommand(userInput);
             investmentList.addInvestment(new Investment(commandParameters[0],
                     commandParameters[1], commandParameters[2]));
-        } else if (userInput.toLowerCase().startsWith("delete investment")) {
+        } else if (userInput.startsWith("delete investment")) {
             int indexToDelete = parseDeleteInvestmentCommand(userInput);
             investmentList.deleteInvestment(indexToDelete);
         } else {
