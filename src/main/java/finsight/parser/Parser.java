@@ -141,7 +141,7 @@ public class Parser {
             incomeList.addIncome(new Income(commandParameters[0], commandParameters[1]));
         } else if (userInput.startsWith("delete income")) {
             int indexToDelete = parseDeleteIncomeCommand(userInput);
-            assert (indexToDelete >= 0 && indexToDelete < Loan.numberOfLoans);
+            assert (indexToDelete >= 0 && indexToDelete < Income.numberOfIncomes);
             incomeList.deleteIncome(indexToDelete);
         } else if (userInput.startsWith("edit income")) {
             String[] commandParameters = parseEditIncomeCommand(userInput);
