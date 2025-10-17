@@ -24,21 +24,21 @@ public class FinSight {
      */
     public static void main(String[] args) {
         Ui ui = new Ui();
-        ExpenseList expenseList = new ExpenseList(ui);
-        IncomeList incomeList = new IncomeList(ui);
-        InvestmentList investmentList = new InvestmentList(ui);
-        LoanList loanList = new LoanList(ui);
-        Parser parser = new Parser(expenseList,incomeList,investmentList,loanList,ui);
+        ExpenseList expenseList = new ExpenseList();
+        IncomeList incomeList = new IncomeList();
+        InvestmentList investmentList = new InvestmentList();
+        LoanList loanList = new LoanList();
+        Parser parser = new Parser(expenseList,incomeList,investmentList,loanList);
 
-        ui.printWelcomeMessage();
+        Ui.printWelcomeMessage();
 
-        String userInput = ui.getNextLine();
-        while (!userInput.toLowerCase().startsWith("bye")) {
+        String userInput = Ui.getNextLine();
+        while (!userInput.startsWith("bye")) {
             parser.tryCommand(userInput);
 
-            userInput = ui.getNextLine();
+            userInput = Ui.getNextLine();
         }
 
-        ui.printByeMessage();
+        Ui.printByeMessage();
     }
 }

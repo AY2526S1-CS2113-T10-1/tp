@@ -24,7 +24,6 @@ import java.time.format.DateTimeFormatter;
  * to {@link Loan} construction and related logic.</p>
  *
  * @author Royden Lim Yi Ren
- *
  * @since 15 Oct 2025
  */
 public class LoanDataManager extends DataManager<Loan, AddLoanCommandWrongFormatException> {
