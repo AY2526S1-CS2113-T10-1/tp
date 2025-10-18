@@ -97,9 +97,8 @@ public abstract class DataManager<T, X extends Exception> {
         try {
             return load();
         } catch (Exception e) {
-            Ui ui = new Ui();
             Ui.printErrorMessage(e.getMessage());
-            return new ArrayList<T>();
+            return new ArrayList<>();
         }
     }
 
