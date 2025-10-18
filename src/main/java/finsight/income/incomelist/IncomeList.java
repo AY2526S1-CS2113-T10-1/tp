@@ -1,8 +1,10 @@
 package finsight.income.incomelist;
 
 import finsight.income.Income;
+import finsight.storage.IncomeDataManager;
 import finsight.ui.Ui;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -14,16 +16,15 @@ import java.util.ArrayList;
  */
 public class IncomeList {
     protected ArrayList<Income> incomes;
-    protected Ui ui;
+    private final IncomeDataManager dataManager = new IncomeDataManager("./data/income.txt");
 
-    public IncomeList(Ui ui) {
-        this.incomes = new ArrayList<>();
-        this.ui = ui;
+    public IncomeList() {
+        this.incomes = dataManager.tryLoad();
+        Income.numberOfIncomes = incomes.size();
     }
 
-    public IncomeList(ArrayList<Income> incomes, Ui ui) {
+    public IncomeList(ArrayList<Income> incomes) {
         this.incomes = incomes;
-        this.ui = ui;
     }
 
     /**
@@ -31,42 +32,51 @@ public class IncomeList {
      *
      * @return ArrayList of income
      */
-    public ArrayList<Income> getIncomes(){
+    public ArrayList<Income> getIncomes() {
         return incomes;
     }
 
     /**
      * Adds new Income
-     * @params income Income class
+     *
+     * @param income Income class
      */
-    public void addIncome(Income income){
+    public void addIncome(Income income) throws IOException {
         incomes.add(income);
-        ui.printAddIncomeOutput(income);
+        Ui.printAddIncomeOutput(income);
 
         Income.numberOfIncomes++;
+        dataManager.appendToFile(income);
     }
 
     /**
      * Deletes Income
-     * @params indexToDelete
+     *
+     * @param indexToDelete Index to delete
      */
-    public void deleteIncome(int indexToDelete) {
-        ui.printDeleteIncomeOutput(incomes, indexToDelete);
+    public void deleteIncome(int indexToDelete) throws IOException {
+        Ui.printDeleteIncomeOutput(incomes, indexToDelete);
         incomes.remove(indexToDelete);
 
         Income.numberOfIncomes--;
+        dataManager.writeToFile(incomes);
     }
 
     /**
      * Edits Income
-     * @params indexToEdit
-     * @params description
-     * @params amountEarned
+     *
+     * @param indexToEdit  Index to delete
+     * @param description  Description of income
+     * @param amountEarned Amount earned
      */
-    public void editIncome(String indexToEdit, String description, String amountEarned){
+    public void editIncome(String indexToEdit, String description, String amountEarned) {
         incomes.get(Integer.parseInt(indexToEdit) - 1).setDescription(description);
         incomes.get(Integer.parseInt(indexToEdit) - 1).setAmountEarned(Float.parseFloat(amountEarned));
 
-        ui.printEditIncomeOutput(incomes, Integer.parseInt(indexToEdit) - 1);
+        Ui.printEditIncomeOutput(incomes, Integer.parseInt(indexToEdit) - 1);
+    }
+
+    public void listIncomes() {
+        Ui.printAllIncomes(incomes);
     }
 }

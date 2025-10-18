@@ -1,1 +1,21 @@
-James Gosling
+list loan
+add loan d/ test1 a/ 1000.00 r/
+add loan d/ test1 a/  r/ 10-10-2209 19:00
+add loan d/  a/ 1000.00 r/ 10-10-2209 19:00
+add loan test1 a/ 1000.00 r/ 10-10-2209 19:00
+add loan d/ test1 1000.00 r/ 10-10-2209 19:00
+add loan d/ test1 a/ 1000.00 10-10-2209 19:00
+add loan a/ 1000 d/ test1  r/ 10-10-2209 19:00
+add loan d/ test1  r/ 10-10-2209 19:00 a/1000
+add loan r/ 10-10-2209 19:00 d/ test1 a/1000
+add loan d/ test1 a/ 1000.00 r/ 10-10-2209 19:00
+list loan
+add loan d/ test2 a/ abc r/ 10-10-2209 19:00
+add loan d/ test2 a/ 1000.00 r/ 10-10-2209 19:00
+delete loan -1
+delete loan 0
+delete loan 3
+delete loan 1
+delete loan a
+list loan
+bye

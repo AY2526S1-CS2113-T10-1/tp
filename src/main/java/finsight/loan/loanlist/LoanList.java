@@ -1,8 +1,10 @@
 package finsight.loan.loanlist;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import finsight.loan.Loan;
+import finsight.storage.LoanDataManager;
 import finsight.ui.Ui;
 
 /**
@@ -14,16 +16,16 @@ import finsight.ui.Ui;
  */
 public class LoanList {
     protected ArrayList<Loan> loans;
-    protected Ui ui;
+    private final LoanDataManager loanDataManager = new LoanDataManager("./data/loan.txt");
 
-    public LoanList(ArrayList<Loan> loans, Ui ui) {
+    public LoanList(ArrayList<Loan> loans) {
         this.loans = loans;
-        this.ui = ui;
+        Loan.numberOfLoans = loans.size();
     }
 
-    public LoanList(Ui ui) {
-        this.loans = new ArrayList<>();
-        this.ui = ui;
+    public LoanList() {
+        this.loans = loanDataManager.tryLoad();
+        Loan.numberOfLoans = loans.size();
     }
 
     /**
@@ -39,7 +41,7 @@ public class LoanList {
      * Calls the Ui class to print all tasks
      */
     public void listLoans() {
-        ui.printAllLoans(loans);
+        Ui.printAllLoans(loans);
     }
 
     /**
@@ -47,11 +49,12 @@ public class LoanList {
      *
      * @param loan Loan to be added
      */
-    public void addLoan(Loan loan) {
+    public void addLoan(Loan loan) throws IOException {
         loans.add(loan);
-        ui.printAddLoanOutput(loan);
+        Ui.printAddLoanOutput(loan);
 
         Loan.numberOfLoans++;
+        loanDataManager.appendToFile(loan);
     }
 
     /**
@@ -59,11 +62,12 @@ public class LoanList {
      *
      * @param indexToDelete Index of Loan to be deleted
      */
-    public void deleteLoan(int indexToDelete) {
-        ui.printDeleteLoanOutput(loans, indexToDelete);
+    public void deleteLoan(int indexToDelete) throws IOException {
+        Ui.printDeleteLoanOutput(loans, indexToDelete);
         loans.remove(indexToDelete);
 
         Loan.numberOfLoans--;
+        loanDataManager.writeToFile(loans);
     }
 
     /**
@@ -73,7 +77,7 @@ public class LoanList {
      */
     public void setRepaid(int indexToSet) {
         loans.get(indexToSet).setRepaid();
-        ui.printLoanRepaid(loans.get(indexToSet));
+        Ui.printLoanRepaid(loans.get(indexToSet));
     }
 
     /**
@@ -83,6 +87,6 @@ public class LoanList {
      */
     public void setNotRepaid(int indexToSet) {
         loans.get(indexToSet).setNotRepaid();
-        ui.printLoanNotRepaid(loans.get(indexToSet));
+        Ui.printLoanNotRepaid(loans.get(indexToSet));
     }
 }

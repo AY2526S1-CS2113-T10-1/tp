@@ -55,7 +55,7 @@ public class Loan {
 
         outputString += "\nDescription: " + description;
         outputString += "\nAmount: $" + String.format("%.2f", amountLoaned);
-        outputString += "\nRepayment Deadline: " + loanReturnDate.format(outputDateFormat);
+        outputString += "\nRepayment Deadline: " + loanReturnDate.format(outputDateFormat).toUpperCase();
 
         return outputString;
     }
@@ -81,5 +81,17 @@ public class Loan {
      */
     public void setNotRepaid() {
         isRepaid = false;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public Double getAmountLoaned() {
+        return amountLoaned;
+    }
+
+    public LocalDateTime getLoanReturnDate() {
+        return loanReturnDate;
     }
 }

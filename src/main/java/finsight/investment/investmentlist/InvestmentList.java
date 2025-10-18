@@ -1,8 +1,10 @@
 package finsight.investment.investmentlist;
 
 import finsight.investment.Investment;
+import finsight.storage.InvestDataManager;
 import finsight.ui.Ui;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -16,34 +18,29 @@ import java.util.ArrayList;
  */
 public class InvestmentList {
     protected ArrayList<Investment> investmentList;
-    protected Ui ui;
+    private final InvestDataManager dataManager = new InvestDataManager("./data/invest.txt");
 
     /**
      * Constructs an InvestmentList Class from a pre-assembled ArrayList of Investment objects
      *
      * @param investmentList ArrayList of Investment Objects
-     * @param ui             Ui Class for Terminal input and output
      */
-    public InvestmentList(ArrayList<Investment> investmentList, Ui ui) {
+    public InvestmentList(ArrayList<Investment> investmentList) {
         this.investmentList = investmentList;
-        this.ui = ui;
     }
 
     /**
      * Constructs an InvestmentList Class with a new ArrayList of Investment objects
-     *
-     * @param ui Ui Class for Terminal input and output
      */
-    public InvestmentList(Ui ui) {
-        this.investmentList = new ArrayList<>();
-        this.ui = ui;
+    public InvestmentList() {
+        this.investmentList = dataManager.tryLoad();
     }
 
     /**
      * Displays all the investments in the list by calling Ui class
      */
     public void listAllInvestments() {
-        ui.printAllInvestments(this.investmentList);
+        Ui.printAllInvestments(this.investmentList);
     }
 
     /**
@@ -51,9 +48,10 @@ public class InvestmentList {
      *
      * @param investment the investment object to be added
      */
-    public void addInvestment(Investment investment) {
+    public void addInvestment(Investment investment) throws IOException {
         investmentList.add(investment);
-        ui.printAddInvestmentOutput(this.investmentList);
+        Ui.printAddInvestmentOutput(this.investmentList);
+        dataManager.appendToFile(investment);
     }
 
     /**
@@ -61,9 +59,10 @@ public class InvestmentList {
      *
      * @param indexToDelete the index of the investment object in the list to delete
      */
-    public void deleteInvestment(int indexToDelete) {
-        ui.printDeleteInvestmentOutput(this.investmentList, indexToDelete);
+    public void deleteInvestment(int indexToDelete) throws IOException {
+        Ui.printDeleteInvestmentOutput(this.investmentList, indexToDelete);
         investmentList.remove(indexToDelete);
+        dataManager.writeToFile(investmentList);
     }
 
     /**

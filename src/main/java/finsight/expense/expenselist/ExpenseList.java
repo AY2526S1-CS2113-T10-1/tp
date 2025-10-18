@@ -1,8 +1,10 @@
 package finsight.expense.expenselist;
 
 import finsight.expense.Expense;
+import finsight.storage.ExpenseDataManager;
 import finsight.ui.Ui;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -15,25 +17,23 @@ import java.util.ArrayList;
  */
 public class ExpenseList {
     protected ArrayList<Expense> expenses;
-    protected Ui ui;
+    private final ExpenseDataManager dataManager = new ExpenseDataManager("./data/expense.txt");
 
-    public ExpenseList(ArrayList<Expense> expenses, Ui ui) {
+    public ExpenseList(ArrayList<Expense> expenses) {
         this.expenses = expenses;
-        this.ui = ui;
     }
 
-    public ExpenseList(Ui ui) {
-        this.expenses = new ArrayList<>();
-        this.ui = ui;
+    public ExpenseList() {
+        this.expenses = dataManager.tryLoad();
     }
 
 
     /**
-     *  Displays all the expenses in the list by calling Ui class
+     * Displays all the expenses in the list by calling Ui class
      *
      **/
     public void listExpenses() {
-        ui.printAllExpenses(expenses);
+        Ui.printAllExpenses(expenses);
     }
 
     /**
@@ -41,9 +41,10 @@ public class ExpenseList {
      *
      * @param expense the expense object to be added
      */
-    public void addExpense(Expense expense) {
+    public void addExpense(Expense expense) throws IOException {
         expenses.add(expense);
-        ui.printAddExpenseOutput(expenses);
+        Ui.printAddExpenseOutput(expenses);
+        dataManager.appendToFile(expense);
     }
 
     /**
@@ -52,13 +53,15 @@ public class ExpenseList {
      * @param indexToDelete the index in the ExpenseList to be deleted
      */
 
-    public void deleteExpense(int indexToDelete) {
-        ui.printDeleteExpenseOutput(expenses, indexToDelete);
+    public void deleteExpense(int indexToDelete) throws IOException {
+        Ui.printDeleteExpenseOutput(expenses, indexToDelete);
         expenses.remove(indexToDelete);
+        dataManager.writeToFile(expenses);
     }
 
     /**
-     *  Returns size of arrayList of expenseList
+     * Returns size of arrayList of expenseList
+     *
      * @return size of expenseList
      */
 

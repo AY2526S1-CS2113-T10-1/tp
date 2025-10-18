@@ -1,8 +1,8 @@
 package finsight.parser;
 
+import finsight.expense.Expense;
 import finsight.expense.exceptions.AddExpenseCommandWrongFormatException;
 import finsight.expense.exceptions.DeleteExpenseCommandIndexOutOfBoundsException;
-import finsight.expense.Expense;
 import finsight.expense.expenselist.ExpenseList;
 
 import finsight.investment.Investment;
@@ -14,12 +14,14 @@ import finsight.investment.exceptions.DeleteInvestmentIndexOutOfBoundsException;
 import finsight.investment.exceptions.DeleteInvestmentMissingIndexException;
 import finsight.investment.exceptions.DeleteInvestmentWrongNumberFormatException;
 import finsight.investment.investmentlist.InvestmentList;
+
 import finsight.income.Income;
 import finsight.income.exceptions.AddIncomeCommandWrongFormatException;
 import finsight.income.exceptions.DeleteIncomeCommandIndexOutOfBoundsException;
 import finsight.income.exceptions.EditIncomeCommandIndexOutOfBoundsException;
 import finsight.income.exceptions.EditIncomeCommandWrongFormatException;
 import finsight.income.incomelist.IncomeList;
+
 import finsight.loan.exceptions.AddLoanCommandWrongFormatException;
 import finsight.loan.exceptions.DeleteLoanCommandIndexOutOfBoundsException;
 import finsight.loan.exceptions.LoanRepaidCommandIndexOutOfBoundsException;
@@ -28,6 +30,8 @@ import finsight.loan.loanlist.LoanList;
 
 import finsight.ui.Ui;
 
+import java.io.IOException;
+
 /**
  * Takes in the user input and interpret which command to run
  *
@@ -35,6 +39,7 @@ import finsight.ui.Ui;
  * @author Lai Kai Jie Jeremy
  * @author Goh Bin Wee
  * @author L'kesh Nair
+ * @author Royden Lim Yi Ren
  * @since 2025-10-08
  */
 public class Parser {
@@ -42,16 +47,12 @@ public class Parser {
     protected IncomeList incomeList;
     protected InvestmentList investmentList;
     protected LoanList loanList;
-    protected Ui ui;
 
-
-    public Parser(ExpenseList expenseList, IncomeList incomeList, InvestmentList investmentList, LoanList loanList,
-                  Ui ui) {
+    public Parser(ExpenseList expenseList, IncomeList incomeList, InvestmentList investmentList, LoanList loanList) {
         this.expenseList = expenseList;
         this.incomeList = incomeList;
         this.investmentList = investmentList;
         this.loanList = loanList;
-        this.ui = ui;
     }
 
     /**
@@ -69,8 +70,8 @@ public class Parser {
                  AddInvestmentSubcommandException | DeleteInvestmentMissingIndexException |
                  AddInvestmentDateOutOfBoundsException | DeleteInvestmentIndexOutOfBoundsException |
                  AddInvestmentSubcommandOrderException | EditIncomeCommandIndexOutOfBoundsException |
-                 EditIncomeCommandWrongFormatException | DeleteInvestmentWrongNumberFormatException e) {
-            ui.printErrorMessage(e.getMessage());
+                 EditIncomeCommandWrongFormatException | DeleteInvestmentWrongNumberFormatException | IOException e) {
+            Ui.printErrorMessage(e.getMessage());
         }
     }
 
@@ -117,51 +118,53 @@ public class Parser {
             DeleteIncomeCommandIndexOutOfBoundsException, DeleteInvestmentIndexOutOfBoundsException,
             DeleteInvestmentMissingIndexException, DeleteInvestmentWrongNumberFormatException,
             DeleteLoanCommandIndexOutOfBoundsException, EditIncomeCommandWrongFormatException,
-            EditIncomeCommandIndexOutOfBoundsException, LoanRepaidCommandIndexOutOfBoundsException {
+            EditIncomeCommandIndexOutOfBoundsException, LoanRepaidCommandIndexOutOfBoundsException, IOException {
 
         if (userInput.toLowerCase().startsWith("list loan")) {
             loanList.listLoans();
-        } else if (userInput.toLowerCase().startsWith("add loan")) {
+        } else if (userInput.startsWith("add loan")) {
             String[] commandParameters = parseAddLoanCommand(userInput);
             assert (!commandParameters[0].isEmpty() && !commandParameters[1].isEmpty()
                     && !commandParameters[2].isEmpty());
             loanList.addLoan(new Loan(commandParameters[0], commandParameters[1], commandParameters[2]));
-        } else if (userInput.toLowerCase().startsWith("delete loan")) {
+        } else if (userInput.startsWith("delete loan")) {
             int indexToDelete = parseDeleteLoanCommand(userInput);
             assert (indexToDelete >= 0 && indexToDelete < Loan.numberOfLoans);
             loanList.deleteLoan(indexToDelete);
-        } else if (userInput.toLowerCase().startsWith("loan repaid")) {
+        } else if (userInput.startsWith("loan repaid")) {
             int indexToSetRepaid = parseLoanRepaidCommand(userInput);
             assert (indexToSetRepaid >= 0 && indexToSetRepaid < Loan.numberOfLoans);
             loanList.setRepaid(indexToSetRepaid);
-        } else if (userInput.toLowerCase().startsWith("add income")) {
+        } else if (userInput.startsWith("add income")) {
             String[] commandParameters = parseAddIncomeCommand(userInput);
             incomeList.addIncome(new Income(commandParameters[0], commandParameters[1]));
-        } else if (userInput.toLowerCase().startsWith("delete income")) {
+        } else if (userInput.startsWith("delete income")) {
             int indexToDelete = parseDeleteIncomeCommand(userInput);
             incomeList.deleteIncome(indexToDelete);
-        } else if (userInput.toLowerCase().startsWith("edit income")) {
+        } else if (userInput.startsWith("edit income")) {
             String[] commandParameters = parseEditIncomeCommand(userInput);
             incomeList.editIncome(commandParameters[0], commandParameters[1], commandParameters[2]);
-        } else if (userInput.toLowerCase().startsWith("list expense")) {
+        } else if (userInput.startsWith("list income")) {
+            incomeList.listIncomes();
+        } else if (userInput.startsWith("list expense")) {
             expenseList.listExpenses();
-        } else if (userInput.toLowerCase().startsWith("add expense")) {
+        } else if (userInput.startsWith("add expense")) {
             String[] commandParameters = parseAddExpenseCommand(userInput);
             expenseList.addExpense(new Expense(commandParameters[0], commandParameters[1]));
-        } else if (userInput.toLowerCase().startsWith("delete expense")) {
+        } else if (userInput.startsWith("delete expense")) {
             int indexToDelete = parseDeleteExpenseCommand(userInput);
             expenseList.deleteExpense(indexToDelete);
-        } else if (userInput.toLowerCase().startsWith("list investment")) {
+        } else if (userInput.startsWith("list investment")) {
             investmentList.listAllInvestments();
-        } else if (userInput.toLowerCase().startsWith("add investment")) {
+        } else if (userInput.startsWith("add investment")) {
             String[] commandParameters = parseAddInvestmentCommand(userInput);
             investmentList.addInvestment(new Investment(commandParameters[0],
                     commandParameters[1], commandParameters[2]));
-        } else if (userInput.toLowerCase().startsWith("delete investment")) {
+        } else if (userInput.startsWith("delete investment")) {
             int indexToDelete = parseDeleteInvestmentCommand(userInput);
             investmentList.deleteInvestment(indexToDelete);
         } else {
-            ui.printPossibleCommands();
+            Ui.printPossibleCommands();
         }
     }
 
