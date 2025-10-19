@@ -1,5 +1,6 @@
 package finsight.investment;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import finsight.investment.exceptions.AddInvestmentDateOutOfBoundsException;
@@ -19,5 +20,19 @@ public class InvestmentTest {
         assertThrows(AddInvestmentDateOutOfBoundsException.class,
                 () -> new Investment("test","100","40"));
     }
+
+    @Test
+    void constructor_dateContainsAlphabet_exceptionThrown() {
+        assertThrows(AddInvestmentWrongNumberFormatException.class,
+                () -> new Investment("test","100","twenty"));
+    }
+
+    @Test
+    void toString_correctPrintOfDefinedInvestmentObject_isEqual() throws AddInvestmentDateOutOfBoundsException,
+            AddInvestmentWrongNumberFormatException {
+        Investment test = new Investment("test","100","20");
+        assertEquals("Description: test\nAmount: $100.00\nRecurring Deposit Date of Month: 20", test.toString());
+    }
+
 }
 
