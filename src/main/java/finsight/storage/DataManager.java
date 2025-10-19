@@ -110,15 +110,21 @@ public abstract class DataManager<T, X extends Exception> {
      * @throws IOException if an I/O error occurs during writing
      */
     public void writeToFile(List<T> records) throws IOException {
+        assert records != null : "records must not be null";
         ensureFileExist();
+
         Path tmp = dataFilePath().resolveSibling(dataFilePath().getFileName() + ".temp");
+        assert !tmp.equals(dataFilePath()) : "temp path must differ from target path";
+
         try (BufferedWriter writer = Files.newBufferedWriter(tmp, StandardCharsets.UTF_8)) {
             for (T record : records) {
+                assert record != null : "record must not be null";
                 writer.write(formatRecord(record));
                 writer.newLine();
             }
         }
         Files.move(tmp, dataFilePath(), StandardCopyOption.REPLACE_EXISTING, StandardCopyOption.ATOMIC_MOVE);
+        assert Files.exists(dataFilePath()) : "Target file should exist after move";
     }
 
     /**
@@ -129,7 +135,9 @@ public abstract class DataManager<T, X extends Exception> {
      * @throws IOException if an I/O error occurs during appending
      */
     public void appendToFile(T record) throws IOException {
+        assert record != null : "record must not be null";
         ensureFileExist();
+
         try (BufferedWriter writer = Files.newBufferedWriter(dataFilePath(), StandardCharsets.UTF_8,
                 StandardOpenOption.APPEND)) {
             writer.write(formatRecord(record));
@@ -147,6 +155,7 @@ public abstract class DataManager<T, X extends Exception> {
         Path parent = dataFilePath().getParent();
         if (parent != null && !Files.exists(parent)) {
             Files.createDirectories(parent);
+            assert Files.isDirectory(parent) : "Parent should be a directory";
         }
     }
 
