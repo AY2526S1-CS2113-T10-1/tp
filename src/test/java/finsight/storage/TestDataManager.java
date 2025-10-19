@@ -11,7 +11,7 @@ final class TestRecord {
     }
 }
 
-public class TestDataManager extends DataManager<TestRecord, Exception> {
+final class TestDataManager extends DataManager<TestRecord, Exception> {
     private final Path filePath;
 
     TestDataManager(Path filePath) {

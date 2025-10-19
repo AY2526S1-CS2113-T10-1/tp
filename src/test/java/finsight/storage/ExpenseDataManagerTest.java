@@ -16,7 +16,7 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ExpenseDataManagerTest {
+final class ExpenseDataManagerTest {
     @TempDir
     Path tempDir;
 

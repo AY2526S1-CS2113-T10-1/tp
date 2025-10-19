@@ -20,7 +20,7 @@ import java.nio.file.Path;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
-public class LoanDataManagerTest {
+final class LoanDataManagerTest {
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
 
     @TempDir
