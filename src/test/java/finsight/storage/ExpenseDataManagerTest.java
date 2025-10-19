@@ -56,7 +56,7 @@ final class ExpenseDataManagerTest {
     }
 
     @Test
-    void writeToFile_then_tryLoad_roundTripsRecords() throws IOException {
+    void writeToFile_tryLoadRoundTrip() throws IOException {
         Expense expense1 = new Expense("Eat|Poop", "10");
         Expense expense2 = new Expense("Poop Poop", "20");
 

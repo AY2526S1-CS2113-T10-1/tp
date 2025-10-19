@@ -28,7 +28,7 @@ final class DataManagerTest {
     }
 
     @Test
-    void tryLoad_returnsEmpty_andCreatesFile_onFirstUse() {
+    void tryLoad_initialFileCreation() {
         var records = testDataManager.tryLoad();
         assertNotNull(records);
         assertTrue(records.isEmpty());

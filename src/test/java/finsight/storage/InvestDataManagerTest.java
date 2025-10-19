@@ -1,6 +1,9 @@
 package finsight.storage;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import finsight.investment.Investment;
 import finsight.investment.exceptions.AddInvestmentDateOutOfBoundsException;
@@ -74,7 +77,7 @@ final class InvestDataManagerTest {
     }
 
     @Test
-    void writeToFile_then_tryLoad_roundTripsRecords()
+    void writeToFile_tryLoadRoundTrip()
             throws IOException, AddInvestmentWrongNumberFormatException, AddInvestmentDateOutOfBoundsException {
         Investment i1 = new Investment("ETF|Monthly", "500", "5");
         Investment i2 = new Investment("Bonds", "1500.25", "20");

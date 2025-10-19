@@ -66,7 +66,7 @@ final class IncomeDataManagerTest {
     }
 
     @Test
-    void writeToFile_then_tryLoad_roundTripsRecords() throws IOException, AddIncomeCommandWrongFormatException {
+    void writeToFile_tryLoadRoundTrip() throws IOException, AddIncomeCommandWrongFormatException {
         Income income1 = new Income("A|B", "10");     // contains delimiter to test sanitize
         Income income2 = new Income("Monthly Salary", "20");
 

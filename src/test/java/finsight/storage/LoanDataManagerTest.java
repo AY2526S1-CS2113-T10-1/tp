@@ -91,7 +91,7 @@ final class LoanDataManagerTest {
     }
 
     @Test
-    void writeToFile_then_tryLoad_roundTripsRecords() throws AddLoanCommandWrongFormatException, IOException {
+    void writeToFile_tryLoadRoundTrip() throws AddLoanCommandWrongFormatException, IOException {
         Loan loan1 = new Loan("Buy|Poop", "69.69", "10-10-2025 23:59");
         Loan loan2 = new Loan("Eat POOP", "200", "10-10-2025 12:21");
         loan2.setRepaid();
@@ -107,11 +107,11 @@ final class LoanDataManagerTest {
         var loaded = dataManager.tryLoad();
         assertEquals(2, loaded.size());
 
-        Loan LoanOne = loaded.get(0);
-        assertFalse(LoanOne.isRepaid());
-        assertEquals("Buy/Poop",  LoanOne.getDescription());
-        assertEquals("69.69", LoanOne.getAmountLoaned().toString());
-        assertEquals("10-10-2025 23:59", LoanOne.getLoanReturnDate().format(FORMATTER));
+        Loan loanOne = loaded.get(0);
+        assertFalse(loanOne.isRepaid());
+        assertEquals("Buy/Poop",  loanOne.getDescription());
+        assertEquals("69.69", loanOne.getAmountLoaned().toString());
+        assertEquals("10-10-2025 23:59", loanOne.getLoanReturnDate().format(FORMATTER));
 
         Loan loanTwo = loaded.get(1);
         assertTrue(loanTwo.isRepaid());
