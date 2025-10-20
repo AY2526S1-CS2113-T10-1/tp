@@ -3,7 +3,9 @@ package finsight.loan.loanlist;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.IOException;
@@ -88,5 +90,37 @@ public class LoanListTest {
         loanList.deleteLoan(0);
 
         assertEquals(0, loanList.getLoans().size());
+    }
+
+    @Test
+    void setRepaid_setSingleLoanRepaid_isRepaid() throws AddLoanCommandWrongFormatException, IOException {
+        loanList = new LoanList();
+        loanList.addLoan(new Loan("1", "1000", "12-12-2025 19:00"));
+
+        loanList.setRepaid(0);
+        assertTrue(loanList.getLoans().get(0).isRepaid());
+        loanList.deleteLoan(0);
+    }
+
+    @Test
+    void setNotRepaid_setSingleLoanNotRepaid_isNotRepaid() throws AddLoanCommandWrongFormatException, IOException {
+        loanList = new LoanList();
+        loanList.addLoan(new Loan("1", "1000", "12-12-2025 19:00"));
+
+        loanList.setRepaid(0);
+        assertTrue(loanList.getLoans().get(0).isRepaid());
+        loanList.setNotRepaid(0);
+        assertFalse(loanList.getLoans().get(0).isRepaid());
+
+        loanList.deleteLoan(0);
+    }
+
+    @Test
+    void listLoans_singleLoan_noExceptionThrown() throws AddLoanCommandWrongFormatException, IOException {
+        loanList = new LoanList();
+        loanList.addLoan(new Loan("1", "1000", "12-12-2025 19:00"));
+
+        assertDoesNotThrow(()-> loanList.listLoans());
+        loanList.deleteLoan(0);
     }
 }
