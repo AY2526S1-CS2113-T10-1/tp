@@ -1,0 +1,34 @@
+@startuml
+!include style.puml
+
+actor User
+
+participant ":Ui" as Ui LOGIC_COLOR_T1
+participant ":Parser" as Parser LOGIC_COLOR_T2
+participant ":LoanList" as LoanList LOGIC_COLOR_T3
+participant ":Loan" as Loan LOGIC_COLOR_T4
+
+User -> Ui ++: delete loan
+
+Ui -> Parser ++: tryCommand(...)
+Parser -> Parser ++: handleCommand(...)
+
+Parser -> Parser ++: parseDeleteLoanCommand(...)
+return index:int
+
+Parser -> LoanList ++: deleteLoan(index:int)
+LoanList -> Loan ++: loan.toString()
+return loan:String
+LoanList -> Ui ++: printDeleteLoanOutput(loan:String)
+return
+
+LoanList -> Loan ++: loans.remove()
+return
+destroy Loan
+
+
+return
+return
+return
+
+@enduml
