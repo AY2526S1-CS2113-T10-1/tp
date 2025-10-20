@@ -1,9 +1,7 @@
-package finsight.expense.expenseList;
+package finsight.expense.expenselist;
 
 import finsight.expense.Expense;
 import finsight.expense.exceptions.AddExpenseCommandWrongFormatException;
-import finsight.expense.expenselist.ExpenseList;
-import finsight.loan.Loan;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -13,7 +11,7 @@ import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class expenseListTest {
+public class ExpenseListTest {
     ExpenseList expenseList;
 
     @BeforeEach
@@ -39,7 +37,8 @@ public class expenseListTest {
     }
 
     @Test
-    void addExpenses_MultipleExpenses_returnCorrectArraySize() throws AddExpenseCommandWrongFormatException, IOException {
+    void addExpenses_multipleExpenses_returnCorrectArraySize()
+            throws AddExpenseCommandWrongFormatException, IOException {
         expenseList = new ExpenseList();
         expenseList.addExpense(new Expense("Food", "10"));
         expenseList.addExpense(new Expense("Drinks", "20"));

@@ -8,10 +8,11 @@ import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class expenseTest {
+public class ExpenseTest {
     @Test
     void expense_expenseAmountConsistOfAlphabet_exceptionThrown(){
-        assertThrows(AddExpenseCommandWrongFormatException.class, ()-> new Expense("Work","onehundred"));
+        assertThrows(AddExpenseCommandWrongFormatException.class,
+                ()-> new Expense("Work","onehundred"));
     }
 
     @Test
