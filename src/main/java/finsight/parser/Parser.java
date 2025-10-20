@@ -102,7 +102,7 @@ public class Parser {
      * @throws DeleteInvestmentMissingIndexException         If delete investment command is used without inserting an
      *                                                       index
      * @throws DeleteLoanCommandIndexOutOfBoundsException    If delete loan command used with non-existing index or
-     *                                                       index missing
+     *                                                       index missing or has alphabets
      * @throws EditIncomeCommandWrongFormatException         If edit income command has empty fields, incorrect format
      *                                                       or incorrect sub commands
      * @throws EditIncomeCommandIndexOutOfBoundsException    If edit income command used with non-existing index or
@@ -239,7 +239,7 @@ public class Parser {
      *
      * @param userInput String input by user
      * @return The index to delete
-     * @throws DeleteLoanCommandIndexOutOfBoundsException If index to delete does not exist or missing
+     * @throws DeleteLoanCommandIndexOutOfBoundsException If index to delete does not exist or missing or has alphabets
      */
     public int parseDeleteLoanCommand(String userInput) throws DeleteLoanCommandIndexOutOfBoundsException {
         final int sizeOfDeleteLoan = "delete loan".length();
