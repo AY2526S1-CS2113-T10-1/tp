@@ -81,4 +81,17 @@ public class InvestmentListTest {
         investmentList.deleteInvestment(0);
     }
 
+    @Test
+    void toString_multipleCorrectPrintOfDefinedInvestmentObject_isEqual() throws AddInvestmentDateOutOfBoundsException,
+            AddInvestmentWrongNumberFormatException {
+        Investment test1 = new Investment("test1","100","1");
+        Investment test2 = new Investment("test2","50","21");
+        Investment test3 = new Investment("test3","20","15");
+        Investment test4 = new Investment("test4","2","29");
+        assertEquals("Description: test1\nAmount: $100.00\nRecurring Deposit Date of Month: 1", test1.toString());
+        assertEquals("Description: test2\nAmount: $50.00\nRecurring Deposit Date of Month: 21", test2.toString());
+        assertEquals("Description: test3\nAmount: $20.00\nRecurring Deposit Date of Month: 15", test3.toString());
+        assertEquals("Description: test4\nAmount: $2.00\nRecurring Deposit Date of Month: 29", test4.toString());
+    }
+
 }
