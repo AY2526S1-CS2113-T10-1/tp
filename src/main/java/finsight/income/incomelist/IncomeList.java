@@ -87,6 +87,12 @@ public class IncomeList {
      * Lists total amount of all incomes
      */
     public void listIncomeOverview(){
-        Ui.printIncomeOverview(incomes);
+        float totalIncome = 0;
+
+        for (Income income : incomes) {
+            totalIncome += income.getAmountEarned();
+        }
+
+        Ui.printIncomeOverview(totalIncome);
     }
 }

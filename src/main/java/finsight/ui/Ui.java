@@ -210,15 +210,9 @@ public class Ui {
     /**
      * Prints the total amount of all the incomes
      *
-     * @param incomes ArrayList of incomes
+     * @param totalIncome Total amount of incomes
      */
-    public static void printIncomeOverview(ArrayList<Income> incomes) {
-        float totalIncome = 0;
-
-        for (Income income : incomes) {
-            totalIncome += income.getAmountEarned();
-        }
-
+    public static void printIncomeOverview(float totalIncome) {
         System.out.print(SPACING);
         System.out.println("Total Income: $ " + totalIncome);
         System.out.print(SPACING);
