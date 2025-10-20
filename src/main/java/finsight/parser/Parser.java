@@ -163,7 +163,7 @@ public class Parser {
         } else if (userInput.startsWith("add investment")) {
             String[] commandParameters = parseAddInvestmentCommand(userInput);
             investmentList.addInvestment(new Investment(commandParameters[0],
-                    commandParameters[1], commandParameters[2]));
+                    commandParameters[1], commandParameters[2], commandParameters[3]));
         } else if (userInput.startsWith("delete investment")) {
             int indexToDelete = parseDeleteInvestmentCommand(userInput);
             investmentList.deleteInvestment(indexToDelete);
@@ -462,7 +462,7 @@ public class Parser {
      */
     private String[] parseAddInvestmentCommand(String userInput)
             throws AddInvestmentSubcommandException, AddInvestmentSubcommandOrderException {
-        final int numberOfAddInvestmentCommandParameters = 3;
+        final int numberOfAddInvestmentCommandParameters = 4;
         final int sizeOfSubcommand = 2;
         String[] commandParameters = new String[numberOfAddInvestmentCommandParameters];
 

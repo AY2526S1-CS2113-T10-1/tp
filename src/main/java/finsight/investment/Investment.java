@@ -7,14 +7,15 @@ import finsight.investment.exceptions.AddInvestmentWrongNumberFormatException;
 public class Investment {
     protected String description;
     protected Double investmentAmount;
-    protected String investmentType;
+    protected Double returnRate;
     protected int investmentDateOfMonth;
 
-    public Investment(String description, String investmentAmount, String investmentDateOfMonth)
+    public Investment(String description, String investmentAmount, String returnRate, String investmentDateOfMonth)
             throws AddInvestmentWrongNumberFormatException, AddInvestmentDateOutOfBoundsException {
         this.description = description;
         try {
             this.investmentAmount = Double.parseDouble(investmentAmount);
+            this.returnRate = Double.parseDouble(returnRate);
             int investmentDate = Integer.parseInt(investmentDateOfMonth);
             if (investmentDate < 1 || investmentDate > 31) {
                 throw new AddInvestmentDateOutOfBoundsException();
