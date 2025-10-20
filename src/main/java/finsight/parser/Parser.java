@@ -137,12 +137,16 @@ public class Parser {
             loanList.setRepaid(indexToSetRepaid);
         } else if (userInput.startsWith("add income")) {
             String[] commandParameters = parseAddIncomeCommand(userInput);
+            assert (!commandParameters[0].isEmpty() && !commandParameters[1].isEmpty());
             incomeList.addIncome(new Income(commandParameters[0], commandParameters[1]));
         } else if (userInput.startsWith("delete income")) {
             int indexToDelete = parseDeleteIncomeCommand(userInput);
+            assert (indexToDelete >= 0 && indexToDelete < Income.numberOfIncomes);
             incomeList.deleteIncome(indexToDelete);
         } else if (userInput.startsWith("edit income")) {
             String[] commandParameters = parseEditIncomeCommand(userInput);
+            assert (!commandParameters[0].isEmpty() && !commandParameters[1].isEmpty()
+                    && !commandParameters[2].isEmpty());
             incomeList.editIncome(commandParameters[0], commandParameters[1], commandParameters[2]);
         } else if (userInput.startsWith("list income")) {
             incomeList.listIncomes();
