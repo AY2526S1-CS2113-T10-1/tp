@@ -130,6 +130,11 @@ public class Ui {
         }
     }
 
+    /**
+     * Prints all items in income list
+     *
+     * @param incomes ArrayList of incomes
+     */
     public static void printAllIncomes(ArrayList<Income> incomes) {
         System.out.print(SPACING);
         for (int i = 0; i < incomes.size(); i++) {

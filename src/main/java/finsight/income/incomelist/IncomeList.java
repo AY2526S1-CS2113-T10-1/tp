@@ -76,6 +76,10 @@ public class IncomeList {
         Ui.printEditIncomeOutput(incomes, Integer.parseInt(indexToEdit) - 1);
     }
 
+    /**
+     * Lists all Incomes
+     *
+     */
     public void listIncomes() {
         Ui.printAllIncomes(incomes);
     }
