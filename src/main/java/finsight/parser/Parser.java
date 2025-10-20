@@ -180,7 +180,7 @@ public class Parser {
      * @return The index to delete
      * @throws DeleteExpenseCommandIndexOutOfBoundsException If index to delete does not exist
      */
-    private int parseDeleteExpenseCommand(String userInput) throws DeleteExpenseCommandIndexOutOfBoundsException {
+    public int parseDeleteExpenseCommand(String userInput) throws DeleteExpenseCommandIndexOutOfBoundsException {
         final int sizeOfDeleteExpense = "delete expense".length();
         String indexToDeleteString = userInput.substring(sizeOfDeleteExpense).trim();
         if (indexToDeleteString.isEmpty()) {
@@ -212,7 +212,7 @@ public class Parser {
      * @return The parameters used for add expense command
      * @throws AddExpenseCommandWrongFormatException If any empty fields or wrong sub command or wrong sub command order
      */
-    private String[] parseAddExpenseCommand(String userInput) throws
+    public String[] parseAddExpenseCommand(String userInput) throws
             AddExpenseCommandWrongFormatException {
         final int numberOfAddExpenseCommandParameters = 2;
         final int sizeOfSubcommand = 2;
