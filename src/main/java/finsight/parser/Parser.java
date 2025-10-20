@@ -154,9 +154,12 @@ public class Parser {
             expenseList.listExpenses();
         } else if (userInput.startsWith("add expense")) {
             String[] commandParameters = parseAddExpenseCommand(userInput);
+            assert (!commandParameters[0].isEmpty() && !commandParameters[1].isEmpty()
+                    && !commandParameters[2].isEmpty());
             expenseList.addExpense(new Expense(commandParameters[0], commandParameters[1]));
         } else if (userInput.startsWith("delete expense")) {
             int indexToDelete = parseDeleteExpenseCommand(userInput);
+            assert (indexToDelete >= 0 && indexToDelete < Expense.numberOfExpenses);
             expenseList.deleteExpense(indexToDelete);
         } else if (userInput.startsWith("list investment")) {
             investmentList.listAllInvestments();
