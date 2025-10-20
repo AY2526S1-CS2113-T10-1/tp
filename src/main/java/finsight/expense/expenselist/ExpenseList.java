@@ -45,6 +45,7 @@ public class ExpenseList {
      */
     public void addExpense(Expense expense) throws IOException {
         expenses.add(expense);
+        Expense.numberOfExpenses++;
         Ui.printAddExpenseOutput(expenses);
         dataManager.appendToFile(expense);
     }
@@ -58,6 +59,7 @@ public class ExpenseList {
     public void deleteExpense(int indexToDelete) throws IOException {
         Ui.printDeleteExpenseOutput(expenses, indexToDelete);
         expenses.remove(indexToDelete);
+        Expense.numberOfExpenses--;
         dataManager.writeToFile(expenses);
     }
 
