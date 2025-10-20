@@ -21,10 +21,12 @@ public class ExpenseList {
 
     public ExpenseList(ArrayList<Expense> expenses) {
         this.expenses = expenses;
+        Expense.numberOfExpenses = expenses.size();
     }
 
     public ExpenseList() {
         this.expenses = dataManager.tryLoad();
+        Expense.numberOfExpenses = expenses.size();
     }
 
 
@@ -60,12 +62,22 @@ public class ExpenseList {
     }
 
     /**
+     * Returns ArrayList of expenses
+     *
+     * @return ArrayList of expenses
+     */
+    public ArrayList<Expense> getExpenses() {
+        return expenses;
+    }
+
+    /**
      * Returns size of arrayList of expenseList
      *
      * @return size of expenseList
      */
 
     public int getSize() {
-        return expenses.size();
+        Expense.numberOfExpenses = expenses.size();
+        return Expense.numberOfExpenses;
     }
 }
