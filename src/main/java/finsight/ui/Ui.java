@@ -31,6 +31,31 @@ public class Ui {
     }
 
     /**
+     * Prints all possible commands and their formats
+     */
+    public static void printPossibleCommands() {
+        System.out.print(SPACING);
+        System.out.println("Invalid command. Please use one of the following commands:");
+        System.out.println("1. list loan");
+        System.out.println("2. add loan d/<DESCRIPTION> a/<AMOUNT_LOANED> r/<LOAN_RETURN_DATE_AND_TIME>");
+        System.out.println("   where <LOAN_RETURN_DATE_AND_TIME> is of format 'DD-mm-YYYY HH:mm'");
+        System.out.println("3. delete loan <INDEX>");
+        System.out.println("4. loan repaid <INDEX>");
+        System.out.println("5. list expense");
+        System.out.println("6. add expense d/<DESCRIPTION> a/<AMOUNT_SPENT>");
+        System.out.println("7. delete expense <INDEX>");
+        System.out.println("8. list income");
+        System.out.println("9. add income d/<DESCRIPTION> a/<AMOUNT_EARNED>");
+        System.out.println("10. delete income <INDEX>");
+        System.out.println("11. edit income <INDEX> d/<DESCRIPTION> a/<AMOUNT_EARNED>");
+        System.out.println("12. list income overview");
+        System.out.println("13. list investment");
+        System.out.println("14. add investment d/<DESCRIPTION> a/<AMOUNT_INVESTED> m/<DEPOSIT_DATE_EACH_MONTH");
+        System.out.println("15. delete investment <INDEX>");
+        System.out.print(SPACING);
+    }
+
+    /**
      * Returns next line of input by the user
      *
      * @return User Input
@@ -169,6 +194,12 @@ public class Ui {
         System.out.print(SPACING);
     }
 
+    /**
+     * Prints the details of edited income
+     *
+     * @param incomes       ArrayList of incomes
+     * @param indexToEdit   Index of income to edit
+     */
     public static void printEditIncomeOutput(ArrayList<Income> incomes, int indexToEdit) {
         System.out.print(SPACING);
         System.out.println("Edited Income:");
@@ -177,26 +208,19 @@ public class Ui {
     }
 
     /**
-     * Prints all possible commands and their formats
+     * Prints the total amount of all the incomes
+     *
+     * @param incomes ArrayList of incomes
      */
-    public static void printPossibleCommands() {
+    public static void printIncomeOverview(ArrayList<Income> incomes) {
+        float totalIncome = 0;
+
+        for (Income income : incomes) {
+            totalIncome += income.getAmountEarned();
+        }
+
         System.out.print(SPACING);
-        System.out.println("Invalid command. Please use one of the following commands:");
-        System.out.println("1. list loan");
-        System.out.println("2. add loan d/<DESCRIPTION> a/<AMOUNT_LOANED> r/<LOAN_RETURN_DATE_AND_TIME>");
-        System.out.println("   where <LOAN_RETURN_DATE_AND_TIME> is of format 'DD-mm-YYYY HH:mm'");
-        System.out.println("3. delete loan <INDEX>");
-        System.out.println("4. loan repaid <INDEX>");
-        System.out.println("5. list expense");
-        System.out.println("6. add expense d/<DESCRIPTION> a/<AMOUNT_SPENT>");
-        System.out.println("7. delete expense <INDEX>");
-        System.out.println("8. list income");
-        System.out.println("9. add income d/<DESCRIPTION> a/<AMOUNT_EARNED>");
-        System.out.println("10. delete income <INDEX>");
-        System.out.println("11. edit income <INDEX> d/<DESCRIPTION> a/<AMOUNT_EARNED>");
-        System.out.println("12. list investment");
-        System.out.println("13. add investment d/<DESCRIPTION> a/<AMOUNT_INVESTED> m/<DEPOSIT_DATE_EACH_MONTH");
-        System.out.println("14. delete investment <INDEX>");
+        System.out.println("Total Income: $ " + totalIncome);
         System.out.print(SPACING);
     }
 

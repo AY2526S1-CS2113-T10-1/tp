@@ -78,9 +78,15 @@ public class IncomeList {
 
     /**
      * Lists all Incomes
-     *
      */
     public void listIncomes() {
         Ui.printAllIncomes(incomes);
+    }
+
+    /**
+     * Lists total amount of all incomes
+     */
+    public void listIncomeOverview(){
+        Ui.printIncomeOverview(incomes);
     }
 }

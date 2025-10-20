@@ -148,9 +148,11 @@ public class Parser {
             assert (!commandParameters[0].isEmpty() && !commandParameters[1].isEmpty()
                     && !commandParameters[2].isEmpty());
             incomeList.editIncome(commandParameters[0], commandParameters[1], commandParameters[2]);
+        } else if (userInput.startsWith("list income overview")) {
+            incomeList.listIncomeOverview();
         } else if (userInput.startsWith("list income")) {
             incomeList.listIncomes();
-        } else if (userInput.startsWith("list expense")) {
+        }else if (userInput.startsWith("list expense")) {
             expenseList.listExpenses();
         } else if (userInput.startsWith("add expense")) {
             String[] commandParameters = parseAddExpenseCommand(userInput);
