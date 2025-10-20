@@ -7,7 +7,6 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import finsight.investment.Investment;
-import finsight.investment.investmentlist.InvestmentList;
 
 import java.io.IOException;
 
