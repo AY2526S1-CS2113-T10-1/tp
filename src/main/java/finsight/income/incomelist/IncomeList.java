@@ -102,8 +102,8 @@ public class IncomeList {
 
         ExpenseList expenseList = new ExpenseList();
 
-        for(Expense expense : expenseList.getExpenses()){
-           totalExpense += expense.getExpenseAmount();
+        for (Expense expense : expenseList.getExpenses()){
+            totalExpense += expense.getExpenseAmount();
         }
 
         Ui.printIncomeOverview(totalIncome,totalExpense);
