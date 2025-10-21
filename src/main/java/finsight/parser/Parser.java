@@ -470,19 +470,7 @@ public class Parser {
         final int sizeOfSubcommand = 2;
         String[] commandParameters = new String[numberOfAddInvestmentCommandParameters];
 
-        boolean hasInvalidSubcommand = !userInput.contains("d/") || !userInput.contains("a/")
-                || !userInput.contains("r/") || !userInput.contains("m/");
-        boolean hasValidSubcommandOrder =
-                (userInput.indexOf("d/") < userInput.indexOf("a/") &&
-                        (userInput.indexOf("r/") < userInput.indexOf("m/")) &&
-                        (userInput.indexOf("a/") < userInput.indexOf("r/")));
-        if (hasInvalidSubcommand) {
-            System.out.println("hasInvalidSubcommand");
-            throw new AddInvestmentSubcommandException();
-        }
-        if (!hasValidSubcommandOrder) {
-            throw new AddInvestmentSubcommandOrderException();
-        }
+        addInvestmentInputValidation(userInput);
         // 0 - description, 1 - amount, 2 - return rate, 3 - date of month
         commandParameters[0] = userInput.substring(userInput.indexOf("d/") + sizeOfSubcommand,
                 userInput.indexOf("a/")).trim();
@@ -495,11 +483,26 @@ public class Parser {
         boolean hasInvalidParameters = commandParameters[0].isEmpty() || commandParameters[1].isEmpty() ||
                 commandParameters[2].isEmpty() || commandParameters[3].isEmpty();
         if (hasInvalidParameters) {
-            System.out.println("hasInvalidParameters");
             throw new AddInvestmentSubcommandException();
         }
 
         return commandParameters;
+    }
+
+    private static void addInvestmentInputValidation(String userInput) throws AddInvestmentSubcommandException, AddInvestmentSubcommandOrderException {
+        boolean hasInvalidSubcommand = !userInput.contains("d/") ||
+                !userInput.contains("a/") ||
+                !userInput.contains("r/") ||
+                !userInput.contains("m/");
+        boolean hasValidSubcommandOrder = (userInput.indexOf("d/") < userInput.indexOf("a/") &&
+                        (userInput.indexOf("r/") < userInput.indexOf("m/")) &&
+                        (userInput.indexOf("a/") < userInput.indexOf("r/")));
+        if (hasInvalidSubcommand) {
+            throw new AddInvestmentSubcommandException();
+        }
+        if (!hasValidSubcommandOrder) {
+            throw new AddInvestmentSubcommandOrderException();
+        }
     }
 
     /**
