@@ -12,26 +12,32 @@ public class InvestmentTest {
     @Test
     void constructor_amountContainsAlphabet_exceptionThrown() {
         assertThrows(AddInvestmentWrongNumberFormatException.class,
-                () -> new Investment("test","1hundred","20"));
+                () -> new Investment("test","1hundred","1.0","20"));
     }
 
     @Test
     void constructor_dateSpansOutsideMonth_exceptionThrown() {
         assertThrows(AddInvestmentDateOutOfBoundsException.class,
-                () -> new Investment("test","100","40"));
+                () -> new Investment("test","100","1.0","40"));
     }
 
     @Test
     void constructor_dateContainsAlphabet_exceptionThrown() {
         assertThrows(AddInvestmentWrongNumberFormatException.class,
-                () -> new Investment("test","100","twenty"));
+                () -> new Investment("test","100","1.0","twenty"));
     }
 
     @Test
     void toString_correctPrintOfDefinedInvestmentObject_isEqual() throws AddInvestmentDateOutOfBoundsException,
             AddInvestmentWrongNumberFormatException {
-        Investment test = new Investment("test","100","20");
-        assertEquals("Description: test\nAmount: $100.00\nRecurring Deposit Date of Month: 20", test.toString());
+        Investment test = new Investment("test","100","1.0","20");
+        assertEquals("Description: test" +
+                        "\nAmount: $100.00" +
+                        "\nReturn Rate per Annum: 1.00%" +
+                        "\nRecurring Deposit Date of Month: 20" +
+                        "\nIn 5 years, you will have gone from: $6000.00 to: $6255.03" +
+                        "\nIn 10 years, you will have gone from: $12000.00 to: $12725.50",
+                test.toString());
     }
 
 }
