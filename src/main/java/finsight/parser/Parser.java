@@ -489,7 +489,8 @@ public class Parser {
         return commandParameters;
     }
 
-    private static void addInvestmentInputValidation(String userInput) throws AddInvestmentSubcommandException, AddInvestmentSubcommandOrderException {
+    private void addInvestmentInputValidation(String userInput)
+            throws AddInvestmentSubcommandException, AddInvestmentSubcommandOrderException {
         boolean hasInvalidSubcommand = !userInput.contains("d/") ||
                 !userInput.contains("a/") ||
                 !userInput.contains("r/") ||

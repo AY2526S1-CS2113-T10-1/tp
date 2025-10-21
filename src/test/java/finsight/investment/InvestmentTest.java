@@ -23,7 +23,7 @@ public class InvestmentTest {
     }
 
     @Test
-    void constructor_amountIsNegative_ExceptionThrown() {
+    void constructor_amountIsNegative_exceptionThrown() {
         assertThrows(AddInvestmentWrongNumberFormatException.class,
                 () -> new Investment("test","-100","1.0","20"));
     }
