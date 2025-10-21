@@ -9,6 +9,7 @@ import finsight.expense.exceptions.AddExpenseCommandWrongFormatException;
  * @since 13/Oct/2025
  */
 public class Expense {
+    public static int numberOfExpenses = 0;
     protected String description;
     protected Double expenseAmount;
 

@@ -51,6 +51,7 @@ public class InvestmentList {
     public void addInvestment(Investment investment) throws IOException {
         investmentList.add(investment);
         Ui.printAddInvestmentOutput(this.investmentList);
+        Investment.numberOfInvestments++;
         dataManager.appendToFile(investment);
     }
 
@@ -62,6 +63,7 @@ public class InvestmentList {
     public void deleteInvestment(int indexToDelete) throws IOException {
         Ui.printDeleteInvestmentOutput(this.investmentList, indexToDelete);
         investmentList.remove(indexToDelete);
+        Investment.numberOfInvestments--;
         dataManager.writeToFile(investmentList);
     }
 

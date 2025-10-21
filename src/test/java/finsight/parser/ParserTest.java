@@ -1,19 +1,19 @@
 package finsight.parser;
 
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import finsight.expense.exceptions.AddExpenseCommandWrongFormatException;
+import finsight.expense.exceptions.DeleteExpenseCommandIndexOutOfBoundsException;
+import finsight.expense.expenselist.ExpenseList;
 
-import finsight.investment.investmentlist.InvestmentList;
-import finsight.income.Income;
 import finsight.income.exceptions.AddIncomeCommandWrongFormatException;
 import finsight.income.exceptions.DeleteIncomeCommandIndexOutOfBoundsException;
 import finsight.income.exceptions.EditIncomeCommandIndexOutOfBoundsException;
 import finsight.income.exceptions.EditIncomeCommandWrongFormatException;
+import finsight.income.Income;
 import finsight.income.incomelist.IncomeList;
 
-import org.junit.jupiter.api.Test;
-
-import finsight.expense.expenselist.ExpenseList;
+import finsight.investment.exceptions.AddInvestmentSubcommandException;
+import finsight.investment.exceptions.AddInvestmentSubcommandOrderException;
+import finsight.investment.investmentlist.InvestmentList;
 
 import finsight.loan.Loan;
 import finsight.loan.exceptions.AddLoanCommandWrongFormatException;
@@ -24,6 +24,9 @@ import finsight.loan.loanlist.LoanList;
 import finsight.ui.Ui;
 
 import java.io.IOException;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import org.junit.jupiter.api.Test;
 
 public class ParserTest {
     @Test
@@ -508,6 +511,128 @@ public class ParserTest {
     }
 
     @Test
+    void parseAddInvestmentCommand_missingDescription_exceptionThrown() throws AddIncomeCommandWrongFormatException,
+            IOException {
+        ExpenseList expenseList = new ExpenseList();
+        IncomeList incomeList = new IncomeList();
+        InvestmentList investmentList = new InvestmentList();
+        LoanList loanList = new LoanList();
+        Parser parser = new Parser(expenseList, incomeList, investmentList, loanList);
+
+        String inputTestString = "add investment d/ a/100 m/20";
+
+        assertThrows(AddInvestmentSubcommandException.class,
+                () -> parser.parseAddInvestmentCommand(inputTestString));
+    }
+
+    @Test
+    void parseAddInvestmentCommand_missingAmount_exceptionThrown() throws AddIncomeCommandWrongFormatException,
+            IOException {
+        ExpenseList expenseList = new ExpenseList();
+        IncomeList incomeList = new IncomeList();
+        InvestmentList investmentList = new InvestmentList();
+        LoanList loanList = new LoanList();
+        Parser parser = new Parser(expenseList, incomeList, investmentList, loanList);
+
+        String inputTestString = "add investment d/Test a/ m/20";
+
+        assertThrows(AddInvestmentSubcommandException.class,
+                () -> parser.parseAddInvestmentCommand(inputTestString));
+    }
+
+    @Test
+    void parseAddInvestmentCommand_missingRecurringDate_exceptionThrown() throws AddIncomeCommandWrongFormatException,
+            IOException {
+        ExpenseList expenseList = new ExpenseList();
+        IncomeList incomeList = new IncomeList();
+        InvestmentList investmentList = new InvestmentList();
+        LoanList loanList = new LoanList();
+        Parser parser = new Parser(expenseList, incomeList, investmentList, loanList);
+
+        String inputTestString = "add investment d/Test a/100 m/";
+
+        assertThrows(AddInvestmentSubcommandException.class,
+                () -> parser.parseAddInvestmentCommand(inputTestString));
+    }
+
+    @Test
+    void parseAddInvestmentCommand_aSubcommandBeforeDSubcommand_exceptionThrown()
+            throws AddIncomeCommandWrongFormatException,
+            IOException {
+        ExpenseList expenseList = new ExpenseList();
+        IncomeList incomeList = new IncomeList();
+        InvestmentList investmentList = new InvestmentList();
+        LoanList loanList = new LoanList();
+        Parser parser = new Parser(expenseList, incomeList, investmentList, loanList);
+
+        String inputTestString = "add investment a/100 d/Test m/20";
+
+        assertThrows(AddInvestmentSubcommandOrderException.class,
+                () -> parser.parseAddInvestmentCommand(inputTestString));
+    }
+
+    @Test
+    void parseAddInvestmentCommand_aSubcommandBeforeDAndMSubcommand_exceptionThrown()
+            throws AddIncomeCommandWrongFormatException, IOException {
+        ExpenseList expenseList = new ExpenseList();
+        IncomeList incomeList = new IncomeList();
+        InvestmentList investmentList = new InvestmentList();
+        LoanList loanList = new LoanList();
+        Parser parser = new Parser(expenseList, incomeList, investmentList, loanList);
+
+        String inputTestString = "add investment a/100 m/20 d/Test";
+
+        assertThrows(AddInvestmentSubcommandOrderException.class,
+                () -> parser.parseAddInvestmentCommand(inputTestString));
+    }
+
+    @Test
+    void parseAddInvestmentCommand_mSubcommandBeforeASubcommand_exceptionThrown()
+            throws AddIncomeCommandWrongFormatException, IOException {
+        ExpenseList expenseList = new ExpenseList();
+        IncomeList incomeList = new IncomeList();
+        InvestmentList investmentList = new InvestmentList();
+        LoanList loanList = new LoanList();
+        Parser parser = new Parser(expenseList, incomeList, investmentList, loanList);
+
+        String inputTestString = "add investment d/Test m/20 a/100";
+
+        assertThrows(AddInvestmentSubcommandOrderException.class,
+                () -> parser.parseAddInvestmentCommand(inputTestString));
+    }
+
+    @Test
+    void parseAddInvestmentCommand_mSubcommandBeforeDAndASubcommand_exceptionThrown()
+            throws AddIncomeCommandWrongFormatException, IOException {
+        ExpenseList expenseList = new ExpenseList();
+        IncomeList incomeList = new IncomeList();
+        InvestmentList investmentList = new InvestmentList();
+        LoanList loanList = new LoanList();
+        Parser parser = new Parser(expenseList, incomeList, investmentList, loanList);
+
+        String inputTestString = "add investment m/20 d/Test a/100";
+
+        assertThrows(AddInvestmentSubcommandOrderException.class,
+                () -> parser.parseAddInvestmentCommand(inputTestString));
+    }
+
+    @Test
+    void parseAddInvestmentCommand_aSubcommandBeforeDAndASubcommand_exceptionThrown()
+            throws AddIncomeCommandWrongFormatException, IOException {
+        ExpenseList expenseList = new ExpenseList();
+        IncomeList incomeList = new IncomeList();
+        InvestmentList investmentList = new InvestmentList();
+        LoanList loanList = new LoanList();
+        Parser parser = new Parser(expenseList, incomeList, investmentList, loanList);
+
+        String inputTestString = "add investment m/20 d/Test a/100";
+
+        assertThrows(AddInvestmentSubcommandOrderException.class,
+                () -> parser.parseAddInvestmentCommand(inputTestString));
+    }
+
+
+    @Test
     void tryCommand_addLoan_noExceptionThrown()
             throws AddLoanCommandWrongFormatException, IOException {
         Ui ui = new Ui();
@@ -523,6 +648,22 @@ public class ParserTest {
         loanList.deleteLoan(0);
     }
 
+
+    @Test
+    void parseAddExpenseCommand_emptyInput_exceptionThrown() {
+        Ui ui = new Ui();
+        ExpenseList expenseList = new ExpenseList();
+        IncomeList incomeList = new IncomeList();
+        InvestmentList investmentList = new InvestmentList();
+        LoanList loanList = new LoanList();
+        Parser parser = new Parser(expenseList, incomeList, investmentList, loanList);
+
+        String inputTestString = "add expense";
+
+        assertThrows(AddExpenseCommandWrongFormatException.class,
+                () -> parser.parseAddExpenseCommand(inputTestString));
+    }
+
     @Test
     void tryCommand_listLoan_noExceptionThrown()
             throws AddLoanCommandWrongFormatException, IOException {
@@ -536,6 +677,22 @@ public class ParserTest {
         String inputTestString = "list loan";
 
         assertDoesNotThrow(() -> parser.tryCommand(inputTestString));
+    }
+
+
+    @Test
+    void parseAddExpenseCommand_missingDescription_exceptionThrown() {
+        Ui ui = new Ui();
+        ExpenseList expenseList = new ExpenseList();
+        IncomeList incomeList = new IncomeList();
+        InvestmentList investmentList = new InvestmentList();
+        LoanList loanList = new LoanList();
+        Parser parser = new Parser(expenseList, incomeList, investmentList, loanList);
+
+        String inputTestString = "add expense d/ a/ 1000 ";
+
+        assertThrows(AddExpenseCommandWrongFormatException.class,
+                () -> parser.parseAddExpenseCommand(inputTestString));
     }
 
     @Test
@@ -555,6 +712,21 @@ public class ParserTest {
     }
 
     @Test
+    void parseAddExpenseCommand_missingExpenseAmount_exceptionThrown() {
+        Ui ui = new Ui();
+        ExpenseList expenseList = new ExpenseList();
+        IncomeList incomeList = new IncomeList();
+        InvestmentList investmentList = new InvestmentList();
+        LoanList loanList = new LoanList();
+        Parser parser = new Parser(expenseList, incomeList, investmentList, loanList);
+
+        String inputTestString = "add expense d/ food a/ ";
+
+        assertThrows(AddExpenseCommandWrongFormatException.class,
+                () -> parser.parseAddExpenseCommand(inputTestString));
+    }
+
+    @Test
     void tryCommand_setLoanRepaid_noExceptionThrown()
             throws AddLoanCommandWrongFormatException, IOException {
         Ui ui = new Ui();
@@ -571,6 +743,23 @@ public class ParserTest {
         loanList.deleteLoan(0);
     }
 
+
+    @Test
+    void parseAddExpenseCommand_missingDescriptionAndExpenseAmount_exceptionThrown() {
+        Ui ui = new Ui();
+        ExpenseList expenseList = new ExpenseList();
+        IncomeList incomeList = new IncomeList();
+        InvestmentList investmentList = new InvestmentList();
+        LoanList loanList = new LoanList();
+        Parser parser = new Parser(expenseList, incomeList, investmentList, loanList);
+
+        String inputTestString = "add expense d/ a/ ";
+
+        assertThrows(AddExpenseCommandWrongFormatException.class,
+                () -> parser.parseAddExpenseCommand(inputTestString));
+    }
+
+
     @Test
     void tryCommand_addLoanWrongInputs_exceptionThrownAndCaught()
             throws AddLoanCommandWrongFormatException, IOException {
@@ -581,8 +770,105 @@ public class ParserTest {
         LoanList loanList = new LoanList();
         Parser parser = new Parser(expenseList, incomeList, investmentList, loanList);
 
+
         String inputTestString = "add loan d/ 1 a/1000 r/";
 
         assertDoesNotThrow(() -> parser.tryCommand(inputTestString));
     }
+
+    @Test
+    void parseAddExpenseCommand_missingASubcommand_exceptionThrown() {
+        Ui ui = new Ui();
+        ExpenseList expenseList = new ExpenseList();
+        IncomeList incomeList = new IncomeList();
+        InvestmentList investmentList = new InvestmentList();
+        LoanList loanList = new LoanList();
+        Parser parser = new Parser(expenseList, incomeList, investmentList, loanList);
+
+        String inputTestString = "add expense d/ food 1000 ";
+
+        assertThrows(AddExpenseCommandWrongFormatException.class,
+                () -> parser.parseAddExpenseCommand(inputTestString));
+    }
+
+    @Test
+    void parseAddExpenseCommand_missingDSubcommand_exceptionThrown() {
+        Ui ui = new Ui();
+        ExpenseList expenseList = new ExpenseList();
+        IncomeList incomeList = new IncomeList();
+        InvestmentList investmentList = new InvestmentList();
+        LoanList loanList = new LoanList();
+        Parser parser = new Parser(expenseList, incomeList, investmentList, loanList);
+
+
+        String inputTestString = "add expense food a/ 1000";
+
+        assertThrows(AddExpenseCommandWrongFormatException.class,
+                () -> parser.parseAddExpenseCommand(inputTestString));
+    }
+
+    @Test
+    void parseAddExpenseCommand_aSubcommandBeforeDSubcommand_exceptionThrown() {
+        Ui ui = new Ui();
+        ExpenseList expenseList = new ExpenseList();
+        IncomeList incomeList = new IncomeList();
+        InvestmentList investmentList = new InvestmentList();
+        LoanList loanList = new LoanList();
+        Parser parser = new Parser(expenseList, incomeList, investmentList, loanList);
+
+
+        String inputTestString = "add expense a/ 1000 d/ food";
+
+        assertThrows(AddExpenseCommandWrongFormatException.class,
+                () -> parser.parseAddExpenseCommand(inputTestString));
+    }
+
+    @Test
+    void parseDeleteExpenseCommand_emptyInput_exceptionThrown() {
+        Ui ui = new Ui();
+        ExpenseList expenseList = new ExpenseList();
+        IncomeList incomeList = new IncomeList();
+        InvestmentList investmentList = new InvestmentList();
+        LoanList loanList = new LoanList();
+        Parser parser = new Parser(expenseList, incomeList, investmentList, loanList);
+
+
+        String inputTestString = "delete expense";
+
+        assertThrows(DeleteExpenseCommandIndexOutOfBoundsException.class,
+                () -> parser.parseDeleteExpenseCommand(inputTestString));
+    }
+
+    @Test
+    void parseDeleteExpenseCommand_negativeIndex_exceptionThrown() {
+        Ui ui = new Ui();
+        ExpenseList expenseList = new ExpenseList();
+        IncomeList incomeList = new IncomeList();
+        InvestmentList investmentList = new InvestmentList();
+        LoanList loanList = new LoanList();
+        Parser parser = new Parser(expenseList, incomeList, investmentList, loanList);
+
+
+        String inputTestString = "delete expense -5";
+
+        assertThrows(DeleteExpenseCommandIndexOutOfBoundsException.class,
+                () -> parser.parseDeleteExpenseCommand(inputTestString));
+    }
+
+    @Test
+    void parseDeleteExpenseCommand_zeroIndex_exceptionThrown() {
+        Ui ui = new Ui();
+        ExpenseList expenseList = new ExpenseList();
+        IncomeList incomeList = new IncomeList();
+        InvestmentList investmentList = new InvestmentList();
+        LoanList loanList = new LoanList();
+        Parser parser = new Parser(expenseList, incomeList, investmentList, loanList);
+
+
+        String inputTestString = "delete expense 0";
+
+        assertThrows(DeleteExpenseCommandIndexOutOfBoundsException.class,
+                () -> parser.parseDeleteExpenseCommand(inputTestString));
+    }
+
 }
