@@ -92,26 +92,26 @@ public class InvestmentListTest {
                 "\nAmount: $100.00" +
                 "\nReturn Rate per Annum: 1.00%" +
                 "\nRecurring Deposit Date of Month: 1" +
-                "\nIn 5 years, you will have gone from: $6000.00 to: $6255.03" +
-                "\nIn 10 years, you will have gone from: $12000.00 to: $12725.50", test1.toString());
+                "\nIn 5 years, you will have gone from: $6000.00 to: $6149.90" +
+                "\nIn 10 years, you will have gone from: $12000.00 to: $12614.99", test1.toString());
         assertEquals("Description: test2" +
                 "\nAmount: $50.00" +
                 "\nReturn Rate per Annum: 1.00%" +
                 "\nRecurring Deposit Date of Month: 21" +
-                "\nIn 5 years, you will have gone from: $3000.00 to: $3127.51" +
-                "\nIn 10 years, you will have gone from: $6000.00 to: $6362.75", test2.toString());
+                "\nIn 5 years, you will have gone from: $3000.00 to: $3074.95" +
+                "\nIn 10 years, you will have gone from: $6000.00 to: $6307.49", test2.toString());
         assertEquals("Description: test3" +
                 "\nAmount: $20.00" +
                 "\nReturn Rate per Annum: 1.00%" +
                 "\nRecurring Deposit Date of Month: 15" +
-                "\nIn 5 years, you will have gone from: $1200.00 to: $1251.01" +
-                "\nIn 10 years, you will have gone from: $2400.00 to: $2545.10", test3.toString());
+                "\nIn 5 years, you will have gone from: $1200.00 to: $1229.98" +
+                "\nIn 10 years, you will have gone from: $2400.00 to: $2523.00", test3.toString());
         assertEquals("Description: test4" +
                 "\nAmount: $2.00" +
                 "\nReturn Rate per Annum: 1.00%" +
                 "\nRecurring Deposit Date of Month: 29" +
-                "\nIn 5 years, you will have gone from: $120.00 to: $125.10" +
-                "\nIn 10 years, you will have gone from: $240.00 to: $254.51", test4.toString());
+                "\nIn 5 years, you will have gone from: $120.00 to: $123.00" +
+                "\nIn 10 years, you will have gone from: $240.00 to: $252.30", test4.toString());
     }
 
 }

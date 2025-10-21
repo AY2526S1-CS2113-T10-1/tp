@@ -35,8 +35,8 @@ public class InvestmentTest {
                         "\nAmount: $100.00" +
                         "\nReturn Rate per Annum: 1.00%" +
                         "\nRecurring Deposit Date of Month: 20" +
-                        "\nIn 5 years, you will have gone from: $6000.00 to: $6255.03" +
-                        "\nIn 10 years, you will have gone from: $12000.00 to: $12725.50",
+                        "\nIn 5 years, you will have gone from: $6000.00 to: $6149.90" +
+                        "\nIn 10 years, you will have gone from: $12000.00 to: $12614.99",
                 test.toString());
     }
 

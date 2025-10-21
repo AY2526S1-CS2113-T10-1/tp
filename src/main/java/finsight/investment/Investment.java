@@ -40,11 +40,11 @@ public class Investment {
         return output;
     }
 
-    private Double calculateReturnProfits(int totalYears) {
+    public Double calculateReturnProfits(int totalYears) {
         int totalMonths = totalYears * 12;
         double monthlyReturnRate = (returnRate / 100.0) / 12.0;
 
-        double totalBalance = investmentAmount;
+        double totalBalance = 0.0;
 
         for (int month = 0; month < totalMonths; month++) {
             double interestThisMonth = totalBalance * monthlyReturnRate;
