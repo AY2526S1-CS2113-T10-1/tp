@@ -249,6 +249,18 @@ public class Ui {
     }
 
     /**
+     * Prints the overall returns of all Investment objects
+     *
+     * @param total5YearReturns  Overall returns of all investments in 5 years
+     * @param total10YearReturns Overall returns of all investments in 10 years
+     */
+    public static void printInvestmentReturns(String total5YearReturns, String total10YearReturns) {
+        System.out.println("Overall returns after 5 Years: $" + total5YearReturns);
+        System.out.println("Overall returns after 10 Years: $" + total10YearReturns);
+        System.out.print(SPACING);
+    }
+
+    /**
      * Prints the details of the newly added investment
      *
      * @param investments ArrayList of investments

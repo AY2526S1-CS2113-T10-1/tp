@@ -10,6 +10,10 @@ public class Investment {
     protected Double investmentAmount;
     protected Double returnRate;
     protected int investmentDateOfMonth;
+    protected Double fiveYearDeposit;
+    protected Double tenYearDeposit;
+    protected Double fiveYearReturns;
+    protected Double tenYearReturns;
 
     public Investment(String description, String investmentAmount, String returnRate, String investmentDateOfMonth)
             throws AddInvestmentWrongNumberFormatException, AddInvestmentDateOutOfBoundsException {
@@ -27,6 +31,10 @@ public class Investment {
             this.investmentAmount = parsedInvestAmount;
             this.returnRate = parsedReturnRate;
             this.investmentDateOfMonth = parsedInvestmentDateOfMonth;
+            this.fiveYearDeposit = this.investmentAmount * 60;
+            this.tenYearDeposit = this.investmentAmount * 120;
+            this.fiveYearReturns = calculateReturnProfits(5);
+            this.tenYearReturns = calculateReturnProfits(10);
         } catch (NumberFormatException e) {
             throw new AddInvestmentWrongNumberFormatException();
         }
@@ -39,9 +47,9 @@ public class Investment {
         output += "\nReturn Rate per Annum: " + String.format("%.2f", returnRate) + "%";
         output += "\nRecurring Deposit Date of Month: " + investmentDateOfMonth;
         output += "\nIn 5 years, you will have gone from: $" + String.format("%.2f", investmentAmount * 60);
-        output += " to: $" + String.format("%.2f",calculateReturnProfits(5));
+        output += " to: $" + String.format("%.2f",fiveYearReturns);
         output += "\nIn 10 years, you will have gone from: $" + String.format("%.2f", investmentAmount * 120);
-        output += " to: $" + String.format("%.2f",calculateReturnProfits(10));
+        output += " to: $" + String.format("%.2f",tenYearReturns);
         return output;
     }
 
@@ -73,5 +81,13 @@ public class Investment {
 
     public Double getInvestmentReturnRate() {
         return returnRate;
+    }
+
+    public Double getInvestmentFiveYearReturns() {
+        return fiveYearReturns;
+    }
+
+    public Double getInvestmentTenYearReturns() {
+        return tenYearReturns;
     }
 }
