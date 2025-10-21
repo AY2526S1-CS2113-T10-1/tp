@@ -208,13 +208,17 @@ public class Ui {
     }
 
     /**
-     * Prints the total amount of all the incomes
+     * Prints the total amount of all the incomes,
+     * total amount of expenses and remaining income
      *
-     * @param totalIncome Total amount of incomes
+     * @param totalIncome  Total amount of incomes
+     * @param totalExpense Total amount of expenses
      */
-    public static void printIncomeOverview(float totalIncome) {
+    public static void printIncomeOverview(float totalIncome,float totalExpense) {
         System.out.print(SPACING);
         System.out.println("Total Income: $ " + totalIncome);
+        System.out.println("Total Expense: $ " + totalExpense);
+        System.out.println("Remaining Income: $ " + (totalIncome - totalExpense));
         System.out.print(SPACING);
     }
 

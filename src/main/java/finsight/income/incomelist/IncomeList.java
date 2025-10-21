@@ -1,5 +1,7 @@
 package finsight.income.incomelist;
 
+import finsight.expense.Expense;
+import finsight.expense.expenselist.ExpenseList;
 import finsight.income.Income;
 import finsight.storage.IncomeDataManager;
 import finsight.ui.Ui;
@@ -84,15 +86,26 @@ public class IncomeList {
     }
 
     /**
-     * Lists total amount of all incomes
+     * Calculates the total amount of all incomes
+     * and expenses
+     *
+     * Prints otal amount of all incomes,
+     * total amount of expenses and remaining income
      */
     public void listIncomeOverview(){
         float totalIncome = 0;
+        float totalExpense = 0;
 
         for (Income income : incomes) {
             totalIncome += income.getAmountEarned();
         }
 
-        Ui.printIncomeOverview(totalIncome);
+        ExpenseList expenseList = new ExpenseList();
+
+        for(Expense expense : expenseList.getExpenses()){
+           totalExpense += expense.getExpenseAmount();
+        }
+
+        Ui.printIncomeOverview(totalIncome,totalExpense);
     }
 }
