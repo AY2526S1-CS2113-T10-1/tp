@@ -434,7 +434,8 @@ public class Parser {
      *
      * @param userInput String input by user
      * @return The index to set repaid
-     * @throws LoanRepaidCommandIndexOutOfBoundsException If index to set repaid does not exist or missing
+     * @throws LoanRepaidCommandIndexOutOfBoundsException If index to set repaid does not exist or
+     *                                                    missing or has alphabets
      */
     public int parseLoanRepaidCommand(String userInput) throws LoanRepaidCommandIndexOutOfBoundsException {
         final int sizeOfLoanRepaid = "loan repaid".length();
@@ -443,7 +444,14 @@ public class Parser {
             throw new LoanRepaidCommandIndexOutOfBoundsException();
         }
 
-        int indexToSetRepaid = Integer.parseInt(indexToSetRepaidString) - 1;
+        int indexToSetRepaid;
+        try {
+            indexToSetRepaid = Integer.parseInt(indexToSetRepaidString) - 1;
+        } catch (NumberFormatException e) {
+            throw new LoanRepaidCommandIndexOutOfBoundsException();
+        }
+
+
         if (indexToSetRepaid < 0 || indexToSetRepaid >= Loan.numberOfLoans) {
             throw new LoanRepaidCommandIndexOutOfBoundsException();
         }
