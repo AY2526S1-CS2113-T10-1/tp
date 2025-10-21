@@ -15,13 +15,18 @@ public class Investment {
             throws AddInvestmentWrongNumberFormatException, AddInvestmentDateOutOfBoundsException {
         this.description = description;
         try {
-            this.investmentAmount = Double.parseDouble(investmentAmount);
-            this.returnRate = Double.parseDouble(returnRate);
-            int investmentDate = Integer.parseInt(investmentDateOfMonth);
-            if (investmentDate < 1 || investmentDate > 31) {
+            double parsedInvestAmount = Double.parseDouble(investmentAmount);
+            double parsedReturnRate = Double.parseDouble(returnRate);
+            int parsedInvestmentDateOfMonth = Integer.parseInt(investmentDateOfMonth);
+            if (parsedInvestAmount <= 0 || parsedReturnRate < 0.0) {
+                throw new AddInvestmentWrongNumberFormatException();
+            }
+            if (parsedInvestmentDateOfMonth < 1 || parsedInvestmentDateOfMonth > 31) {
                 throw new AddInvestmentDateOutOfBoundsException();
             }
-            this.investmentDateOfMonth = investmentDate;
+            this.investmentAmount = parsedInvestAmount;
+            this.returnRate = parsedReturnRate;
+            this.investmentDateOfMonth = parsedInvestmentDateOfMonth;
         } catch (NumberFormatException e) {
             throw new AddInvestmentWrongNumberFormatException();
         }

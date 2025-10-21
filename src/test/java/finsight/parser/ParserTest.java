@@ -417,7 +417,8 @@ public class ParserTest {
 
         String inputTestString = "add investment d/Test a/100 r/1.0 m/20";
 
-        assertDoesNotThrow(() -> parser.parseAddInvestmentCommand(inputTestString));
+        assertDoesNotThrow(
+                () -> parser.parseAddInvestmentCommand(inputTestString));
     }
     @Test
     void parseAddInvestmentCommand_aSubcommandBeforeDSubcommand_exceptionThrown()
