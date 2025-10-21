@@ -21,10 +21,12 @@ public class ExpenseList {
 
     public ExpenseList(ArrayList<Expense> expenses) {
         this.expenses = expenses;
+        Expense.numberOfExpenses = expenses.size();
     }
 
     public ExpenseList() {
         this.expenses = dataManager.tryLoad();
+        Expense.numberOfExpenses = expenses.size();
     }
 
 
@@ -43,6 +45,7 @@ public class ExpenseList {
      */
     public void addExpense(Expense expense) throws IOException {
         expenses.add(expense);
+        Expense.numberOfExpenses++;
         Ui.printAddExpenseOutput(expenses);
         dataManager.appendToFile(expense);
     }
@@ -56,7 +59,17 @@ public class ExpenseList {
     public void deleteExpense(int indexToDelete) throws IOException {
         Ui.printDeleteExpenseOutput(expenses, indexToDelete);
         expenses.remove(indexToDelete);
+        Expense.numberOfExpenses--;
         dataManager.writeToFile(expenses);
+    }
+
+    /**
+     * Returns ArrayList of expenses
+     *
+     * @return ArrayList of expenses
+     */
+    public ArrayList<Expense> getExpenses() {
+        return expenses;
     }
 
     /**
@@ -66,6 +79,7 @@ public class ExpenseList {
      */
 
     public int getSize() {
-        return expenses.size();
+        Expense.numberOfExpenses = expenses.size();
+        return Expense.numberOfExpenses;
     }
 }

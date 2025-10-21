@@ -154,9 +154,12 @@ public class Parser {
             expenseList.listExpenses();
         } else if (userInput.startsWith("add expense")) {
             String[] commandParameters = parseAddExpenseCommand(userInput);
+            assert (!commandParameters[0].isEmpty() && !commandParameters[1].isEmpty()
+                    && !commandParameters[2].isEmpty());
             expenseList.addExpense(new Expense(commandParameters[0], commandParameters[1]));
         } else if (userInput.startsWith("delete expense")) {
             int indexToDelete = parseDeleteExpenseCommand(userInput);
+            assert (indexToDelete >= 0 && indexToDelete < Expense.numberOfExpenses);
             expenseList.deleteExpense(indexToDelete);
         } else if (userInput.startsWith("list investment")) {
             investmentList.listAllInvestments();
@@ -180,7 +183,7 @@ public class Parser {
      * @return The index to delete
      * @throws DeleteExpenseCommandIndexOutOfBoundsException If index to delete does not exist
      */
-    private int parseDeleteExpenseCommand(String userInput) throws DeleteExpenseCommandIndexOutOfBoundsException {
+    public int parseDeleteExpenseCommand(String userInput) throws DeleteExpenseCommandIndexOutOfBoundsException {
         final int sizeOfDeleteExpense = "delete expense".length();
         String indexToDeleteString = userInput.substring(sizeOfDeleteExpense).trim();
         if (indexToDeleteString.isEmpty()) {
@@ -212,7 +215,7 @@ public class Parser {
      * @return The parameters used for add expense command
      * @throws AddExpenseCommandWrongFormatException If any empty fields or wrong sub command or wrong sub command order
      */
-    private String[] parseAddExpenseCommand(String userInput) throws
+    public String[] parseAddExpenseCommand(String userInput) throws
             AddExpenseCommandWrongFormatException {
         final int numberOfAddExpenseCommandParameters = 2;
         final int sizeOfSubcommand = 2;
@@ -460,7 +463,7 @@ public class Parser {
      * @return The parameters used for add investment command
      * @throws AddInvestmentSubcommandException If the required parameters inserted by the user are missing or empty
      */
-    private String[] parseAddInvestmentCommand(String userInput)
+    public String[] parseAddInvestmentCommand(String userInput)
             throws AddInvestmentSubcommandException, AddInvestmentSubcommandOrderException {
         final int numberOfAddInvestmentCommandParameters = 4;
         final int sizeOfSubcommand = 2;
@@ -502,7 +505,7 @@ public class Parser {
      * @throws DeleteInvestmentMissingIndexException      If the user did not indicate an index to delete
      * @throws DeleteInvestmentWrongNumberFormatException If the user uses non-numeric value for the index
      */
-    private int parseDeleteInvestmentCommand(String userInput) throws DeleteInvestmentIndexOutOfBoundsException,
+    public int parseDeleteInvestmentCommand(String userInput) throws DeleteInvestmentIndexOutOfBoundsException,
             DeleteInvestmentMissingIndexException, DeleteInvestmentWrongNumberFormatException {
         final int sizeOfInvestmentCommand = "delete investment".length();
         String indexToDeleteString = userInput.substring(sizeOfInvestmentCommand).trim();
