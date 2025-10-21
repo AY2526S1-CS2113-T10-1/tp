@@ -31,8 +31,27 @@ public class Investment {
     public String toString() {
         String output = "Description: " + description;
         output += "\nAmount: $" + String.format("%.2f", investmentAmount);
+        output += "\nReturn Rate per Annum: " + String.format("%.2f", returnRate) + "%";
         output += "\nRecurring Deposit Date of Month: " + investmentDateOfMonth;
+        output += "\nIn 5 years, you will have gone from: $" + String.format("%.2f", investmentAmount * 60);
+        output += " to: $" + String.format("%.2f",calculateReturnProfits(5));
+        output += "\nIn 10 years, you will have gone from: $" + String.format("%.2f", investmentAmount * 120);
+        output += " to: $" + String.format("%.2f",calculateReturnProfits(10));
         return output;
+    }
+
+    private Double calculateReturnProfits(int totalYears) {
+        int totalMonths = totalYears * 12;
+        double monthlyReturnRate = (returnRate / 100.0) / 12.0;
+
+        double totalBalance = investmentAmount;
+
+        for (int month = 0; month < totalMonths; month++) {
+            double interestThisMonth = totalBalance * monthlyReturnRate;
+            totalBalance += interestThisMonth;
+            totalBalance += investmentAmount;
+        }
+        return totalBalance;
     }
 
     public String getDescription() {
@@ -45,5 +64,9 @@ public class Investment {
 
     public int getInvestmentDateOfMonth() {
         return investmentDateOfMonth;
+    }
+
+    public Double getInvestmentReturnRate() {
+        return returnRate;
     }
 }
