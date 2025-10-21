@@ -89,7 +89,7 @@ public class IncomeList {
      * Calculates the total amount of all incomes
      * and expenses
      *
-     * Prints otal amount of all incomes,
+     * Prints total amount of all incomes,
      * total amount of expenses and remaining income
      */
     public void listIncomeOverview(){
