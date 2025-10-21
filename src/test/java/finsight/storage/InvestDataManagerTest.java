@@ -36,16 +36,16 @@ final class InvestDataManagerTest {
     @Test
     void formatRecord_joinsFields_andSanitizesDescription()
             throws AddInvestmentWrongNumberFormatException, AddInvestmentDateOutOfBoundsException {
-        Investment investment = new Investment("Stock|Fund", "1000.50", "15");
+        Investment investment = new Investment("Stock|Fund", "1000.50","1.00", "15");
 
         String record = dataManager.formatRecord(investment);
-        assertEquals("Stock/Fund|1000.5|15", record);
+        assertEquals("Stock/Fund|1000.5|1.0|15", record);
     }
 
     @Test
     void parseRecord_parsesWellFormedLine()
             throws AddInvestmentWrongNumberFormatException, AddInvestmentDateOutOfBoundsException {
-        String record = "Crypto/Fund|2000.75|10";
+        String record = "Crypto/Fund|2000.75|1.0|10";
         Investment investment = dataManager.parseRecord(record);
 
         assertNotNull(investment);
@@ -64,14 +64,14 @@ final class InvestDataManagerTest {
 
     @Test
     void parseRecord_invalidNumberFormat_throwsException() {
-        String invalidNumber = "Desc|notANumber|5";
+        String invalidNumber = "Desc|notANumber|1.0|5";
         assertThrows(AddInvestmentWrongNumberFormatException.class,
                 () -> dataManager.parseRecord(invalidNumber));
     }
 
     @Test
     void parseRecord_outOfBoundsDate_throwsException() {
-        String invalidDate = "Desc|1000.00|45";
+        String invalidDate = "Desc|1000.00|1.0|45";
         assertThrows(AddInvestmentDateOutOfBoundsException.class,
                 () -> dataManager.parseRecord(invalidDate));
     }
@@ -79,15 +79,15 @@ final class InvestDataManagerTest {
     @Test
     void writeToFile_tryLoadRoundTrip()
             throws IOException, AddInvestmentWrongNumberFormatException, AddInvestmentDateOutOfBoundsException {
-        Investment i1 = new Investment("ETF|Monthly", "500", "5");
-        Investment i2 = new Investment("Bonds", "1500.25", "20");
+        Investment i1 = new Investment("ETF|Monthly", "500","1.00","5");
+        Investment i2 = new Investment("Bonds", "1500.25","1.00","20");
 
         dataManager.writeToFile(List.of(i1, i2));
 
         var lines = Files.readAllLines(dataFile, StandardCharsets.UTF_8);
         assertEquals(List.of(
-                "ETF/Monthly|500.0|5",
-                "Bonds|1500.25|20"
+                "ETF/Monthly|500.0|1.0|5",
+                "Bonds|1500.25|1.0|20"
         ), lines);
 
         ArrayList<Investment> loaded = dataManager.tryLoad();
