@@ -1,6 +1,6 @@
-# Duke
+# FinSight
 
-{Give product intro here}
+FinSight is a CLI-based app for managing finances such as income, expenses, loans and investments.
 
 Useful links:
 * [User Guide](UserGuide.md)
