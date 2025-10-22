@@ -102,7 +102,7 @@ public class Parser {
      * @throws DeleteInvestmentMissingIndexException         If delete investment command is used without inserting an
      *                                                       index
      * @throws DeleteLoanCommandIndexOutOfBoundsException    If delete loan command used with non-existing index or
-     *                                                       index missing
+     *                                                       index missing or has alphabets
      * @throws EditIncomeCommandWrongFormatException         If edit income command has empty fields, incorrect format
      *                                                       or incorrect sub commands
      * @throws EditIncomeCommandIndexOutOfBoundsException    If edit income command used with non-existing index or
@@ -152,7 +152,7 @@ public class Parser {
             incomeList.listIncomeOverview();
         } else if (userInput.startsWith("list income")) {
             incomeList.listIncomes();
-        }else if (userInput.startsWith("list expense")) {
+        } else if (userInput.startsWith("list expense")) {
             expenseList.listExpenses();
         } else if (userInput.startsWith("add expense")) {
             String[] commandParameters = parseAddExpenseCommand(userInput);
@@ -252,7 +252,7 @@ public class Parser {
      *
      * @param userInput String input by user
      * @return The index to delete
-     * @throws DeleteLoanCommandIndexOutOfBoundsException If index to delete does not exist or missing
+     * @throws DeleteLoanCommandIndexOutOfBoundsException If index to delete does not exist or missing or has alphabets
      */
     public int parseDeleteLoanCommand(String userInput) throws DeleteLoanCommandIndexOutOfBoundsException {
         final int sizeOfDeleteLoan = "delete loan".length();
@@ -443,7 +443,8 @@ public class Parser {
      *
      * @param userInput String input by user
      * @return The index to set repaid
-     * @throws LoanRepaidCommandIndexOutOfBoundsException If index to set repaid does not exist or missing
+     * @throws LoanRepaidCommandIndexOutOfBoundsException If index to set repaid does not exist or
+     *                                                    missing or has alphabets
      */
     public int parseLoanRepaidCommand(String userInput) throws LoanRepaidCommandIndexOutOfBoundsException {
         final int sizeOfLoanRepaid = "loan repaid".length();
@@ -454,6 +455,13 @@ public class Parser {
         }
 
         int indexToSetRepaid = Integer.parseInt(indexToSetRepaidString) - 1;
+
+        try {
+            indexToSetRepaid = Integer.parseInt(indexToSetRepaidString) - 1;
+        } catch (NumberFormatException e) {
+            throw new LoanRepaidCommandIndexOutOfBoundsException();
+        }
+
 
         if (indexToSetRepaid < 0 || indexToSetRepaid >= Loan.numberOfLoans) {
             throw new LoanRepaidCommandIndexOutOfBoundsException();
@@ -474,7 +482,7 @@ public class Parser {
      * @return The parameters used for add investment command
      * @throws AddInvestmentSubcommandException If the required parameters inserted by the user are missing or empty
      */
-    private String[] parseAddInvestmentCommand(String userInput)
+    public String[] parseAddInvestmentCommand(String userInput)
             throws AddInvestmentSubcommandException, AddInvestmentSubcommandOrderException {
         final int numberOfAddInvestmentCommandParameters = 3;
         final int sizeOfSubcommand = 2;
@@ -519,7 +527,7 @@ public class Parser {
      * @throws DeleteInvestmentMissingIndexException      If the user did not indicate an index to delete
      * @throws DeleteInvestmentWrongNumberFormatException If the user uses non-numeric value for the index
      */
-    private int parseDeleteInvestmentCommand(String userInput) throws DeleteInvestmentIndexOutOfBoundsException,
+    public int parseDeleteInvestmentCommand(String userInput) throws DeleteInvestmentIndexOutOfBoundsException,
             DeleteInvestmentMissingIndexException, DeleteInvestmentWrongNumberFormatException {
         final int sizeOfInvestmentCommand = "delete investment".length();
         String indexToDeleteString = userInput.substring(sizeOfInvestmentCommand).trim();

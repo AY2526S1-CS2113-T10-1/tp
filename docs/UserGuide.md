@@ -2,41 +2,101 @@
 
 ## Introduction
 
-{Give a product intro}
+FinSight is a CLI-based app for managing finances such as income, expenses, loans and investments.
 
 ## Quick Start
 
-{Give steps to get started quickly}
+1. Ensure that you have Java `17` or above installed.
+2. Download the latest version of `FinSight` from [here](https://github.com/AY2526S1-CS2113-T10-1/tp).
+3. Copy the file to the folder you want to use as the home folder for FinSight.
+4. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar finsight.jar` command to run the application.
+5. Type the command into the terminal and press Enter to execute it. Any input given that is not a correct command will show all possible commands.
+6. Refer to the [Features](#features) below for details of each command.
 
-1. Ensure that you have Java 17 or above installed.
-1. Down the latest version of `Duke` from [here](http://link.to/duke).
+## Features
 
-## Features 
+> [!NOTE]
+> * Words in `<UPPER_CASE>` are the parameters to be supplied by the user.<br>
+  e.g. in `delete loan <INDEX>`, `<INDEX>` is a parameter which can be used as `delete loan 1`.
+> 
+> * Items in square brackets are optional.<br>
+  e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
+> 
+> * Parameters must be in exact order.<br>
+  e.g. if the command specifies `d/<DESCRIPTION> a/<AMOUNT>`, the exact order must be followed for the command to work.
+> 
+> * Extraneous parameters for commands that do not take in parameters (such as `list loan`, `list expense`, `list investment`, `list income` and `bye`) will be ignored.<br>
+  e.g. if the command specifies `bye 123`, it will be interpreted as `bye`.
+> 
+> * If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
 
-{Give detailed description of each feature}
 
-### Adding a todo: `todo`
-Adds a new item to the list of todo items.
 
-Format: `todo n/TODO_NAME d/DEADLINE`
+### List all loans: `list loan`
+Prints the list of all loans onto the terminal with an index starting from 1.
 
-* The `DEADLINE` can be in a natural language format.
-* The `TODO_NAME` cannot contain punctuation.  
+Format: `list loan`
 
-Example of usage: 
+### Add a loan: `add loan`
+Adds a loan to the list. The loan will include a description and the amount borrowed as well as the date and time to return the loaned amount by.
 
-`todo n/Write the rest of the User Guide d/next week`
+Format: `add loan d/<DESCRIPTION> a/<AMOUNT_BORROWED> r/<LOAN_RETURN_DATE_AND_TIME>`
 
-`todo n/Refactor the User Guide to remove passive voice d/13/04/2020`
+* The `<LOAN_RETURN_DATE_AND_TIME>` must be of format (dd-MM-yyyy HH:mm).
+* The `<AMOUNT_BORROWED>` cannot contain punctuation.
+
+Example of usage:
+
+`add loan d/ loan 1 a/ 10000 r/ 10-10-2026 19:00`
+
+`add loan d/ loan 2 a/ 10.56 r/ 11-10-2056 23:59`
+
+### Delete a loan: `add loan`
+Deletes the loan at <INDEX> from the list of loan
+
+Format: `delete loan <INDEX>`
+
+* The `<INDEX>` cannot contain punctuation.
+
+Example of usage:
+
+`delete loan 1`
+
+`delete loan 3`
+
+### Set loan as repaid: `loan repaid`
+Sets the loan at <INDEX> as repaid
+
+Format: `loan repaid <INDEX>>`
+
+* The `<INDEX>` cannot contain punctuation.
+
+Example of usage:
+
+`loan repaid 1`
+
+`loan repaid 3`
+
+### Exit the program: `bye`
+Saves all current data and exits the program
+
+Format: `bye`
+
+### Saving the data
+FinSight data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
 
 ## FAQ
 
 **Q**: How do I transfer my data to another computer? 
 
-**A**: {your answer here}
+**A**: Install the app in the other computer and overwrite the empty data files it creates with the files that contains the data of your previous FinSight home folder.
 
 ## Command Summary
 
-{Give a 'cheat sheet' of commands here}
-
-* Add todo `todo n/TODO_NAME d/DEADLINE`
+| Action             | Format, Examples                                                                                                                     |
+|--------------------|--------------------------------------------------------------------------------------------------------------------------------------|
+| List Loans         | `list loan`                                                                                                                          |
+| Add a Loan         | `add loan d/<DESCRIPTION> a/<AMOUNT_LOANED> r/<LOAN_RETURN_DATE_AND_TIME>`<br/> e.g. `add loan d/ loan1 a/10.55 r/ 10-10-2056 23:59` |
+| Delete a Loan      | `delete loan <INDEX>`<br/> e.g. `delete loan 1`                                                                                      |
+| Set Loan as Repaid | `loan repaid <INDEX>`<br/> e.g. `loan repaid 1`                                                                                      |
+| Exit Program       | `bye`                                                                                                                                |

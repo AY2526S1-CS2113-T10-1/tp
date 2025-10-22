@@ -8,6 +8,46 @@
 
 {Describe the design and implementation of the product. Use UML diagrams and short code snippets where applicable.}
 
+### 1. Design
+### 2. Implementation
+
+> [!TIP]
+> 
+> The `.puml` files used to create diagrams are in the `docs/uml` folder. The diagrams can be found in the `docs/diagrams` folder. Refer to the [_PlantUML Tutorial_ at se-edu/guides](https://se-education.org/guides/tutorials/plantUml.html) to learn how to create and edit diagrams.
+
+#### 2.1 Loan Features
+
+##### 2.1.1 List Loan Feature
+The List Loan feature enables users to see a list of loans. The `Ui` class takes in the user input. This String is used by the `Parser` class to decide which command to run. `Parser` calls the `listLoans()` method from the `LoanList` class to output the loans. `LoanList` then calls the `Ui` class to output the loans, giving it the ArrayList of Loans. `Ui` class loops through the ArrayList to output each `Loan` class's `toString()` method.
+![ListLoanSequenceDiagram](./diagrams/ListLoanSequenceDiagram.png)
+
+##### 2.1.2 Add Loan Feature
+The Add Loan feature enables users to add loans. The `Ui` class takes in the user input. This String is used by the `Parser` class to decide which command to run. `Parser` validates the provided description, amount and date time using the `parseAddLoanCommand` method. `Parser` then calls the `addLoan()` method of the `LoanList` class which creates and add the given `Loan` if valid. Below is the relevance of these attributes:
+
+| Class Attribute | Variable Type | Relevance                                 |
+|-----------------|---------------|-------------------------------------------|
+| description     | String        | The short description of the loan         |
+| amountLoaned    | Double        | The amount loaned                         |
+| loanReturnDate  | LocalDateTime | The date and time that the loan is due by |
+
+The `LoanList` class then calls the `Ui` class to print a acknowledgement message in the form of the `toString()` method of the `Loan` class.
+![AddLoanSequenceDiagram](./diagrams/AddLoanSequenceDiagram.png)
+
+##### 2.1.3 Delete Loan Feature
+The Delete Loan feature enables the users to delete a loan. The `Ui` class takes in the user input. This String is used by the `Parser` class to decide which command to run. `Parser` validates the provided index using the `parseDeleteLoanCommand` method. `Parser` then calls the `deleteLoan()` method of the `LoanList` class which calls the `Ui` class to print a acknowledgement message using the `toString()` method of the `Loan` class before deleting the `Loan` at the given index. Below is the relevance of these attributes:
+
+| Class Attribute | Variable Type | Relevance                              |
+|-----------------|---------------|----------------------------------------|
+| index           | int           | The index of the Loan in the ArrayList |
+![DeleteLoanSequenceDiagram](./diagrams/DeleteLoanSequenceDiagram.png)
+
+##### 2.1.4 Loan Repaid Feature
+The Loan Repaid feature enables the users to set a loan as repaid. The `Ui` class takes in the user input. This String is used by the `Parser` class to decide which command to run. `Parser` validates the provided index using the `parseLoanRepaidCommand` method. `Parser` then calls the `setRepaid()` method of the `LoanList` class which calls the `setRepaid()` method of the `Loan` class before calling the `Ui` class to print a acknowledgement message using the `toString()` method of the `Loan` class. Below is the relevance of these attributes:
+
+| Class Attribute | Variable Type | Relevance                              |
+|-----------------|---------------|----------------------------------------|
+| index           | int           | The index of the Loan in the ArrayList |
+![LoanRepaidSequenceDiagram](./diagrams/LoanRepaidSequenceDiagram.png)
 
 ## Product scope
 ### Target user profile

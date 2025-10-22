@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 
 import finsight.loan.exceptions.AddLoanCommandWrongFormatException;
+import finsight.ui.Ui;
 
 public class LoanTest {
     @Test
@@ -32,6 +33,7 @@ public class LoanTest {
     void isRepaid_setRepaid_isRepaid() throws AddLoanCommandWrongFormatException {
         Loan loan = new Loan("1", "1000", "12-12-2025 19:00");
         loan.setRepaid();
+        Ui.printLoanRepaid(loan);
 
         assertTrue(loan.isRepaid());
     }

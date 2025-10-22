@@ -1,0 +1,33 @@
+@startuml
+!include style.puml
+
+actor User
+
+participant ":Ui" as Ui LOGIC_COLOR_T1
+participant ":Parser" as Parser LOGIC_COLOR_T2
+participant ":LoanList" as LoanList LOGIC_COLOR_T3
+participant ":Loan" as Loan LOGIC_COLOR_T4
+
+User -> Ui ++: list loan
+
+Ui -> Parser ++: tryCommand(...)
+
+Parser -> Parser ++: handleCommand(...)
+
+Parser -> LoanList ++: listLoans()
+
+LoanList -> Ui ++: printAllLoans(loans)
+loop i from 0 to (Loan.numberOfLoans - 1)
+    Ui -> LoanList ++: loans.get(i:int)
+    LoanList -> Loan ++: loan.toString()
+    return loan:String
+    return loan:String
+    end
+
+return
+return
+return
+return
+return
+
+@enduml

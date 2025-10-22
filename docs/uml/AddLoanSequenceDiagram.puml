@@ -1,0 +1,36 @@
+@startuml
+!include style.puml
+
+actor User
+
+participant ":Ui" as Ui LOGIC_COLOR_T1
+participant ":Parser" as Parser LOGIC_COLOR_T2
+participant ":LoanList" as LoanList LOGIC_COLOR_T3
+participant ":Loan" as Loan LOGIC_COLOR_T4
+
+User -> Ui ++: add loan
+
+Ui -> Parser ++: tryCommand(...)
+
+Parser -> Parser ++: handleCommand(...)
+
+Parser -> Parser ++: parseAddLoanCommand(...)
+return commandParameters:String[]
+
+Parser -> LoanList ++: addLoan(commandParameters[])
+
+create Loan
+LoanList -> Loan ++: new Loan(commandParameters[])
+return loan
+
+LoanList -> Loan ++: loan.toString()
+return loan:String
+LoanList -> Ui ++: printAddLoanOutput(loan:String)
+return
+
+return
+return
+return
+return
+
+@enduml
