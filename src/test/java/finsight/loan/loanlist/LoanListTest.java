@@ -1,5 +1,6 @@
 package finsight.loan.loanlist;
 
+import finsight.investment.Investment;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -20,14 +21,16 @@ public class LoanListTest {
 
     @BeforeEach
     void clearList() throws IOException {
-        for (int i = 0; i < Loan.numberOfLoans; i++) {
+        loanList = new LoanList();
+        int LoopCount  = Loan.numberOfLoans;
+        for (int i = 0; i < LoopCount; i++) {
             loanList.deleteLoan(0);
         }
     }
 
     @Test
     void getLoans_emptyLoanList_returnEmptyArrayList() {
-        loanList = new LoanList();
+        
         assertTrue(loanList.getLoans().isEmpty());
     }
 
@@ -40,48 +43,40 @@ public class LoanListTest {
 
         loanList = new LoanList(loans);
         assertEquals(loans, loanList.getLoans());
-        loanList.deleteLoan(0);
-        loanList.deleteLoan(0);
     }
 
     @Test
     void addLoan_addSingleLoan_returnCorrectSize() throws AddLoanCommandWrongFormatException, IOException {
-        loanList = new LoanList();
+        
         loanList.addLoan(new Loan("1", "1000", "12-12-2025 19:00"));
 
         assertEquals(1, loanList.getLoans().size());
-        loanList.deleteLoan(0);
     }
 
     @Test
     void addLoan_addMultipleLoan_returnCorrectSize() throws AddLoanCommandWrongFormatException, IOException {
-        loanList = new LoanList();
+        
         loanList.addLoan(new Loan("1", "1000", "12-12-2025 19:00"));
         loanList.addLoan(new Loan("2", "1000", "12-12-2025 19:00"));
         loanList.addLoan(new Loan("3", "1000", "12-12-2025 19:00"));
 
         assertEquals(3, loanList.getLoans().size());
-        loanList.deleteLoan(0);
-        loanList.deleteLoan(0);
-        loanList.deleteLoan(0);
     }
 
     @Test
     void deleteLoan_deleteSingleLoan_returnCorrectSize() throws AddLoanCommandWrongFormatException, IOException {
-        loanList = new LoanList();
+        
         loanList.addLoan(new Loan("1", "1000", "12-12-2025 19:00"));
         loanList.addLoan(new Loan("2", "1000", "12-12-2025 19:00"));
         loanList.addLoan(new Loan("3", "1000", "12-12-2025 19:00"));
         loanList.deleteLoan(1);
 
         assertEquals(2, loanList.getLoans().size());
-        loanList.deleteLoan(0);
-        loanList.deleteLoan(0);
     }
 
     @Test
     void deleteLoan_deleteMultipleLoan_returnCorrectSize() throws AddLoanCommandWrongFormatException, IOException {
-        loanList = new LoanList();
+        
         loanList.addLoan(new Loan("1", "1000", "12-12-2025 19:00"));
         loanList.addLoan(new Loan("2", "1000", "12-12-2025 19:00"));
         loanList.addLoan(new Loan("3", "1000", "12-12-2025 19:00"));
@@ -94,33 +89,29 @@ public class LoanListTest {
 
     @Test
     void setRepaid_setSingleLoanRepaid_isRepaid() throws AddLoanCommandWrongFormatException, IOException {
-        loanList = new LoanList();
+        
         loanList.addLoan(new Loan("1", "1000", "12-12-2025 19:00"));
 
         loanList.setRepaid(0);
         assertTrue(loanList.getLoans().get(0).isRepaid());
-        loanList.deleteLoan(0);
     }
 
     @Test
     void setNotRepaid_setSingleLoanNotRepaid_isNotRepaid() throws AddLoanCommandWrongFormatException, IOException {
-        loanList = new LoanList();
+        
         loanList.addLoan(new Loan("1", "1000", "12-12-2025 19:00"));
 
         loanList.setRepaid(0);
         assertTrue(loanList.getLoans().get(0).isRepaid());
         loanList.setNotRepaid(0);
         assertFalse(loanList.getLoans().get(0).isRepaid());
-
-        loanList.deleteLoan(0);
     }
 
     @Test
     void listLoans_singleLoan_noExceptionThrown() throws AddLoanCommandWrongFormatException, IOException {
-        loanList = new LoanList();
+        
         loanList.addLoan(new Loan("1", "1000", "12-12-2025 19:00"));
 
         assertDoesNotThrow(()-> loanList.listLoans());
-        loanList.deleteLoan(0);
     }
 }
