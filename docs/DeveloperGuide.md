@@ -49,6 +49,21 @@ The Loan Repaid feature enables the users to set a loan as repaid. The `Ui` clas
 | index           | int           | The index of the Loan in the ArrayList |
 ![LoanRepaidSequenceDiagram](./diagrams/LoanRepaidSequenceDiagram.png)
 
+#### 3.1 Income Features
+
+##### 3.1.1 Add Income Feature
+The Add Income feature enables users to add income.
+
+##### 3.1.2 Delete Income Feature
+The Delete Income feature enables users to delete income.
+
+##### 3.1.3 Edit Income Feature
+The Edit Income feature enables users to edit income.
+
+##### 3.1.4 List Income Feature
+The List Income feature enables users to view all incomes.
+
+
 ## Product scope
 ### Target user profile
 
