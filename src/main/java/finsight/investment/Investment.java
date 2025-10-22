@@ -8,7 +8,6 @@ public class Investment {
     public static int numberOfInvestments = 0;
     protected String description;
     protected Double investmentAmount;
-    protected String investmentType;
     protected int investmentDateOfMonth;
 
     public Investment(String description, String investmentAmount, String investmentDateOfMonth)

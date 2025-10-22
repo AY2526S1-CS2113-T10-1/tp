@@ -449,12 +449,11 @@ public class Parser {
     public int parseLoanRepaidCommand(String userInput) throws LoanRepaidCommandIndexOutOfBoundsException {
         final int sizeOfLoanRepaid = "loan repaid".length();
         String indexToSetRepaidString = userInput.substring(sizeOfLoanRepaid).trim();
+        int indexToSetRepaid;
 
         if (indexToSetRepaidString.isEmpty()) {
             throw new LoanRepaidCommandIndexOutOfBoundsException();
         }
-
-        int indexToSetRepaid = Integer.parseInt(indexToSetRepaidString) - 1;
 
         try {
             indexToSetRepaid = Integer.parseInt(indexToSetRepaidString) - 1;

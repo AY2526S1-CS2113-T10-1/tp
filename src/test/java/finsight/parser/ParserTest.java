@@ -31,7 +31,6 @@ import org.junit.jupiter.api.Test;
 public class ParserTest {
     @Test
     void parseAddLoanCommand_aSubcommandBeforeDSubcommand_exceptionThrown() {
-        Ui ui = new Ui();
         ExpenseList expenseList = new ExpenseList();
         IncomeList incomeList = new IncomeList();
         InvestmentList investmentList = new InvestmentList();
@@ -47,7 +46,6 @@ public class ParserTest {
 
     @Test
     void parseAddLoanCommand_rSubcommandBeforeASubcommand_exceptionThrown() {
-        Ui ui = new Ui();
         ExpenseList expenseList = new ExpenseList();
         IncomeList incomeList = new IncomeList();
         InvestmentList investmentList = new InvestmentList();
@@ -62,7 +60,6 @@ public class ParserTest {
 
     @Test
     void parseAddLoanCommand_rSubcommandBeforeDSubcommand_exceptionThrown() {
-        Ui ui = new Ui();
         ExpenseList expenseList = new ExpenseList();
         IncomeList incomeList = new IncomeList();
         InvestmentList investmentList = new InvestmentList();
@@ -77,7 +74,6 @@ public class ParserTest {
 
     @Test
     void parseAddLoanCommand_missingDescription_exceptionThrown() {
-        Ui ui = new Ui();
         ExpenseList expenseList = new ExpenseList();
         IncomeList incomeList = new IncomeList();
         InvestmentList investmentList = new InvestmentList();
@@ -92,7 +88,6 @@ public class ParserTest {
 
     @Test
     void parseAddLoanCommand_missingAmount_exceptionThrown() {
-        Ui ui = new Ui();
         ExpenseList expenseList = new ExpenseList();
         IncomeList incomeList = new IncomeList();
         InvestmentList investmentList = new InvestmentList();
@@ -107,7 +102,6 @@ public class ParserTest {
 
     @Test
     void parseAddLoanCommand_missingDateTime_exceptionThrown() {
-        Ui ui = new Ui();
         ExpenseList expenseList = new ExpenseList();
         IncomeList incomeList = new IncomeList();
         InvestmentList investmentList = new InvestmentList();
@@ -122,7 +116,6 @@ public class ParserTest {
 
     @Test
     void parseAddLoanCommand_missingASubcommand_exceptionThrown() {
-        Ui ui = new Ui();
         ExpenseList expenseList = new ExpenseList();
         IncomeList incomeList = new IncomeList();
         InvestmentList investmentList = new InvestmentList();
@@ -137,7 +130,6 @@ public class ParserTest {
 
     @Test
     void parseAddLoanCommand_missingDSubcommand_exceptionThrown() {
-        Ui ui = new Ui();
         ExpenseList expenseList = new ExpenseList();
         IncomeList incomeList = new IncomeList();
         InvestmentList investmentList = new InvestmentList();
@@ -152,7 +144,6 @@ public class ParserTest {
 
     @Test
     void parseAddLoanCommand_missingRSubcommand_exceptionThrown() {
-        Ui ui = new Ui();
         ExpenseList expenseList = new ExpenseList();
         IncomeList incomeList = new IncomeList();
         InvestmentList investmentList = new InvestmentList();
@@ -167,7 +158,6 @@ public class ParserTest {
 
     @Test
     void parseAddLoanCommand_correctInputs_noExceptionThrown() {
-        Ui ui = new Ui();
         ExpenseList expenseList = new ExpenseList();
         IncomeList incomeList = new IncomeList();
         InvestmentList investmentList = new InvestmentList();
@@ -181,7 +171,6 @@ public class ParserTest {
 
     @Test
     void parseDeleteLoanCommand_missingIndex_exceptionThrown() {
-        Ui ui = new Ui();
         ExpenseList expenseList = new ExpenseList();
         IncomeList incomeList = new IncomeList();
         InvestmentList investmentList = new InvestmentList();
@@ -196,7 +185,6 @@ public class ParserTest {
 
     @Test
     void parseDeleteLoanCommand_negativeIndex_exceptionThrown() {
-        Ui ui = new Ui();
         ExpenseList expenseList = new ExpenseList();
         IncomeList incomeList = new IncomeList();
         InvestmentList investmentList = new InvestmentList();
@@ -212,7 +200,6 @@ public class ParserTest {
     @Test
     void parseDeleteLoanCommand_indexGreaterThanAmountOfLoans_exceptionThrown()
             throws AddLoanCommandWrongFormatException, IOException {
-        Ui ui = new Ui();
         ExpenseList expenseList = new ExpenseList();
         IncomeList incomeList = new IncomeList();
         InvestmentList investmentList = new InvestmentList();
@@ -230,7 +217,6 @@ public class ParserTest {
     @Test
     void parseDeleteLoanCommand_correctIndex_noExceptionThrown()
             throws AddLoanCommandWrongFormatException, IOException {
-        Ui ui = new Ui();
         ExpenseList expenseList = new ExpenseList();
         IncomeList incomeList = new IncomeList();
         InvestmentList investmentList = new InvestmentList();
@@ -246,7 +232,6 @@ public class ParserTest {
 
     @Test
     void parseDeleteLoanCommand_alphabetsInIndex_exceptionThrown() {
-        Ui ui = new Ui();
         ExpenseList expenseList = new ExpenseList();
         IncomeList incomeList = new IncomeList();
         InvestmentList investmentList = new InvestmentList();
@@ -261,7 +246,6 @@ public class ParserTest {
 
     @Test
     void parseDeleteLoanCommand_zeroIndex_exceptionThrown() {
-        Ui ui = new Ui();
         ExpenseList expenseList = new ExpenseList();
         IncomeList incomeList = new IncomeList();
         InvestmentList investmentList = new InvestmentList();
@@ -276,7 +260,6 @@ public class ParserTest {
 
     @Test
     void parseLoanRepaidCommand_missingIndex_exceptionThrown() {
-        Ui ui = new Ui();
         ExpenseList expenseList = new ExpenseList();
         IncomeList incomeList = new IncomeList();
         InvestmentList investmentList = new InvestmentList();
@@ -291,7 +274,6 @@ public class ParserTest {
 
     @Test
     void parseLoanRepaidCommand_zeroIndex_exceptionThrown() {
-        Ui ui = new Ui();
         ExpenseList expenseList = new ExpenseList();
         IncomeList incomeList = new IncomeList();
         InvestmentList investmentList = new InvestmentList();
@@ -306,7 +288,6 @@ public class ParserTest {
 
     @Test
     void parseLoanRepaidCommand_negativeIndex_exceptionThrown() {
-        Ui ui = new Ui();
         ExpenseList expenseList = new ExpenseList();
         IncomeList incomeList = new IncomeList();
         InvestmentList investmentList = new InvestmentList();
@@ -322,7 +303,6 @@ public class ParserTest {
     @Test
     void parseLoanRepaidCommand_indexGreaterThanAmountOfLoans_exceptionThrown()
             throws AddLoanCommandWrongFormatException, IOException {
-        Ui ui = new Ui();
         ExpenseList expenseList = new ExpenseList();
         IncomeList incomeList = new IncomeList();
         InvestmentList investmentList = new InvestmentList();
@@ -340,7 +320,6 @@ public class ParserTest {
     @Test
     void parseLoanRepaidCommand_correctIndex_noExceptionThrown()
             throws AddLoanCommandWrongFormatException, IOException {
-        Ui ui = new Ui();
         ExpenseList expenseList = new ExpenseList();
         IncomeList incomeList = new IncomeList();
         InvestmentList investmentList = new InvestmentList();
@@ -356,7 +335,6 @@ public class ParserTest {
 
     @Test
     void parseAddIncomeCommand_aSubcommandBeforeDSubcommand_exceptionThrown() {
-        Ui ui = new Ui();
         ExpenseList expenseList = new ExpenseList();
         IncomeList incomeList = new IncomeList();
         InvestmentList investmentList = new InvestmentList();
@@ -371,7 +349,6 @@ public class ParserTest {
 
     @Test
     void parseAddIncomeCommand_missingDescription_exceptionThrown() {
-        Ui ui = new Ui();
         ExpenseList expenseList = new ExpenseList();
         IncomeList incomeList = new IncomeList();
         InvestmentList investmentList = new InvestmentList();
@@ -386,7 +363,6 @@ public class ParserTest {
 
     @Test
     void parseAddIncomeCommand_missingAmount_exceptionThrown() {
-        Ui ui = new Ui();
         ExpenseList expenseList = new ExpenseList();
         IncomeList incomeList = new IncomeList();
         InvestmentList investmentList = new InvestmentList();
@@ -401,7 +377,6 @@ public class ParserTest {
 
     @Test
     void parseDeleteIncomeCommand_missingIndex_exceptionThrown() {
-        Ui ui = new Ui();
         ExpenseList expenseList = new ExpenseList();
         IncomeList incomeList = new IncomeList();
         InvestmentList investmentList = new InvestmentList();
@@ -416,7 +391,6 @@ public class ParserTest {
 
     @Test
     void parseDeleteIncomeCommand_negativeIndex_exceptionThrown() {
-        Ui ui = new Ui();
         ExpenseList expenseList = new ExpenseList();
         IncomeList incomeList = new IncomeList();
         InvestmentList investmentList = new InvestmentList();
@@ -431,7 +405,6 @@ public class ParserTest {
 
     @Test
     void parseDeleteIncomeCommand_zeroIndex_exceptionThrown() {
-        Ui ui = new Ui();
         ExpenseList expenseList = new ExpenseList();
         IncomeList incomeList = new IncomeList();
         InvestmentList investmentList = new InvestmentList();
@@ -446,7 +419,6 @@ public class ParserTest {
 
     @Test
     void parseEditIncomeCommand_aSubcommandBeforeDSubcommand_exceptionThrown() {
-        Ui ui = new Ui();
         ExpenseList expenseList = new ExpenseList();
         IncomeList incomeList = new IncomeList();
         InvestmentList investmentList = new InvestmentList();
@@ -461,7 +433,6 @@ public class ParserTest {
 
     @Test
     void parseEditIncomeCommand_missingIndex_exceptionThrown() {
-        Ui ui = new Ui();
         ExpenseList expenseList = new ExpenseList();
         IncomeList incomeList = new IncomeList();
         InvestmentList investmentList = new InvestmentList();
@@ -477,7 +448,6 @@ public class ParserTest {
     @Test
     void parseEditIncomeCommand_missingDescription_exceptionThrown()
             throws AddIncomeCommandWrongFormatException, IOException {
-        Ui ui = new Ui();
         ExpenseList expenseList = new ExpenseList();
         IncomeList incomeList = new IncomeList();
         InvestmentList investmentList = new InvestmentList();
@@ -495,7 +465,6 @@ public class ParserTest {
     @Test
     void parseEditIncomeCommand_missingAmount_exceptionThrown()
             throws AddIncomeCommandWrongFormatException, IOException {
-        Ui ui = new Ui();
         ExpenseList expenseList = new ExpenseList();
         IncomeList incomeList = new IncomeList();
         InvestmentList investmentList = new InvestmentList();
@@ -635,7 +604,6 @@ public class ParserTest {
     @Test
     void tryCommand_addLoan_noExceptionThrown()
             throws AddLoanCommandWrongFormatException, IOException {
-        Ui ui = new Ui();
         ExpenseList expenseList = new ExpenseList();
         IncomeList incomeList = new IncomeList();
         InvestmentList investmentList = new InvestmentList();
@@ -651,7 +619,6 @@ public class ParserTest {
 
     @Test
     void parseAddExpenseCommand_emptyInput_exceptionThrown() {
-        Ui ui = new Ui();
         ExpenseList expenseList = new ExpenseList();
         IncomeList incomeList = new IncomeList();
         InvestmentList investmentList = new InvestmentList();
@@ -667,7 +634,6 @@ public class ParserTest {
     @Test
     void tryCommand_listLoan_noExceptionThrown()
             throws AddLoanCommandWrongFormatException, IOException {
-        Ui ui = new Ui();
         ExpenseList expenseList = new ExpenseList();
         IncomeList incomeList = new IncomeList();
         InvestmentList investmentList = new InvestmentList();
@@ -682,7 +648,6 @@ public class ParserTest {
 
     @Test
     void parseAddExpenseCommand_missingDescription_exceptionThrown() {
-        Ui ui = new Ui();
         ExpenseList expenseList = new ExpenseList();
         IncomeList incomeList = new IncomeList();
         InvestmentList investmentList = new InvestmentList();
@@ -698,7 +663,6 @@ public class ParserTest {
     @Test
     void tryCommand_deleteLoan_noExceptionThrown()
             throws AddLoanCommandWrongFormatException, IOException {
-        Ui ui = new Ui();
         ExpenseList expenseList = new ExpenseList();
         IncomeList incomeList = new IncomeList();
         InvestmentList investmentList = new InvestmentList();
@@ -713,7 +677,6 @@ public class ParserTest {
 
     @Test
     void parseAddExpenseCommand_missingExpenseAmount_exceptionThrown() {
-        Ui ui = new Ui();
         ExpenseList expenseList = new ExpenseList();
         IncomeList incomeList = new IncomeList();
         InvestmentList investmentList = new InvestmentList();
@@ -729,7 +692,6 @@ public class ParserTest {
     @Test
     void tryCommand_setLoanRepaid_noExceptionThrown()
             throws AddLoanCommandWrongFormatException, IOException {
-        Ui ui = new Ui();
         ExpenseList expenseList = new ExpenseList();
         IncomeList incomeList = new IncomeList();
         InvestmentList investmentList = new InvestmentList();
@@ -746,7 +708,6 @@ public class ParserTest {
 
     @Test
     void parseAddExpenseCommand_missingDescriptionAndExpenseAmount_exceptionThrown() {
-        Ui ui = new Ui();
         ExpenseList expenseList = new ExpenseList();
         IncomeList incomeList = new IncomeList();
         InvestmentList investmentList = new InvestmentList();
@@ -763,7 +724,6 @@ public class ParserTest {
     @Test
     void tryCommand_addLoanWrongInputs_exceptionThrownAndCaught()
             throws AddLoanCommandWrongFormatException, IOException {
-        Ui ui = new Ui();
         ExpenseList expenseList = new ExpenseList();
         IncomeList incomeList = new IncomeList();
         InvestmentList investmentList = new InvestmentList();
@@ -778,7 +738,6 @@ public class ParserTest {
 
     @Test
     void parseAddExpenseCommand_missingASubcommand_exceptionThrown() {
-        Ui ui = new Ui();
         ExpenseList expenseList = new ExpenseList();
         IncomeList incomeList = new IncomeList();
         InvestmentList investmentList = new InvestmentList();
@@ -793,7 +752,6 @@ public class ParserTest {
 
     @Test
     void parseAddExpenseCommand_missingDSubcommand_exceptionThrown() {
-        Ui ui = new Ui();
         ExpenseList expenseList = new ExpenseList();
         IncomeList incomeList = new IncomeList();
         InvestmentList investmentList = new InvestmentList();
@@ -809,7 +767,6 @@ public class ParserTest {
 
     @Test
     void parseAddExpenseCommand_aSubcommandBeforeDSubcommand_exceptionThrown() {
-        Ui ui = new Ui();
         ExpenseList expenseList = new ExpenseList();
         IncomeList incomeList = new IncomeList();
         InvestmentList investmentList = new InvestmentList();
@@ -825,7 +782,6 @@ public class ParserTest {
 
     @Test
     void parseDeleteExpenseCommand_emptyInput_exceptionThrown() {
-        Ui ui = new Ui();
         ExpenseList expenseList = new ExpenseList();
         IncomeList incomeList = new IncomeList();
         InvestmentList investmentList = new InvestmentList();
@@ -841,7 +797,6 @@ public class ParserTest {
 
     @Test
     void parseDeleteExpenseCommand_negativeIndex_exceptionThrown() {
-        Ui ui = new Ui();
         ExpenseList expenseList = new ExpenseList();
         IncomeList incomeList = new IncomeList();
         InvestmentList investmentList = new InvestmentList();
@@ -857,7 +812,6 @@ public class ParserTest {
 
     @Test
     void parseDeleteExpenseCommand_zeroIndex_exceptionThrown() {
-        Ui ui = new Ui();
         ExpenseList expenseList = new ExpenseList();
         IncomeList incomeList = new IncomeList();
         InvestmentList investmentList = new InvestmentList();
