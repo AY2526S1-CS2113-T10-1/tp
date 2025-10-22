@@ -207,7 +207,7 @@ public class ParserTest {
         Parser parser = new Parser(expenseList, incomeList, investmentList, loanList);
 
         loanList.addLoan(new Loan("1", "1000", "12-12-2025 19:00"));
-        String inputTestString = "delete loan 2";
+        String inputTestString = "delete loan 10";
 
         assertThrows(DeleteLoanCommandIndexOutOfBoundsException.class,
                 () -> parser.parseDeleteLoanCommand(inputTestString));
@@ -310,7 +310,7 @@ public class ParserTest {
         Parser parser = new Parser(expenseList, incomeList, investmentList, loanList);
 
         loanList.addLoan(new Loan("1", "1000", "12-12-2025 19:00"));
-        String inputTestString = "loan repaid 2";
+        String inputTestString = "loan repaid 10";
 
         assertThrows(LoanRepaidCommandIndexOutOfBoundsException.class,
                 () -> parser.parseLoanRepaidCommand(inputTestString));
