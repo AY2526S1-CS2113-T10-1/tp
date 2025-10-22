@@ -1,0 +1,34 @@
+@startuml
+!include style.puml
+
+actor User
+
+participant ":Ui" as Ui LOGIC_COLOR_T1
+participant ":Parser" as Parser LOGIC_COLOR_T2
+participant ":ExpenseList" as ExpenseList LOGIC_COLOR_T3
+participant ":Expense" as Expense LOGIC_COLOR_T4
+
+User -> Ui ++: delete expense
+
+Ui -> Parser ++: tryCommand(...)
+Parser -> Parser ++: handleCommand(...)
+
+Parser -> Parser ++: parseDeleteExpenseCommand(...)
+return index:int
+
+Parser -> ExpenseList ++: deleteExpense(index:int)
+ExpenseList -> Expense ++: expense.toString()
+return expense:String
+ExpenseList -> Ui ++: printDeleteExpenseOutput(expense:String)
+return
+
+ExpenseList -> Expense ++: expenses.remove()
+return
+destroy Expense
+
+
+return
+return
+return
+
+@enduml
