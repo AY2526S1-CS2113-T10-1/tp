@@ -34,6 +34,7 @@ public class InvestmentList {
      */
     public InvestmentList() {
         this.investmentList = dataManager.tryLoad();
+        Investment.numberOfInvestments = investmentList.size();
     }
 
     /**
