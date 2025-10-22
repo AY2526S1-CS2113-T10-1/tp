@@ -148,6 +148,8 @@ public class Parser {
             assert (!commandParameters[0].isEmpty() && !commandParameters[1].isEmpty()
                     && !commandParameters[2].isEmpty());
             incomeList.editIncome(commandParameters[0], commandParameters[1], commandParameters[2]);
+        } else if (userInput.startsWith("list income overview")) {
+            incomeList.listIncomeOverview();
         } else if (userInput.startsWith("list income")) {
             incomeList.listIncomes();
         } else if (userInput.startsWith("list expense")) {
@@ -186,11 +188,13 @@ public class Parser {
     public int parseDeleteExpenseCommand(String userInput) throws DeleteExpenseCommandIndexOutOfBoundsException {
         final int sizeOfDeleteExpense = "delete expense".length();
         String indexToDeleteString = userInput.substring(sizeOfDeleteExpense).trim();
+
         if (indexToDeleteString.isEmpty()) {
             throw new DeleteExpenseCommandIndexOutOfBoundsException();
         }
 
         int indexToDelete;
+
         try {
             indexToDelete = Integer.parseInt(indexToDeleteString) - 1;
         } catch (NumberFormatException e) {
@@ -223,6 +227,7 @@ public class Parser {
 
         boolean hasInvalidSubcommand = !userInput.contains("d/") || !userInput.contains("a/");
         boolean hasInvalidSubcommandOrder = (userInput.indexOf("a/") < userInput.indexOf("d/"));
+
         if (hasInvalidSubcommand || hasInvalidSubcommandOrder) {
             throw new AddExpenseCommandWrongFormatException();
         }
@@ -233,6 +238,7 @@ public class Parser {
         commandParameters[1] = userInput.substring(userInput.indexOf("a/") + sizeOfSubcommand).trim();
 
         boolean hasInvalidParameters = commandParameters[0].isEmpty() || commandParameters[1].isEmpty();
+
         if (hasInvalidParameters) {
             throw new AddExpenseCommandWrongFormatException();
         }
@@ -251,11 +257,13 @@ public class Parser {
     public int parseDeleteLoanCommand(String userInput) throws DeleteLoanCommandIndexOutOfBoundsException {
         final int sizeOfDeleteLoan = "delete loan".length();
         String indexToDeleteString = userInput.substring(sizeOfDeleteLoan).trim();
+
         if (indexToDeleteString.isEmpty()) {
             throw new DeleteLoanCommandIndexOutOfBoundsException();
         }
 
         int indexToDelete;
+
         try {
             indexToDelete = Integer.parseInt(indexToDeleteString) - 1;
         } catch (NumberFormatException e) {
@@ -363,6 +371,7 @@ public class Parser {
         }
 
         int indexToDelete;
+
         try {
             indexToDelete = Integer.parseInt(userInput.substring(sizeOfDeleteIncome).trim()) - 1;
         } catch (NumberFormatException e) {
@@ -434,16 +443,25 @@ public class Parser {
      *
      * @param userInput String input by user
      * @return The index to set repaid
-     * @throws LoanRepaidCommandIndexOutOfBoundsException If index to set repaid does not exist or missing
+     * @throws LoanRepaidCommandIndexOutOfBoundsException If index to set repaid does not exist or
+     *                                                    missing or has alphabets
      */
     public int parseLoanRepaidCommand(String userInput) throws LoanRepaidCommandIndexOutOfBoundsException {
         final int sizeOfLoanRepaid = "loan repaid".length();
         String indexToSetRepaidString = userInput.substring(sizeOfLoanRepaid).trim();
+        int indexToSetRepaid;
+
         if (indexToSetRepaidString.isEmpty()) {
             throw new LoanRepaidCommandIndexOutOfBoundsException();
         }
 
-        int indexToSetRepaid = Integer.parseInt(indexToSetRepaidString) - 1;
+        try {
+            indexToSetRepaid = Integer.parseInt(indexToSetRepaidString) - 1;
+        } catch (NumberFormatException e) {
+            throw new LoanRepaidCommandIndexOutOfBoundsException();
+        }
+
+
         if (indexToSetRepaid < 0 || indexToSetRepaid >= Loan.numberOfLoans) {
             throw new LoanRepaidCommandIndexOutOfBoundsException();
         }
@@ -519,6 +537,7 @@ public class Parser {
             DeleteInvestmentMissingIndexException, DeleteInvestmentWrongNumberFormatException {
         final int sizeOfInvestmentCommand = "delete investment".length();
         String indexToDeleteString = userInput.substring(sizeOfInvestmentCommand).trim();
+
         if (indexToDeleteString.isEmpty()) {
             throw new DeleteInvestmentMissingIndexException();
         }
@@ -528,6 +547,7 @@ public class Parser {
         } catch (NumberFormatException e) {
             throw new DeleteInvestmentWrongNumberFormatException();
         }
+
         if (indexToDelete < 0 || indexToDelete >= investmentList.getSize()) {
             throw new DeleteInvestmentIndexOutOfBoundsException();
         }

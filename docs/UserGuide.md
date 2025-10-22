@@ -15,24 +15,21 @@ FinSight is a CLI-based app for managing finances such as income, expenses, loan
 
 ## Features
 
-<div markdown="block" class="alert alert-info">
-
-**:information_source: Notes about the command format:**<br>
-
-* Words in `<UPPER_CASE>` are the parameters to be supplied by the user.<br>
+> [!NOTE]
+> * Words in `<UPPER_CASE>` are the parameters to be supplied by the user.<br>
   e.g. in `delete loan <INDEX>`, `<INDEX>` is a parameter which can be used as `delete loan 1`.
-
-* Items in square brackets are optional.<br>
+> 
+> * Items in square brackets are optional.<br>
   e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-
-* Parameters must be in exact order.<br>
+> 
+> * Parameters must be in exact order.<br>
   e.g. if the command specifies `d/<DESCRIPTION> a/<AMOUNT>`, the exact order must be followed for the command to work.
-
-* Extraneous parameters for commands that do not take in parameters (such as `list loan`, `list expense`, `list investment`, `list income` and `bye`) will be ignored.<br>
+> 
+> * Extraneous parameters for commands that do not take in parameters (such as `list loan`, `list expense`, `list investment`, `list income` and `bye`) will be ignored.<br>
   e.g. if the command specifies `bye 123`, it will be interpreted as `bye`.
+> 
+> * If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
 
-* If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
-</div>
 
 
 ### List all loans: `list loan`
