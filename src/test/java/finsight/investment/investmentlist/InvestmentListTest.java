@@ -1,6 +1,5 @@
 package finsight.investment.investmentlist;
 
-import finsight.income.Income;
 import finsight.investment.exceptions.AddInvestmentDateOutOfBoundsException;
 import finsight.investment.exceptions.AddInvestmentWrongNumberFormatException;
 
@@ -21,8 +20,8 @@ public class InvestmentListTest {
     @BeforeEach
     void clearList() throws IOException {
         investmentList = new InvestmentList();
-        int LoopCount = Investment.numberOfInvestments;
-        for (int i = 0; i < LoopCount; i++) {
+        int loopCount = Investment.numberOfInvestments;
+        for (int i = 0; i < loopCount; i++) {
             investmentList.deleteInvestment(0);
         }
     }

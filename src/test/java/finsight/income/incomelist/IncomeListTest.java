@@ -1,6 +1,5 @@
 package finsight.income.incomelist;
 
-import finsight.expense.Expense;
 import finsight.income.Income;
 import finsight.income.exceptions.AddIncomeCommandWrongFormatException;
 
@@ -20,8 +19,8 @@ public class IncomeListTest {
     @BeforeEach
     void clearList() throws IOException {
         incomeList = new IncomeList();
-        int LoopCount  = Income.numberOfIncomes;
-        for (int i = 0; i < LoopCount; i++) {
+        int loopCount  = Income.numberOfIncomes;
+        for (int i = 0; i < loopCount; i++) {
             incomeList.deleteIncome(0);
         }
     }

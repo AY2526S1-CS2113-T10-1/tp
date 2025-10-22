@@ -1,6 +1,5 @@
 package finsight.loan.loanlist;
 
-import finsight.investment.Investment;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -22,8 +21,8 @@ public class LoanListTest {
     @BeforeEach
     void clearList() throws IOException {
         loanList = new LoanList();
-        int LoopCount  = Loan.numberOfLoans;
-        for (int i = 0; i < LoopCount; i++) {
+        int loopCount  = Loan.numberOfLoans;
+        for (int i = 0; i < loopCount; i++) {
             loanList.deleteLoan(0);
         }
     }

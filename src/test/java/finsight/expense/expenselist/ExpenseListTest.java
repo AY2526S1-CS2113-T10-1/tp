@@ -17,8 +17,8 @@ public class ExpenseListTest {
     @BeforeEach
     void clearList() throws IOException {
         expenseList = new ExpenseList();
-        int LoopCount  = Expense.numberOfExpenses;
-        for (int i = 0; i < LoopCount; i++) {
+        int loopCount  = Expense.numberOfExpenses;
+        for (int i = 0; i < loopCount; i++) {
             expenseList.deleteExpense(0);
         }
     }
