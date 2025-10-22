@@ -42,6 +42,8 @@ public class InvestmentList {
      */
     public void listAllInvestments() {
         Ui.printAllInvestments(this.investmentList);
+        Ui.printInvestmentReturns(String.format("%.2f",getTotal5YearReturns()),
+                String.format("%.2f",getTotal10YearReturns()));
     }
 
     /**
@@ -75,6 +77,22 @@ public class InvestmentList {
      */
     public int getSize() {
         return investmentList.size();
+    }
+
+    public Double getTotal5YearReturns() {
+        Double total5YearReturns = 0.0;
+        for (Investment investment : investmentList) {
+            total5YearReturns += investment.getInvestmentFiveYearReturns();
+        }
+        return total5YearReturns;
+    }
+
+    public Double getTotal10YearReturns() {
+        Double total10YearReturns = 0.0;
+        for (Investment investment : investmentList) {
+            total10YearReturns += investment.getInvestmentTenYearReturns();
+        }
+        return total10YearReturns;
     }
 
 
