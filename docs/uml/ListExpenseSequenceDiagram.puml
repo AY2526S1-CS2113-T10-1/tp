@@ -1,0 +1,33 @@
+@startuml
+!include style.puml
+
+actor User
+
+participant ":Ui" as Ui LOGIC_COLOR_T1
+participant ":Parser" as Parser LOGIC_COLOR_T2
+participant ":ExpenseList" as ExpenseList LOGIC_COLOR_T3
+participant ":Expense" as Expense LOGIC_COLOR_T4
+
+User -> Ui ++: list expense
+
+Ui -> Parser ++: tryCommand(...)
+
+Parser -> Parser ++: handleCommand(...)
+
+Parser -> ExpenseList ++: listExpenses()
+
+ExpenseList -> Ui ++: printAllExpenses(expenses)
+loop i from 0 to (Expense.numberOfExpenses - 1)
+    Ui -> ExpenseList ++: expenses.get(i:int)
+    ExpenseList -> Expense ++: expense.toString()
+    return expense:String
+    return expense:String
+    end
+
+return
+return
+return
+return
+return
+
+@enduml
