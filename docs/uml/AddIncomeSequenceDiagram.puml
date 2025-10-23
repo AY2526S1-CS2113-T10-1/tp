@@ -1,0 +1,34 @@
+@startuml
+!include style.puml
+
+actor User
+
+participant ":Ui" as Ui #eb34c9
+participant ":Parser" as Parser #34eb67
+participant ":IncomeList" as IncomeList #eb6b34
+participant ":Income" as Income #34a8eb
+
+User -> Ui ++: add income
+Ui -> Parser ++: tryCommand(...)
+Parser -> Parser ++: handleCommand(...)
+Parser -> Parser ++: parseAddLoanCommand(...)
+return commandParameters: String[]
+
+Parser -> IncomeList ++: addIncome(commandParameters[])
+return income
+
+create Income
+IncomeList -> Income ++: new Income(commandParameters[])
+return income
+
+IncomeList -> Income ++: income.toString()
+return income:String
+IncomeList -> Ui ++: printAddIncomeOutput(income:String)
+return
+
+return
+return
+return
+return
+
+@enduml
