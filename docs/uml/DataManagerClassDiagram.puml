@@ -1,0 +1,27 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+abstract class DataManager<T,X> {
++ tryLoad(): ArrayList<T>
++ writeToFile(List<T>): void
++ appendToFile(T): void
+# ensureFileExist(): void
+# ensureParentDir(): void
+# sanitize(String): String
+# unsanitize(String): String
+
+..{abstract}..
+# parseRecord(String): T {abstract}
+# formatRecord(T): String {abstract}
+# dataFilePath(): Path {abstract}
+}
+
+class ChildDataManager {
+# parseRecord(String): T
+# formatRecord(T): String
+# dataFilePath(): Path
+}
+
+note right of ChildDataManager: XYZDataManager includes:\nLoanDataManager, ExpenseDataManager,\nIncomeDataManager, InvestDataManager
+DataManager <|-- ChildDataManager
+@enduml
