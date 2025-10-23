@@ -171,6 +171,7 @@ public class Parser {
                     commandParameters[1], commandParameters[2], commandParameters[3]));
         } else if (userInput.startsWith("delete investment")) {
             int indexToDelete = parseDeleteInvestmentCommand(userInput);
+            assert indexToDelete >= 0 && indexToDelete < Investment.numberOfInvestments;
             investmentList.deleteInvestment(indexToDelete);
         } else {
             Ui.printPossibleCommands();
@@ -541,7 +542,7 @@ public class Parser {
         if (indexToDeleteString.isEmpty()) {
             throw new DeleteInvestmentMissingIndexException();
         }
-        int indexToDelete = 0;
+        int indexToDelete;
         try {
             indexToDelete = Integer.parseInt(indexToDeleteString) - 1;
         } catch (NumberFormatException e) {

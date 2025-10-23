@@ -25,6 +25,7 @@ public class InvestmentList {
      * @param investmentList ArrayList of Investment Objects
      */
     public InvestmentList(ArrayList<Investment> investmentList) {
+        assert investmentList != null : "Constructor received a null list.";
         this.investmentList = investmentList;
     }
 
@@ -51,6 +52,7 @@ public class InvestmentList {
      * @param investment the investment object to be added
      */
     public void addInvestment(Investment investment) throws IOException {
+        assert investment != null : "Cannot add a null investment.";
         investmentList.add(investment);
         Ui.printAddInvestmentOutput(this.investmentList);
         Investment.numberOfInvestments++;
@@ -63,6 +65,7 @@ public class InvestmentList {
      * @param indexToDelete the index of the investment object in the list to delete
      */
     public void deleteInvestment(int indexToDelete) throws IOException {
+        assert indexToDelete >= 0 && indexToDelete < investmentList.size() : "Invalid index passed to delete.";
         Ui.printDeleteInvestmentOutput(this.investmentList, indexToDelete);
         investmentList.remove(indexToDelete);
         Investment.numberOfInvestments--;

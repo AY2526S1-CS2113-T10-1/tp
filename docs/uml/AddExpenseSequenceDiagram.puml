@@ -1,0 +1,36 @@
+@startuml
+!include style.puml
+
+actor User
+
+participant ":Ui" as Ui LOGIC_COLOR_T1
+participant ":Parser" as Parser LOGIC_COLOR_T2
+participant ":ExpenseList" as ExpenseList LOGIC_COLOR_T3
+participant ":Expense" as Expense LOGIC_COLOR_T4
+
+User -> Ui ++: add expense
+
+Ui -> Parser ++: tryCommand(...)
+
+Parser -> Parser ++: handleCommand(...)
+
+Parser -> Parser ++: parseAddExpenseCommand(...)
+return commandParameters:String[]
+
+Parser -> ExpenseList ++: addExpense(commandParameters[])
+
+create Expense
+ExpenseList -> Expense ++: new Expense(commandParameters[])
+return expense
+
+ExpenseList -> Expense ++: expense.toString()
+return expense:String
+ExpenseList -> Ui ++: printAddExpenseOutput(expense:String)
+return
+
+return
+return
+return
+return
+
+@enduml

@@ -27,8 +27,6 @@ public class IncomeListTest {
 
     @Test
     void getIncomes_emptyIncomeList_returnEmptyArrayList() {
-        incomeList = new IncomeList(new ArrayList<Income>());
-
         assertTrue(incomeList.getIncomes().isEmpty());
     }
 
@@ -46,8 +44,6 @@ public class IncomeListTest {
 
     @Test
     void addIncome_singleIncome_returnSize() throws AddIncomeCommandWrongFormatException, IOException {
-        
-
         incomeList.addIncome(new Income("Salary", "1000"));
 
         assertEquals(1, incomeList.getIncomes().size());
@@ -55,8 +51,6 @@ public class IncomeListTest {
 
     @Test
     void deleteIncome_singleIncome_returnSize() throws AddIncomeCommandWrongFormatException, IOException {
-        
-
         incomeList.addIncome(new Income("Salary", "1000"));
         incomeList.addIncome(new Income("Hustle", "50"));
 
@@ -66,8 +60,6 @@ public class IncomeListTest {
 
     @Test
     void editIncome_singleIncome_returnIncomeParameters() throws AddIncomeCommandWrongFormatException, IOException {
-        
-
         incomeList.addIncome(new Income("Salary", "1000"));
         incomeList.editIncome("1", "Hustle", "50");
 
