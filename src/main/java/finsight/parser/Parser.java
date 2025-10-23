@@ -168,9 +168,10 @@ public class Parser {
         } else if (userInput.startsWith("add investment")) {
             String[] commandParameters = parseAddInvestmentCommand(userInput);
             investmentList.addInvestment(new Investment(commandParameters[0],
-                    commandParameters[1], commandParameters[2]));
+                    commandParameters[1], commandParameters[2], commandParameters[3]));
         } else if (userInput.startsWith("delete investment")) {
             int indexToDelete = parseDeleteInvestmentCommand(userInput);
+            assert indexToDelete >= 0 && indexToDelete < Investment.numberOfInvestments;
             investmentList.deleteInvestment(indexToDelete);
         } else {
             Ui.printPossibleCommands();
@@ -474,7 +475,8 @@ public class Parser {
      * <pre>
      * commandParameters[0]: Description
      * commandParameters[1]: Amount Invested
-     * commandParameters[2]: Monthly Deposit Date
+     * commandParameters[2]: Annual Return Rate
+     * commandParameters[3]: Monthly Deposit Date
      * </pre>
      *
      * @param userInput String input by user
@@ -483,38 +485,44 @@ public class Parser {
      */
     public String[] parseAddInvestmentCommand(String userInput)
             throws AddInvestmentSubcommandException, AddInvestmentSubcommandOrderException {
-        final int numberOfAddInvestmentCommandParameters = 3;
+        final int numberOfAddInvestmentCommandParameters = 4;
         final int sizeOfSubcommand = 2;
         String[] commandParameters = new String[numberOfAddInvestmentCommandParameters];
 
-        boolean hasInvalidSubcommand = !userInput.contains("d/") || !userInput.contains("a/")
-                || !userInput.contains("m/");
-        boolean hasInvalidSubcommandOrder = (userInput.indexOf("a/") < userInput.indexOf("d/")) ||
-                (userInput.indexOf("m/") < userInput.indexOf("a/")) ||
-                (userInput.indexOf("m/") < userInput.indexOf("d/"));
-
-        if (hasInvalidSubcommand) {
-            throw new AddInvestmentSubcommandException();
-        }
-
-        if (hasInvalidSubcommandOrder) {
-            throw new AddInvestmentSubcommandOrderException();
-        }
-
+        addInvestmentInputValidation(userInput);
+        // 0 - description, 1 - amount, 2 - return rate, 3 - date of month
         commandParameters[0] = userInput.substring(userInput.indexOf("d/") + sizeOfSubcommand,
                 userInput.indexOf("a/")).trim();
         commandParameters[1] = userInput.substring(userInput.indexOf("a/") + sizeOfSubcommand,
+                userInput.indexOf("r/")).trim();
+        commandParameters[2] = userInput.substring(userInput.indexOf("r/") + sizeOfSubcommand,
                 userInput.indexOf("m/")).trim();
-        commandParameters[2] = userInput.substring(userInput.indexOf("m/") + sizeOfSubcommand).trim();
+        commandParameters[3] = userInput.substring(userInput.indexOf("m/") + sizeOfSubcommand).trim();
 
         boolean hasInvalidParameters = commandParameters[0].isEmpty() || commandParameters[1].isEmpty() ||
-                commandParameters[2].isEmpty();
-
+                commandParameters[2].isEmpty() || commandParameters[3].isEmpty();
         if (hasInvalidParameters) {
             throw new AddInvestmentSubcommandException();
         }
 
         return commandParameters;
+    }
+
+    private void addInvestmentInputValidation(String userInput)
+            throws AddInvestmentSubcommandException, AddInvestmentSubcommandOrderException {
+        boolean hasInvalidSubcommand = !userInput.contains("d/") ||
+                !userInput.contains("a/") ||
+                !userInput.contains("r/") ||
+                !userInput.contains("m/");
+        boolean hasValidSubcommandOrder = (userInput.indexOf("d/") < userInput.indexOf("a/") &&
+                        (userInput.indexOf("r/") < userInput.indexOf("m/")) &&
+                        (userInput.indexOf("a/") < userInput.indexOf("r/")));
+        if (hasInvalidSubcommand) {
+            throw new AddInvestmentSubcommandException();
+        }
+        if (!hasValidSubcommandOrder) {
+            throw new AddInvestmentSubcommandOrderException();
+        }
     }
 
     /**
@@ -534,9 +542,7 @@ public class Parser {
         if (indexToDeleteString.isEmpty()) {
             throw new DeleteInvestmentMissingIndexException();
         }
-
         int indexToDelete;
-
         try {
             indexToDelete = Integer.parseInt(indexToDeleteString) - 1;
         } catch (NumberFormatException e) {

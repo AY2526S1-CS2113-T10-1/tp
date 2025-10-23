@@ -75,8 +75,9 @@ public class InvestDataManager extends DataManager<Investment, Exception> {
     protected String formatRecord(Investment investment) {
         String description = sanitize(investment.getDescription());
         String investAmount = investment.getInvestmentAmount().toString();
+        String rateOfReturn = investment.getInvestmentReturnRate().toString();
         String dayOfInvest = Integer.toString(investment.getInvestmentDateOfMonth());
-        return String.join("|", description, investAmount, dayOfInvest);
+        return String.join("|", description, investAmount, rateOfReturn, dayOfInvest);
     }
 
     /**
@@ -97,7 +98,8 @@ public class InvestDataManager extends DataManager<Investment, Exception> {
         }
         String description = sanitize(parts[0]);
         String investAmount = parts[1];
-        String dayOfInvest = parts[2];
-        return new Investment(description, investAmount, dayOfInvest);
+        String rateOfReturn = parts[2];
+        String dayOfInvest = parts[3];
+        return new Investment(description, investAmount, rateOfReturn, dayOfInvest);
     }
 }

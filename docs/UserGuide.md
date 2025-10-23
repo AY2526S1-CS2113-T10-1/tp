@@ -51,7 +51,7 @@ Example of usage:
 
 `add loan d/ loan 2 a/ 10.56 r/ 11-10-2056 23:59`
 
-### Delete a loan: `add loan`
+### Delete a loan: `delete loan`
 Deletes the loan at <INDEX> from the list of loan
 
 Format: `delete loan <INDEX>`
@@ -77,6 +77,28 @@ Example of usage:
 
 `loan repaid 3`
 
+### List all expenses: `list expense`
+Prints the list of all expenses onto the terminal, with starting index of 1
+
+Format: `list expense`
+
+### Add expense: `add expense`
+Adds an expense to the list. The expense will include a description and the amount spent.
+
+Format: `add expense d/<DECRIPTION> a/<AMOUNT_SPENT>`
+
+Example of usage: `add expense d/food a/5.50`
+
+### Delete expense: `delete expense`
+Deletes the expense from the list.
+
+Format: `delete expense <INDEX>`
+
+* The `<INDEX>` cannot contain punctuation.
+
+Example of usage: `delete expense 2`
+
+
 ### Exit the program: `bye`
 Saves all current data and exits the program
 
@@ -99,4 +121,7 @@ FinSight data are saved in the hard disk automatically after any command that ch
 | Add a Loan         | `add loan d/<DESCRIPTION> a/<AMOUNT_LOANED> r/<LOAN_RETURN_DATE_AND_TIME>`<br/> e.g. `add loan d/ loan1 a/10.55 r/ 10-10-2056 23:59` |
 | Delete a Loan      | `delete loan <INDEX>`<br/> e.g. `delete loan 1`                                                                                      |
 | Set Loan as Repaid | `loan repaid <INDEX>`<br/> e.g. `loan repaid 1`                                                                                      |
+| List Expense       | `list expense`                                                                                                                       |
+| Add an Expense     | `add expense d/<DESCRIPTION> a/<AMOUNT_SPEND>`<br/> e.g. `add expense d/food a/6`                                                    |
+| Delete An Expense  | `delete expense <INDEX>`<br/> e.g. `delete expense 2`                                                                                |
 | Exit Program       | `bye`                                                                                                                                |

@@ -26,6 +26,7 @@ public class InvestmentList {
      * @param investmentList ArrayList of Investment Objects
      */
     public InvestmentList(ArrayList<Investment> investmentList) {
+        assert investmentList != null : "Constructor received a null list.";
         this.investmentList = investmentList;
     }
 
@@ -34,6 +35,7 @@ public class InvestmentList {
      */
     public InvestmentList() {
         this.investmentList = dataManager.tryLoad();
+        Investment.numberOfInvestments = investmentList.size();
     }
 
     /**
@@ -41,6 +43,8 @@ public class InvestmentList {
      */
     public void listAllInvestments() {
         Ui.printAllInvestments(this.investmentList);
+        Ui.printInvestmentReturns(String.format("%.2f",getTotal5YearReturns()),
+                String.format("%.2f",getTotal10YearReturns()));
     }
 
     /**
@@ -49,6 +53,7 @@ public class InvestmentList {
      * @param investment the investment object to be added
      */
     public void addInvestment(Investment investment) throws IOException {
+        assert investment != null : "Cannot add a null investment.";
         investmentList.add(investment);
         Ui.printAddInvestmentOutput(this.investmentList);
         Investment.numberOfInvestments++;
@@ -61,6 +66,7 @@ public class InvestmentList {
      * @param indexToDelete the index of the investment object in the list to delete
      */
     public void deleteInvestment(int indexToDelete) throws IOException {
+        assert indexToDelete >= 0 && indexToDelete < investmentList.size() : "Invalid index passed to delete.";
         Ui.printDeleteInvestmentOutput(this.investmentList, indexToDelete);
         investmentList.remove(indexToDelete);
         Investment.numberOfInvestments--;
@@ -74,6 +80,22 @@ public class InvestmentList {
      */
     public int getSize() {
         return investmentList.size();
+    }
+
+    public Double getTotal5YearReturns() {
+        Double total5YearReturns = 0.0;
+        for (Investment investment : investmentList) {
+            total5YearReturns += investment.getInvestmentFiveYearReturns();
+        }
+        return total5YearReturns;
+    }
+
+    public Double getTotal10YearReturns() {
+        Double total10YearReturns = 0.0;
+        for (Investment investment : investmentList) {
+            total10YearReturns += investment.getInvestmentTenYearReturns();
+        }
+        return total10YearReturns;
     }
 
 

@@ -1,5 +1,7 @@
 package finsight.parser;
 
+
+
 import finsight.expense.exceptions.AddExpenseCommandWrongFormatException;
 import finsight.expense.exceptions.DeleteExpenseCommandIndexOutOfBoundsException;
 import finsight.expense.expenselist.ExpenseList;
@@ -205,7 +207,7 @@ public class ParserTest {
         Parser parser = new Parser(expenseList, incomeList, investmentList, loanList);
 
         loanList.addLoan(new Loan("1", "1000", "12-12-2025 19:00"));
-        String inputTestString = "delete loan 2";
+        String inputTestString = "delete loan 10";
 
         assertThrows(DeleteLoanCommandIndexOutOfBoundsException.class,
                 () -> parser.parseDeleteLoanCommand(inputTestString));
@@ -308,7 +310,7 @@ public class ParserTest {
         Parser parser = new Parser(expenseList, incomeList, investmentList, loanList);
 
         loanList.addLoan(new Loan("1", "1000", "12-12-2025 19:00"));
-        String inputTestString = "loan repaid 2";
+        String inputTestString = "loan repaid 10";
 
         assertThrows(LoanRepaidCommandIndexOutOfBoundsException.class,
                 () -> parser.parseLoanRepaidCommand(inputTestString));
@@ -523,6 +525,20 @@ public class ParserTest {
     }
 
     @Test
+    void parseAddInvestmentCommand_validOrder_noExceptionThrown() {
+        ExpenseList expenseList = new ExpenseList();
+        IncomeList incomeList = new IncomeList();
+        InvestmentList investmentList = new InvestmentList();
+        LoanList loanList = new LoanList();
+        Parser parser = new Parser(expenseList, incomeList, investmentList, loanList);
+
+        String inputTestString = "add investment d/Test a/100 r/1.0 m/20";
+
+        assertDoesNotThrow(
+                () -> parser.parseAddInvestmentCommand(inputTestString));
+    }
+
+    @Test
     void parseAddInvestmentCommand_aSubcommandBeforeDSubcommand_exceptionThrown()
             throws AddIncomeCommandWrongFormatException,
             IOException {
@@ -532,14 +548,14 @@ public class ParserTest {
         LoanList loanList = new LoanList();
         Parser parser = new Parser(expenseList, incomeList, investmentList, loanList);
 
-        String inputTestString = "add investment a/100 d/Test m/20";
+        String inputTestString = "add investment a/100 d/Test r/1.0 m/20";
 
         assertThrows(AddInvestmentSubcommandOrderException.class,
                 () -> parser.parseAddInvestmentCommand(inputTestString));
     }
 
     @Test
-    void parseAddInvestmentCommand_aSubcommandBeforeDAndMSubcommand_exceptionThrown()
+    void parseAddInvestmentCommand_rSubcommandBeforeASubcommand_exceptionThrown()
             throws AddIncomeCommandWrongFormatException, IOException {
         ExpenseList expenseList = new ExpenseList();
         IncomeList incomeList = new IncomeList();
@@ -547,14 +563,14 @@ public class ParserTest {
         LoanList loanList = new LoanList();
         Parser parser = new Parser(expenseList, incomeList, investmentList, loanList);
 
-        String inputTestString = "add investment a/100 m/20 d/Test";
+        String inputTestString = "add investment d/Test r/1.0 a/100 m/20";
 
         assertThrows(AddInvestmentSubcommandOrderException.class,
                 () -> parser.parseAddInvestmentCommand(inputTestString));
     }
 
     @Test
-    void parseAddInvestmentCommand_mSubcommandBeforeASubcommand_exceptionThrown()
+    void parseAddInvestmentCommand_mSubcommandBeforeRSubcommand_exceptionThrown()
             throws AddIncomeCommandWrongFormatException, IOException {
         ExpenseList expenseList = new ExpenseList();
         IncomeList incomeList = new IncomeList();
@@ -562,37 +578,7 @@ public class ParserTest {
         LoanList loanList = new LoanList();
         Parser parser = new Parser(expenseList, incomeList, investmentList, loanList);
 
-        String inputTestString = "add investment d/Test m/20 a/100";
-
-        assertThrows(AddInvestmentSubcommandOrderException.class,
-                () -> parser.parseAddInvestmentCommand(inputTestString));
-    }
-
-    @Test
-    void parseAddInvestmentCommand_mSubcommandBeforeDAndASubcommand_exceptionThrown()
-            throws AddIncomeCommandWrongFormatException, IOException {
-        ExpenseList expenseList = new ExpenseList();
-        IncomeList incomeList = new IncomeList();
-        InvestmentList investmentList = new InvestmentList();
-        LoanList loanList = new LoanList();
-        Parser parser = new Parser(expenseList, incomeList, investmentList, loanList);
-
-        String inputTestString = "add investment m/20 d/Test a/100";
-
-        assertThrows(AddInvestmentSubcommandOrderException.class,
-                () -> parser.parseAddInvestmentCommand(inputTestString));
-    }
-
-    @Test
-    void parseAddInvestmentCommand_aSubcommandBeforeDAndASubcommand_exceptionThrown()
-            throws AddIncomeCommandWrongFormatException, IOException {
-        ExpenseList expenseList = new ExpenseList();
-        IncomeList incomeList = new IncomeList();
-        InvestmentList investmentList = new InvestmentList();
-        LoanList loanList = new LoanList();
-        Parser parser = new Parser(expenseList, incomeList, investmentList, loanList);
-
-        String inputTestString = "add investment m/20 d/Test a/100";
+        String inputTestString = "add investment d/Test a/100 m/20 r/1.0";
 
         assertThrows(AddInvestmentSubcommandOrderException.class,
                 () -> parser.parseAddInvestmentCommand(inputTestString));
