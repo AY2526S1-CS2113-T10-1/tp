@@ -67,6 +67,7 @@ The Loan Repaid feature enables the users to set a loan as repaid. The `Ui` clas
 
 ##### 3.1.1 Add Income Feature
 The Add Income feature enables users to add income.
+![AddIncomeSequenceDiagram](./diagrams/AddIncomeSequenceDiagram.png)
 
 ##### 3.1.2 Delete Income Feature
 The Delete Income feature enables users to delete income.
