@@ -9,7 +9,7 @@ participant ":InvestmentList" as InvestmentList LOGIC_COLOR_T3
 participant ":Investment" as Investment LOGIC_COLOR_T4
 participant ":InvestDataManager" as DataManager LOGIC_COLOR_T2
 
-User -> Ui ++: add expense
+User -> Ui ++: add investment
 
 Ui -> Parser ++: tryCommand(...)
 
@@ -19,8 +19,8 @@ Parser -> Parser ++: parseAddInvestmentCommand(...)
 return commandParameters:String[]
 
 create Investment
-Parser -> Investment ++: commandParameters:String[]
-return investment
+Parser -> Investment ++: Investment(commandParameters[])
+return
 
 Parser -> InvestmentList ++: addInvestment(investment)
 
@@ -29,8 +29,7 @@ InvestmentList -> InvestmentList ++: add:investment
 return :boolean
 InvestmentList -> Ui ++: printAddInvestmentOutput(investments:ArrayList<Investment>)
 return
-InvestmentList -> Investment ++: numberOfInvestment++
-return
+
 InvestmentList -> DataManager ++: appendToFile(investment)
 return
 
