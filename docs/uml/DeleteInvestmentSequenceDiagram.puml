@@ -1,0 +1,36 @@
+@startuml
+!include style.puml
+
+actor User
+
+participant ":Ui" as Ui LOGIC_COLOR_T1
+participant ":Parser" as Parser LOGIC_COLOR_T2
+participant ":InvestmentList" as InvestmentList LOGIC_COLOR_T3
+participant ":InvestDataManager" as DataManager LOGIC_COLOR_T4
+
+User -> Ui ++: add investment
+
+Ui -> Parser ++: tryCommand(...)
+
+Parser -> Parser ++: handleCommand(...)
+
+Parser -> Parser ++: parseDeleteInvestmentCommand(...)
+return indexToDelete:int
+
+Parser -> InvestmentList ++: deleteInvestment(indexToDelete)
+
+InvestmentList -> Ui ++: printDeleteInvestmentOutput(ArrayList<Investment>,indexToDelete)
+return
+
+InvestmentList -> InvestmentList ++: remove:investment
+return
+
+InvestmentList -> DataManager ++: writeToFile(investment)
+return
+
+return
+return
+return
+return
+
+@enduml

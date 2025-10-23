@@ -1,0 +1,41 @@
+@startuml
+!include style.puml
+
+actor User
+
+participant ":Ui" as Ui LOGIC_COLOR_T1
+participant ":Parser" as Parser LOGIC_COLOR_T2
+participant ":InvestmentList" as InvestmentList LOGIC_COLOR_T3
+participant ":Investment" as Investment LOGIC_COLOR_T4
+
+User -> Ui ++: list investment
+
+Ui -> Parser ++: tryCommand(...)
+
+Parser -> Parser ++: handleCommand(...)
+
+Parser -> InvestmentList ++: listAllInvestments()
+
+InvestmentList -> Ui ++: printAllInvestments(ArrayList<Investment>)
+loop i from 0 to (Investment.numberOfInvestments - 1)
+    Ui -> InvestmentList ++: investments.get(i:int)
+    InvestmentList -> Investment ++: investment.toString()
+    return investment:String
+    return investment:String
+    end
+
+InvestmentList -> InvestmentList ++: getTotal5YearReturns()
+return total5YearReturns:int
+InvestmentList -> InvestmentList ++: getTotal10YearReturns()
+return total10YearReturns:int
+
+InvestmentList -> Ui ++: printInvestmentReturns(total5YearReturns,total10YearReturns)
+return
+
+return
+return
+return
+return
+return
+
+@enduml
