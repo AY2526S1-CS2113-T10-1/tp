@@ -26,7 +26,7 @@ Parser -> InvestmentList ++: addInvestment(investment)
 
 
 InvestmentList -> InvestmentList ++: add:investment
-return :boolean
+return
 InvestmentList -> Ui ++: printAddInvestmentOutput(investments:ArrayList<Investment>)
 return
 
