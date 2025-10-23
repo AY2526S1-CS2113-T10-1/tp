@@ -9,11 +9,25 @@
 {Describe the design and implementation of the product. Use UML diagrams and short code snippets where applicable.}
 
 ### 1. Design
-### 2. Implementation
 
 > [!TIP]
-> 
+>
 > The `.puml` files used to create diagrams are in the `docs/uml` folder. The diagrams can be found in the `docs/diagrams` folder. Refer to the [_PlantUML Tutorial_ at se-edu/guides](https://se-education.org/guides/tutorials/plantUml.html) to learn how to create and edit diagrams.
+
+Main components of the architecture
+
+`Finsight` is in charge of the program launch and shutdown
+
+* At app launch, it initializes the other components and connects them up with each other
+* At shut down, it shuts down the other components and invokes cleanup methods wherever necessary
+
+The bulk of the app's work is done by the following four components
+
+* `UI` : The UI of the App.
+* `Parser` : The command executor and handler
+* `Storage` : Reads fata from, and writes data to, the hard disk
+
+### 2. Implementation
 
 #### 2.1 Loan Features
 
