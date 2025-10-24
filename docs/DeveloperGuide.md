@@ -78,6 +78,64 @@ The Edit Income feature enables users to edit income.
 ##### 3.1.4 List Income Feature
 The List Income feature enables users to view all incomes.
 
+#### 2.5 Storage Features
+
+##### 2.5.1 Overview
+The ```DataManager``` class is an **abstract base class** that defines the general mechanism for reading and writing 
+text-base data files used throughout Finsight (e.g., Loans, Income).
+
+It encapsulates all **low-level file I/O** responsibilities such as:
+
+- Ensuring directories and files exist
+- Performing atomic writes to prevent corruption
+- Managing file append/overwrite operations
+- Providing reusable sanitisation utilities
+
+This allows child class (e.g., ```LoanDataManager```, ```IncomeDataManager```) to focus purely on **domain-specific 
+parsing logic**.
+
+##### 2.5.2 Class Diagram
+<div style="text-align: center;">
+    ![DataManagerClassDiagram](./diagrams/DataManagerClassDiagram.png)
+</div>
+
+**Design Principle**: Follows **Template Method pattern**, ensuring each subclass only defines its own record formatting
+rules while sharing consistent I/O logic. The abstract methods allow subclasses to fill in the data-specific steps such 
+as path and file name (```./data/{category}.txt```).
+
+##### 2.5.3 Loading Data
+
+When ```tryLoad()``` is called
+1. It first call ```ensureFileExist()``` to create missing folders/files.
+2. Read all line in UTF-8.
+3. Ignore blank lines.
+4. Passes each line into corresponding subclass's ```parseRecord(String)``` for conversion into domain objects.
+5. Returns list of valid records.
+6. If error occurs (I/O or parsing), it catches the exception, prints the error and returns an empty list.
+
+##### 2.5.4 Writing and Appending Data
+
+Two operations are supported:
+
+- ```writeToFile(List<T>)``` --- overwrites the file with all current records.
+- ```appendToFile(T)``` --- appends a single record at the end of the file.
+
+Both ensure the file exists before writing. ```writeToFile()``` writes to a temporary ```.temp``` file first and then
+atomically replaces the target file to ensure data consistency even during program termination.
+
+``` java
+Files.move(tmp, dataFilePath(), 
+StandardCopyOption.REPLACE_EXISTING, 
+StandardCopyOption.ATOMIC_MOVE);
+```
+
+##### 2.5.5 File Safety Utilities
+
+- ```ensureParentDir()``` expects to find folder ```data``` in current directory. Method creates directory if missing.
+- ```ensureFileExist()``` expects ```{category}.txt``` in ```data``` folder. Method creates expected files and folder if
+missing.
+- ```sanitize()/unsanitize()``` replaces and restores reserved delimiter symbol (```|``` to ```/```) to prevent record 
+corruption during ```formatRecord()``` and ```parseRecord()```.
 
 ## Product scope
 ### Target user profile
