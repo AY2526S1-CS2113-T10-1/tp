@@ -23,6 +23,7 @@ loop i from 0 to (Investment.numberOfInvestments - 1)
     return investment:String
     return investment:String
     end
+return
 
 InvestmentList -> InvestmentList ++: getTotal5YearReturns()
 return total5YearReturns:int
