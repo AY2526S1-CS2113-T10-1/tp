@@ -17,7 +17,7 @@ Parser -> Parser ++: handleCommand(...)
 Parser -> InvestmentList ++: listAllInvestments()
 
 InvestmentList -> Ui ++: printAllInvestments(ArrayList<Investment>)
-loop i from 0 to (Investment.numberOfInvestments - 1)
+loop i from 0 to Investment.size() - 1
     Ui -> InvestmentList ++: investments.get(i:int)
     InvestmentList -> Investment ++: investment.toString()
     return investment:String
@@ -25,18 +25,13 @@ loop i from 0 to (Investment.numberOfInvestments - 1)
     end
 return
 
-InvestmentList -> InvestmentList ++: getTotal5YearReturns()
-return total5YearReturns:int
-InvestmentList -> InvestmentList ++: getTotal10YearReturns()
-return total10YearReturns:int
-
-InvestmentList -> Ui ++: printInvestmentReturns(total5YearReturns,total10YearReturns)
+InvestmentList -> Ui ++: printInvestmentReturns(...)
 return
 
 return
 return
 return
 return
-return
+
 
 @enduml
