@@ -8,6 +8,8 @@ import finsight.ui.Ui;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Contains a ArrayList of Income class and manipulate it
@@ -19,6 +21,7 @@ import java.util.ArrayList;
 public class IncomeList {
     protected ArrayList<Income> incomes;
     private final IncomeDataManager dataManager = new IncomeDataManager("./data/income.txt");
+    private final Logger logger = Logger.getLogger(IncomeList.class.getName());
 
     public IncomeList() {
         this.incomes = dataManager.tryLoad();
@@ -44,11 +47,13 @@ public class IncomeList {
      * @param income Income class
      */
     public void addIncome(Income income) throws IOException {
+        logger.log(Level.INFO,"entered add income function");
         incomes.add(income);
         Ui.printAddIncomeOutput(income);
 
         Income.numberOfIncomes++;
         dataManager.appendToFile(income);
+        logger.log(Level.INFO,"income added and added to data file");
     }
 
     /**
@@ -57,11 +62,13 @@ public class IncomeList {
      * @param indexToDelete Index to delete
      */
     public void deleteIncome(int indexToDelete) throws IOException {
+        logger.log(Level.INFO,"entered delete income function");
         Ui.printDeleteIncomeOutput(incomes, indexToDelete);
         incomes.remove(indexToDelete);
 
         Income.numberOfIncomes--;
         dataManager.writeToFile(incomes);
+        logger.log(Level.INFO,"income deleted and list updated to data file");
     }
 
     /**
@@ -72,10 +79,12 @@ public class IncomeList {
      * @param amountEarned Amount earned
      */
     public void editIncome(String indexToEdit, String description, String amountEarned) {
+        logger.log(Level.INFO,"entered edit income function");
         incomes.get(Integer.parseInt(indexToEdit) - 1).setDescription(description);
         incomes.get(Integer.parseInt(indexToEdit) - 1).setAmountEarned(Float.parseFloat(amountEarned));
 
         Ui.printEditIncomeOutput(incomes, Integer.parseInt(indexToEdit) - 1);
+        logger.log(Level.INFO,"income edited");
     }
 
     /**
