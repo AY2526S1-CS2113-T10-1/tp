@@ -642,12 +642,10 @@ public class Parser {
 
     /**
      * Returns the parameters required for the add investment command as a String Array of size 3
-     * <pre>
      * commandParameters[0]: Description
      * commandParameters[1]: Amount Invested
      * commandParameters[2]: Annual Return Rate
      * commandParameters[3]: Monthly Deposit Date
-     * </pre>
      *
      * @param userInput String input by user
      * @return The parameters used for add investment command
@@ -678,6 +676,16 @@ public class Parser {
         return commandParameters;
     }
 
+    /**
+     * Validates the user input and throws appropriate exceptions if invalid.
+     * Helper function to parseAddInvestmentCommand(...)
+     *
+     * @param userInput String input by user
+     * @throws AddInvestmentSubcommandException      If the required parameters inserted by
+     *                                               the user are missing or empty
+     * @throws AddInvestmentSubcommandOrderException If the required parameters inserted by
+     *                                               the user are in the wrong order
+     */
     private void addInvestmentInputValidation(String userInput)
             throws AddInvestmentSubcommandException, AddInvestmentSubcommandOrderException {
         boolean hasInvalidSubcommand = !userInput.contains("d/") ||

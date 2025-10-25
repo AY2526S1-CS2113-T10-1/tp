@@ -11,7 +11,6 @@ import java.util.ArrayList;
  * Represents an ArrayList of objects of the Investment class
  * This class manipulates the Investment objects in the ArrayList
  * according to the user's command.
- * Uses the Ui Class to provide input and output to the user via the terminal
  *
  * @author L'kesh Nair
  * @since 15/Oct/2025
@@ -31,7 +30,7 @@ public class InvestmentList {
     }
 
     /**
-     * Constructs an InvestmentList Class with a new ArrayList of Investment objects
+     * Constructs an InvestmentList Class with an ArrayList of Investment objects from memory
      */
     public InvestmentList() {
         this.investmentList = dataManager.tryLoad();
@@ -82,6 +81,11 @@ public class InvestmentList {
         return investmentList.size();
     }
 
+    /**
+     * Returns the overall 5-year returns from all Investment objects in the InvestmentList Class
+     *
+     * @return The overall 5-year returns from all Investment objects in the InvestmentList Class
+     */
     public Double getTotal5YearReturns() {
         Double total5YearReturns = 0.0;
         for (Investment investment : investmentList) {
@@ -90,6 +94,11 @@ public class InvestmentList {
         return total5YearReturns;
     }
 
+    /**
+     * Returns the overall 10-year returns from all Investment objects in the InvestmentList Class
+     *
+     * @return The overall 10-year returns from all Investment objects in the InvestmentList Class
+     */
     public Double getTotal10YearReturns() {
         Double total10YearReturns = 0.0;
         for (Investment investment : investmentList) {
