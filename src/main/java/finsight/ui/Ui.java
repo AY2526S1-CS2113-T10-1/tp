@@ -92,6 +92,7 @@ public class Ui {
         System.out.print(SPACING);
     }
 
+    // @@author Emannuel-Tan
     /**
      * Prints the details of the loan to be deleted
      *
@@ -154,6 +155,7 @@ public class Ui {
             System.out.print(SPACING);
         }
     }
+    // @@author
 
     /**
      * Prints all items in income list

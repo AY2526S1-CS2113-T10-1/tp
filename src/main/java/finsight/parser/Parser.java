@@ -247,6 +247,8 @@ public class Parser {
         return commandParameters;
     }
 
+    //@@ author Emannuel-Tan
+
     /**
      * Returns the index to delete if index exists,
      * else throws exception
@@ -321,6 +323,7 @@ public class Parser {
 
         return commandParameters;
     }
+    //@@ author
 
     /**
      * Returns the parameters used for add income command as a String Array of size 2
@@ -438,8 +441,10 @@ public class Parser {
         return commandParameters;
     }
 
+    //@@ author Emannuel-Tan
+
     /**
-     * Returns the index to mark if index exists,
+     * Returns the index to set repaid if index exists,
      * else throws exception
      *
      * @param userInput String input by user
@@ -469,6 +474,8 @@ public class Parser {
 
         return indexToSetRepaid;
     }
+
+    //@@ author
 
     /**
      * Returns the parameters required for the add investment command as a String Array of size 3
@@ -515,8 +522,8 @@ public class Parser {
                 !userInput.contains("r/") ||
                 !userInput.contains("m/");
         boolean hasValidSubcommandOrder = (userInput.indexOf("d/") < userInput.indexOf("a/") &&
-                        (userInput.indexOf("r/") < userInput.indexOf("m/")) &&
-                        (userInput.indexOf("a/") < userInput.indexOf("r/")));
+                (userInput.indexOf("r/") < userInput.indexOf("m/")) &&
+                (userInput.indexOf("a/") < userInput.indexOf("r/")));
         if (hasInvalidSubcommand) {
             throw new AddInvestmentSubcommandException();
         }
@@ -555,6 +562,4 @@ public class Parser {
 
         return indexToDelete;
     }
-
-
 }
