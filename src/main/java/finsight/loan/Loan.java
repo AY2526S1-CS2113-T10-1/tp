@@ -3,10 +3,7 @@ package finsight.loan;
 // @@author Emannuel-Tan
 
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 import java.time.LocalDateTime;
-
-import finsight.loan.exceptions.AddLoanCommandWrongFormatException;
 
 /**
  * Represents a Loan made of a description, a loan amount and a repayment date
