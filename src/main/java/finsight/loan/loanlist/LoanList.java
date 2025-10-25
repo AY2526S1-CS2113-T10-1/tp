@@ -77,9 +77,11 @@ public class LoanList {
      *
      * @param indexToSet Index of Loan to be set as repaid
      */
-    public void setRepaid(int indexToSet) {
+    public void setRepaid(int indexToSet) throws IOException {
         loans.get(indexToSet).setRepaid();
         Ui.printLoanRepaid(loans.get(indexToSet));
+
+        loanDataManager.writeToFile(loans);
     }
 
     /**
@@ -87,8 +89,10 @@ public class LoanList {
      *
      * @param indexToSet Index of Loan to be set as not repaid
      */
-    public void setNotRepaid(int indexToSet) {
+    public void setNotRepaid(int indexToSet) throws IOException {
         loans.get(indexToSet).setNotRepaid();
         Ui.printLoanNotRepaid(loans.get(indexToSet));
+
+        loanDataManager.writeToFile(loans);
     }
 }
