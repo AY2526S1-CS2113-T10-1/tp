@@ -165,11 +165,15 @@ public class Ui {
      */
     public static void printAllLoans(ArrayList<Loan> loans) {
         System.out.print(SPACING);
+        Double totalLoaned = 0.0;
         for (int i = 0; i < Loan.numberOfLoans; i++) {
             System.out.println("Loan " + (i + 1) + ":");
             System.out.println(loans.get(i).toString());
+            totalLoaned += loans.get(i).getAmountLoaned();
             System.out.print(SPACING);
         }
+        System.out.println("Total loaned: $" + String.format("%.2f", totalLoaned));
+        System.out.print(SPACING);
     }
     // @@author
 
