@@ -33,6 +33,7 @@ The bulk of the app's work is done by the following four components
 
 ##### 2.1.1 List Loan Feature
 The List Loan feature enables users to see a list of loans. The `Ui` class takes in the user input. This String is used by the `Parser` class to decide which command to run. `Parser` calls the `listLoans()` method from the `LoanList` class to output the loans. `LoanList` then calls the `Ui` class to output the loans, giving it the ArrayList of Loans. `Ui` class loops through the ArrayList to output each `Loan` class's `toString()` method.
+
 ![ListLoanSequenceDiagram](diagrams/loan/ListLoanSequenceDiagram.png)
 
 ##### 2.1.2 Add Loan Feature
@@ -45,6 +46,7 @@ The Add Loan feature enables users to add loans. The `Ui` class takes in the use
 | loanReturnDate  | LocalDateTime | The date and time that the loan is due by |
 
 The `LoanList` class then calls the `Ui` class to print a acknowledgement message in the form of the `toString()` method of the `Loan` class.
+
 ![AddLoanSequenceDiagram](diagrams/loan/AddLoanSequenceDiagram.png)
 
 ##### 2.1.3 Delete Loan Feature
@@ -53,7 +55,9 @@ The Delete Loan feature enables the users to delete a loan. The `Ui` class takes
 | Class Attribute | Variable Type | Relevance                              |
 |-----------------|---------------|----------------------------------------|
 | index           | int           | The index of the Loan in the ArrayList |
+
 ![DeleteLoanSequenceDiagram](diagrams/loan/DeleteLoanSequenceDiagram.png)
+
 
 ##### 2.1.4 Loan Repaid Feature
 The Loan Repaid feature enables the users to set a loan as repaid. The `Ui` class takes in the user input. This String is used by the `Parser` class to decide which command to run. `Parser` validates the provided index using the `parseLoanRepaidCommand` method. `Parser` then calls the `setRepaid()` method of the `LoanList` class which calls the `setRepaid()` method of the `Loan` class before calling the `Ui` class to print a acknowledgement message using the `toString()` method of the `Loan` class. Below is the relevance of these attributes:
@@ -61,12 +65,14 @@ The Loan Repaid feature enables the users to set a loan as repaid. The `Ui` clas
 | Class Attribute | Variable Type | Relevance                              |
 |-----------------|---------------|----------------------------------------|
 | index           | int           | The index of the Loan in the ArrayList |
+
 ![LoanRepaidSequenceDiagram](diagrams/loan/LoanRepaidSequenceDiagram.png)
 
 #### 3.1 Income Features
 
 ##### 3.1.1 Add Income Feature
 The Add Income feature enables users to add income.
+
 ![AddIncomeSequenceDiagram](diagrams/income/AddIncomeSequenceDiagram.png)
 
 ##### 3.1.2 Delete Income Feature

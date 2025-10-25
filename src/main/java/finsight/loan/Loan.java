@@ -1,10 +1,9 @@
 package finsight.loan;
 
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-import java.time.LocalDateTime;
+// @@author Emannuel-Tan
 
-import finsight.loan.exceptions.AddLoanCommandWrongFormatException;
+import java.time.format.DateTimeFormatter;
+import java.time.LocalDateTime;
 
 /**
  * Represents a Loan made of a description, a loan amount and a repayment date
@@ -27,19 +26,12 @@ public class Loan {
      * @param description          String description of the loan
      * @param amountLoanedString   String of amount loaned
      * @param loanReturnDateString String of loan return date
-     * @throws AddLoanCommandWrongFormatException If amount loaned or loan return date string is not of correct format
      */
-    public Loan(String description, String amountLoanedString, String loanReturnDateString)
-            throws AddLoanCommandWrongFormatException {
+    public Loan(String description, String amountLoanedString, String loanReturnDateString) {
         this.description = description;
         isRepaid = false;
-
-        try {
-            this.amountLoaned = Double.parseDouble(amountLoanedString);
-            this.loanReturnDate = LocalDateTime.parse(loanReturnDateString, inputDateFormat);
-        } catch (DateTimeParseException | NumberFormatException e) {
-            throw new AddLoanCommandWrongFormatException();
-        }
+        this.amountLoaned = Double.parseDouble(amountLoanedString);
+        this.loanReturnDate = LocalDateTime.parse(loanReturnDateString, inputDateFormat);
     }
 
     /**

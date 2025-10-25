@@ -1,5 +1,7 @@
 package finsight.loan.loanlist;
 
+//@@ author Emannuel-Tan
+
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -63,10 +65,25 @@ public class LoanList {
      * @param indexToDelete Index of Loan to be deleted
      */
     public void deleteLoan(int indexToDelete) throws IOException {
-        Ui.printDeleteLoanOutput(loans, indexToDelete);
+        Ui.printDeleteLoanOutput(loans.get(indexToDelete));
         loans.remove(indexToDelete);
 
         Loan.numberOfLoans--;
+        loanDataManager.writeToFile(loans);
+    }
+
+    /**
+     * Edits the Loan at index
+     *
+     * @param commandParameters index and parameters of loan to be edited
+     */
+    public void editLoan(String[] commandParameters) throws IOException {
+        int indexToEdit = Integer.parseInt(commandParameters[0]) - 1;
+
+        loans.remove(indexToEdit);
+        loans.add(indexToEdit, new Loan(commandParameters[1], commandParameters[2], commandParameters[3]));
+        Ui.printEditLoanOutput(loans.get(indexToEdit));
+
         loanDataManager.writeToFile(loans);
     }
 
@@ -75,9 +92,11 @@ public class LoanList {
      *
      * @param indexToSet Index of Loan to be set as repaid
      */
-    public void setRepaid(int indexToSet) {
+    public void setRepaid(int indexToSet) throws IOException {
         loans.get(indexToSet).setRepaid();
         Ui.printLoanRepaid(loans.get(indexToSet));
+
+        loanDataManager.writeToFile(loans);
     }
 
     /**
@@ -85,8 +104,10 @@ public class LoanList {
      *
      * @param indexToSet Index of Loan to be set as not repaid
      */
-    public void setNotRepaid(int indexToSet) {
+    public void setNotRepaid(int indexToSet) throws IOException {
         loans.get(indexToSet).setNotRepaid();
         Ui.printLoanNotRepaid(loans.get(indexToSet));
+
+        loanDataManager.writeToFile(loans);
     }
 }
