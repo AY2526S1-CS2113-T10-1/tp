@@ -21,7 +21,7 @@ import java.util.logging.Logger;
 public class IncomeList {
     protected ArrayList<Income> incomes;
     private final IncomeDataManager dataManager = new IncomeDataManager("./data/income.txt");
-    private static final Logger logger = Logger.getLogger(IncomeList.class.getName());
+    private final Logger logger = Logger.getLogger(IncomeList.class.getName());
 
     public IncomeList() {
         this.incomes = dataManager.tryLoad();
