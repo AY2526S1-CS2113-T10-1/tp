@@ -78,6 +78,78 @@ The Edit Income feature enables users to edit income.
 ##### 3.1.4 List Income Feature
 The List Income feature enables users to view all incomes.
 
+#### 2.3 Investment Features
+
+##### 2.3.1 Add Investment Feature
+The Add Investment feature allows the user to add investments. The `Ui` class is responsible for handling user input and to output an acknowledgement message. The String from the user input is used by the `Parser` class to decide which command to run. `Parser` then parses the String into the appropriate command parameters exclusive to the command, `add investment`. `Parser` calls the constructor of the `Investment` class with the command parameters and returns the object. This object is then added to an `ArrayList` in the `InvestmentList` entity. The `Ui` class is called by the `InvestmentList` class to output the acknowledgement message, before calling the `appendToFile(...)` method in the `InvestDataManager` Class to add the data of the `Investment` object to a data file.
+![AddInvestmentSequenceDiagram](./diagrams/AddInvestmentSequenceDiagram.png)
+
+##### 2.3.2 Delete Investment Feature
+The Delete Investment feature allows the user to remove added investments. The `Ui` class is responsible for handling user input and to output an acknowledgement message. The String is passed to the `Parser` class to determine the user-requested command. `Parser` parses the String and retrieves the index of the Investment object that the user wants to delete and calls the `deleteInvestment(indexToDelete)` method in the `InvestmentList` Class with the index. The `Ui` class is called to display an acknowledgement message to the user. The method also removes the respective `Investment` object from the `ArrayList` in the `InvestmentList` entity. `InvestmentList` calls the `writeToFile()` method in the `InvestDataManager` Class to rewrite the data file with the remaining `Investment` objects.
+![DeleteInvestmentSequenceDiagram](./diagrams/DeleteInvestmentSequenceDiagram.png)
+
+##### 2.3.3 List Investment Feature
+The Add Investment feature allows the user to list all the added investments as well as their overall returns. The `Ui` class is responsible for handling user input and to output an acknowledgement message. The String is passed to the `Parser` class to determine the user-requested command. `Parser` parses the String and calls the `listAllInvestments()` method in the `InvestmentList` Class. This method passes the `ArrayList` of `Investment` objects into the `printAllInvestments(...)` method of the `Ui` class. This method loops through each `Investment` object in the `ArrayList` to print their `toString()` method to the user. `InvestmentList` Class then retrieves the overall 5 year and 10 year returns of all the `Investment` objects in the `ArrayList` and calls the `Ui` class to print their values to the user.
+![ListInvestmentSequenceDiagram](./diagrams/ListInvestmentSequenceDiagram.png)
+
+#### 2.5 Storage Features
+
+##### 2.5.1 Overview
+The ```DataManager``` class is an **abstract base class** that defines the general mechanism for reading and writing 
+text-base data files used throughout Finsight (e.g., Loans, Income).
+
+It encapsulates all **low-level file I/O** responsibilities such as:
+
+- Ensuring directories and files exist
+- Performing atomic writes to prevent corruption
+- Managing file append/overwrite operations
+- Providing reusable sanitisation utilities
+
+This allows child class (e.g., ```LoanDataManager```, ```IncomeDataManager```) to focus purely on **domain-specific 
+parsing logic**.
+
+##### 2.5.2 Class Diagram
+<div style="text-align: center;">
+    ![DataManagerClassDiagram](./diagrams/DataManagerClassDiagram.png)
+</div>
+
+**Design Principle**: Follows **Template Method pattern**, ensuring each subclass only defines its own record formatting
+rules while sharing consistent I/O logic. The abstract methods allow subclasses to fill in the data-specific steps such 
+as path and file name (```./data/{category}.txt```).
+
+##### 2.5.3 Loading Data
+
+When ```tryLoad()``` is called
+1. It first call ```ensureFileExist()``` to create missing folders/files.
+2. Read all line in UTF-8.
+3. Ignore blank lines.
+4. Passes each line into corresponding subclass's ```parseRecord(String)``` for conversion into domain objects.
+5. Returns list of valid records.
+6. If error occurs (I/O or parsing), it catches the exception, prints the error and returns an empty list.
+
+##### 2.5.4 Writing and Appending Data
+
+Two operations are supported:
+
+- ```writeToFile(List<T>)``` --- overwrites the file with all current records.
+- ```appendToFile(T)``` --- appends a single record at the end of the file.
+
+Both ensure the file exists before writing. ```writeToFile()``` writes to a temporary ```.temp``` file first and then
+atomically replaces the target file to ensure data consistency even during program termination.
+
+``` java
+Files.move(tmp, dataFilePath(), 
+StandardCopyOption.REPLACE_EXISTING, 
+StandardCopyOption.ATOMIC_MOVE);
+```
+
+##### 2.5.5 File Safety Utilities
+
+- ```ensureParentDir()``` expects to find folder ```data``` in current directory. Method creates directory if missing.
+- ```ensureFileExist()``` expects ```{category}.txt``` in ```data``` folder. Method creates expected files and folder if
+missing.
+- ```sanitize()/unsanitize()``` replaces and restores reserved delimiter symbol (```|``` to ```/```) to prevent record 
+corruption during ```formatRecord()``` and ```parseRecord()```.
 
 ## Product scope
 ### Target user profile
