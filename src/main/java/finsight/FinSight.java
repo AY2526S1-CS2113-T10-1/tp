@@ -28,7 +28,7 @@ public class FinSight {
         IncomeList incomeList = new IncomeList();
         InvestmentList investmentList = new InvestmentList();
         LoanList loanList = new LoanList();
-        Parser parser = new Parser(expenseList,incomeList,investmentList,loanList);
+        Parser parser = new Parser(expenseList, incomeList, investmentList, loanList);
 
         Ui.printWelcomeMessage();
 
