@@ -11,6 +11,8 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 import finsight.loan.Loan;
@@ -23,7 +25,7 @@ public class LoanListTest {
     @BeforeEach
     void clearList() throws IOException {
         loanList = new LoanList();
-        int loopCount  = Loan.numberOfLoans;
+        int loopCount = Loan.numberOfLoans;
         for (int i = 0; i < loopCount; i++) {
             loanList.deleteLoan(0);
         }
@@ -103,6 +105,24 @@ public class LoanListTest {
     void listLoans_singleLoan_noExceptionThrown() throws AddLoanCommandWrongFormatException, IOException {
         loanList.addLoan(new Loan("1", "1000", "12-12-2025 19:00"));
 
-        assertDoesNotThrow(()-> loanList.listLoans());
+        assertDoesNotThrow(() -> loanList.listLoans());
+    }
+
+    @Test
+    void editLoan_singleEdit_editDoneCorrectly() throws AddLoanCommandWrongFormatException, IOException {
+        DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+        loanList.addLoan(new Loan("1", "1000", "12-12-2025 19:00"));
+
+        String[] inputParameters = new String[4];
+        inputParameters[0] = "1";
+        inputParameters[1] = "2";
+        inputParameters[2] = "2000";
+        inputParameters[3] = "12-12-2025 19:02";
+
+        loanList.editLoan(inputParameters);
+        assertEquals(inputParameters[1], loanList.getLoans().get(0).getDescription());
+        assertEquals(Double.parseDouble(inputParameters[2]), loanList.getLoans().get(0).getAmountLoaned());
+        assertEquals(LocalDateTime.parse(inputParameters[3], dateFormat),
+                loanList.getLoans().get(0).getLoanReturnDate());
     }
 }

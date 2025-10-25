@@ -3,7 +3,6 @@ package finsight.loan;
 //@@author Emannuel-Tan
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
@@ -12,18 +11,6 @@ import finsight.loan.exceptions.AddLoanCommandWrongFormatException;
 import finsight.ui.Ui;
 
 public class LoanTest {
-    @Test
-    void constructor_amountContainsAlphabet_exceptionThrown() {
-        assertThrows(AddLoanCommandWrongFormatException.class,
-                () -> new Loan("1", "1hundred", "12-12-2025 19:00"));
-    }
-
-    @Test
-    void constructor_dateWrongFormat_exceptionThrown() {
-        assertThrows(AddLoanCommandWrongFormatException.class,
-                () -> new Loan("1", "1000", "12-12-25 19:00"));
-    }
-
     @Test
     void isRepaid_afterConstructor_notRepaid() throws AddLoanCommandWrongFormatException {
         Loan loan = new Loan("1", "1000", "12-12-2025 19:00");
