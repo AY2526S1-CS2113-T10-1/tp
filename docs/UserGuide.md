@@ -77,6 +77,19 @@ Example of usage:
 
 `loan repaid 3`
 
+### Set loan as not repaid: `loan not repaid`
+Sets the loan at <INDEX> as not repaid
+
+Format: `loan not repaid <INDEX>>`
+
+* The `<INDEX>` cannot contain punctuation.
+
+Example of usage:
+
+`loan not repaid 1`
+
+`loan not repaid 3`
+
 ### List all expenses: `list expense`
 Prints the list of all expenses onto the terminal, with starting index of 1
 
@@ -115,13 +128,14 @@ FinSight data are saved in the hard disk automatically after any command that ch
 
 ## Command Summary
 
-| Action             | Format, Examples                                                                                                                     |
-|--------------------|--------------------------------------------------------------------------------------------------------------------------------------|
-| List Loans         | `list loan`                                                                                                                          |
-| Add a Loan         | `add loan d/<DESCRIPTION> a/<AMOUNT_LOANED> r/<LOAN_RETURN_DATE_AND_TIME>`<br/> e.g. `add loan d/ loan1 a/10.55 r/ 10-10-2056 23:59` |
-| Delete a Loan      | `delete loan <INDEX>`<br/> e.g. `delete loan 1`                                                                                      |
-| Set Loan as Repaid | `loan repaid <INDEX>`<br/> e.g. `loan repaid 1`                                                                                      |
-| List Expense       | `list expense`                                                                                                                       |
-| Add an Expense     | `add expense d/<DESCRIPTION> a/<AMOUNT_SPEND>`<br/> e.g. `add expense d/food a/6`                                                    |
-| Delete An Expense  | `delete expense <INDEX>`<br/> e.g. `delete expense 2`                                                                                |
-| Exit Program       | `bye`                                                                                                                                |
+| Action                 | Format, Examples                                                                                                                     |
+|------------------------|--------------------------------------------------------------------------------------------------------------------------------------|
+| List Loans             | `list loan`                                                                                                                          |
+| Add a Loan             | `add loan d/<DESCRIPTION> a/<AMOUNT_LOANED> r/<LOAN_RETURN_DATE_AND_TIME>`<br/> e.g. `add loan d/ loan1 a/10.55 r/ 10-10-2056 23:59` |
+| Delete a Loan          | `delete loan <INDEX>`<br/> e.g. `delete loan 1`                                                                                      |
+| Set Loan as Repaid     | `loan repaid <INDEX>`<br/> e.g. `loan repaid 1`                                                                                      |
+| Set Loan as Not Repaid | `loan not repaid <INDEX>`<br/> e.g. `loan not repaid 1`                                                                              |
+| List Expense           | `list expense`                                                                                                                       |
+| Add an Expense         | `add expense d/<DESCRIPTION> a/<AMOUNT_SPEND>`<br/> e.g. `add expense d/food a/6`                                                    |
+| Delete An Expense      | `delete expense <INDEX>`<br/> e.g. `delete expense 2`                                                                                |
+| Exit Program           | `bye`                                                                                                                                |
