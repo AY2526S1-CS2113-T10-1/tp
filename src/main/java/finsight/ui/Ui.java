@@ -55,6 +55,7 @@ public class Ui {
         System.out.println("15. list investment");
         System.out.println("16. add investment d/<DESCRIPTION> a/<AMOUNT_INVESTED> m/<DEPOSIT_DATE_EACH_MONTH");
         System.out.println("17. delete investment <INDEX>");
+        System.out.println("18. bye");
         System.out.print(SPACING);
     }
 
@@ -96,16 +97,16 @@ public class Ui {
     }
 
     // @@author Emannuel-Tan
+
     /**
      * Prints the details of the loan to be deleted
      *
-     * @param loans         ArrayList of loans
-     * @param indexToDelete Index of loan to delete
+     * @param loan Loan to Delete
      */
-    public static void printDeleteLoanOutput(ArrayList<Loan> loans, int indexToDelete) {
+    public static void printDeleteLoanOutput(Loan loan) {
         System.out.print(SPACING);
         System.out.println("Deleted Loan:");
-        System.out.println(loans.get(indexToDelete).toString());
+        System.out.println(loan.toString());
         System.out.print(SPACING);
     }
 
@@ -117,6 +118,18 @@ public class Ui {
     public static void printAddLoanOutput(Loan loan) {
         System.out.print(SPACING);
         System.out.println("Added Loan:");
+        System.out.println(loan.toString());
+        System.out.print(SPACING);
+    }
+
+    /**
+     * Prints the details of the edited loan
+     *
+     * @param loan Loan Edited
+     */
+    public static void printEditLoanOutput(Loan loan) {
+        System.out.print(SPACING);
+        System.out.println("Edited Loan:");
         System.out.println(loan.toString());
         System.out.print(SPACING);
     }
@@ -202,8 +215,8 @@ public class Ui {
     /**
      * Prints the details of edited income
      *
-     * @param incomes       ArrayList of incomes
-     * @param indexToEdit   Index of income to edit
+     * @param incomes     ArrayList of incomes
+     * @param indexToEdit Index of income to edit
      */
     public static void printEditIncomeOutput(ArrayList<Income> incomes, int indexToEdit) {
         System.out.print(SPACING);
@@ -219,7 +232,7 @@ public class Ui {
      * @param totalIncome  Total amount of incomes
      * @param totalExpense Total amount of expenses
      */
-    public static void printIncomeOverview(float totalIncome,float totalExpense) {
+    public static void printIncomeOverview(float totalIncome, float totalExpense) {
         System.out.print(SPACING);
         System.out.println("Total Income: $ " + totalIncome);
         System.out.println("Total Expense: $ " + totalExpense);
