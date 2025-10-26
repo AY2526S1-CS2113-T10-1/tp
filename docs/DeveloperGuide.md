@@ -116,7 +116,7 @@ parsing logic**.
 
 ##### 2.5.2 Class Diagram
 
-![DataManagerClassDiagram](./diagrams/DataManagerClassDiagram.png)
+![DataManagerClassDiagram](./diagrams/storage/DataManagerClassDiagram.png)
 
 **Design Principle**: Follows **Template Method pattern**, ensuring each subclass only defines its own record formatting
 rules while sharing consistent I/O logic. The abstract methods allow subclasses to fill in the data-specific steps such 
