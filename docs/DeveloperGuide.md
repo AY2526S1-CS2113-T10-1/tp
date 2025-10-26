@@ -132,6 +132,8 @@ When ```tryLoad()``` is called
 5. Returns list of valid records.
 6. If error occurs (I/O or parsing), it catches the exception, prints the error and returns an empty list.
 
+![LoadSequenceDiagram](./diagrams/storage/LoadSequenceDiagram.png)
+
 ##### 2.5.4 Writing and Appending Data
 
 Two operations are supported:
