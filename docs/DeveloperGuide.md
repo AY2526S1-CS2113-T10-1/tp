@@ -181,7 +181,7 @@ ensuring the eventual replacement can happen atomically.
 ###### 4. Opening the Writer
 
 The method calls ```Files.newBufferedWriter()``` to obtain a `BufferedWriter` object ```writer``` configured for UTF-8 
-encoding. The write will buffer and write the serialised text content efficiently.
+encoding. The writer will buffer and write the serialised text content efficiently.
 
 ###### 5. Record Serialisation and Writing Loop
 
@@ -202,6 +202,14 @@ filesystem operation. This prevents partial writes, preserving data integrity. O
 returns to the client and the data file now contains the latest version of all serialised records.
 
 ![WriteToFileSequenceDiagram](./diagrams/storage/WriteToFileSequenceDiagram.png)
+
+##### 2.5.7 Adding new record to file
+
+```appendToFile()``` is called when a new record is added to the file. The file preparation is identical to ```
+writetoFile()```. However, unlike ```writeToFile``` where the entire file is rewritten and replaced, this method using 
+```StandardOpenOption.APPEND``` to append the new record to the last line of the file, and adds a new line.
+
+![AppendToFileSequenceDiagram](./diagrams/storage/AppendToFileSequenceDiagram.png)
 
 ## Product scope
 ### Target user profile
