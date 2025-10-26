@@ -22,6 +22,6 @@ class ChildDataManager {
 # dataFilePath(): Path
 }
 
-note right of ChildDataManager: XYZDataManager includes:\nLoanDataManager, ExpenseDataManager,\nIncomeDataManager, InvestDataManager
+note right of ChildDataManager: ChildDataManager includes:\nLoanDataManager, ExpenseDataManager,\nIncomeDataManager, InvestDataManager
 DataManager <|-- ChildDataManager
 @enduml
