@@ -95,9 +95,8 @@ This allows child class (e.g., ```LoanDataManager```, ```IncomeDataManager```) t
 parsing logic**.
 
 ##### 2.5.2 Class Diagram
-<div style="text-align: center;">
-    ![DataManagerClassDiagram](./diagrams/DataManagerClassDiagram.png)
-</div>
+
+![DataManagerClassDiagram](./diagrams/DataManagerClassDiagram.png)
 
 **Design Principle**: Follows **Template Method pattern**, ensuring each subclass only defines its own record formatting
 rules while sharing consistent I/O logic. The abstract methods allow subclasses to fill in the data-specific steps such 
