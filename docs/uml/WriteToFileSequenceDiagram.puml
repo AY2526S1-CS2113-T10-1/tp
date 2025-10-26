@@ -1,0 +1,50 @@
+@startuml
+'https://plantuml.com/sequence-
+
+participant ":ChildDataManager" as CDM
+participant ":Path" as Path
+participant ":Files" as Files
+participant "writer:BufferedWriter" as BW
+
+-> CDM: writeToFile()
+activate CDM
+
+CDM -> CDM: ensureFileExist()
+activate CDM
+
+CDM -> CDM: ensureParentDir()
+activate CDM
+return
+
+return
+
+CDM -> Path: getFileName()
+activate Path
+return fileName
+
+CDM -> Path: resolveSibling(fileName.temp)
+activate Path
+return path of .temp file
+
+CDM -> Files: newBufferedWriter()
+activate Files
+return writer
+
+loop for each record in records
+    CDM -> CDM: formatRecord()
+    activate CDM
+    return String
+
+    CDM -> BW: write()
+    activate BW
+    CDM -> BW: newLine()
+end
+
+CDM -> BW: close()
+destroy BW
+
+CDM -> Files: move()
+activate Files
+return
+
+@enduml

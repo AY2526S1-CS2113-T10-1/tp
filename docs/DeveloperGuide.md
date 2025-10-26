@@ -152,9 +152,56 @@ StandardCopyOption.ATOMIC_MOVE);
 
 - ```ensureParentDir()``` expects to find folder ```data``` in current directory. Method creates directory if missing.
 - ```ensureFileExist()``` expects ```{category}.txt``` in ```data``` folder. Method creates expected files and folder if
-missing.
+missing (by invocating ```ensureParentDir()```).
 - ```sanitize()/unsanitize()``` replaces and restores reserved delimiter symbol (```|``` to ```/```) to prevent record 
 corruption during ```formatRecord()``` and ```parseRecord()```.
+
+##### 2.5.6 Writing to storage
+
+```writeToFile()``` is called whenever there are edits or deletion to the data. It first ensures that path to the file 
+exist and is valid. A temporary file will be created with the new list of records written into it. Then, the original 
+.txt file will be replaced by the temporary file created. 
+
+###### 1. Client Invocation
+
+The client calls ```writeToFile()``` on a ```ChildDataManager``` instance. Control passes to the superclass 
+`DataManager`.
+
+###### 2. File Preparation
+
+The method calls ```ensureFileExist()```, which invokes ```ensureParentDir()```. This ensures that output path is always
+valid before writing.
+
+###### 3. Temporary File Generation
+
+The data manager retrieves the file name via ```Path.getFileName()``` and constructs a sibling temporary path by call 
+```Path.resolveSibling(fileName + ".temp")```. This creates a temporary file in the same directory as the target file, 
+ensuring the eventual replacement can happen atomically.
+
+###### 4. Opening the Writer
+
+The method calls ```Files.newBufferedWriter()``` to obtain a `BufferedWriter` object ```writer``` configured for UTF-8 
+encoding. The write will buffer and write the serialised text content efficiently.
+
+###### 5. Record Serialisation and Writing Loop
+
+For each record in the list, ```formatRecord(record)``` is invoked as a **polymorphic call** resolved at runtime to the 
+subclass implementation, converting domain objects into delimited text lines. The resulting string is written to the 
+buffer using ```writer.write()```, followed by ```writer.newLine()``` to ensure each record starts on a separate line.
+
+###### 6. Closing the writer
+
+After all records are written, the write is closes through try-with-resources. Closing ensures all buffered data is 
+flushed to the temporary file and system resources are releases.
+
+###### 7. Atomic File Replacement
+
+The method calls ```Files.move()``` to rename and replace the original data file with the new ```.temp``` file. The 
+options ```REPLACE_EXISTING``` and ```ATOMIC_MOVE``` ensure the replacement is performed safely in a single atomic 
+filesystem operation. This prevents partial writes, preserving data integrity. Once the move is successful, control 
+returns to the client and the data file now contains the latest version of all serialised records.
+
+![WriteToFileSequenceDiagram](./diagrams/storage/WriteToFileSequenceDiagram.png)
 
 ## Product scope
 ### Target user profile
