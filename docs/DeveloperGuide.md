@@ -33,7 +33,8 @@ The bulk of the app's work is done by the following four components
 
 ##### 2.1.1 List Loan Feature
 The List Loan feature enables users to see a list of loans. The `Ui` class takes in the user input. This String is used by the `Parser` class to decide which command to run. `Parser` calls the `listLoans()` method from the `LoanList` class to output the loans. `LoanList` then calls the `Ui` class to output the loans, giving it the ArrayList of Loans. `Ui` class loops through the ArrayList to output each `Loan` class's `toString()` method.
-![ListLoanSequenceDiagram](./diagrams/ListLoanSequenceDiagram.png)
+
+![ListLoanSequenceDiagram](diagrams/loan/ListLoanSequenceDiagram.png)
 
 ##### 2.1.2 Add Loan Feature
 The Add Loan feature enables users to add loans. The `Ui` class takes in the user input. This String is used by the `Parser` class to decide which command to run. `Parser` validates the provided description, amount and date time using the `parseAddLoanCommand` method. `Parser` then calls the `addLoan()` method of the `LoanList` class which creates and add the given `Loan` if valid. Below is the relevance of these attributes:
@@ -45,7 +46,8 @@ The Add Loan feature enables users to add loans. The `Ui` class takes in the use
 | loanReturnDate  | LocalDateTime | The date and time that the loan is due by |
 
 The `LoanList` class then calls the `Ui` class to print a acknowledgement message in the form of the `toString()` method of the `Loan` class.
-![AddLoanSequenceDiagram](./diagrams/AddLoanSequenceDiagram.png)
+
+![AddLoanSequenceDiagram](diagrams/loan/AddLoanSequenceDiagram.png)
 
 ##### 2.1.3 Delete Loan Feature
 The Delete Loan feature enables the users to delete a loan. The `Ui` class takes in the user input. This String is used by the `Parser` class to decide which command to run. `Parser` validates the provided index using the `parseDeleteLoanCommand` method. `Parser` then calls the `deleteLoan()` method of the `LoanList` class which calls the `Ui` class to print a acknowledgement message using the `toString()` method of the `Loan` class before deleting the `Loan` at the given index. Below is the relevance of these attributes:
@@ -53,7 +55,9 @@ The Delete Loan feature enables the users to delete a loan. The `Ui` class takes
 | Class Attribute | Variable Type | Relevance                              |
 |-----------------|---------------|----------------------------------------|
 | index           | int           | The index of the Loan in the ArrayList |
-![DeleteLoanSequenceDiagram](./diagrams/DeleteLoanSequenceDiagram.png)
+
+![DeleteLoanSequenceDiagram](diagrams/loan/DeleteLoanSequenceDiagram.png)
+
 
 ##### 2.1.4 Loan Repaid Feature
 The Loan Repaid feature enables the users to set a loan as repaid. The `Ui` class takes in the user input. This String is used by the `Parser` class to decide which command to run. `Parser` validates the provided index using the `parseLoanRepaidCommand` method. `Parser` then calls the `setRepaid()` method of the `LoanList` class which calls the `setRepaid()` method of the `Loan` class before calling the `Ui` class to print a acknowledgement message using the `toString()` method of the `Loan` class. Below is the relevance of these attributes:
@@ -61,13 +65,15 @@ The Loan Repaid feature enables the users to set a loan as repaid. The `Ui` clas
 | Class Attribute | Variable Type | Relevance                              |
 |-----------------|---------------|----------------------------------------|
 | index           | int           | The index of the Loan in the ArrayList |
-![LoanRepaidSequenceDiagram](./diagrams/LoanRepaidSequenceDiagram.png)
+
+![LoanRepaidSequenceDiagram](diagrams/loan/LoanRepaidSequenceDiagram.png)
 
 #### 3.1 Income Features
 
 ##### 3.1.1 Add Income Feature
 The Add Income feature enables users to add income.
-![AddIncomeSequenceDiagram](./diagrams/AddIncomeSequenceDiagram.png)
+
+![AddIncomeSequenceDiagram](diagrams/income/AddIncomeSequenceDiagram.png)
 
 ##### 3.1.2 Delete Income Feature
 The Delete Income feature enables users to delete income.
@@ -77,6 +83,20 @@ The Edit Income feature enables users to edit income.
 
 ##### 3.1.4 List Income Feature
 The List Income feature enables users to view all incomes.
+
+#### 2.3 Investment Features
+
+##### 2.3.1 Add Investment Feature
+The Add Investment feature allows the user to add investments. The `Ui` class is responsible for handling user input and to output an acknowledgement message. The String from the user input is used by the `Parser` class to decide which command to run. `Parser` then parses the String into the appropriate command parameters exclusive to the command, `add investment`. `Parser` calls the constructor of the `Investment` class with the command parameters and returns the object. This object is then added to an `ArrayList` in the `InvestmentList` entity. The `Ui` class is called by the `InvestmentList` class to output the acknowledgement message, before calling the `appendToFile(...)` method in the `InvestDataManager` Class to add the data of the `Investment` object to a data file.
+![AddInvestmentSequenceDiagram](diagrams/investment/AddInvestmentSequenceDiagram.png)
+
+##### 2.3.2 Delete Investment Feature
+The Delete Investment feature allows the user to remove added investments. The `Ui` class is responsible for handling user input and to output an acknowledgement message. The String is passed to the `Parser` class to determine the user-requested command. `Parser` parses the String and retrieves the index of the Investment object that the user wants to delete and calls the `deleteInvestment(indexToDelete)` method in the `InvestmentList` Class with the index. The `Ui` class is called to display an acknowledgement message to the user. The method also removes the respective `Investment` object from the `ArrayList` in the `InvestmentList` entity. `InvestmentList` calls the `writeToFile()` method in the `InvestDataManager` Class to rewrite the data file with the remaining `Investment` objects.
+![DeleteInvestmentSequenceDiagram](diagrams/investment/DeleteInvestmentSequenceDiagram.png)
+
+##### 2.3.3 List Investment Feature
+The Add Investment feature allows the user to list all the added investments as well as their overall returns. The `Ui` class is responsible for handling user input and to output an acknowledgement message. The String is passed to the `Parser` class to determine the user-requested command. `Parser` parses the String and calls the `listAllInvestments()` method in the `InvestmentList` Class. This method passes the `ArrayList` of `Investment` objects into the `printAllInvestments(...)` method of the `Ui` class. This method loops through each `Investment` object in the `ArrayList` to print their `toString()` method to the user. `InvestmentList` Class then retrieves the overall 5 year and 10 year returns of all the `Investment` objects in the `ArrayList` and calls the `Ui` class to print their values to the user.
+![ListInvestmentSequenceDiagram](diagrams/investment/ListInvestmentSequenceDiagram.png)
 
 #### 2.5 Storage Features
 

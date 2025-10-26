@@ -41,17 +41,21 @@ public class Ui {
         System.out.println("   where <LOAN_RETURN_DATE_AND_TIME> is of format 'DD-mm-YYYY HH:mm'");
         System.out.println("3. delete loan <INDEX>");
         System.out.println("4. loan repaid <INDEX>");
-        System.out.println("5. list expense");
-        System.out.println("6. add expense d/<DESCRIPTION> a/<AMOUNT_SPENT>");
-        System.out.println("7. delete expense <INDEX>");
-        System.out.println("8. list income");
-        System.out.println("9. add income d/<DESCRIPTION> a/<AMOUNT_EARNED>");
-        System.out.println("10. delete income <INDEX>");
-        System.out.println("11. edit income <INDEX> d/<DESCRIPTION> a/<AMOUNT_EARNED>");
-        System.out.println("12. list income overview");
-        System.out.println("13. list investment");
-        System.out.println("14. add investment d/<DESCRIPTION> a/<AMOUNT_INVESTED> m/<DEPOSIT_DATE_EACH_MONTH");
-        System.out.println("15. delete investment <INDEX>");
+        System.out.println("5. loan not repaid <INDEX>");
+        System.out.println("6. edit loan <INDEX> d/<DESCRIPTION> a/<AMOUNT_LOANED> r/<LOAN_RETURN_DATE_AND_TIME>");
+        System.out.println("   where <LOAN_RETURN_DATE_AND_TIME> is of format 'DD-mm-YYYY HH:mm'");
+        System.out.println("7. list expense");
+        System.out.println("8. add expense d/<DESCRIPTION> a/<AMOUNT_SPENT>");
+        System.out.println("9. delete expense <INDEX>");
+        System.out.println("10. list income");
+        System.out.println("11. add income d/<DESCRIPTION> a/<AMOUNT_EARNED>");
+        System.out.println("12. delete income <INDEX>");
+        System.out.println("13. edit income <INDEX> d/<DESCRIPTION> a/<AMOUNT_EARNED>");
+        System.out.println("14. list income overview");
+        System.out.println("15. list investment");
+        System.out.println("16. add investment d/<DESCRIPTION> a/<AMOUNT_INVESTED> m/<DEPOSIT_DATE_EACH_MONTH");
+        System.out.println("17. delete investment <INDEX>");
+        System.out.println("18. bye");
         System.out.print(SPACING);
     }
 
@@ -92,16 +96,17 @@ public class Ui {
         System.out.print(SPACING);
     }
 
+    // @@author Emannuel-Tan
+
     /**
      * Prints the details of the loan to be deleted
      *
-     * @param loans         ArrayList of loans
-     * @param indexToDelete Index of loan to delete
+     * @param loan Loan to Delete
      */
-    public static void printDeleteLoanOutput(ArrayList<Loan> loans, int indexToDelete) {
+    public static void printDeleteLoanOutput(Loan loan) {
         System.out.print(SPACING);
         System.out.println("Deleted Loan:");
-        System.out.println(loans.get(indexToDelete).toString());
+        System.out.println(loan.toString());
         System.out.print(SPACING);
     }
 
@@ -113,6 +118,18 @@ public class Ui {
     public static void printAddLoanOutput(Loan loan) {
         System.out.print(SPACING);
         System.out.println("Added Loan:");
+        System.out.println(loan.toString());
+        System.out.print(SPACING);
+    }
+
+    /**
+     * Prints the details of the edited loan
+     *
+     * @param loan Loan Edited
+     */
+    public static void printEditLoanOutput(Loan loan) {
+        System.out.print(SPACING);
+        System.out.println("Edited Loan:");
         System.out.println(loan.toString());
         System.out.print(SPACING);
     }
@@ -138,7 +155,7 @@ public class Ui {
         System.out.print(SPACING);
         System.out.println("Set Loan as Not Repaid:");
         System.out.println(loan.toString());
-        System.out.println(SPACING);
+        System.out.print(SPACING);
     }
 
     /**
@@ -148,12 +165,17 @@ public class Ui {
      */
     public static void printAllLoans(ArrayList<Loan> loans) {
         System.out.print(SPACING);
+        Double totalLoaned = 0.0;
         for (int i = 0; i < Loan.numberOfLoans; i++) {
             System.out.println("Loan " + (i + 1) + ":");
             System.out.println(loans.get(i).toString());
+            totalLoaned += loans.get(i).getAmountLoaned();
             System.out.print(SPACING);
         }
+        System.out.println("Total loaned: $" + String.format("%.2f", totalLoaned));
+        System.out.print(SPACING);
     }
+    // @@author
 
     /**
      * Prints all items in income list
@@ -197,8 +219,8 @@ public class Ui {
     /**
      * Prints the details of edited income
      *
-     * @param incomes       ArrayList of incomes
-     * @param indexToEdit   Index of income to edit
+     * @param incomes     ArrayList of incomes
+     * @param indexToEdit Index of income to edit
      */
     public static void printEditIncomeOutput(ArrayList<Income> incomes, int indexToEdit) {
         System.out.print(SPACING);
@@ -214,7 +236,7 @@ public class Ui {
      * @param totalIncome  Total amount of incomes
      * @param totalExpense Total amount of expenses
      */
-    public static void printIncomeOverview(float totalIncome,float totalExpense) {
+    public static void printIncomeOverview(float totalIncome, float totalExpense) {
         System.out.print(SPACING);
         System.out.println("Total Income: $ " + totalIncome);
         System.out.println("Total Expense: $ " + totalExpense);
