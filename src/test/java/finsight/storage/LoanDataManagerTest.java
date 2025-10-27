@@ -39,7 +39,7 @@ final class LoanDataManagerTest {
         loan.setRepaid();
 
         String record = dataManager.formatRecord(loan);
-        assertEquals("1|Poop/Food|69.69|10-10-2025 23:59", record);
+        assertEquals("1|Poop%7CFood|69.69|10-10-2025 23:59", record);
     }
 
     @Test
@@ -52,12 +52,12 @@ final class LoanDataManagerTest {
 
     @Test
     void parseRecord_parseWellFormedLine_andSetsRepaidStatus() {
-        String record = "1|Eat/Poop|69.126|10-10-2025 23:59";
+        String record = "1|Eat%7CPoop|69.126|10-10-2025 23:59";
         Loan loan = dataManager.parseRecord(record);
 
         assertNotNull(loan);
         assertTrue(loan.isRepaid(), "Repaid flag '1' should set loan as repaid");
-        assertEquals("Eat/Poop", loan.getDescription());
+        assertEquals("Eat|Poop", loan.getDescription());
         assertEquals("69.126", loan.getAmountLoaned().toString());
         assertEquals("10-10-2025 23:59", loan.getLoanReturnDate().format(FORMATTER));
     }
@@ -92,7 +92,7 @@ final class LoanDataManagerTest {
 
         var records = Files.readAllLines(dataFile, StandardCharsets.UTF_8);
         assertEquals(List.of(
-                "0|Buy/Poop|69.69|10-10-2025 23:59",
+                "0|Buy%7CPoop|69.69|10-10-2025 23:59",
                 "1|Eat POOP|200.0|10-10-2025 12:21"
         ), records);
 
@@ -101,7 +101,7 @@ final class LoanDataManagerTest {
 
         Loan loanOne = loaded.get(0);
         assertFalse(loanOne.isRepaid());
-        assertEquals("Buy/Poop",  loanOne.getDescription());
+        assertEquals("Buy|Poop",  loanOne.getDescription());
         assertEquals("69.69", loanOne.getAmountLoaned().toString());
         assertEquals("10-10-2025 23:59", loanOne.getLoanReturnDate().format(FORMATTER));
 

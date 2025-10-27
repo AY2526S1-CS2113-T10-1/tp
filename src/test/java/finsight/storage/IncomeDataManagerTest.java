@@ -34,20 +34,19 @@ final class IncomeDataManagerTest {
 
     @Test
     void formatRecord_joinsField_andSanitizesDescription() throws AddIncomeCommandWrongFormatException {
-        Income income = new Income("Pipe|Gig", "1234.69");
+        Income income = new Income("Pipe|Gig%7C", "1234.69");
 
         String record = dataManager.formatRecord(income);
-        // sanitize should replace '|' with '/'
-        assertEquals("Pipe/Gig|1234.69", record);
+        assertEquals("Pipe%7CGig%257C|1234.69", record);
     }
 
     @Test
     void parseRecord_parseWellFormedLine() throws AddIncomeCommandWrongFormatException {
-        String record = "Food/Tip|12.5";
+        String record = "Food%7CTip%257C|12.5";
         Income income = dataManager.parseRecord(record);
 
         assertNotNull(income);
-        assertEquals("Food/Tip", income.getDescription());
+        assertEquals("Food|Tip%7C", income.getDescription());
         assertEquals(12.5f, income.getAmountEarned(), 1e-6f);
     }
 
@@ -75,7 +74,7 @@ final class IncomeDataManagerTest {
         // Verify on-disk lines (UTF-8, sanitized)
         var lines = Files.readAllLines(dataFile, StandardCharsets.UTF_8);
         assertEquals(List.of(
-                "A/B|10.0",
+                "A%7CB|10.0",
                 "Monthly Salary|20.0"
         ), lines);
 
@@ -84,7 +83,7 @@ final class IncomeDataManagerTest {
         assertEquals(2, incomes.size());
 
         Income first = incomes.get(0);
-        assertEquals("A/B", first.getDescription());
+        assertEquals("A|B", first.getDescription());
         assertEquals(10.0f, first.getAmountEarned(), 1e-6f);
 
         Income second = incomes.get(1);
