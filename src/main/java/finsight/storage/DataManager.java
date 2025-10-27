@@ -27,9 +27,11 @@ import java.util.List;
  * managers while adhering to the Single Responsibility Principle (SRP)
  * by separating I/O management from domain-specific parsing logic.</p>
  *
+ * @author Royden Lim Yi Ren
+ *
  * @param <T> the type of record stored and managed (e.g. Loan, Investment)
  * @param <X> the type of exception thrown during parsing operations
- * @author Royden Lim Yi Ren
+ *
  * @since 15 Oct 2025
  */
 public abstract class DataManager<T, X extends Exception> {
