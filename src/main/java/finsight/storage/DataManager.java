@@ -36,6 +36,9 @@ import java.util.List;
  */
 public abstract class DataManager<T, X extends Exception> {
 
+    protected static final String FIELD_DELIMITER = "\\|";
+    protected static final int SPLIT_KEEP_EMPTY_FIELDS = -1;
+
     /**
      * Returns the path to the data file managed by the subclass.
      * Implementations should specify the location of the file.
