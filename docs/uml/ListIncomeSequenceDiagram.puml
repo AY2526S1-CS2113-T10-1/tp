@@ -1,0 +1,33 @@
+@startuml
+!include style.puml
+
+actor User
+
+participant ":Ui" as Ui LOGIC_COLOR_T1
+participant ":Parser" as Parser LOGIC_COLOR_T2
+participant ":IncomeList" as IncomeList LOGIC_COLOR_T3
+participant ":Income" as Income LOGIC_COLOR_T4
+
+User -> Ui ++: list income
+
+Ui -> Parser ++: tryCommand(...)
+
+Parser -> Parser ++: handleCommand(...)
+
+Parser -> IncomeList ++: listIncomes()
+
+IncomeList -> Ui ++: printAllIncomes(incomes)
+loop i from 0 to incomes.size()
+    Ui -> IncomeList ++: incomes.get(i:int)
+    IncomeList -> Income ++: income.toString()
+    return income:String
+    return income:String
+    end
+
+return
+return
+return
+return
+return
+
+@enduml
