@@ -1,5 +1,5 @@
 @startuml
-!include style.puml
+!include ../style.puml
 
 actor User
 
@@ -8,24 +8,24 @@ participant ":Parser" as Parser LOGIC_COLOR_T2
 participant ":IncomeList" as IncomeList LOGIC_COLOR_T3
 participant ":Income" as Income LOGIC_COLOR_T4
 
-User -> Ui ++: delete income
+User -> Ui ++: add income
 Ui -> Parser ++: tryCommand(...)
 Parser -> Parser ++: handleCommand(...)
-Parser -> Parser ++: parseDeleteLoanCommand(...)
-return indexToDelete : int
+Parser -> Parser ++: parseAddLoanCommand(...)
+return commandParameters: String[]
 
-Parser -> IncomeList ++: deleteIncome(indexToDelete)
+Parser -> IncomeList ++: addIncome(commandParameters[])
+return income
+
+create Income
+IncomeList -> Income ++: new Income(commandParameters[])
+return income
+
 IncomeList -> Income ++: income.toString()
 return income:String
-
 IncomeList -> Ui ++: printAddIncomeOutput(income:String)
 return
 
-IncomeList -> Income ++: incomes.remove()
-return
-destroy Income
-
-return
 return
 return
 return
