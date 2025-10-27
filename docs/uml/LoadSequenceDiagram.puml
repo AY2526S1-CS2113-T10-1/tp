@@ -1,0 +1,42 @@
+@startuml
+title Sequence: DataManager.load()
+
+participant ":ChildDataManager" as CDM
+participant ":Files" as Files
+participant ":ArrayList" as AL
+
+-> CDM: load()
+activate CDM
+
+CDM -> CDM: ensureFileExist()
+activate CDM
+    CDM -> CDM: ensureParentDir()
+    activate CDM
+    return
+return
+
+CDM -> Files: readAllLines()
+activate Files
+return lines: List<String>
+
+create AL
+CDM -> AL
+
+loop for each line in lines
+    opt line == null OR line.isEmpty()
+        CDM -> CDM: continue
+    end
+
+    CDM -> CDM: parseRecord
+    activate CDM
+    return record: T
+
+    opt record != null
+        CDM -> AL: add()
+        activate AL
+        return
+    end
+end
+
+return records: ArrayList<T>
+@enduml
