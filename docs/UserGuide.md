@@ -25,10 +25,11 @@ FinSight is a CLI-based app for managing finances such as income, expenses, loan
   * [list investment](#list-all-investment-list-investment)
   * [add investment](#add-investment-add-investment)
   * [delete investment](#delete-investment-delete-investment)
-* [Exiting the program](#Exit-the-program-bye)
-* [Saving the data](#Saving-the-data)
-* [FAQ](#FAQ)
-* [Command Summary](#Command-Summary)
+*  [Exiting the program](#Exit-the-program-bye)
+*  [Saving the data](#Saving-the-data)
+*  [FAQ](#FAQ)
+*  [Command Summary](#Command-Summary)
+
 ---
 
 ## Quick Start
@@ -243,18 +244,23 @@ FinSight data are saved in the hard disk automatically after any command that ch
 
 ## Command Summary
 
-| Action                 | Format, Examples                                                                                                                                 |
-|------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------|
-| List Loans             | `list loan`                                                                                                                                      |
-| Add a Loan             | `add loan d/<DESCRIPTION> a/<AMOUNT_LOANED> r/<LOAN_RETURN_DATE_AND_TIME>`<br/> e.g. `add loan d/ loan1 a/10.55 r/ 10-10-2056 23:59`             |
-| Delete a Loan          | `delete loan <INDEX>`<br/> e.g. `delete loan 1`                                                                                                  |
-| Set Loan as Repaid     | `loan repaid <INDEX>`<br/> e.g. `loan repaid 1`                                                                                                  |
-| Set Loan as Not Repaid | `loan not repaid <INDEX>`<br/> e.g. `loan not repaid 1`                                                                                          |
-| Edit a Loan            | `edit loan <INDEX> d/<DESCRIPTION> a/<AMOUNT_LOANED> r/<LOAN_RETURN_DATE_AND_TIME>`<br/> e.g. `edit loan 1 d/ loan1 a/10.55 r/ 10-10-2056 23:59` |
-| List Expense           | `list expense`                                                                                                                                   |
-| Add an Expense         | `add expense d/<DESCRIPTION> a/<AMOUNT_SPEND>`<br/> e.g. `add expense d/food a/6`                                                                |
-| Delete An Expense      | `delete expense <INDEX>`<br/> e.g. `delete expense 2`                                                                                            |
-|                        |                                                                                                                                                  |
-|                        |                                                                                                                                                  |
-|                        |                                                                                                                                                  |
-| Exit Program           | `bye`                                                                                                                                            |
+| Action                 | Format, Examples                                                                                                                                                       |
+|------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| List Loans             | `list loan`                                                                                                                                                            |
+| Add a Loan             | `add loan d/<DESCRIPTION> a/<AMOUNT_LOANED> r/<LOAN_RETURN_DATE_AND_TIME>`<br/> e.g. `add loan d/ loan1 a/10.55 r/ 10-10-2056 23:59`                                   |
+| Delete a Loan          | `delete loan <INDEX>`<br/> e.g. `delete loan 1`                                                                                                                        |
+| Set Loan as Repaid     | `loan repaid <INDEX>`<br/> e.g. `loan repaid 1`                                                                                                                        |
+| Set Loan as Not Repaid | `loan not repaid <INDEX>`<br/> e.g. `loan not repaid 1`                                                                                                                |
+| Edit a Loan            | `edit loan <INDEX> d/<DESCRIPTION> a/<AMOUNT_LOANED> r/<LOAN_RETURN_DATE_AND_TIME>`<br/> e.g. `edit loan 1 d/ loan1 a/10.55 r/ 10-10-2056 23:59`                       |
+| List Expenses          | `list expense`                                                                                                                                                         |
+| Add an Expense         | `add expense d/<DESCRIPTION> a/<AMOUNT_SPEND>`<br/> e.g. `add expense d/food a/6`                                                                                      |
+| Delete An Expense      | `delete expense <INDEX>`<br/> e.g. `delete expense 2`                                                                                                                  |
+| List Incomes           | `list income`                                                                                                                                                          |
+| Add an Income          | `add income d/<DESCRIPTION> a/<AMOUNT_EARNED>`<br/> e.g. `add income d/ job1 a/ 1000`                                                                                  |
+| Delete an Income       | `delete income <INDEX>`<br/> e.g. `delete income 3`                                                                                                                    |
+| Edit an Income         | `edit income <INDEX> d/<DESCRIPTION> a/<AMOUNT_EARNED>`<br/> e.g. `edit income 1 d/newjob a/1200`                                                                      |
+| List income overview   | `list income overview`                                                                                                                                                 |
+| List Investments       | `list investment`                                                                                                                                                      |
+| Add an Investment      | `add investment d/<DESCRIPTION> a/<AMOUNT_INVESTED_MONTHLY> r/<RETURN_RATE_PER_ANNUM> m/<DEPOSIT_DATE_EACH_MONTH>`<br/> e.g. `add investment d/moomoo a/1000 r/3 m/21` |
+| Delete an Investment   | `delete investment <INDEX>`<br/> e.g. `delete investment 3`                                                                                                            |
+| Exit Program           | `bye`                                                                                                                                                                  |
