@@ -1,0 +1,42 @@
+@startuml
+!include style.puml
+
+actor User
+
+participant ":Ui" as Ui LOGIC_COLOR_T1
+participant ":Parser" as Parser LOGIC_COLOR_T2
+participant ":LoanList" as LoanList LOGIC_COLOR_T3
+participant ":Loan" as Loan LOGIC_COLOR_T4
+
+User -> Ui ++: list loan
+
+Ui -> Parser ++: tryCommand(userInput:String)
+
+Parser -> Parser ++: handleCommand(userInput:String)
+
+Parser -> Parser ++: parseLoanNotRepaidCommand(userInput:String)
+return indexToSetNotRepaid:int
+
+Parser -> LoanList ++: setNotRepaid(indexToSetNotRepaid:int)
+
+LoanList -> LoanList ++: loans.get(indexToSetNotRepaid:int)
+return loan:Loan
+
+LoanList -> Loan ++: loan.setNotRepaid()
+return
+
+LoanList -> LoanList ++: loans.get(indexToSetNotRepaid:int)
+return loan:Loan
+
+LoanList -> Ui ++: printLoanNotRepaid(loan:Loan)
+Ui -> Loan ++: loan.toString()
+return outputString:String
+return
+
+
+return
+return
+return
+return
+
+@enduml
