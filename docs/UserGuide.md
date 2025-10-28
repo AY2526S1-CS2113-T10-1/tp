@@ -189,6 +189,8 @@ Deletes the income at `<INDEX>` from the list of incomes
 
 Format: `delete income <INDEX>`
 
+* The `<INDEX>` cannot contain punctuation.
+
 Example of usage:
 
 `delete income 2`
@@ -197,6 +199,8 @@ Example of usage:
 Edits the income at `<INDEX>` from the list. Requires description and amount earned.
 
 Format: `edit income <INDEX> d/<DESCRIPTION> a/<AMOUNT_EARNED>`
+
+* The `<INDEX>` cannot contain punctuation.
 
 Example of usage:
 
@@ -227,6 +231,8 @@ Example of usage: `add investment d/moomoo a/1000 r/3 m/21`
 Delete the investment from the list.
 
 Format: `delete investment <INDEX>`
+
+* The `<INDEX>` cannot contain punctuation.
 
 Example of usage: `delete investment 3`
 
