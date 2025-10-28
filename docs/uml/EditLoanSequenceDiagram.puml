@@ -1,0 +1,49 @@
+@startuml
+!include style.puml
+
+actor User
+
+participant ":Ui" as Ui LOGIC_COLOR_T1
+participant ":Parser" as Parser LOGIC_COLOR_T2
+participant ":LoanList" as LoanList LOGIC_COLOR_T3
+participant ":Loan" as Loan LOGIC_COLOR_T4
+participant ":Loan" as Loan2 LOGIC_COLOR_T4
+
+User -> Ui ++: edit loan
+
+Ui -> Parser ++: tryCommand(userInput:String)
+
+Parser -> Parser ++: handleCommand(userInput:String)
+
+Parser -> Parser ++: parseEditLoanCommand(userInput:String)
+return commandParameters:String[]
+
+Parser -> LoanList ++: editLoan(commandParameters:String[])
+
+LoanList -> Loan2 ++: loans.remove(indexToEdit: int)
+return
+destroy Loan2
+
+create Loan
+LoanList -> Loan ++: new Loan(commandParameters:String[])
+return loan:Loan
+
+LoanList -> LoanList ++: loans.add(indexToEdit: int, loan:Loan)
+return
+
+LoanList -> LoanList ++: loans.get(indexToEdit: int)
+return loan:Loan
+
+LoanList -> Ui ++: printAddLoanOutput(loan:Loan)
+
+Ui -> Loan ++: loan.toString()
+return outputString:String
+
+return
+
+return
+return
+return
+return
+
+@enduml
