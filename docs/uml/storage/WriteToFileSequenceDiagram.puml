@@ -24,11 +24,11 @@ return fileName
 
 CDM -> Path: resolveSibling(fileName.temp)
 activate Path
-return path of .temp file
+return pathOfTempFile: Path
 
 CDM -> Files: newBufferedWriter()
 activate Files
-return writer
+return writer: BufferedWriter
 
 loop for each record in records
     CDM -> CDM: formatRecord()
@@ -37,7 +37,11 @@ loop for each record in records
 
     CDM -> BW: write()
     activate BW
+    return
+
     CDM -> BW: newLine()
+    activate BW
+    return
 end
 
 CDM -> BW: close()

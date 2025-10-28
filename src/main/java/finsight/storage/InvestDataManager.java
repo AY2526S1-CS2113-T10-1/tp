@@ -92,11 +92,11 @@ public class InvestDataManager extends DataManager<Investment, Exception> {
     @Override
     protected Investment parseRecord(String line)
             throws AddInvestmentWrongNumberFormatException, AddInvestmentDateOutOfBoundsException {
-        String[] parts = line.split("\\|", -1);
+        String[] parts = line.split(FIELD_DELIMITER, SPLIT_KEEP_EMPTY_FIELDS);
         if (parts.length < 3) {
             return null;
         }
-        String description = sanitize(parts[0]);
+        String description = unsanitize(parts[0]);
         String investAmount = parts[1];
         String rateOfReturn = parts[2];
         String dayOfInvest = parts[3];
