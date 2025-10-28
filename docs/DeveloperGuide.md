@@ -25,7 +25,7 @@ The bulk of the app's work is done by the following four components
 
 * `UI` : The UI of the App.
 * `Parser` : The command executor and handler
-* `Storage` : Reads fata from, and writes data to, the hard disk
+* `Storage` : Reads data from, and writes data to, the hard disk
 
 ### 2. Implementation
 
@@ -67,6 +67,29 @@ The Loan Repaid feature enables the users to set a loan as repaid. The `Ui` clas
 | index           | int           | The index of the Loan in the ArrayList |
 
 ![LoanRepaidSequenceDiagram](diagrams/loan/LoanRepaidSequenceDiagram.png)
+
+##### 2.1.5 Loan Not Repaid Feature
+The Loan Not Repaid feature enables the users to set a loan as not repaid. The `Ui` class takes in the user input. This String is used by the `Parser` class to decide which command to run. `Parser` validates the provided index using the `parseLoanNotRepaidCommand` method. `Parser` then calls the `setNotRepaid()` method of the `LoanList` class which calls the `setNotRepaid()` method of the `Loan` class before calling the `Ui` class to print a acknowledgement message using the `toString()` method of the `Loan` class. Below is the relevance of these attributes:
+
+| Class Attribute | Variable Type | Relevance                              |
+|-----------------|---------------|----------------------------------------|
+| index           | int           | The index of the Loan in the ArrayList |
+
+![LoanNotRepaidSequenceDiagram](diagrams/loan/LoanNotRepaidSequenceDiagram.png)
+
+##### 2.1.6 Edit Loan Feature
+The Edit Loan feature enables users to edit a existing loan. The `Ui` class takes in the user input. This String is used by the `Parser` class to decide which command to run. `Parser` validates the provided index,  description, amount and date time using the `parseEditLoanCommand` method. `Parser` then calls the `editLoan()` method of the `LoanList` class which first deletes the `Loan` at the index before creating a new `Loan` and add the given `Loan` to the ArrayList at the given index. Below is the relevance of these attributes:
+
+| Class Attribute | Variable Type | Relevance                                 |
+|-----------------|---------------|-------------------------------------------|
+| index           | int           | The index of the Loan in the ArrayList    |
+| description     | String        | The short description of the loan         |
+| amountLoaned    | Double        | The amount loaned                         |
+| loanReturnDate  | LocalDateTime | The date and time that the loan is due by |
+
+The `LoanList` class then calls the `Ui` class to print a acknowledgement message in the form of the `toString()` method of the `Loan` class.
+
+![EditLoanSequenceDiagram](diagrams/loan/EditLoanSequenceDiagram.png)
 
 #### 3.1 Income Features
 
