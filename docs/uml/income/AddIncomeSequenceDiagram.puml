@@ -1,12 +1,12 @@
 @startuml
-!include style.puml
+!include ../style.puml
 
 actor User
 
-participant ":Ui" as Ui #eb34c9
-participant ":Parser" as Parser #34eb67
-participant ":IncomeList" as IncomeList #eb6b34
-participant ":Income" as Income #34a8eb
+participant ":Ui" as Ui LOGIC_COLOR_T1
+participant ":Parser" as Parser LOGIC_COLOR_T2
+participant ":IncomeList" as IncomeList LOGIC_COLOR_T3
+participant ":Income" as Income LOGIC_COLOR_T4
 
 User -> Ui ++: add income
 Ui -> Parser ++: tryCommand(...)
@@ -26,7 +26,6 @@ return income:String
 IncomeList -> Ui ++: printAddIncomeOutput(income:String)
 return
 
-return
 return
 return
 return
