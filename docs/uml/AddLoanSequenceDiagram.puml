@@ -10,22 +10,24 @@ participant ":Loan" as Loan LOGIC_COLOR_T4
 
 User -> Ui ++: add loan
 
-Ui -> Parser ++: tryCommand(...)
+Ui -> Parser ++: tryCommand(userInput:String)
 
-Parser -> Parser ++: handleCommand(...)
+Parser -> Parser ++: handleCommand(userInput:String)
 
-Parser -> Parser ++: parseAddLoanCommand(...)
+Parser -> Parser ++: parseAddLoanCommand(userInput:String)
 return commandParameters:String[]
 
-Parser -> LoanList ++: addLoan(commandParameters[])
-
 create Loan
-LoanList -> Loan ++: new Loan(commandParameters[])
-return loan
+Parser -> Loan ++: new Loan(commandParameters:String[])
+return loan:Loan
 
-LoanList -> Loan ++: loan.toString()
-return loan:String
-LoanList -> Ui ++: printAddLoanOutput(loan:String)
+Parser -> LoanList ++: addLoan(loan:Loan)
+
+LoanList -> Ui ++: printAddLoanOutput(loan:Loan)
+
+Ui -> Loan ++: loan.toString()
+return outputString:String
+
 return
 
 return
