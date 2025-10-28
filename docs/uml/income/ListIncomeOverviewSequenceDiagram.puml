@@ -1,0 +1,44 @@
+@startuml
+!include ../style.puml
+
+actor User
+
+participant ":Ui" as Ui LOGIC_COLOR_T1
+participant ":Parser" as Parser LOGIC_COLOR_T2
+participant ":IncomeList" as IncomeList LOGIC_COLOR_T3
+participant ":Income" as Income LOGIC_COLOR_T4
+
+User -> Ui ++: list income overview
+
+Ui -> Parser ++: tryCommand(...)
+
+Parser -> Parser ++: handleCommand(...)
+
+Parser -> IncomeList ++: listIncomeOverview()
+
+loop every income in incomes
+    IncomeList -> Income ++: income.getAmountEarned()
+    return amountEarned:float
+    end
+
+create ExpenseList
+IncomeList -> ExpenseList ++: new ExpenseList()
+return expenseList
+
+IncomeList -> ExpenseList ++: expenseList.getExpenses()
+return expenses
+
+loop every expense in expenses
+    ExpenseList -> Expense ++: expense.getExpenseAmount()
+    return amountEarned:float
+    end
+
+IncomeList -> Ui ++: printIncomeOverview(...)
+
+return
+return
+return
+return
+return
+
+@enduml

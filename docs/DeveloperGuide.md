@@ -78,11 +78,22 @@ The Add Income feature enables users to add income.
 ##### 3.1.2 Delete Income Feature
 The Delete Income feature enables users to delete income.
 
+![DeleteIncomeSequenceDiagram](diagrams/income/DeleteIncomeSequenceDiagram.png)
+
 ##### 3.1.3 Edit Income Feature
 The Edit Income feature enables users to edit income.
 
+![EditIncomeSequenceDiagram.png](diagrams/income/EditIncomeSequenceDiagram.png)
+
 ##### 3.1.4 List Income Feature
 The List Income feature enables users to view all incomes.
+
+![ListIncomeSequenceDiagram.png](diagrams/income/ListIncomeSequenceDiagram.png)
+
+##### 3.1.4 List Income Overview Feature
+The List Income Overview feature enables users to view total income, total expenses and remaining income.
+
+![ListIncomeOverviewSequenceDiagram.png](diagrams/income/ListIncomeOverviewSequenceDiagram.png)
 
 #### 2.3 Investment Features
 
