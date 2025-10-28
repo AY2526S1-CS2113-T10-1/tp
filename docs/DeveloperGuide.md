@@ -237,8 +237,11 @@ writetoFile()```. However, unlike ```writeToFile``` where the entire file is rew
 
 |Version| As a ... | I want to ... | So that I can ...|
 |--------|----------|---------------|------------------|
-|v1.0|new user|see usage instructions|refer to them when I forget how to use the application|
-|v2.0|user|find a to-do item by name|locate a to-do without having to go through the entire list|
+|v1.0|user|add a source of income|keep track of part-time jobs, scholarships, or allowances|
+|v1.0|user|edit a source of income|edit the mistake of messing up the details of adding a source of income|
+|v1.0|user|remove a source of income|get rid of a source of income I no longer have|
+|v2.0|user|see a list of all my income|see all the income that I have added|
+|v2.0|user|see an overview of my income|view, at a glance, what my overall income is|
 
 ## Non-Functional Requirements
 
@@ -251,3 +254,41 @@ writetoFile()```. However, unlike ```writeToFile``` where the entire file is rew
 ## Instructions for manual testing
 
 {Give instructions on how to do a manual product testing e.g., how to load sample data to be used for testing}
+
+### Income
+
+#### Add Income
+
+1. Test Case: `add income d/salary a/100`
+Expected: Income is added. Details of the income is shown as a message.
+
+2. Test Case: `add income`
+Expected: Income is not added. Error message will be displayed.
+
+3. Test Case: `add income d/ a/`
+Expected: Income is not added. Error message will be displayed.
+
+4. Test Case: `add income d/salary a/five dollars`
+Expected: Income is not added. Error message will be displayed.
+
+#### Delete Income
+
+Prerequisites: There should be at least 1 income in the list
+
+1. Test Case: `delete income 1`
+Expected: Income is deleted. Details of deleted income is shown as a message.
+
+2. Test Case: `delete income 0`
+Expected: Income is not deleted. Error message will be displayed.
+
+3. Test Case: `delete income`
+Expected: Income is not deleted. Error message will be displayed.
+
+#### Edit Income
+Prerequisites: There should be at least 1 income in the list
+
+1. Test Case: `edit income 1 d/hustle a/50`
+Expected: Income is edited. Details of the edited income is shown as a message.
+
+2. Test Case: `edit income  d/ a/`
+Expected: Income is edited. Details of the edited income is shown as a message.

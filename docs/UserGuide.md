@@ -127,6 +127,44 @@ Format: `delete expense <INDEX>`
 Example of usage: `delete expense 2`
 
 
+### List all incomes: `list income`
+Prints the list of all incomes onto the terminal, with starting index of 1
+
+Format: `list income`
+
+### View income overview: `list income overview`
+Prints total income, total expenses and remaining income.
+
+Format: `list income overview`
+
+### Add income: `add income`
+Adds an income to the list. The income will include a description and the amount earned.
+
+Format: `add income d/<DECRIPTION> a/<AMOUNT_EARNED>`
+
+* The `<AMOUNT_EARNED>` should be numerical.
+
+Example of usage: `add income d/salary a/100`
+
+### Delete income: `delete income`
+Deletes the income from the list.
+
+Format: `delete income <INDEX>`
+
+* The `<INDEX>` cannot contain punctuation.
+
+Example of usage: `delete income 1`
+
+### Edit income: `edit income`
+Edits the income at <INDEX> from the list of income.
+
+Format: `edit income <INDEX> d/<DECRIPTION> a/<AMOUNT_EARNED>`
+
+* The `<INDEX>` cannot contain punctuation.
+* The `<AMOUNT_EARNED>` should be numerical.
+
+Example of usage: `edit income 1 d/hustle a/50`
+
 ### Exit the program: `bye`
 Saves all current data and exits the program
 
@@ -154,4 +192,9 @@ FinSight data are saved in the hard disk automatically after any command that ch
 | List Expense           | `list expense`                                                                                                                                   |
 | Add an Expense         | `add expense d/<DESCRIPTION> a/<AMOUNT_SPEND>`<br/> e.g. `add expense d/food a/6`                                                                |
 | Delete An Expense      | `delete expense <INDEX>`<br/> e.g. `delete expense 2`                                                                                            |
+| List Income            | `list income`                                                                                                                                    |
+| View Income Overview   | `list income overview`                                                                                                                           |
+| Add Income             | `add income d/<DESCRIPTION> a/<AMOUNT_EARNED>`<br/> e.g. `add income d/salary a/100`                                                             |
+| Delete a Income        | `delete income <INDEX>`<br/> e.g. `delete income 1`                                                                                              |
+| Edit a Income          | `edit income <INDEX> d/<DESCRIPTION> a/<AMOUNT_EARNED>`<br/> e.g. `edit income 1 d/hustle a/50`                                                  |
 | Exit Program           | `bye`                                                                                                                                            |
