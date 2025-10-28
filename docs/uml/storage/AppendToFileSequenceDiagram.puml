@@ -27,7 +27,11 @@ return String
 
 CDM -> BW: write()
 activate BW
+return
+
 CDM -> BW: newLine()
+activate BW
+return
 
 CDM -> BW: close()
 destroy BW

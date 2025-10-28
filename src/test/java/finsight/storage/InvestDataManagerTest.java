@@ -39,17 +39,17 @@ final class InvestDataManagerTest {
         Investment investment = new Investment("Stock|Fund", "1000.50","1.00", "15");
 
         String record = dataManager.formatRecord(investment);
-        assertEquals("Stock/Fund|1000.5|1.0|15", record);
+        assertEquals("Stock%7CFund|1000.5|1.0|15", record);
     }
 
     @Test
     void parseRecord_parsesWellFormedLine()
             throws AddInvestmentWrongNumberFormatException, AddInvestmentDateOutOfBoundsException {
-        String record = "Crypto/Fund|2000.75|1.0|10";
+        String record = "Crypto%7CFund|2000.75|1.0|10";
         Investment investment = dataManager.parseRecord(record);
 
         assertNotNull(investment);
-        assertEquals("Crypto/Fund", investment.getDescription());
+        assertEquals("Crypto|Fund", investment.getDescription());
         assertEquals(2000.75, investment.getInvestmentAmount());
         assertEquals(10, investment.getInvestmentDateOfMonth());
     }
@@ -86,7 +86,7 @@ final class InvestDataManagerTest {
 
         var lines = Files.readAllLines(dataFile, StandardCharsets.UTF_8);
         assertEquals(List.of(
-                "ETF/Monthly|500.0|1.0|5",
+                "ETF%7CMonthly|500.0|1.0|5",
                 "Bonds|1500.25|1.0|20"
         ), lines);
 
@@ -94,7 +94,7 @@ final class InvestDataManagerTest {
         assertEquals(2, loaded.size());
 
         Investment first = loaded.get(0);
-        assertEquals("ETF/Monthly", first.getDescription());
+        assertEquals("ETF|Monthly", first.getDescription());
         assertEquals(500.0, first.getInvestmentAmount());
         assertEquals(5, first.getInvestmentDateOfMonth());
 

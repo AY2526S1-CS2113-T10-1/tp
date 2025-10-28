@@ -1,5 +1,5 @@
 @startuml
-!include style.puml
+!include ../style.puml
 
 actor User
 
@@ -8,27 +8,31 @@ participant ":Parser" as Parser LOGIC_COLOR_T2
 participant ":LoanList" as LoanList LOGIC_COLOR_T3
 participant ":Loan" as Loan LOGIC_COLOR_T4
 
-User -> Ui ++: add loan
+User -> Ui ++: list loan
 
 Ui -> Parser ++: tryCommand(userInput:String)
 
 Parser -> Parser ++: handleCommand(userInput:String)
 
-Parser -> Parser ++: parseAddLoanCommand(userInput:String)
-return commandParameters:String[]
+Parser -> Parser ++: parseLoanRepaidCommand(userInput:String)
+return indexToSetRepaid:int
 
-create Loan
-Parser -> Loan ++: new Loan(commandParameters:String[])
+Parser -> LoanList ++: setRepaid(indexToSetRepaid:int)
+
+LoanList -> LoanList ++: loans.get(indexToSetRepaid:int)
 return loan:Loan
 
-Parser -> LoanList ++: addLoan(loan:Loan)
+LoanList -> Loan ++: loan.setRepaid()
+return
 
-LoanList -> Ui ++: printAddLoanOutput(loan:Loan)
+LoanList -> LoanList ++: loans.get(indexToSetRepaid:int)
+return loan:Loan
 
+LoanList -> Ui ++: printLoanRepaid(loan:Loan)
 Ui -> Loan ++: loan.toString()
 return outputString:String
-
 return
+
 
 return
 return

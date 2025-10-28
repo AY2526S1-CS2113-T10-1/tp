@@ -95,7 +95,7 @@ public class LoanDataManager extends DataManager<Loan, AddLoanCommandWrongFormat
      */
     @Override
     protected Loan parseRecord(String line) {
-        String[] parts = line.split("\\|", -1);
+        String[] parts = line.split(FIELD_DELIMITER, SPLIT_KEEP_EMPTY_FIELDS);
         if (parts.length != 4) {
             return null;
         }

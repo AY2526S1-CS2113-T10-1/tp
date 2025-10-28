@@ -1,7 +1,9 @@
 @startuml
 'https://plantuml.com/class-diagram
 
-abstract class DataManager<T,X> {
+skinparam classAttributeIconSize 0
+
+object "{abstract}\nDataManager<T,X>" {
 + tryLoad(): ArrayList<T>
 + writeToFile(List<T>): void
 + appendToFile(T): void
@@ -16,12 +18,12 @@ abstract class DataManager<T,X> {
 # dataFilePath(): Path {abstract}
 }
 
-class ChildDataManager {
+object ChildDataManager {
 # parseRecord(String): T
 # formatRecord(T): String
 # dataFilePath(): Path
 }
 
 note right of ChildDataManager: ChildDataManager includes:\nLoanDataManager, ExpenseDataManager,\nIncomeDataManager, InvestDataManager
-DataManager <|-- ChildDataManager
+"{abstract}\nDataManager<T,X>" <|-- ChildDataManager
 @enduml

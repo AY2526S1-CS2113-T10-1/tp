@@ -1,5 +1,5 @@
 @startuml
-!include style.puml
+!include ../style.puml
 
 actor User
 
@@ -8,30 +8,26 @@ participant ":Parser" as Parser LOGIC_COLOR_T2
 participant ":LoanList" as LoanList LOGIC_COLOR_T3
 participant ":Loan" as Loan LOGIC_COLOR_T4
 
-User -> Ui ++: list loan
+User -> Ui ++: delete loan
 
 Ui -> Parser ++: tryCommand(userInput:String)
-
 Parser -> Parser ++: handleCommand(userInput:String)
 
-Parser -> Parser ++: parseLoanRepaidCommand(userInput:String)
-return indexToSetRepaid:int
+Parser -> Parser ++: parseDeleteLoanCommand(userInput:String)
+return indexToDelete:int
 
-Parser -> LoanList ++: setRepaid(indexToSetRepaid:int)
-
-LoanList -> LoanList ++: loans.get(indexToSetRepaid:int)
+Parser -> LoanList ++: deleteLoan(indexToDelete:int)
+LoanList -> LoanList ++: loans.get(indexToDelete:int)
 return loan:Loan
 
-LoanList -> Loan ++: loan.setRepaid()
-return
-
-LoanList -> LoanList ++: loans.get(indexToSetRepaid:int)
-return loan:Loan
-
-LoanList -> Ui ++: printLoanRepaid(loan:Loan)
+LoanList -> Ui ++: printDeleteLoanOutput(loan:Loan)
 Ui -> Loan ++: loan.toString()
 return outputString:String
 return
+
+LoanList -> Loan ++: loans.remove()
+return
+destroy Loan
 
 
 return

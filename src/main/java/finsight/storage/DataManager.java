@@ -36,6 +36,13 @@ import java.util.List;
  */
 public abstract class DataManager<T, X extends Exception> {
 
+    protected static final String FIELD_DELIMITER = "\\|";
+    protected static final int SPLIT_KEEP_EMPTY_FIELDS = -1;
+
+    private static final String REPLACE_TARGET = "|";
+    private static final String ENCODED_PIPE = "%7C";
+    private static final String ENCODED_PERCENT = "%25";
+
     /**
      * Returns the path to the data file managed by the subclass.
      * Implementations should specify the location of the file.
@@ -173,25 +180,42 @@ public abstract class DataManager<T, X extends Exception> {
     }
 
     /**
-     * Sanitizes a given line to remove or escape reserved characters used as delimiters.
-     * Useful for preventing parsing issues when writing to file.
+     * Escapes reserved characters within a field value to make it safe
+     * for storage in a single-line record.
      *
-     * @param line the raw string to be sanitized
-     * @return a sanitized version of the string
+     * <p>Specifically:
+     * <ul>
+     *   <li>Replaces all literal percent signs ({@code %}) with {@code %25}</li>
+     *   <li>Replaces all pipe delimiters ({@code |}) with {@code %7C}</li>
+     * </ul>
+     *
+     * <p>The encoding order is important: percent signs are encoded first to
+     * ensure that user-entered sequences such as {@code %7C} are not mistaken
+     * for encoded delimiters.</p>
+     *
+     * @param line the raw string to sanitize; {@code null} is treated as an empty string
+     * @return a sanitized string safe for inclusion in a pipe-delimited record
      */
     protected String sanitize(String line) {
-        return line == null ? "" : line.replace("|", "/");
+        return line == null ? "" : line.replace("%", ENCODED_PERCENT).replace(REPLACE_TARGET, ENCODED_PIPE);
     }
 
     /**
-     * Restores the original form of a sanitized line.
-     * By default, this returns the same string, but subclasses may override
-     * to handle custom desanitization logic.
+     * Restores a field value previously processed by {@link #sanitize(String)}.
      *
-     * @param line the sanitized string
-     * @return the restored original string
+     * <p>Specifically:
+     * <ul>
+     *   <li>Replaces all encoded pipe tokens ({@code %7C}) with literal {@code |}</li>
+     *   <li>Replaces all encoded percent tokens ({@code %25}) with literal {@code %}</li>
+     * </ul>
+     *
+     * <p>The decoding order mirrors the reverse of {@link #sanitize(String)}.</p>
+     *
+     * @param line the sanitized string to decode; {@code null} or empty strings
+     *          return an empty string
+     * @return the original unsanitized string, identical to the pre-sanitized input
      */
     protected String unsanitize(String line) {
-        return line;
+        return line.replace(ENCODED_PIPE, REPLACE_TARGET).replace(ENCODED_PERCENT, "%");
     }
 }

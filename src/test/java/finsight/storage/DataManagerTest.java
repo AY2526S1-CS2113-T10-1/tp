@@ -42,17 +42,37 @@ final class DataManagerTest {
         testDataManager.appendToFile(new TestRecord("third|pipe"));
 
         var records = Files.readAllLines(dataFile, StandardCharsets.UTF_8);
-        assertEquals(List.of("first", "second", "third/pipe"), records);
+        assertEquals(List.of("first", "second", "third%7Cpipe"), records);
     }
 
     @Test
     void tryLoad_skipsEmptyLines_andUnsanitizes() throws IOException {
-        Files.writeString(dataFile, "\nfirst\n\nsecond/two\n", StandardCharsets.UTF_8);
+        Files.writeString(dataFile, "\nfirst\n\nsecond%7Ctwo\n", StandardCharsets.UTF_8);
 
         var records = testDataManager.tryLoad();
         assertEquals(2, records.size());
         assertEquals("first", records.get(0).testValue);
-        assertEquals("second/two", records.get(1).testValue);
+        assertEquals("second|two", records.get(1).testValue);
+    }
+
+    @Test
+    void sanitizeThenUnsanitize_roundTropPercentAndPipe() {
+        String record = "Promo 50% | today";
+        String stored = testDataManager.sanitize(record);
+        String restored = testDataManager.unsanitize(stored);
+
+        assertEquals("Promo 50%25 %7C today", stored);
+        assertEquals(record, restored);
+    }
+
+    @Test
+    void unsanitize_doesNotDecodeUserTypedPercent() throws IOException {
+        Files.writeString(dataFile, "hash=%257Cexact|0\nliteral=%2525token|1\n", StandardCharsets.UTF_8);
+
+        var records = testDataManager.tryLoad();
+        assertEquals(2, records.size());
+        assertEquals("hash=%7Cexact|0", records.get(0).testValue);
+        assertEquals("literal=%25token|1", records.get(1).testValue);
     }
 
     @Test
