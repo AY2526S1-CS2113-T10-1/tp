@@ -205,11 +205,27 @@ StandardCopyOption.ATOMIC_MOVE);
 
 ##### 2.5.5 File Safety Utilities
 
-- ```ensureParentDir()``` expects to find folder ```data``` in current directory. Method creates directory if missing.
-- ```ensureFileExist()``` expects ```{category}.txt``` in ```data``` folder. Method creates expected files and folder if
-missing (by invocating ```ensureParentDir()```).
-- ```sanitize()/unsanitize()``` replaces and restores reserved delimiter symbol (```|``` to ```/```) to prevent record 
-corruption during ```formatRecord()``` and ```parseRecord()```.
+`ensureParentDir()` expects to find folder `data` in current directory. Method creates directory if missing.
+
+`ensureFileExist()` expects `{category}.txt` in `data` folder. Method creates expected files and folder if missing 
+(by invocating `ensureParentDir()`).
+
+`sanitize()/unsanitize()` are helper methods that encode and decode reserved symbols that conflict with the text 
+file's delimiter system. Since each record line uses the pipe (`|`) character as a delimiter between fields, any literal
+ pipe within user input must be escaped before writing to disk. The implementation replaces:
+  - `%` with `%25` (encoded percent)
+  - `|` with `%7C` (encoded pipe)
+
+The unsanitize() method restores them during file loading by performing the inverse replacements.
+
+```text
+Input: "Lunch | Promo 50%"
+Stored: "Lunch %7C Promo 50%25"
+Restored: "Lunch | Promo 50%"
+```
+
+This ensures that no field content breaks the delimiter structure and that user data is always preserved exactly as 
+entered.
 
 ##### 2.5.6 Writing to storage
 
