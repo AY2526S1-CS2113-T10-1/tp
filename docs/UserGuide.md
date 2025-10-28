@@ -4,6 +4,8 @@
 
 FinSight is a CLI-based app for managing finances such as income, expenses, loans and investments.
 
+* [Quick Start](#quick-start)
+* [Features](#features)
 * **Loans**
   * [List loan](#list-all-loans-list-loan)
   * [Add loan](#add-a-loan-add-loan)
@@ -25,13 +27,9 @@ FinSight is a CLI-based app for managing finances such as income, expenses, loan
   * [list investment](#list-all-investment-list-investment)
   * [add investment](#add-investment-add-investment)
   * [delete investment](#delete-investment-delete-investment)
-
 *  [Exiting the program](#exit-the-program-bye)
-
 *  [Saving the data](#saving-the-data)
-
 *  [FAQ](#faq)
-
 *  [Command Summary](#command-summary)
 
 ---
