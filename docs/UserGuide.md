@@ -4,6 +4,33 @@
 
 FinSight is a CLI-based app for managing finances such as income, expenses, loans and investments.
 
+* **Loans**
+  * [List loan](#list-all-loans-list-loan)
+  * [Add loan](#add-a-loan-add-loan)
+  * [Delete loan](#Delete-a-loan-delete-loan)
+  * [Loan repaid](#Set-loan-as-repaid-loan-repaid)
+  * [Loan not repaid](#Set-loan-as-not-repaid-loan-not-repaid)
+  * [Edit loan](#Edit-a-loan-edit-loan)
+* **Expense**
+  * [List expense](#List-all-expenses-list-expense)
+  * [add expense](#Add-expense-add-expense)
+  * [delete expense](#delete-expense-delete-expense)
+* **Income**
+  * [list income](#list-all-income-list-income)
+  * [add income](#add-income-add-income)
+  * [delete income](#delete-income-delete-income)
+  * [edit income](#edit-income-edit-income)
+  * [list income overview](#list-income-overview-list-income-overview)
+* **Investment**
+  * [list investment](#list-all-investment-list-investment)
+  * [add investment](#add-investment-add-investment)
+  * [delete investment](#delete-investment-delete-investment)
+* [Exiting the program](#Exit-the-program-bye)
+* [Saving the data](#Saving-the-data)
+* [FAQ](#FAQ)
+* [Command Summary](#Command-Summary)
+---
+
 ## Quick Start
 
 1. Ensure that you have Java `17` or above installed.
@@ -11,7 +38,9 @@ FinSight is a CLI-based app for managing finances such as income, expenses, loan
 3. Copy the file to the folder you want to use as the home folder for FinSight.
 4. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar finsight.jar` command to run the application.
 5. Type the command into the terminal and press Enter to execute it. Any input given that is not a correct command will show all possible commands.
-6. Refer to the [Features](#features) below for details of each command.
+6. Refer to the [Features](#Features) below for details of each command.
+
+---
 
 ## Features
 
@@ -30,7 +59,7 @@ FinSight is a CLI-based app for managing finances such as income, expenses, loan
 > 
 > * If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
 
-
+<br/>
 
 ### List all loans: `list loan`
 Prints the list of all loans onto the terminal with an index starting from 1.
@@ -52,7 +81,7 @@ Example of usage:
 `add loan d/ loan 2 a/ 10.56 r/ 11-10-2056 23:59`
 
 ### Delete a loan: `delete loan`
-Deletes the loan at <INDEX> from the list of loan
+Deletes the loan at `<INDEX>` from the list of loan
 
 Format: `delete loan <INDEX>`
 
@@ -105,6 +134,8 @@ Example of usage:
 
 `edit loan 2 d/ loan 2 a/ 10.56 r/ 11-10-2056 23:59`
 
+<br/>
+
 ### List all expenses: `list expense`
 Prints the list of all expenses onto the terminal, with starting index of 1
 
@@ -126,6 +157,71 @@ Format: `delete expense <INDEX>`
 
 Example of usage: `delete expense 2`
 
+<br/>
+
+### List all income: `list income`
+Prints the list of all expenses onto the terminal, with starting index of 1
+
+Format: `list income`
+
+### Add income: `add income`
+Adds an income source to the list. The income includes description and the amount earned
+
+Format: `add income d/<DESCRIPTION> a/<AMOUNT_EARNED>`
+
+Example of usage:
+
+`add income d/ job1 a/ 1000`
+
+`add income d/ sidejob2 a/300`
+
+### Delete income: `delete income`
+Deletes the income at `<INDEX>` from the list of incomes
+
+Format: `delete income <INDEX>`
+
+Example of usage:
+
+`delete income 2`
+
+### Edit income: `edit income`
+Edits the income at `<INDEX>` from the list. Requires description and amount earned.
+
+Format: `edit income <INDEX> d/<DESCRIPTION> a/<AMOUNT_EARNED>`
+
+Example of usage:
+
+`edit income 1 d/newjob a/1200`
+
+### List income overview `list income overview`
+Prints the total income earned and the total expenses used. Also shows the remaining income.
+
+Format: `list income overview`
+
+<br/>
+
+### List all investment: `list investment`
+Prints the list of all investment onto the terminal, with starting index of 1. 
+Also prints the total returns after 5 and 10 years.
+
+Format: `list expense`
+
+### Add investment: `add investment`
+Adds an investment to the list. The investment will include a description, the monthly invested amount, 
+the return rate, and the deposit date.
+
+Format:`add investment d/<DESCRIPTION> a/<AMOUNT_INVESTED_MONTHLY> r/<RETURN_RATE_PER_ANNUM> m/<DEPOSIT_DATE_EACH_MONTH>`
+
+Example of usage: `add investment d/moomoo a/1000 r/3 m/21`
+
+### Delete investment: `delete investment`
+Delete the investment from the list.
+
+Format: `delete investment <INDEX>`
+
+Example of usage: `delete investment 3`
+
+<br/>
 
 ### Exit the program: `bye`
 Saves all current data and exits the program
@@ -135,11 +231,15 @@ Format: `bye`
 ### Saving the data
 FinSight data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
 
+---
+
 ## FAQ
 
 **Q**: How do I transfer my data to another computer? 
 
 **A**: Install the app in the other computer and overwrite the empty data files it creates with the files that contains the data of your previous FinSight home folder.
+
+---
 
 ## Command Summary
 
@@ -154,4 +254,7 @@ FinSight data are saved in the hard disk automatically after any command that ch
 | List Expense           | `list expense`                                                                                                                                   |
 | Add an Expense         | `add expense d/<DESCRIPTION> a/<AMOUNT_SPEND>`<br/> e.g. `add expense d/food a/6`                                                                |
 | Delete An Expense      | `delete expense <INDEX>`<br/> e.g. `delete expense 2`                                                                                            |
+|                        |                                                                                                                                                  |
+|                        |                                                                                                                                                  |
+|                        |                                                                                                                                                  |
 | Exit Program           | `bye`                                                                                                                                            |
