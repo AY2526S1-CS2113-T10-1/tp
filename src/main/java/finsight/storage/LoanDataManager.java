@@ -92,13 +92,10 @@ public class LoanDataManager extends DataManager<Loan, AddLoanCommandWrongFormat
      *
      * @param line serialized line from the data file
      * @return parsed {@link Loan}, or {@code null} if the line is malformed
-     * @throws AddLoanCommandWrongFormatException if the content is syntactically correct
-     *                                            but cannot be mapped to a valid {@link Loan}
-     *                                            (e.g., invalid date/amount)
      */
     @Override
-    protected Loan parseRecord(String line) throws AddLoanCommandWrongFormatException {
-        String[] parts = line.split("\\|", -1);
+    protected Loan parseRecord(String line) {
+        String[] parts = line.split(FIELD_DELIMITER, SPLIT_KEEP_EMPTY_FIELDS);
         if (parts.length != 4) {
             return null;
         }

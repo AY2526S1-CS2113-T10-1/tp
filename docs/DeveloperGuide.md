@@ -33,7 +33,8 @@ The bulk of the app's work is done by the following four components
 
 ##### 2.1.1 List Loan Feature
 The List Loan feature enables users to see a list of loans. The `Ui` class takes in the user input. This String is used by the `Parser` class to decide which command to run. `Parser` calls the `listLoans()` method from the `LoanList` class to output the loans. `LoanList` then calls the `Ui` class to output the loans, giving it the ArrayList of Loans. `Ui` class loops through the ArrayList to output each `Loan` class's `toString()` method.
-![ListLoanSequenceDiagram](./diagrams/ListLoanSequenceDiagram.png)
+
+![ListLoanSequenceDiagram](diagrams/loan/ListLoanSequenceDiagram.png)
 
 ##### 2.1.2 Add Loan Feature
 The Add Loan feature enables users to add loans. The `Ui` class takes in the user input. This String is used by the `Parser` class to decide which command to run. `Parser` validates the provided description, amount and date time using the `parseAddLoanCommand` method. `Parser` then calls the `addLoan()` method of the `LoanList` class which creates and add the given `Loan` if valid. Below is the relevance of these attributes:
@@ -45,7 +46,8 @@ The Add Loan feature enables users to add loans. The `Ui` class takes in the use
 | loanReturnDate  | LocalDateTime | The date and time that the loan is due by |
 
 The `LoanList` class then calls the `Ui` class to print a acknowledgement message in the form of the `toString()` method of the `Loan` class.
-![AddLoanSequenceDiagram](./diagrams/AddLoanSequenceDiagram.png)
+
+![AddLoanSequenceDiagram](diagrams/loan/AddLoanSequenceDiagram.png)
 
 ##### 2.1.3 Delete Loan Feature
 The Delete Loan feature enables the users to delete a loan. The `Ui` class takes in the user input. This String is used by the `Parser` class to decide which command to run. `Parser` validates the provided index using the `parseDeleteLoanCommand` method. `Parser` then calls the `deleteLoan()` method of the `LoanList` class which calls the `Ui` class to print a acknowledgement message using the `toString()` method of the `Loan` class before deleting the `Loan` at the given index. Below is the relevance of these attributes:
@@ -53,7 +55,9 @@ The Delete Loan feature enables the users to delete a loan. The `Ui` class takes
 | Class Attribute | Variable Type | Relevance                              |
 |-----------------|---------------|----------------------------------------|
 | index           | int           | The index of the Loan in the ArrayList |
-![DeleteLoanSequenceDiagram](./diagrams/DeleteLoanSequenceDiagram.png)
+
+![DeleteLoanSequenceDiagram](diagrams/loan/DeleteLoanSequenceDiagram.png)
+
 
 ##### 2.1.4 Loan Repaid Feature
 The Loan Repaid feature enables the users to set a loan as repaid. The `Ui` class takes in the user input. This String is used by the `Parser` class to decide which command to run. `Parser` validates the provided index using the `parseLoanRepaidCommand` method. `Parser` then calls the `setRepaid()` method of the `LoanList` class which calls the `setRepaid()` method of the `Loan` class before calling the `Ui` class to print a acknowledgement message using the `toString()` method of the `Loan` class. Below is the relevance of these attributes:
@@ -61,36 +65,49 @@ The Loan Repaid feature enables the users to set a loan as repaid. The `Ui` clas
 | Class Attribute | Variable Type | Relevance                              |
 |-----------------|---------------|----------------------------------------|
 | index           | int           | The index of the Loan in the ArrayList |
-![LoanRepaidSequenceDiagram](./diagrams/LoanRepaidSequenceDiagram.png)
+
+![LoanRepaidSequenceDiagram](diagrams/loan/LoanRepaidSequenceDiagram.png)
 
 #### 3.1 Income Features
 
 ##### 3.1.1 Add Income Feature
 The Add Income feature enables users to add income.
-![AddIncomeSequenceDiagram](./diagrams/AddIncomeSequenceDiagram.png)
+
+![AddIncomeSequenceDiagram](diagrams/income/AddIncomeSequenceDiagram.png)
 
 ##### 3.1.2 Delete Income Feature
 The Delete Income feature enables users to delete income.
 
+![DeleteIncomeSequenceDiagram](diagrams/income/DeleteIncomeSequenceDiagram.png)
+
 ##### 3.1.3 Edit Income Feature
 The Edit Income feature enables users to edit income.
 
+![EditIncomeSequenceDiagram.png](diagrams/income/EditIncomeSequenceDiagram.png)
+
 ##### 3.1.4 List Income Feature
 The List Income feature enables users to view all incomes.
+
+![ListIncomeSequenceDiagram.png](diagrams/income/ListIncomeSequenceDiagram.png)
+
+##### 3.1.4 List Income Overview Feature
+The List Income Overview feature enables users to view total income, total expenses and remaining income.
+
+![ListIncomeOverviewSequenceDiagram.png](diagrams/income/ListIncomeOverviewSequenceDiagram.png)
 
 #### 2.3 Investment Features
 
 ##### 2.3.1 Add Investment Feature
 The Add Investment feature allows the user to add investments. The `Ui` class is responsible for handling user input and to output an acknowledgement message. The String from the user input is used by the `Parser` class to decide which command to run. `Parser` then parses the String into the appropriate command parameters exclusive to the command, `add investment`. `Parser` calls the constructor of the `Investment` class with the command parameters and returns the object. This object is then added to an `ArrayList` in the `InvestmentList` entity. The `Ui` class is called by the `InvestmentList` class to output the acknowledgement message, before calling the `appendToFile(...)` method in the `InvestDataManager` Class to add the data of the `Investment` object to a data file.
-![AddInvestmentSequenceDiagram](./diagrams/AddInvestmentSequenceDiagram.png)
+![AddInvestmentSequenceDiagram](diagrams/investment/AddInvestmentSequenceDiagram.png)
 
 ##### 2.3.2 Delete Investment Feature
 The Delete Investment feature allows the user to remove added investments. The `Ui` class is responsible for handling user input and to output an acknowledgement message. The String is passed to the `Parser` class to determine the user-requested command. `Parser` parses the String and retrieves the index of the Investment object that the user wants to delete and calls the `deleteInvestment(indexToDelete)` method in the `InvestmentList` Class with the index. The `Ui` class is called to display an acknowledgement message to the user. The method also removes the respective `Investment` object from the `ArrayList` in the `InvestmentList` entity. `InvestmentList` calls the `writeToFile()` method in the `InvestDataManager` Class to rewrite the data file with the remaining `Investment` objects.
-![DeleteInvestmentSequenceDiagram](./diagrams/DeleteInvestmentSequenceDiagram.png)
+![DeleteInvestmentSequenceDiagram](diagrams/investment/DeleteInvestmentSequenceDiagram.png)
 
 ##### 2.3.3 List Investment Feature
 The Add Investment feature allows the user to list all the added investments as well as their overall returns. The `Ui` class is responsible for handling user input and to output an acknowledgement message. The String is passed to the `Parser` class to determine the user-requested command. `Parser` parses the String and calls the `listAllInvestments()` method in the `InvestmentList` Class. This method passes the `ArrayList` of `Investment` objects into the `printAllInvestments(...)` method of the `Ui` class. This method loops through each `Investment` object in the `ArrayList` to print their `toString()` method to the user. `InvestmentList` Class then retrieves the overall 5 year and 10 year returns of all the `Investment` objects in the `ArrayList` and calls the `Ui` class to print their values to the user.
-![ListInvestmentSequenceDiagram](./diagrams/ListInvestmentSequenceDiagram.png)
+![ListInvestmentSequenceDiagram](diagrams/investment/ListInvestmentSequenceDiagram.png)
 
 #### 2.5 Storage Features
 
@@ -109,9 +126,8 @@ This allows child class (e.g., ```LoanDataManager```, ```IncomeDataManager```) t
 parsing logic**.
 
 ##### 2.5.2 Class Diagram
-<div style="text-align: center;">
-    ![DataManagerClassDiagram](./diagrams/DataManagerClassDiagram.png)
-</div>
+
+![DataManagerClassDiagram](./diagrams/storage/DataManagerClassDiagram.png)
 
 **Design Principle**: Follows **Template Method pattern**, ensuring each subclass only defines its own record formatting
 rules while sharing consistent I/O logic. The abstract methods allow subclasses to fill in the data-specific steps such 
@@ -126,6 +142,8 @@ When ```tryLoad()``` is called
 4. Passes each line into corresponding subclass's ```parseRecord(String)``` for conversion into domain objects.
 5. Returns list of valid records.
 6. If error occurs (I/O or parsing), it catches the exception, prints the error and returns an empty list.
+
+![LoadSequenceDiagram](./diagrams/storage/LoadSequenceDiagram.png)
 
 ##### 2.5.4 Writing and Appending Data
 
@@ -147,9 +165,64 @@ StandardCopyOption.ATOMIC_MOVE);
 
 - ```ensureParentDir()``` expects to find folder ```data``` in current directory. Method creates directory if missing.
 - ```ensureFileExist()``` expects ```{category}.txt``` in ```data``` folder. Method creates expected files and folder if
-missing.
+missing (by invocating ```ensureParentDir()```).
 - ```sanitize()/unsanitize()``` replaces and restores reserved delimiter symbol (```|``` to ```/```) to prevent record 
 corruption during ```formatRecord()``` and ```parseRecord()```.
+
+##### 2.5.6 Writing to storage
+
+```writeToFile()``` is called whenever there are edits or deletion to the data. It first ensures that path to the file 
+exist and is valid. A temporary file will be created with the new list of records written into it. Then, the original 
+.txt file will be replaced by the temporary file created. 
+
+###### 1. Client Invocation
+
+The client calls ```writeToFile()``` on a ```ChildDataManager``` instance. Control passes to the superclass 
+`DataManager`.
+
+###### 2. File Preparation
+
+The method calls ```ensureFileExist()```, which invokes ```ensureParentDir()```. This ensures that output path is always
+valid before writing.
+
+###### 3. Temporary File Generation
+
+The data manager retrieves the file name via ```Path.getFileName()``` and constructs a sibling temporary path by call 
+```Path.resolveSibling(fileName + ".temp")```. This creates a temporary file in the same directory as the target file, 
+ensuring the eventual replacement can happen atomically.
+
+###### 4. Opening the Writer
+
+The method calls ```Files.newBufferedWriter()``` to obtain a `BufferedWriter` object ```writer``` configured for UTF-8 
+encoding. The writer will buffer and write the serialised text content efficiently.
+
+###### 5. Record Serialisation and Writing Loop
+
+For each record in the list, ```formatRecord(record)``` is invoked as a **polymorphic call** resolved at runtime to the 
+subclass implementation, converting domain objects into delimited text lines. The resulting string is written to the 
+buffer using ```writer.write()```, followed by ```writer.newLine()``` to ensure each record starts on a separate line.
+
+###### 6. Closing the writer
+
+After all records are written, the write is closes through try-with-resources. Closing ensures all buffered data is 
+flushed to the temporary file and system resources are releases.
+
+###### 7. Atomic File Replacement
+
+The method calls ```Files.move()``` to rename and replace the original data file with the new ```.temp``` file. The 
+options ```REPLACE_EXISTING``` and ```ATOMIC_MOVE``` ensure the replacement is performed safely in a single atomic 
+filesystem operation. This prevents partial writes, preserving data integrity. Once the move is successful, control 
+returns to the client and the data file now contains the latest version of all serialised records.
+
+![WriteToFileSequenceDiagram](./diagrams/storage/WriteToFileSequenceDiagram.png)
+
+##### 2.5.7 Adding new record to file
+
+```appendToFile()``` is called when a new record is added to the file. The file preparation is identical to ```
+writetoFile()```. However, unlike ```writeToFile``` where the entire file is rewritten and replaced, this method using 
+```StandardOpenOption.APPEND``` to append the new record to the last line of the file, and adds a new line.
+
+![AppendToFileSequenceDiagram](./diagrams/storage/AppendToFileSequenceDiagram.png)
 
 ## Product scope
 ### Target user profile

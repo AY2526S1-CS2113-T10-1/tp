@@ -1,5 +1,5 @@
 @startuml
-!include style.puml
+!include ../style.puml
 
 actor User
 
@@ -14,19 +14,17 @@ Ui -> Parser ++: tryCommand(...)
 
 Parser -> Parser ++: handleCommand(...)
 
-Parser -> Parser ++: parseLoanRepaidCommand(...)
-return index:int
+Parser -> LoanList ++: listLoans()
 
-Parser -> LoanList ++: setRepaid(index:int)
+LoanList -> Ui ++: printAllLoans(loans)
+loop i from 0 to (Loan.numberOfLoans - 1)
+    Ui -> LoanList ++: loans.get(i:int)
+    LoanList -> Loan ++: loan.toString()
+    return loan:String
+    return loan:String
+    end
 
-LoanList -> Loan ++: setRepaid()
 return
-LoanList -> Loan ++: loan.toString()
-return loan:String
-LoanList -> Ui ++: printLoanRepaid(loan:String)
-return
-
-
 return
 return
 return

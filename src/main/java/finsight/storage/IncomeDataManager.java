@@ -85,7 +85,7 @@ public class IncomeDataManager extends DataManager<Income, AddIncomeCommandWrong
      */
     @Override
     protected Income parseRecord(String line) throws AddIncomeCommandWrongFormatException {
-        String[] parts = line.split("\\|", -1);
+        String[] parts = line.split(FIELD_DELIMITER, SPLIT_KEEP_EMPTY_FIELDS);
         if (parts.length < 2) {
             return null;
         }

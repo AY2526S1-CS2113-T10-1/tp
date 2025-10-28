@@ -31,19 +31,19 @@ final class ExpenseDataManagerTest {
 
     @Test
     void formatRecord_joinsField_andSanitizesDescription() {
-        Expense expense = new Expense("Poop|Food", "1234.69");
+        Expense expense = new Expense("Poop|Food%", "1234.69");
 
         String record = dataManager.formatRecord(expense);
-        assertEquals("Poop/Food|1234.69", record);
+        assertEquals("Poop%7CFood%25|1234.69", record);
     }
 
     @Test
     void parseRecord_parseWellFormedLine() {
-        String record = "Poop/Food|1234.69";
+        String record = "Poop%7CFood%25|1234.69";
         Expense expense = dataManager.parseRecord(record);
 
         assertNotNull(expense);
-        assertEquals("Poop/Food", expense.getDescription());
+        assertEquals("Poop|Food%", expense.getDescription());
         assertEquals("1234.69", expense.getExpenseAmount().toString());
     }
 
@@ -64,7 +64,7 @@ final class ExpenseDataManagerTest {
 
         var records = Files.readAllLines(dataFile, StandardCharsets.UTF_8);
         assertEquals(List.of(
-                "Eat/Poop|10.0",
+                "Eat%7CPoop|10.0",
                 "Poop Poop|20.0"
         ), records);
 
@@ -72,7 +72,7 @@ final class ExpenseDataManagerTest {
         assertEquals(2, expenses.size());
 
         Expense expenseOne = expenses.get(0);
-        assertEquals("Eat/Poop", expenseOne.getDescription());
+        assertEquals("Eat|Poop", expenseOne.getDescription());
         assertEquals("10.0", expenseOne.getExpenseAmount().toString());
 
         Expense expenseTwo = expenses.get(1);

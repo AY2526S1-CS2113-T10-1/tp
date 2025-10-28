@@ -1,0 +1,40 @@
+@startuml
+'https://plantuml.com/sequence-
+
+participant ":ChildDataManager" as CDM
+participant ":Files" as Files
+participant "writer:BufferedWriter" as BW
+
+-> CDM: appendToFile()
+activate CDM
+
+CDM -> CDM: ensureFileExist()
+activate CDM
+
+CDM -> CDM: ensureParentDir()
+activate CDM
+return
+
+return
+
+CDM -> Files: newBufferedWriter()
+activate Files
+return writer
+
+CDM -> CDM: formatRecord()
+activate CDM
+return String
+
+CDM -> BW: write()
+activate BW
+return
+
+CDM -> BW: newLine()
+activate BW
+return
+
+CDM -> BW: close()
+destroy BW
+
+
+@enduml
