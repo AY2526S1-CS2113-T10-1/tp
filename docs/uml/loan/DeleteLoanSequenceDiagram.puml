@@ -10,16 +10,19 @@ participant ":Loan" as Loan LOGIC_COLOR_T4
 
 User -> Ui ++: delete loan
 
-Ui -> Parser ++: tryCommand(...)
-Parser -> Parser ++: handleCommand(...)
+Ui -> Parser ++: tryCommand(userInput:String)
+Parser -> Parser ++: handleCommand(userInput:String)
 
-Parser -> Parser ++: parseDeleteLoanCommand(...)
-return index:int
+Parser -> Parser ++: parseDeleteLoanCommand(userInput:String)
+return indexToDelete:int
 
-Parser -> LoanList ++: deleteLoan(index:int)
-LoanList -> Loan ++: loan.toString()
-return loan:String
-LoanList -> Ui ++: printDeleteLoanOutput(loan:String)
+Parser -> LoanList ++: deleteLoan(indexToDelete:int)
+LoanList -> LoanList ++: loans.get(indexToDelete:int)
+return loan:Loan
+
+LoanList -> Ui ++: printDeleteLoanOutput(loan:Loan)
+Ui -> Loan ++: loan.toString()
+return outputString:String
 return
 
 LoanList -> Loan ++: loans.remove()
@@ -27,6 +30,7 @@ return
 destroy Loan
 
 
+return
 return
 return
 return
