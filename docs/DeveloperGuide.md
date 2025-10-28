@@ -247,30 +247,87 @@ writetoFile()```. However, unlike ```writeToFile``` where the entire file is rew
 
 ![AppendToFileSequenceDiagram](./diagrams/storage/AppendToFileSequenceDiagram.png)
 
+# Appendix
 ## Product scope
 ### Target user profile
 
-{Describe the target user profile}
+- University Students with poor finance management
+- can type fast
+- prefers typing to clicking
+- is comfortable using CLI apps
 
 ### Value proposition
 
-{Describe the value proposition: what problem does it solve?}
+Manage loans, income, investments and expenses faster than a GUI driven app.
 
 ## User Stories
 
-|Version| As a ... | I want to ... | So that I can ...|
-|--------|----------|---------------|------------------|
-|v1.0|new user|see usage instructions|refer to them when I forget how to use the application|
-|v2.0|user|find a to-do item by name|locate a to-do without having to go through the entire list|
+| Version | As a ... | I want to ...             | So that I can ...                                           |
+|---------|----------|---------------------------|-------------------------------------------------------------|
+| v1.0    | new user | see usage instructions    | refer to them when I forget how to use the application      |
+| v2.0    | user     | find a to-do item by name | locate a to-do without having to go through the entire list |
 
 ## Non-Functional Requirements
 
-{Give non-functional requirements}
+1. Should work on any *mainstream OS* as long as it has Java `17` or above installed
+2. A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+
+{More to be added}
 
 ## Glossary
 
-* *glossary item* - Definition
+* *mainstream OS* - Windows, Linux, Unix, MacOS
+* *GUI* - Graphical User Interface
 
 ## Instructions for manual testing
 
-{Give instructions on how to do a manual product testing e.g., how to load sample data to be used for testing}
+### Launching and shutdown
+
+1. Initial Launch
+   1. Download the jar file [here](https://github.com/AY2526S1-CS2113-T10-1/tp) into an empty folder
+   2. Run the jar file by `cd` into the folder and running the `java -jar finsight.jar` command
+   3. Run the `bye' command </br>
+      Expected: Program creates empty data files in a data folder in the original folder
+
+### List Loan
+
+1. Show List of Loans (empty)
+   1. Prerequisites: no loans saved or initial launch
+   2. Test case: `list loan`</br>
+      Expected: Shows `Total loaned: $0.00`
+</br></br>
+2. Show List of Loans (not empty)
+   1. Prerequisites: loan list is not empty
+   2. Test case: `list loan`</br>
+      Expected: Shows a list of all loans and a Total loaned amount
+
+### Add/Edit Loan
+
+1. Adding a new Loan
+   1. Test case: `add loan d/ loan 1 a/ 1000 r/ 10-10-2209 19:00`</br>
+      Expected: A loan is added to the loanList, can be shown with the `list loan` command
+   2. Test case: `add loan d/ loan 2 a/ 1000.55 r/ 11-11-2028 12:59`</br>
+      Expected: A loan is added to the loanList, can be shown with the `list loan` command
+</br></br>
+2. Editing a Loan
+   1. Prerequisites: At least 2 loans shown when running the `list loan` command
+   2. Test case: `edit loan 1 d/ edited loan 1 a/ 1000 r/ 10-10-2209 19:00`</br>
+      Expected: The first loan shown by the `list loan` command has description changed from `loan 1` to `edited loan 1`
+   3. Test case: `add loan d/ edited loan 2 a/ 1000.55 r/ 11-11-2029 12:59`</br>
+      Expected: The second loan shown by the `list loan` command has description changed from `loan 2` to `edited loan 2` and year of loan return date changed from `2028` to `2029`
+
+### Delete Loan
+
+1. Deleting a Loan
+   1. Prerequisites: At least 2 loans shown when running the `list loan` command
+   2. Test case: `delete loan 1`</br>
+      Expected: The loan originally shown as loan 1 is deleted and the original 2nd loan is now shown as the 1st loan
+
+### Set Repaid/Set Not Repaid
+
+1. Set Loan to be Repaid / Not Repaid
+   1. Prerequisites: At least 1 loan shown when running the `list loan` command
+   2. Test case: `loan repaid 1`</br>
+      Expected: `list loan` command shows 1st loan as repaid
+   3. Test case: `loan not repaid 1`
+      Expected: `list loan` command shows 1st loan as outstanding
