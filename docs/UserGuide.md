@@ -45,7 +45,7 @@ FinSight is a CLI-based app for managing finances such as income, expenses, loan
 3. Copy the file to the folder you want to use as the home folder for FinSight.
 4. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar finsight.jar` command to run the application.
 5. Type the command into the terminal and press Enter to execute it. Any input given that is not a correct command will show all possible commands.
-6. Refer to the [Features](#Features) below for details of each command.
+6. Refer to the [Features](#features) below for details of each command.
 
 ---
 
