@@ -126,9 +126,8 @@ This allows child class (e.g., ```LoanDataManager```, ```IncomeDataManager```) t
 parsing logic**.
 
 ##### 2.5.2 Class Diagram
-<div style="text-align: center;">
-    ![DataManagerClassDiagram](./diagrams/DataManagerClassDiagram.png)
-</div>
+
+![DataManagerClassDiagram](./diagrams/storage/DataManagerClassDiagram.png)
 
 **Design Principle**: Follows **Template Method pattern**, ensuring each subclass only defines its own record formatting
 rules while sharing consistent I/O logic. The abstract methods allow subclasses to fill in the data-specific steps such 
@@ -143,6 +142,8 @@ When ```tryLoad()``` is called
 4. Passes each line into corresponding subclass's ```parseRecord(String)``` for conversion into domain objects.
 5. Returns list of valid records.
 6. If error occurs (I/O or parsing), it catches the exception, prints the error and returns an empty list.
+
+![LoadSequenceDiagram](./diagrams/storage/LoadSequenceDiagram.png)
 
 ##### 2.5.4 Writing and Appending Data
 
@@ -164,9 +165,64 @@ StandardCopyOption.ATOMIC_MOVE);
 
 - ```ensureParentDir()``` expects to find folder ```data``` in current directory. Method creates directory if missing.
 - ```ensureFileExist()``` expects ```{category}.txt``` in ```data``` folder. Method creates expected files and folder if
-missing.
+missing (by invocating ```ensureParentDir()```).
 - ```sanitize()/unsanitize()``` replaces and restores reserved delimiter symbol (```|``` to ```/```) to prevent record 
 corruption during ```formatRecord()``` and ```parseRecord()```.
+
+##### 2.5.6 Writing to storage
+
+```writeToFile()``` is called whenever there are edits or deletion to the data. It first ensures that path to the file 
+exist and is valid. A temporary file will be created with the new list of records written into it. Then, the original 
+.txt file will be replaced by the temporary file created. 
+
+###### 1. Client Invocation
+
+The client calls ```writeToFile()``` on a ```ChildDataManager``` instance. Control passes to the superclass 
+`DataManager`.
+
+###### 2. File Preparation
+
+The method calls ```ensureFileExist()```, which invokes ```ensureParentDir()```. This ensures that output path is always
+valid before writing.
+
+###### 3. Temporary File Generation
+
+The data manager retrieves the file name via ```Path.getFileName()``` and constructs a sibling temporary path by call 
+```Path.resolveSibling(fileName + ".temp")```. This creates a temporary file in the same directory as the target file, 
+ensuring the eventual replacement can happen atomically.
+
+###### 4. Opening the Writer
+
+The method calls ```Files.newBufferedWriter()``` to obtain a `BufferedWriter` object ```writer``` configured for UTF-8 
+encoding. The writer will buffer and write the serialised text content efficiently.
+
+###### 5. Record Serialisation and Writing Loop
+
+For each record in the list, ```formatRecord(record)``` is invoked as a **polymorphic call** resolved at runtime to the 
+subclass implementation, converting domain objects into delimited text lines. The resulting string is written to the 
+buffer using ```writer.write()```, followed by ```writer.newLine()``` to ensure each record starts on a separate line.
+
+###### 6. Closing the writer
+
+After all records are written, the write is closes through try-with-resources. Closing ensures all buffered data is 
+flushed to the temporary file and system resources are releases.
+
+###### 7. Atomic File Replacement
+
+The method calls ```Files.move()``` to rename and replace the original data file with the new ```.temp``` file. The 
+options ```REPLACE_EXISTING``` and ```ATOMIC_MOVE``` ensure the replacement is performed safely in a single atomic 
+filesystem operation. This prevents partial writes, preserving data integrity. Once the move is successful, control 
+returns to the client and the data file now contains the latest version of all serialised records.
+
+![WriteToFileSequenceDiagram](./diagrams/storage/WriteToFileSequenceDiagram.png)
+
+##### 2.5.7 Adding new record to file
+
+```appendToFile()``` is called when a new record is added to the file. The file preparation is identical to ```
+writetoFile()```. However, unlike ```writeToFile``` where the entire file is rewritten and replaced, this method using 
+```StandardOpenOption.APPEND``` to append the new record to the last line of the file, and adds a new line.
+
+![AppendToFileSequenceDiagram](./diagrams/storage/AppendToFileSequenceDiagram.png)
 
 ## Product scope
 ### Target user profile

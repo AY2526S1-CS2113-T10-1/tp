@@ -3,12 +3,10 @@ package finsight.storage;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
-//import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import finsight.loan.Loan;
-import finsight.loan.exceptions.AddLoanCommandWrongFormatException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
@@ -32,11 +30,11 @@ final class LoanDataManagerTest {
     @BeforeEach
     void setUp() {
         dataFile = tempDir.resolve("TestLoan.txt");
-        dataManager = new LoanDataManager(dataFile.toString());;
+        dataManager = new LoanDataManager(dataFile.toString());
     }
 
     @Test
-    void formatRecord_joinsField_andSanitizesDescription() throws AddLoanCommandWrongFormatException {
+    void formatRecord_joinsField_andSanitizesDescription() {
         Loan loan = new Loan("Poop|Food", "69.69", "10-10-2025 23:59");
         loan.setRepaid();
 
@@ -45,7 +43,7 @@ final class LoanDataManagerTest {
     }
 
     @Test
-    void formatRecord_handlesNotRepaidFlag() throws AddLoanCommandWrongFormatException {
+    void formatRecord_handlesNotRepaidFlag() {
         Loan loan = new Loan("PoopieHead", "126.69", "10-10-2025 12:21");
 
         String record = dataManager.formatRecord(loan);
@@ -53,7 +51,7 @@ final class LoanDataManagerTest {
     }
 
     @Test
-    void parseRecord_parseWellFormedLine_andSetsRepaidStatus() throws AddLoanCommandWrongFormatException {
+    void parseRecord_parseWellFormedLine_andSetsRepaidStatus() {
         String record = "1|Eat/Poop|69.126|10-10-2025 23:59";
         Loan loan = dataManager.parseRecord(record);
 
@@ -65,7 +63,7 @@ final class LoanDataManagerTest {
     }
 
     @Test
-    void parseRecord_parsesNotRepaid_andFields() throws AddLoanCommandWrongFormatException {
+    void parseRecord_parsesNotRepaid_andFields() {
         String record = "0|Buy Poop|200|10-10-2025 00:00";
 
         Loan loan = dataManager.parseRecord(record);
@@ -77,21 +75,15 @@ final class LoanDataManagerTest {
         assertEquals("10-10-2025 00:00", loan.getLoanReturnDate().format(FORMATTER));
     }
     @Test
-    void parseRecord_returnsNull_whenFieldCountIsWrong() throws AddLoanCommandWrongFormatException {
+    void parseRecord_returnsNull_whenFieldCountIsWrong() {
         String record = "0|not enough|field";
         Loan loan = dataManager.parseRecord(record);
 
         assertNull(loan, "Manager should return null for non-4-field lines so caller can skip them");
     }
 
-    /*@Test
-    void parseRecord_throwsOnWrongFormat() {
-        String invalidRecord = "0|10-10-2025 23:59|description|wrong format";
-        assertThrows(AddLoanCommandWrongFormatException.class, () -> dataManager.parseRecord(invalidRecord));
-    }*/
-
     @Test
-    void writeToFile_tryLoadRoundTrip() throws AddLoanCommandWrongFormatException, IOException {
+    void writeToFile_tryLoadRoundTrip() throws IOException {
         Loan loan1 = new Loan("Buy|Poop", "69.69", "10-10-2025 23:59");
         Loan loan2 = new Loan("Eat POOP", "200", "10-10-2025 12:21");
         loan2.setRepaid();
@@ -121,7 +113,7 @@ final class LoanDataManagerTest {
     }
 
     @Test
-    void appendToFile_appendsInOrder() throws AddLoanCommandWrongFormatException, IOException {
+    void appendToFile_appendsInOrder() throws IOException {
         Loan loan1 = new Loan("Poop Poop", "1", "10-10-2025 00:00");
         Loan loan2 = new Loan("NOT ENOUGH POOP", "0",  "10-10-2025 23:59");
 
