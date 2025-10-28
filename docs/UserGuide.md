@@ -25,12 +25,15 @@ FinSight is a CLI-based app for managing finances such as income, expenses, loan
   * [list investment](#list-all-investment-list-investment)
   * [add investment](#add-investment-add-investment)
   * [delete investment](#delete-investment-delete-investment)
-*  [Exiting the program](#Exit-the-program-bye)
+
+*  [Exiting the program](#exit-the-program-bye)
 *  [Saving the data](#Saving-the-data)
 *  [FAQ](#FAQ)
 *  [Command Summary](#Command-Summary)
 
 ---
+
+<br/>
 
 ## Quick Start
 
@@ -42,6 +45,8 @@ FinSight is a CLI-based app for managing finances such as income, expenses, loan
 6. Refer to the [Features](#Features) below for details of each command.
 
 ---
+
+<br/>
 
 ## Features
 
@@ -234,6 +239,8 @@ FinSight data are saved in the hard disk automatically after any command that ch
 
 ---
 
+<br/>
+
 ## FAQ
 
 **Q**: How do I transfer my data to another computer? 
@@ -241,6 +248,8 @@ FinSight data are saved in the hard disk automatically after any command that ch
 **A**: Install the app in the other computer and overwrite the empty data files it creates with the files that contains the data of your previous FinSight home folder.
 
 ---
+
+<br/>
 
 ## Command Summary
 
