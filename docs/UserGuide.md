@@ -7,13 +7,13 @@ FinSight is a CLI-based app for managing finances such as income, expenses, loan
 * **Loans**
   * [List loan](#list-all-loans-list-loan)
   * [Add loan](#add-a-loan-add-loan)
-  * [Delete loan](#Delete-a-loan-delete-loan)
-  * [Loan repaid](#Set-loan-as-repaid-loan-repaid)
-  * [Loan not repaid](#Set-loan-as-not-repaid-loan-not-repaid)
-  * [Edit loan](#Edit-a-loan-edit-loan)
+  * [Delete loan](#delete-a-loan-delete-loan)
+  * [Loan repaid](#set-loan-as-repaid-loan-repaid)
+  * [Loan not repaid](#set-loan-as-not-repaid-loan-not-repaid)
+  * [Edit loan](#edit-a-loan-edit-loan)
 * **Expense**
-  * [List expense](#List-all-expenses-list-expense)
-  * [add expense](#Add-expense-add-expense)
+  * [List expense](#list-all-expenses-list-expense)
+  * [add expense](#add-expense-add-expense)
   * [delete expense](#delete-expense-delete-expense)
 * **Income**
   * [list income](#list-all-income-list-income)
@@ -27,9 +27,12 @@ FinSight is a CLI-based app for managing finances such as income, expenses, loan
   * [delete investment](#delete-investment-delete-investment)
 
 *  [Exiting the program](#exit-the-program-bye)
-*  [Saving the data](#Saving-the-data)
-*  [FAQ](#FAQ)
-*  [Command Summary](#Command-Summary)
+
+*  [Saving the data](#saving-the-data)
+
+*  [FAQ](#faq)
+
+*  [Command Summary](#command-summary)
 
 ---
 
