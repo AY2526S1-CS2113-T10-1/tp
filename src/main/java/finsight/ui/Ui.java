@@ -38,12 +38,12 @@ public class Ui {
         System.out.println("Invalid command. Please use one of the following commands:");
         System.out.println("1. list loan");
         System.out.println("2. add loan d/<DESCRIPTION> a/<AMOUNT_LOANED> r/<LOAN_RETURN_DATE_AND_TIME>");
-        System.out.println("   where <LOAN_RETURN_DATE_AND_TIME> is of format 'DD-mm-YYYY HH:mm'");
+        System.out.println("   where <LOAN_RETURN_DATE_AND_TIME> is of format 'DD-MM-YYYY HH:mm'");
         System.out.println("3. delete loan <INDEX>");
         System.out.println("4. loan repaid <INDEX>");
         System.out.println("5. loan not repaid <INDEX>");
         System.out.println("6. edit loan <INDEX> d/<DESCRIPTION> a/<AMOUNT_LOANED> r/<LOAN_RETURN_DATE_AND_TIME>");
-        System.out.println("   where <LOAN_RETURN_DATE_AND_TIME> is of format 'DD-mm-YYYY HH:mm'");
+        System.out.println("   where <LOAN_RETURN_DATE_AND_TIME> is of format 'DD-MM-YYYY HH:mm'");
         System.out.println("7. list expense");
         System.out.println("8. add expense d/<DESCRIPTION> a/<AMOUNT_SPENT>");
         System.out.println("9. delete expense <INDEX>");
@@ -53,7 +53,7 @@ public class Ui {
         System.out.println("13. edit income <INDEX> d/<DESCRIPTION> a/<AMOUNT_EARNED>");
         System.out.println("14. list income overview");
         System.out.println("15. list investment");
-        System.out.println("16. add investment d/<DESCRIPTION> a/<AMOUNT_INVESTED> m/<DEPOSIT_DATE_EACH_MONTH");
+        System.out.println("16. add investment d/<DESCRIPTION> a/<AMOUNT_INVESTED> m/<DEPOSIT_DATE_EACH_MONTH>");
         System.out.println("17. delete investment <INDEX>");
         System.out.println("18. bye");
         System.out.print(SPACING);
@@ -83,7 +83,7 @@ public class Ui {
      * Prints Welcome Message
      */
     public static void printWelcomeMessage() {
-        System.out.println("Welcome to FinSight, what can i do for you?");
+        System.out.println("Welcome to FinSight, what can I do for you?");
         System.out.print(SPACING);
     }
 
