@@ -191,6 +191,8 @@ Below is the parameters that `Parser` checks during `parseDeleteExpenseCommand()
 
 ![AddExpense](diagrams/expense/DeleteExpenseSequenceDiagram.png)
 
+<img src="./diagrams/expense/DeleteExpenseSequenceDiagram.png" width="400" />
+
 ---
 
 #### 2.5 Storage Features
