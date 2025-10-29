@@ -8,8 +8,6 @@
 
 ## Design & implementation
 
-{Describe the design and implementation of the product. Use UML diagrams and short code snippets where applicable.}
-
 ### 1. Design
 
 > [!TIP]
@@ -355,7 +353,6 @@ Manage loans, income, investments and expenses faster than a GUI driven app.
 | v1.0    | user     | remove a loan                          | get rid of a loan that I input wrong                                               |
 | v1.0    | user     | add an investment                      | keep track of investments made                                                     |
 | v1.0    | user     | remove an investment                   | get rid of an investment I no longer invest in                                     |
-|         |          |                                        |                                                                                    |
 | v2.0    | user     | see an overview of my investments      | monitor the growth of portfolios and other assets to make better choices with them |
 | v2.0    | user     | edit information about a existing loan | keep track of changing details                                                     |
 | v2.0    | user     | see a list of all my income            | see all the income that I have added                                               |
