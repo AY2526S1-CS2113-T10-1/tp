@@ -4,19 +4,6 @@
 
 FinSight is a CLI-based app for managing finances such as income, expenses, loans and investments.
 
-## Quick Start
-
-1. Ensure that you have Java `17` or above installed.
-2. Download the latest version of `FinSight` from [here](https://github.com/AY2526S1-CS2113-T10-1/tp).
-3. Copy the file to the folder you want to use as the home folder for FinSight.
-4. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar finsight.jar` command to run the application.
-5. Type the command into the terminal and press Enter to execute it. Any input given that is not a correct command will show all possible commands.
-6. Refer to the [Features](#features) below for details of each command.
-
----
-
-<br/>
-
 * [Quick Start](#quick-start)
 * [Features](#features)
 * **Loans**
@@ -31,11 +18,11 @@ FinSight is a CLI-based app for managing finances such as income, expenses, loan
     * [add expense](#add-expense-add-expense)
     * [delete expense](#delete-expense-delete-expense)
 * **Income**
-    * [list income](#list-all-incomes-list-income)
+    * [list income](#list-all-income-list-income)
     * [add income](#add-income-add-income)
     * [delete income](#delete-income-delete-income)
     * [edit income](#edit-income-edit-income)
-    * [list income overview](#view-income-overview-list-income-overview)
+    * [list income overview](#list-income-overview-list-income-overview)
 * **Investment**
     * [list investment](#list-all-investment-list-investment)
     * [add investment](#add-investment-add-investment)
@@ -49,24 +36,33 @@ FinSight is a CLI-based app for managing finances such as income, expenses, loan
 
 <br/>
 
+## Quick Start
+
+1. Ensure that you have Java `17` or above installed.
+2. Download the latest version of `FinSight` from [here](https://github.com/AY2526S1-CS2113-T10-1/tp).
+3. Copy the file to the folder you want to use as the home folder for FinSight.
+4. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar finsight.jar` command to run the application.
+5. Type the command into the terminal and press Enter to execute it. Any input given that is not a correct command will show all possible commands.
+6. Refer to the [Features](#features) below for details of each command.
+
 ## Features
 
 > [!NOTE]
 > * Words in `<UPPER_CASE>` are the parameters to be supplied by the user.<br>
-  e.g. in `delete loan <INDEX>`, `<INDEX>` is a parameter which can be used as `delete loan 1`.
-> 
+    e.g. in `delete loan <INDEX>`, `<INDEX>` is a parameter which can be used as `delete loan 1`.
+>
 > * Parameters must be in exact order.<br>
-  e.g. if the command specifies `d/<DESCRIPTION> a/<AMOUNT>`, the exact order must be followed for the command to work.
-> 
+    e.g. if the command specifies `d/<DESCRIPTION> a/<AMOUNT>`, the exact order must be followed for the command to work.
+>
 > * Extraneous parameters for commands that do not take in parameters (such as `list loan`, `list expense`, `list investment`, `list income` and `bye`) will be ignored.<br>
-  e.g. if the command specifies `bye 123`, it will be interpreted as `bye`.
-> 
+    e.g. if the command specifies `bye 123`, it will be interpreted as `bye`.
+>
 > * If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
 
 <br/>
 
 ### List all loans: `list loan`
-Prints the list of all loans onto the terminal with an index starting from 1. 
+Prints the list of all loans onto the terminal with an index starting from 1.
 Format: `list loan`
 
 ### Add a loan: `add loan`
@@ -234,7 +230,7 @@ FinSight data are saved in the hard disk automatically after any command that ch
 
 ## FAQ
 
-**Q**: How do I transfer my data to another computer? 
+**Q**: How do I transfer my data to another computer?
 
 **A**: Install the app in the other computer and overwrite the empty data files it creates with the files that contains the data of your previous FinSight home folder.
 
