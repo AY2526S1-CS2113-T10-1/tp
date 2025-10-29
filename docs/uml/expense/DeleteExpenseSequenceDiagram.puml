@@ -10,16 +10,16 @@ participant ":Expense" as Expense LOGIC_COLOR_T4
 
 User -> Ui ++: delete expense
 
-Ui -> Parser ++: tryCommand(...)
-Parser -> Parser ++: handleCommand(...)
+Ui -> Parser ++: tryCommand(userInput:String)
+Parser -> Parser ++: handleCommand(userInput:String)
 
-Parser -> Parser ++: parseDeleteExpenseCommand(...)
-return index:int
+Parser -> Parser ++: parseDeleteExpenseCommand(userInput:String)
+return indexToDelete:int
 
-Parser -> ExpenseList ++: deleteExpense(index:int)
-ExpenseList -> Expense ++: expense.toString()
-return expense:String
-ExpenseList -> Ui ++: printDeleteExpenseOutput(expense:String)
+Parser -> ExpenseList ++: deleteExpense(indexToDelete:int)
+ExpenseList -> Ui ++: printDeleteExpenseOutput(indexToDelete:int)
+Ui -> Expense ++ : expense.toString()
+return
 return
 
 ExpenseList -> Expense ++: expenses.remove()
@@ -27,6 +27,7 @@ return
 destroy Expense
 
 
+return
 return
 return
 return

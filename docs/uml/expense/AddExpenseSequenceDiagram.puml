@@ -10,22 +10,24 @@ participant ":Expense" as Expense LOGIC_COLOR_T4
 
 User -> Ui ++: add expense
 
-Ui -> Parser ++: tryCommand(...)
+Ui -> Parser ++: tryCommand(userInput:String)
 
-Parser -> Parser ++: handleCommand(...)
+Parser -> Parser ++: handleCommand(userInput:String)
 
-Parser -> Parser ++: parseAddExpenseCommand(...)
+Parser -> Parser ++: parseAddExpenseCommand(userInput:String)
 return commandParameters:String[]
+
+create Expense
+Parser -> Expense ++: new Expense(commandParameters:String[])
+return expense:Expense
 
 Parser -> ExpenseList ++: addExpense(commandParameters[])
 
-create Expense
-ExpenseList -> Expense ++: new Expense(commandParameters[])
-return expense
+ExpenseList -> Ui ++: printAddExpenseOutput(expense:Expense)
 
-ExpenseList -> Expense ++: expense.toString()
-return expense:String
-ExpenseList -> Ui ++: printAddExpenseOutput(expense:String)
+Ui -> Expense ++ : expense.toString()
+return outputStringBuilder:String
+
 return
 
 return
