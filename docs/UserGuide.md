@@ -260,7 +260,7 @@ Format: `bye`
 
 ### Saving the data
 
-FinSight automatically saves all data you eneter:
+FinSight automatically saves all data you enter:
 
 - Expenses
 - Incomes
