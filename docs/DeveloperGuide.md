@@ -403,6 +403,25 @@ Manage loans, income, investments and expenses faster than a GUI driven app.
    3. Test case: `loan not repaid 1`
       Expected: `list loan` command shows 1st loan as outstanding
 
+### List Expenses
+1. Show List of expense 
+   1. Test case: `list expense` <br/>
+   Expected (if not empty): Shows a list of all expense's description and amount
+   3. Expected (if empty): Shows nothing
+
+### Add Expense
+1. Adding an expense
+   1. Test case: `add expense d/pencil a/2` <br/>
+   2. Test case: `add expense d/drinks a/5` <br/>
+   Expected: Either expense is added to the expenseList. Can be seen via `list expense` command.
+
+### Delete Expense
+1. Deleting an expense
+   1. Prerequisites: At least 1 Expense saved; or shown when using `list expense` command
+   2. Test case: `delete expense 1` <br/>
+   Expected: The first expense is deleted from the list. Details of the deleted expense shown in the status message.
+
+
 ### Persistence
 
 1. Enter any valid command and ensure it is saved by entering `list {category}`.
