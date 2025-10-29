@@ -21,6 +21,7 @@ I contributed to:
 * expense parts 
 * investment parts
 * command summary for expense and investment.
+* the addition of screenshots
 
 
 ### Contributions to DG
