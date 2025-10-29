@@ -1,0 +1,111 @@
+@startuml
+
+package app {
+    class Finsight {
+        + main(args: String[])
+    }
+}
+
+package ui {
+    class Ui {
+
+    }
+}
+
+package logic {
+    class Parser {
+        + tryCommand(userInput: String): void
+    }
+}
+
+package lists {
+    class LoanList {
+        + addLoan(loan: Loan): void
+        + deleteLoan(index: int)
+        + editLoan(commandParameters: String[])
+        + setRepaid(index: int): void
+        + setNotRepaid(index: int): void
+    }
+    class ExpenseList {
+        + addExpense(expense: Expense): void
+        + deleteExpense(index: int): void
+    }
+    class IncomeList {
+        + addIncome(income: Income): void
+        + deleteIncome(index: int): void
+        + editIncome(index: String, description: String, amountEarned: String)
+    }
+    class InvestmentList {
+        + listAllInvestments(): void
+        + addInvestments(investment: Investment): void
+        + deleteInvestment(index: int): void
+        + getTotal5YearReturns(): Double
+        + getTotal10YearReturns(): Double
+    }
+
+    package model {
+        class Expense {
+            + {static} numberOfExpenses: int
+            # description: String
+            # expenseAmount: Double
+        }
+        class Loan {
+            + {static} numberOfLoans: int
+            # description: String
+            # amountLoaned: Double
+            # isRepaid: bool
+            # loanReturnDate: LocalDateTime
+        }
+        class Income {
+            + {static} numberOfIncomes: int
+            # description: String
+            # amountEarned: float
+        }
+        class Investment {
+            + {static} numberOfInvestments: int
+            # description: String
+            # investmentAmount: Double
+            # returnRate: Double
+            # investmentDateOfMonth: int
+            # fiveYearDeposit: Double
+            # fiveYearReturns: Double
+            # tenYearDeposit: Double
+            # tenYearReturns: Double
+
+            + calculateReturnProfits(totalYears: int): Double
+        }
+    }
+}
+
+package storage {
+    abstract class DataManager <<template>>
+    class ChildDataManager
+}
+
+Finsight ..> Ui
+Finsight ..> Parser
+Finsight ..> ExpenseList
+Finsight ..> IncomeList
+Finsight ..> InvestmentList
+Finsight ..> LoanList
+
+Parser --> "1" ExpenseList
+Parser --> "1" IncomeList
+Parser --> "1" InvestmentList
+Parser --> "1" LoanList
+
+DataManager <|-- ChildDataManager
+
+LoanList *-- "1" ChildDataManager
+ExpenseList *-- "1" ChildDataManager
+IncomeList *-- "1" ChildDataManager
+InvestmentList *-- "1" ChildDataManager
+
+ExpenseList *-- "0..*" Expense
+LoanList *-- "0..*" Loan
+IncomeList *-- "0..*" Income
+InvestmentList *-- "0..*" Investment
+
+lists ..> Ui
+
+@enduml

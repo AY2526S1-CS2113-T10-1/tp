@@ -16,16 +16,35 @@
 
 Main components of the architecture
 
-`Finsight` is in charge of the program launch and shutdown
+`Finsight` is in charge of the program launch and shutdown.
 
-* At app launch, it initializes the other components and connects them up with each other
-* At shut down, it shuts down the other components and invokes cleanup methods wherever necessary
+* At app launch, it initializes the other components and connects them up with each other.
+* At shut down, it shuts down the other components and invokes cleanup methods wherever necessary.
 
-The bulk of the app's work is done by the following four components
+The bulk of the app's work is done by the following four components:
 
-* `UI` : The UI of the App.
-* `Parser` : The command executor and handler
-* `Storage` : Reads data from, and writes data to, the hard disk
+* `UI` : Handles all user interactions. It displays messages, prompts for input, and presents feedback after each 
+command execution.
+* `Parser` : Acts as the command interpreter and coordinator. It processes user input, identifies the command type, and 
+delegates execution to the corresponding list class (e.g., `ExpenseList`, `IncomeList`, `InvestementList`, `LoanList`).
+* `Storage` : Manages data persistence. It reads existing data files during startup and writes updated record back to 
+disk through specialised `DataManager` subclasses.
+* `Model`: Represents the in-memory state of the application. It contains domain objects operations such as add, delete,
+ edit etc.
+
+![FinsightClassDiagram](./diagrams/FinsightClassDiagram.png)
+
+The figure above illustrates the overall class structure of **Finsight**. The Finsight class serves as the entry point 
+of the application and depends on the `Ui`, `Parser`, and the four domain lists (`ExpenseList`, `IncomeList`, 
+`InvestmentList`, `LoanList`). Each list manages its own set of domain objects through composition relationship (e.g., 
+`ExpenseList` contains multiple `Expense` objects). The `Parser` class coordinates commands from the user and delegates 
+execution to the respective list classes.
+
+All list classes depend on a specialised data manager `ChildDataManager` (see below on persistence storage), which 
+extends the abstract `DataManager` template to handle persistent file operations. The design separates data persistence
+(Storage) from domain logic (Model) and user interface (Ui), following a **layered architecture** principle. 
+Additionally, static utility methods in the `Ui` class are used for displaying output and user prompts. Composition and 
+dependency relationships are used where appropriate to reflect ownership and usage lifetimes.
 
 ### 2. Implementation
 
@@ -186,11 +205,27 @@ StandardCopyOption.ATOMIC_MOVE);
 
 ##### 2.5.5 File Safety Utilities
 
-- ```ensureParentDir()``` expects to find folder ```data``` in current directory. Method creates directory if missing.
-- ```ensureFileExist()``` expects ```{category}.txt``` in ```data``` folder. Method creates expected files and folder if
-missing (by invocating ```ensureParentDir()```).
-- ```sanitize()/unsanitize()``` replaces and restores reserved delimiter symbol (```|``` to ```/```) to prevent record 
-corruption during ```formatRecord()``` and ```parseRecord()```.
+`ensureParentDir()` expects to find folder `data` in current directory. Method creates directory if missing.
+
+`ensureFileExist()` expects `{category}.txt` in `data` folder. Method creates expected files and folder if missing 
+(by invocating `ensureParentDir()`).
+
+`sanitize()/unsanitize()` are helper methods that encode and decode reserved symbols that conflict with the text 
+file's delimiter system. Since each record line uses the pipe (`|`) character as a delimiter between fields, any literal
+ pipe within user input must be escaped before writing to disk. The implementation replaces:
+  - `%` with `%25` (encoded percent)
+  - `|` with `%7C` (encoded pipe)
+
+The unsanitize() method restores them during file loading by performing the inverse replacements.
+
+```text
+Input: "Lunch | Promo 50%"
+Stored: "Lunch %7C Promo 50%25"
+Restored: "Lunch | Promo 50%"
+```
+
+This ensures that no field content breaks the delimiter structure and that user data is always preserved exactly as 
+entered.
 
 ##### 2.5.6 Writing to storage
 
@@ -251,7 +286,7 @@ writetoFile()```. However, unlike ```writeToFile``` where the entire file is rew
 ## Product scope
 ### Target user profile
 
-- University Students with poor finance management
+- University students with poor finance management
 - can type fast
 - prefers typing to clicking
 - is comfortable using CLI apps
@@ -269,8 +304,11 @@ Manage loans, income, investments and expenses faster than a GUI driven app.
 
 ## Non-Functional Requirements
 
-1. Should work on any *mainstream OS* as long as it has Java `17` or above installed
+1. Should work on any *mainstream OS* as long as it has Java `17` or above installed.
 2. A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+3. Must never corrupt data on crash/power loss during save.
+4. Must auto-save after every state-mutating command.
+5. Must store data as *UTF-8* text files under `./data`. Line endings must be cross-platform tolerant.
 
 {More to be added}
 
@@ -278,6 +316,7 @@ Manage loans, income, investments and expenses faster than a GUI driven app.
 
 * *mainstream OS* - Windows, Linux, Unix, MacOS
 * *GUI* - Graphical User Interface
+* *UTF-8* - Unicode Transformation Format - 8 bit
 
 ## Instructions for manual testing
 
@@ -331,3 +370,12 @@ Manage loans, income, investments and expenses faster than a GUI driven app.
       Expected: `list loan` command shows 1st loan as repaid
    3. Test case: `loan not repaid 1`
       Expected: `list loan` command shows 1st loan as outstanding
+
+### Persistence
+
+1. Enter any valid command and ensure it is saved by entering `list {category}`.
+2. Enter ```bye``` to exit the program.
+3. Navigate to the `./data` folder and select the category. The data entered will be saved within the category's `.txt`
+file.
+4. Alternatively, run the program again and enter `list {category}`. Output should be the same as output list seen in 
+`Step 1`.
