@@ -1,4 +1,4 @@
-Welcome to FinSight, what can i do for you?
+Welcome to FinSight, what can I do for you?
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
 Total loaned: $0.00
@@ -89,17 +89,17 @@ Repayment Deadline: 2209 OCT 10, 07:00 PM
 --------------------------------------------------------------------------------
 Delete Loan index does not exist!!! Please try again with the format:
 delete loan <INDEX>
-where <INDEX> is a existing loan index shown by the 'list loan' command
+where <INDEX> is an existing loan index shown by the 'list loan' command
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
 Delete Loan index does not exist!!! Please try again with the format:
 delete loan <INDEX>
-where <INDEX> is a existing loan index shown by the 'list loan' command
+where <INDEX> is an existing loan index shown by the 'list loan' command
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
 Delete Loan index does not exist!!! Please try again with the format:
 delete loan <INDEX>
-where <INDEX> is a existing loan index shown by the 'list loan' command
+where <INDEX> is an existing loan index shown by the 'list loan' command
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
 Deleted Loan:
@@ -111,7 +111,7 @@ Repayment Deadline: 2209 OCT 10, 07:00 PM
 --------------------------------------------------------------------------------
 Delete Loan index does not exist!!! Please try again with the format:
 delete loan <INDEX>
-where <INDEX> is a existing loan index shown by the 'list loan' command
+where <INDEX> is an existing loan index shown by the 'list loan' command
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
 Loan 1:

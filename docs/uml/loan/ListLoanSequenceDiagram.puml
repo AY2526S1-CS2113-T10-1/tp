@@ -10,18 +10,18 @@ participant ":Loan" as Loan LOGIC_COLOR_T4
 
 User -> Ui ++: list loan
 
-Ui -> Parser ++: tryCommand(...)
+Ui -> Parser ++: tryCommand(userInput:String)
 
-Parser -> Parser ++: handleCommand(...)
+Parser -> Parser ++: handleCommand(userInput:String)
 
 Parser -> LoanList ++: listLoans()
 
 LoanList -> Ui ++: printAllLoans(loans)
-loop i from 0 to (Loan.numberOfLoans - 1)
-    Ui -> LoanList ++: loans.get(i:int)
+loop Loan.numberOfLoans
+    Ui -> LoanList ++: loans.get(index:int)
     LoanList -> Loan ++: loan.toString()
-    return loan:String
-    return loan:String
+    return outputString:String
+    return outputString:String
     end
 
 return

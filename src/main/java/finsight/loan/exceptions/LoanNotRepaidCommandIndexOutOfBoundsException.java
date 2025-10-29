@@ -8,6 +8,6 @@ public class LoanNotRepaidCommandIndexOutOfBoundsException extends Exception {
     public String getMessage() {
         return "Loan Not Repaid index does not exist!!! Please try again with the format:\n" +
                 "loan not repaid <INDEX>\n" +
-                "where <INDEX> is a existing loan index shown by the 'list loan' command";
+                "where <INDEX> is an existing loan index shown by the 'list loan' command";
     }
 }
