@@ -48,7 +48,7 @@ FinSight is a CLI-based app for managing finances such as income, expenses, loan
 
 
 - Review/mentoring Contributions
-  1. Reviewed [#14](https://github.com/AY2526S1-CS2113-T10-1/tp/pull/14), [#19](https://github.com/AY2526S1-CS2113-T10-1/tp/pull/19), [#20](https://github.com/AY2526S1-CS2113-T10-1/tp/pull/20), [#25](https://github.com/AY2526S1-CS2113-T10-1/tp/pull/25), [#46](https://github.com/AY2526S1-CS2113-T10-1/tp/pull/46), [#54](https://github.com/AY2526S1-CS2113-T10-1/tp/pull/54), [#61](https://github.com/AY2526S1-CS2113-T10-1/tp/pull/61), [#89](https://github.com/AY2526S1-CS2113-T10-1/tp/pull/89)
+  1. Reviewed [#14](https://github.com/AY2526S1-CS2113-T10-1/tp/pull/14), [#19](https://github.com/AY2526S1-CS2113-T10-1/tp/pull/19), [#20](https://github.com/AY2526S1-CS2113-T10-1/tp/pull/20), [#25](https://github.com/AY2526S1-CS2113-T10-1/tp/pull/25), [#46](https://github.com/AY2526S1-CS2113-T10-1/tp/pull/46), [#54](https://github.com/AY2526S1-CS2113-T10-1/tp/pull/54), [#61](https://github.com/AY2526S1-CS2113-T10-1/tp/pull/61), [#89](https://github.com/AY2526S1-CS2113-T10-1/tp/pull/89), [#96](https://github.com/AY2526S1-CS2113-T10-1/tp/pull/96)
   2. Helped Team Members whenever they requested for help on telegram, via Discord voice call
 
 
