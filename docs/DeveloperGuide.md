@@ -342,13 +342,24 @@ Manage loans, income, investments and expenses faster than a GUI driven app.
 
 ## User Stories
 
-|Version| As a ... | I want to ... | So that I can ...|
-|--------|----------|---------------|------------------|
-|v1.0|user|add a source of income|keep track of part-time jobs, scholarships, or allowances|
-|v1.0|user|edit a source of income|edit the mistake of messing up the details of adding a source of income|
-|v1.0|user|remove a source of income|get rid of a source of income I no longer have|
-|v2.0|user|see a list of all my income|see all the income that I have added|
-|v2.0|user|see an overview of my income|view, at a glance, what my overall income is|
+| Version | As a ... | I want to ...                          | So that I can ...                                                                  |
+|---------|----------|----------------------------------------|------------------------------------------------------------------------------------|
+| v1.0    | user     | add a source of income                 | keep track of part-time jobs, scholarships, or allowances                          |
+| v1.0    | user     | edit a source of income                | edit the mistake of messing up the details of adding a source of income            |
+| v1.0    | user     | remove a source of income              | get rid of a source of income I no longer have                                     |
+| v1.0    | user     | add an expense                         | keep track of where I spent my money                                               |
+| v1.0    | user     | remove an expense                      | get rid of an expense that I input wrong                                           |
+| v1.0    | user     | add a new loan                         | keep track of all existing loans                                                   |
+| v1.0    | user     | set a loan as repaid                   | see the updated list of my current loans                                           |
+| v1.0    | user     | see total amount payable for all loans | plan for future considerations                                                     |
+| v1.0    | user     | remove a loan                          | get rid of a loan that I input wrong                                               |
+| v1.0    | user     | add an investment                      | keep track of investments made                                                     |
+| v1.0    | user     | remove an investment                   | get rid of an investment I no longer invest in                                     |
+|         |          |                                        |                                                                                    |
+| v2.0    | user     | see an overview of my investments      | monitor the growth of portfolios and other assets to make better choices with them |
+| v2.0    | user     | edit information about a existing loan | keep track of changing details                                                     |
+| v2.0    | user     | see a list of all my income            | see all the income that I have added                                               |
+| v2.0    | user     | see an overview of my income           | view, at a glance, what my overall income is                                       |
 
 ## Non-Functional Requirements
 
