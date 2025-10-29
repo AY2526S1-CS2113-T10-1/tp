@@ -276,7 +276,7 @@ All data is stored as plain text in a folder name `data` inside the FinSight app
 | Expenses    | `data/expense.txt`    |
 | Incomes     | `data/income.txt`     |
 | Investments | `data/investment.txt` |
-| Loans       | `loan.txt`            |
+| Loans       | `data/loan.txt`       |
 
 > Tip: if you move the app to another computer, copy the whole `data/` folder along with it.
 
