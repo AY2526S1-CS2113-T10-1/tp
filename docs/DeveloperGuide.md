@@ -163,7 +163,7 @@ The List Income feature enables users to view all incomes.
 
 ![ListIncomeSequenceDiagram.png](diagrams/income/ListIncomeSequenceDiagram.png)
 
-##### 2.2.4 List Income Overview Feature
+##### 2.2.5 List Income Overview Feature
 The List Income Overview feature enables users to view total income, total expenses and remaining income.
 
 ![ListIncomeOverviewSequenceDiagram.png](diagrams/income/ListIncomeOverviewSequenceDiagram.png)
