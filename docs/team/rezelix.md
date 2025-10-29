@@ -4,7 +4,7 @@
 FinSight is a CLI-based app for managing finances such as income, expenses, loans and investments.
 
 ### Summary of Contributions
-[Link to code contribution](https://nus-cs2113-ay2526s1.github.io/tp-dashboard/?search=rezelix&breakdown=true&sort=groupTitle%20dsc&sortWithin=title&since=2025-09-19T00%3A00%3A00&timeframe=commit&mergegroup=&groupSelect=groupByRepos&checkedFileTypes=docs~functional-code~test-code~other&filteredFileName=)
+[RepoSense Link](https://nus-cs2113-ay2526s1.github.io/tp-dashboard/?search=rezelix&breakdown=true&sort=groupTitle%20dsc&sortWithin=title&since=2025-09-19T00%3A00%3A00&timeframe=commit&mergegroup=&groupSelect=groupByRepos&checkedFileTypes=docs~functional-code~test-code~other&filteredFileName=)
 
 #### Enhancements Implemented:
 1. Calculation and display of investment returns for 5 and 10 years, assuming the investment requires a monthly deposit and has a fixed return interest rate.
@@ -25,6 +25,4 @@ FinSight is a CLI-based app for managing finances such as income, expenses, loan
 4. Whenever a merge is done, I remind my team that their forked repositories should pull master from upstream to resolve merge conflicts with their work in progress branch as early as possible
 
 ##### Review/mentoring contributions:
-
-
-##### Contributions beyond the project ream:
+[Link to reviewed PRs](https://github.com/AY2526S1-CS2113-T10-1/tp/pulls?q=is%3Aclosed+is%3Apr+assignee%3ARezelix+)
