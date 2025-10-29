@@ -16,16 +16,35 @@
 
 Main components of the architecture
 
-`Finsight` is in charge of the program launch and shutdown
+`Finsight` is in charge of the program launch and shutdown.
 
-* At app launch, it initializes the other components and connects them up with each other
-* At shut down, it shuts down the other components and invokes cleanup methods wherever necessary
+* At app launch, it initializes the other components and connects them up with each other.
+* At shut down, it shuts down the other components and invokes cleanup methods wherever necessary.
 
-The bulk of the app's work is done by the following four components
+The bulk of the app's work is done by the following four components:
 
-* `UI` : The UI of the App.
-* `Parser` : The command executor and handler
-* `Storage` : Reads fata from, and writes data to, the hard disk
+* `UI` : Handles all user interactions. It displays messages, prompts for input, and presents feedback after each 
+command execution.
+* `Parser` : Acts as the command interpreter and coordinator. It processes user input, identifies the command type, and 
+delegates execution to the corresponding list class (e.g., `ExpenseList`, `IncomeList`, `InvestementList`, `LoanList`).
+* `Storage` : Manages data persistence. It reads existing data files during startup and writes updated record back to 
+disk through specialised `DataManager` subclasses.
+* `Model`: Represents the in-memory state of the application. It contains domain objects operations such as add, delete,
+ edit etc.
+
+![FinsightClassDiagram](./diagrams/FinsightClassDiagram.png)
+
+The figure above illustrates the overall class structure of **Finsight**. The Finsight class serves as the entry point 
+of the application and depends on the `Ui`, `Parser`, and the four domain lists (`ExpenseList`, `IncomeList`, 
+`InvestmentList`, `LoanList`). Each list manages its own set of domain objects through composition relationship (e.g., 
+`ExpenseList` contains multiple `Expense` objects). The `Parser` class coordinates commands from the user and delegates 
+execution to the respective list classes.
+
+All list classes depend on a specialised data manager `ChildDataManager` (see below on persistence storage), which 
+extends the abstract `DataManager` template to handle persistent file operations. The design separates data persistence
+(Storage) from domain logic (Model) and user interface (Ui), following a **layered architecture** principle. 
+Additionally, static utility methods in the `Ui` class are used for displaying output and user prompts. Composition and 
+dependency relationships are used where appropriate to reflect ownership and usage lifetimes.
 
 ### 2. Implementation
 
@@ -67,6 +86,29 @@ The Loan Repaid feature enables the users to set a loan as repaid. The `Ui` clas
 | index           | int           | The index of the Loan in the ArrayList |
 
 ![LoanRepaidSequenceDiagram](diagrams/loan/LoanRepaidSequenceDiagram.png)
+
+##### 2.1.5 Loan Not Repaid Feature
+The Loan Not Repaid feature enables the users to set a loan as not repaid. The `Ui` class takes in the user input. This String is used by the `Parser` class to decide which command to run. `Parser` validates the provided index using the `parseLoanNotRepaidCommand` method. `Parser` then calls the `setNotRepaid()` method of the `LoanList` class which calls the `setNotRepaid()` method of the `Loan` class before calling the `Ui` class to print a acknowledgement message using the `toString()` method of the `Loan` class. Below is the relevance of these attributes:
+
+| Class Attribute | Variable Type | Relevance                              |
+|-----------------|---------------|----------------------------------------|
+| index           | int           | The index of the Loan in the ArrayList |
+
+![LoanNotRepaidSequenceDiagram](diagrams/loan/LoanNotRepaidSequenceDiagram.png)
+
+##### 2.1.6 Edit Loan Feature
+The Edit Loan feature enables users to edit a existing loan. The `Ui` class takes in the user input. This String is used by the `Parser` class to decide which command to run. `Parser` validates the provided index,  description, amount and date time using the `parseEditLoanCommand` method. `Parser` then calls the `editLoan()` method of the `LoanList` class which first deletes the `Loan` at the index before creating a new `Loan` and add the given `Loan` to the ArrayList at the given index. Below is the relevance of these attributes:
+
+| Class Attribute | Variable Type | Relevance                                 |
+|-----------------|---------------|-------------------------------------------|
+| index           | int           | The index of the Loan in the ArrayList    |
+| description     | String        | The short description of the loan         |
+| amountLoaned    | Double        | The amount loaned                         |
+| loanReturnDate  | LocalDateTime | The date and time that the loan is due by |
+
+The `LoanList` class then calls the `Ui` class to print a acknowledgement message in the form of the `toString()` method of the `Loan` class.
+
+![EditLoanSequenceDiagram](diagrams/loan/EditLoanSequenceDiagram.png)
 
 #### 3.1 Income Features
 
@@ -163,11 +205,27 @@ StandardCopyOption.ATOMIC_MOVE);
 
 ##### 2.5.5 File Safety Utilities
 
-- ```ensureParentDir()``` expects to find folder ```data``` in current directory. Method creates directory if missing.
-- ```ensureFileExist()``` expects ```{category}.txt``` in ```data``` folder. Method creates expected files and folder if
-missing (by invocating ```ensureParentDir()```).
-- ```sanitize()/unsanitize()``` replaces and restores reserved delimiter symbol (```|``` to ```/```) to prevent record 
-corruption during ```formatRecord()``` and ```parseRecord()```.
+`ensureParentDir()` expects to find folder `data` in current directory. Method creates directory if missing.
+
+`ensureFileExist()` expects `{category}.txt` in `data` folder. Method creates expected files and folder if missing 
+(by invocating `ensureParentDir()`).
+
+`sanitize()/unsanitize()` are helper methods that encode and decode reserved symbols that conflict with the text 
+file's delimiter system. Since each record line uses the pipe (`|`) character as a delimiter between fields, any literal
+ pipe within user input must be escaped before writing to disk. The implementation replaces:
+  - `%` with `%25` (encoded percent)
+  - `|` with `%7C` (encoded pipe)
+
+The unsanitize() method restores them during file loading by performing the inverse replacements.
+
+```text
+Input: "Lunch | Promo 50%"
+Stored: "Lunch %7C Promo 50%25"
+Restored: "Lunch | Promo 50%"
+```
+
+This ensures that no field content breaks the delimiter structure and that user data is always preserved exactly as 
+entered.
 
 ##### 2.5.6 Writing to storage
 
@@ -224,14 +282,18 @@ writetoFile()```. However, unlike ```writeToFile``` where the entire file is rew
 
 ![AppendToFileSequenceDiagram](./diagrams/storage/AppendToFileSequenceDiagram.png)
 
+# Appendix
 ## Product scope
 ### Target user profile
 
-{Describe the target user profile}
+- University students with poor finance management
+- can type fast
+- prefers typing to clicking
+- is comfortable using CLI apps
 
 ### Value proposition
 
-{Describe the value proposition: what problem does it solve?}
+Manage loans, income, investments and expenses faster than a GUI driven app.
 
 ## User Stories
 
@@ -245,16 +307,81 @@ writetoFile()```. However, unlike ```writeToFile``` where the entire file is rew
 
 ## Non-Functional Requirements
 
-{Give non-functional requirements}
+1. Should work on any *mainstream OS* as long as it has Java `17` or above installed.
+2. A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+3. Must never corrupt data on crash/power loss during save.
+4. Must auto-save after every state-mutating command.
+5. Must store data as *UTF-8* text files under `./data`. Line endings must be cross-platform tolerant.
+
+{More to be added}
 
 ## Glossary
 
-* *glossary item* - Definition
+* *mainstream OS* - Windows, Linux, Unix, MacOS
+* *GUI* - Graphical User Interface
+* *UTF-8* - Unicode Transformation Format - 8 bit
 
 ## Instructions for manual testing
 
-{Give instructions on how to do a manual product testing e.g., how to load sample data to be used for testing}
+### Launching and shutdown
 
+1. Initial Launch
+   1. Download the jar file [here](https://github.com/AY2526S1-CS2113-T10-1/tp) into an empty folder
+   2. Run the jar file by `cd` into the folder and running the `java -jar finsight.jar` command
+   3. Run the `bye' command </br>
+      Expected: Program creates empty data files in a data folder in the original folder
+
+### List Loan
+
+1. Show List of Loans (empty)
+   1. Prerequisites: no loans saved or initial launch
+   2. Test case: `list loan`</br>
+      Expected: Shows `Total loaned: $0.00`
+</br></br>
+2. Show List of Loans (not empty)
+   1. Prerequisites: loan list is not empty
+   2. Test case: `list loan`</br>
+      Expected: Shows a list of all loans and a Total loaned amount
+
+### Add/Edit Loan
+
+1. Adding a new Loan
+   1. Test case: `add loan d/ loan 1 a/ 1000 r/ 10-10-2209 19:00`</br>
+      Expected: A loan is added to the loanList, can be shown with the `list loan` command
+   2. Test case: `add loan d/ loan 2 a/ 1000.55 r/ 11-11-2028 12:59`</br>
+      Expected: A loan is added to the loanList, can be shown with the `list loan` command
+</br></br>
+2. Editing a Loan
+   1. Prerequisites: At least 2 loans shown when running the `list loan` command
+   2. Test case: `edit loan 1 d/ edited loan 1 a/ 1000 r/ 10-10-2209 19:00`</br>
+      Expected: The first loan shown by the `list loan` command has description changed from `loan 1` to `edited loan 1`
+   3. Test case: `add loan d/ edited loan 2 a/ 1000.55 r/ 11-11-2029 12:59`</br>
+      Expected: The second loan shown by the `list loan` command has description changed from `loan 2` to `edited loan 2` and year of loan return date changed from `2028` to `2029`
+
+### Delete Loan
+
+1. Deleting a Loan
+   1. Prerequisites: At least 2 loans shown when running the `list loan` command
+   2. Test case: `delete loan 1`</br>
+      Expected: The loan originally shown as loan 1 is deleted and the original 2nd loan is now shown as the 1st loan
+
+### Set Repaid/Set Not Repaid
+
+1. Set Loan to be Repaid / Not Repaid
+   1. Prerequisites: At least 1 loan shown when running the `list loan` command
+   2. Test case: `loan repaid 1`</br>
+      Expected: `list loan` command shows 1st loan as repaid
+   3. Test case: `loan not repaid 1`
+      Expected: `list loan` command shows 1st loan as outstanding
+
+### Persistence
+
+1. Enter any valid command and ensure it is saved by entering `list {category}`.
+2. Enter ```bye``` to exit the program.
+3. Navigate to the `./data` folder and select the category. The data entered will be saved within the category's `.txt`
+file.
+4. Alternatively, run the program again and enter `list {category}`. Output should be the same as output list seen in 
+`Step 1`.
 ### Income
 
 #### Add Income

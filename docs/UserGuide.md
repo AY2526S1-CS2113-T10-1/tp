@@ -13,14 +13,15 @@ FinSight is a CLI-based app for managing finances such as income, expenses, loan
 5. Type the command into the terminal and press Enter to execute it. Any input given that is not a correct command will show all possible commands.
 6. Refer to the [Features](#features) below for details of each command.
 
+---
+
+<br/>
+
 ## Features
 
 > [!NOTE]
 > * Words in `<UPPER_CASE>` are the parameters to be supplied by the user.<br>
   e.g. in `delete loan <INDEX>`, `<INDEX>` is a parameter which can be used as `delete loan 1`.
-> 
-> * Items in square brackets are optional.<br>
-  e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
 > 
 > * Parameters must be in exact order.<br>
   e.g. if the command specifies `d/<DESCRIPTION> a/<AMOUNT>`, the exact order must be followed for the command to work.
@@ -30,7 +31,7 @@ FinSight is a CLI-based app for managing finances such as income, expenses, loan
 > 
 > * If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
 
-
+<br/>
 
 ### List all loans: `list loan`
 Prints the list of all loans onto the terminal with an index starting from 1.
@@ -173,11 +174,19 @@ Format: `bye`
 ### Saving the data
 FinSight data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
 
+---
+
+<br/>
+
 ## FAQ
 
 **Q**: How do I transfer my data to another computer? 
 
 **A**: Install the app in the other computer and overwrite the empty data files it creates with the files that contains the data of your previous FinSight home folder.
+
+---
+
+<br/>
 
 ## Command Summary
 
@@ -197,4 +206,7 @@ FinSight data are saved in the hard disk automatically after any command that ch
 | Add Income             | `add income d/<DESCRIPTION> a/<AMOUNT_EARNED>`<br/> e.g. `add income d/salary a/100`                                                             |
 | Delete a Income        | `delete income <INDEX>`<br/> e.g. `delete income 1`                                                                                              |
 | Edit a Income          | `edit income <INDEX> d/<DESCRIPTION> a/<AMOUNT_EARNED>`<br/> e.g. `edit income 1 d/hustle a/50`                                                  |
-| Exit Program           | `bye`                                                                                                                                            |
+| List Investments       | `list investment`                                                                                                                                                      |
+| Add an Investment      | `add investment d/<DESCRIPTION> a/<AMOUNT_INVESTED_MONTHLY> r/<RETURN_RATE_PER_ANNUM> m/<DEPOSIT_DATE_EACH_MONTH>`<br/> e.g. `add investment d/moomoo a/1000 r/3 m/21` |
+| Delete an Investment   | `delete investment <INDEX>`<br/> e.g. `delete investment 3`                                                                                                            |
+| Exit Program           | `bye`                                                                                                                                                                  |

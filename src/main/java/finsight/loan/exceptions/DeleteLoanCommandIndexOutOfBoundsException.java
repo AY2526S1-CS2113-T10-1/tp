@@ -8,6 +8,6 @@ public class DeleteLoanCommandIndexOutOfBoundsException extends Exception {
     public String getMessage() {
         return "Delete Loan index does not exist!!! Please try again with the format:\n" +
                 "delete loan <INDEX>\n" +
-                "where <INDEX> is a existing loan index shown by the 'list loan' command";
+                "where <INDEX> is an existing loan index shown by the 'list loan' command";
     }
 }

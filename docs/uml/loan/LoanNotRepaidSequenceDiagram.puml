@@ -14,21 +14,21 @@ Ui -> Parser ++: tryCommand(userInput:String)
 
 Parser -> Parser ++: handleCommand(userInput:String)
 
-Parser -> Parser ++: parseLoanRepaidCommand(userInput:String)
-return indexToSetRepaid:int
+Parser -> Parser ++: parseLoanNotRepaidCommand(userInput:String)
+return indexToSetNotRepaid:int
 
-Parser -> LoanList ++: setRepaid(indexToSetRepaid:int)
+Parser -> LoanList ++: setNotRepaid(indexToSetNotRepaid:int)
 
-LoanList -> LoanList ++: loans.get(indexToSetRepaid:int)
+LoanList -> LoanList ++: loans.get(indexToSetNotRepaid:int)
 return loan:Loan
 
-LoanList -> Loan ++: loan.setRepaid()
+LoanList -> Loan ++: loan.setNotRepaid()
 return
 
-LoanList -> LoanList ++: loans.get(indexToSetRepaid:int)
+LoanList -> LoanList ++: loans.get(indexToSetNotRepaid:int)
 return loan:Loan
 
-LoanList -> Ui ++: printLoanRepaid(loan:Loan)
+LoanList -> Ui ++: printLoanNotRepaid(loan:Loan)
 Ui -> Loan ++: loan.toString()
 return outputString:String
 return

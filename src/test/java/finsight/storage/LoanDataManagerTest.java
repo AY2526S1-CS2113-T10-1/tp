@@ -18,6 +18,25 @@ import java.nio.file.Path;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
+/**
+ * Verifies persistence and parsing behavior of {@link LoanDataManager} for {@link Loan} records.
+ *
+ * <p>This suite covers:
+ * <ul>
+ *   <li>Field joining and delimiter sanitization in {@code formatRecord}.</li>
+ *   <li>Parsing of well-formed lines, including repayment flag handling.</li>
+ *   <li>Null on malformed field counts to allow caller-side skipping.</li>
+ *   <li>Write → read round-trip and append ordering with UTF-8 verification.</li>
+ *   <li>Graceful empty result on any parse failure during bulk load.</li>
+ * </ul>
+ * </p>
+ *
+ * @author Royden Lim Yi Ren
+ * @version 1.0
+ * @see LoanDataManager
+ * @see Loan
+ * @since 13 Oct 2025
+ */
 final class LoanDataManagerTest {
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
 
@@ -27,12 +46,21 @@ final class LoanDataManagerTest {
     private Path dataFile;
     private LoanDataManager dataManager;
 
+    /**
+     * Prepares a fresh {@link LoanDataManager} instance targeting a new file
+     * within the JUnit-provided temporary directory.
+     */
     @BeforeEach
     void setUp() {
         dataFile = tempDir.resolve("TestLoan.txt");
         dataManager = new LoanDataManager(dataFile.toString());
     }
 
+    /**
+     * Ensures {@link LoanDataManager#formatRecord(Loan)} joins fields correctly
+     * and sanitizes reserved characters in description. Also verifies that a
+     * repaid loan is encoded with flag {@code 1}.
+     */
     @Test
     void formatRecord_joinsField_andSanitizesDescription() {
         Loan loan = new Loan("Poop|Food", "69.69", "10-10-2025 23:59");
@@ -42,6 +70,10 @@ final class LoanDataManagerTest {
         assertEquals("1|Poop%7CFood|69.69|10-10-2025 23:59", record);
     }
 
+    /**
+     * Verifies that a not-repaid loan is encoded with flag {@code 0} and that all
+     * fields are joined in the expected order.
+     */
     @Test
     void formatRecord_handlesNotRepaidFlag() {
         Loan loan = new Loan("PoopieHead", "126.69", "10-10-2025 12:21");
@@ -50,6 +82,10 @@ final class LoanDataManagerTest {
         assertEquals("0|PoopieHead|126.69|10-10-2025 12:21", record);
     }
 
+    /**
+     * Confirms that {@link LoanDataManager#parseRecord(String)} parses a well-formed
+     * line, sets repayment status based on the encoded flag, and unsanitizes fields.
+     */
     @Test
     void parseRecord_parseWellFormedLine_andSetsRepaidStatus() {
         String record = "1|Eat%7CPoop|69.126|10-10-2025 23:59";
@@ -62,6 +98,9 @@ final class LoanDataManagerTest {
         assertEquals("10-10-2025 23:59", loan.getLoanReturnDate().format(FORMATTER));
     }
 
+    /**
+     * Verifies not-repaid parsing and field values for a valid input line.
+     */
     @Test
     void parseRecord_parsesNotRepaid_andFields() {
         String record = "0|Buy Poop|200|10-10-2025 00:00";
@@ -74,6 +113,11 @@ final class LoanDataManagerTest {
         assertEquals("200.0", loan.getAmountLoaned().toString());
         assertEquals("10-10-2025 00:00", loan.getLoanReturnDate().format(FORMATTER));
     }
+
+    /**
+     * Ensures malformed lines (wrong field count) return {@code null} so the caller
+     * can skip invalid records gracefully.
+     */
     @Test
     void parseRecord_returnsNull_whenFieldCountIsWrong() {
         String record = "0|not enough|field";
@@ -82,6 +126,15 @@ final class LoanDataManagerTest {
         assertNull(loan, "Manager should return null for non-4-field lines so caller can skip them");
     }
 
+    /**
+     * Performs a write → read round-trip to confirm that serialized {@link Loan}
+     * records are persisted in UTF-8 and deserialized without loss or corruption,
+     * including repayment flags and timestamps.
+     *
+     * @throws IOException if disk verification or read-back fails
+     * @see LoanDataManager#writeToFile(List)
+     * @see LoanDataManager#tryLoad()
+     */
     @Test
     void writeToFile_tryLoadRoundTrip() throws IOException {
         Loan loan1 = new Loan("Buy|Poop", "69.69", "10-10-2025 23:59");
@@ -112,6 +165,12 @@ final class LoanDataManagerTest {
         assertEquals("10-10-2025 12:21", loanTwo.getLoanReturnDate().format(FORMATTER));
     }
 
+    /**
+     * Confirms that {@link LoanDataManager#appendToFile(Loan)} preserves record
+     * order by appending new lines to the end of the file.
+     *
+     * @throws IOException if disk verification fails
+     */
     @Test
     void appendToFile_appendsInOrder() throws IOException {
         Loan loan1 = new Loan("Poop Poop", "1", "10-10-2025 00:00");
@@ -127,6 +186,12 @@ final class LoanDataManagerTest {
         ), records);
     }
 
+    /**
+     * Ensures {@link LoanDataManager#tryLoad()} returns an empty list if any record
+     * causes a parsing exception during bulk load, preserving fault tolerance.
+     *
+     * @throws IOException if writing the malformed test file fails
+     */
     @Test
     void tryLoad_returnsEmpty_onParsingFailure() throws IOException {
         Files.writeString(dataFile,
