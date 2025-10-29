@@ -1,12 +1,39 @@
+---
+layout: page
+title: Finsight - Developer Guide
+---
+
 # Developer Guide
+
+* [Acknowledgements](#acknowledgements)
+* [Design & implementation](#design--implementation)
+  * [Design](#1-design)
+  * [Implementations](#2-implementation)
+    * [Loan](#21-loan-features)
+    * [Income](#22-income-features)
+    * [Investment](#23-investment-features)
+    * [Expense](#24-expense-features)
+    * [Storage](#25-storage-features)
+* [Appendix](#appendix)
+  * [Product Scope](#product-scope)
+  * [User Stories](#user-stories)
+  * [Non-Functional Requirements](#non-functional-requirements)
+  * [Glossary](#glossary)
+* [Instructions for testing](#instructions-for-manual-testing)
+
+---
 
 ## Acknowledgements
 
 {list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the original source as well}
 
-## Design & implementation
+* Followed [AB3 DG](https://se-education.org/addressbook-level3/DeveloperGuide.html) for Developer Guide format
 
-{Describe the design and implementation of the product. Use UML diagrams and short code snippets where applicable.}
+* Followed [AB3 UG](https://se-education.org/addressbook-level3/UserGuide.html) for User Guide format
+
+---
+
+## Design & implementation
 
 ### 1. Design
 
@@ -45,6 +72,8 @@ extends the abstract `DataManager` template to handle persistent file operations
 (Storage) from domain logic (Model) and user interface (Ui), following a **layered architecture** principle. 
 Additionally, static utility methods in the `Ui` class are used for displaying output and user prompts. Composition and 
 dependency relationships are used where appropriate to reflect ownership and usage lifetimes.
+
+---
 
 ### 2. Implementation
 
@@ -110,32 +139,36 @@ The `LoanList` class then calls the `Ui` class to print a acknowledgement messag
 
 ![EditLoanSequenceDiagram](diagrams/loan/EditLoanSequenceDiagram.png)
 
-#### 3.1 Income Features
+---
 
-##### 3.1.1 Add Income Feature
+#### 2.2 Income Features
+
+##### 2.2.1 Add Income Feature
 The Add Income feature enables users to add income.
 
 ![AddIncomeSequenceDiagram](diagrams/income/AddIncomeSequenceDiagram.png)
 
-##### 3.1.2 Delete Income Feature
+##### 2.2.2 Delete Income Feature
 The Delete Income feature enables users to delete income.
 
 ![DeleteIncomeSequenceDiagram](diagrams/income/DeleteIncomeSequenceDiagram.png)
 
-##### 3.1.3 Edit Income Feature
+##### 2.2.3 Edit Income Feature
 The Edit Income feature enables users to edit income.
 
 ![EditIncomeSequenceDiagram.png](diagrams/income/EditIncomeSequenceDiagram.png)
 
-##### 3.1.4 List Income Feature
+##### 2.2.4 List Income Feature
 The List Income feature enables users to view all incomes.
 
 ![ListIncomeSequenceDiagram.png](diagrams/income/ListIncomeSequenceDiagram.png)
 
-##### 3.1.4 List Income Overview Feature
+##### 2.2.5 List Income Overview Feature
 The List Income Overview feature enables users to view total income, total expenses and remaining income.
 
 ![ListIncomeOverviewSequenceDiagram.png](diagrams/income/ListIncomeOverviewSequenceDiagram.png)
+
+---
 
 #### 2.3 Investment Features
 
@@ -150,6 +183,40 @@ The Delete Investment feature allows the user to remove added investments. The `
 ##### 2.3.3 List Investment Feature
 The Add Investment feature allows the user to list all the added investments as well as their overall returns. The `Ui` class is responsible for handling user input and to output an acknowledgement message. The String is passed to the `Parser` class to determine the user-requested command. `Parser` parses the String and calls the `listAllInvestments()` method in the `InvestmentList` Class. This method passes the `ArrayList` of `Investment` objects into the `printAllInvestments(...)` method of the `Ui` class. This method loops through each `Investment` object in the `ArrayList` to print their `toString()` method to the user. `InvestmentList` Class then retrieves the overall 5 year and 10 year returns of all the `Investment` objects in the `ArrayList` and calls the `Ui` class to print their values to the user.
 ![ListInvestmentSequenceDiagram](diagrams/investment/ListInvestmentSequenceDiagram.png)
+
+---
+
+#### 2.4 Expense Features
+
+##### 2.4.1 List Expense Feature
+The List Expense feature allows users to see a list of saved expenses. The `Ui` class takes in the user input as a string "UserInput". This string is used by the `Parser` class to decide which command to execute. `Parser` calls the `listExpense()` method from the `ExpenseList` class to output the expenses. `ExpenseList.listExpense()` will call the `printAllExpenses()` method from `Ui` class. `Ui.printAllExpenses()` loops through the ArrayList to output each `Expense` class's `toString()` method.
+
+![ListExpense](diagrams/expense/ListExpenseSequenceDiagram.png)
+
+##### 2.4.2 Add Expense Feature
+The Add Expense feature enables users to add their expenses. The `Ui` class takes in the user input as a string "UserInput". Once the `Parser` class check that it is the correct command, `Parser` also validates the provided description and amount using `parseAddExpenseCommand()` method. After validation, `Parser` then calls `addExpense()` method of `ExpenseList` class and adds the new `Expense`. The `ExpenseList` class then calls `printAddExpenseOutput()` method of `Ui` class which prints an acknowledgment message that the new `Expense` has been added.
+
+Below is the parameters that `Parser` checks during `parseAddExpenseCommand()`
+
+| Class Attribute | Variable Type | Relevance                            |
+|-----------------|---------------|--------------------------------------|
+| description     | String        | The short description of the expense |
+| expenseAmount   | Double        | The amount used                      |
+
+![AddExpense](diagrams/expense/AddExpenseSequenceDiagram.png)
+
+##### 2.4.3 Delete Expense Feature
+The Delete Expense feature enables users to delete their saved expenses. The `Ui` class takes in the user input as a string "UserInput". Once the `Parser` class check that it is the correct command, `Parser` also check the provided index using `parseDeleteExpenseCommand()` method. After validation, `Parser` then calls `deleteExpense()` method of `ExpenseList` class and delete the selected `Expense`. The `ExpenseList` class then calls `printDeleteExpenseOutput()` method of `Ui` class which prints an acknowledgment message that the selected `Expense` has been deleted.
+
+Below is the parameters that `Parser` checks during `parseDeleteExpenseCommand()`
+
+| Class Attribute | Variable Type | Relevance                                               |
+|-----------------|---------------|---------------------------------------------------------|
+| index           | Integer       | The index of the expense to be deleted in the ArrayList |
+
+![AddExpense](diagrams/expense/DeleteExpenseSequenceDiagram.png)
+
+---
 
 #### 2.5 Storage Features
 
@@ -282,6 +349,9 @@ writetoFile()```. However, unlike ```writeToFile``` where the entire file is rew
 
 ![AppendToFileSequenceDiagram](./diagrams/storage/AppendToFileSequenceDiagram.png)
 
+---
+<br/>
+
 # Appendix
 ## Product scope
 ### Target user profile
@@ -297,10 +367,23 @@ Manage loans, income, investments and expenses faster than a GUI driven app.
 
 ## User Stories
 
-| Version | As a ... | I want to ...             | So that I can ...                                           |
-|---------|----------|---------------------------|-------------------------------------------------------------|
-| v1.0    | new user | see usage instructions    | refer to them when I forget how to use the application      |
-| v2.0    | user     | find a to-do item by name | locate a to-do without having to go through the entire list |
+| Version | As a ... | I want to ...                          | So that I can ...                                                                  |
+|---------|----------|----------------------------------------|------------------------------------------------------------------------------------|
+| v1.0    | user     | add a source of income                 | keep track of part-time jobs, scholarships, or allowances                          |
+| v1.0    | user     | edit a source of income                | edit the mistake of messing up the details of adding a source of income            |
+| v1.0    | user     | remove a source of income              | get rid of a source of income I no longer have                                     |
+| v1.0    | user     | add an expense                         | keep track of where I spent my money                                               |
+| v1.0    | user     | remove an expense                      | get rid of an expense that I input wrong                                           |
+| v1.0    | user     | add a new loan                         | keep track of all existing loans                                                   |
+| v1.0    | user     | set a loan as repaid                   | see the updated list of my current loans                                           |
+| v1.0    | user     | see total amount payable for all loans | plan for future considerations                                                     |
+| v1.0    | user     | remove a loan                          | get rid of a loan that I input wrong                                               |
+| v1.0    | user     | add an investment                      | keep track of investments made                                                     |
+| v1.0    | user     | remove an investment                   | get rid of an investment I no longer invest in                                     |
+| v2.0    | user     | see an overview of my investments      | monitor the growth of portfolios and other assets to make better choices with them |
+| v2.0    | user     | edit information about a existing loan | keep track of changing details                                                     |
+| v2.0    | user     | see a list of all my income            | see all the income that I have added                                               |
+| v2.0    | user     | see an overview of my income           | view, at a glance, what my overall income is                                       |
 
 ## Non-Functional Requirements
 
@@ -318,58 +401,113 @@ Manage loans, income, investments and expenses faster than a GUI driven app.
 * *GUI* - Graphical User Interface
 * *UTF-8* - Unicode Transformation Format - 8 bit
 
-## Instructions for manual testing
+# Instructions for manual testing
 
 ### Launching and shutdown
 
 1. Initial Launch
    1. Download the jar file [here](https://github.com/AY2526S1-CS2113-T10-1/tp) into an empty folder
    2. Run the jar file by `cd` into the folder and running the `java -jar finsight.jar` command
-   3. Run the `bye' command </br>
+   3. Run the `bye` command <br/>
       Expected: Program creates empty data files in a data folder in the original folder
 
 ### List Loan
 
 1. Show List of Loans (empty)
    1. Prerequisites: no loans saved or initial launch
-   2. Test case: `list loan`</br>
+   2. Test case: `list loan`<br/>
       Expected: Shows `Total loaned: $0.00`
-</br></br>
+<br/><br/>
 2. Show List of Loans (not empty)
    1. Prerequisites: loan list is not empty
-   2. Test case: `list loan`</br>
+   2. Test case: `list loan`<br/>
       Expected: Shows a list of all loans and a Total loaned amount
 
 ### Add/Edit Loan
 
 1. Adding a new Loan
-   1. Test case: `add loan d/ loan 1 a/ 1000 r/ 10-10-2209 19:00`</br>
+   1. Test case: `add loan d/ loan 1 a/ 1000 r/ 10-10-2209 19:00`<br/>
       Expected: A loan is added to the loanList, can be shown with the `list loan` command
-   2. Test case: `add loan d/ loan 2 a/ 1000.55 r/ 11-11-2028 12:59`</br>
+   2. Test case: `add loan d/ loan 2 a/ 1000.55 r/ 11-11-2028 12:59`<br/>
       Expected: A loan is added to the loanList, can be shown with the `list loan` command
-</br></br>
+<br/><br/>
 2. Editing a Loan
    1. Prerequisites: At least 2 loans shown when running the `list loan` command
-   2. Test case: `edit loan 1 d/ edited loan 1 a/ 1000 r/ 10-10-2209 19:00`</br>
+   2. Test case: `edit loan 1 d/ edited loan 1 a/ 1000 r/ 10-10-2209 19:00`<br/>
       Expected: The first loan shown by the `list loan` command has description changed from `loan 1` to `edited loan 1`
-   3. Test case: `add loan d/ edited loan 2 a/ 1000.55 r/ 11-11-2029 12:59`</br>
+   3. Test case: `add loan d/ edited loan 2 a/ 1000.55 r/ 11-11-2029 12:59`<br/>
       Expected: The second loan shown by the `list loan` command has description changed from `loan 2` to `edited loan 2` and year of loan return date changed from `2028` to `2029`
 
 ### Delete Loan
 
 1. Deleting a Loan
    1. Prerequisites: At least 2 loans shown when running the `list loan` command
-   2. Test case: `delete loan 1`</br>
+   2. Test case: `delete loan 1` <br/>
       Expected: The loan originally shown as loan 1 is deleted and the original 2nd loan is now shown as the 1st loan
 
 ### Set Repaid/Set Not Repaid
 
 1. Set Loan to be Repaid / Not Repaid
    1. Prerequisites: At least 1 loan shown when running the `list loan` command
-   2. Test case: `loan repaid 1`</br>
+   2. Test case: `loan repaid 1` <br/>
       Expected: `list loan` command shows 1st loan as repaid
    3. Test case: `loan not repaid 1`
       Expected: `list loan` command shows 1st loan as outstanding
+
+### Add Income
+
+1. Test Case: `add income d/salary a/100`
+   Expected: Income is added. Details of the income is shown as a message.
+
+2. Test Case: `add income`
+   Expected: Income is not added. Error message will be displayed.
+
+3. Test Case: `add income d/ a/`
+   Expected: Income is not added. Error message will be displayed.
+
+4. Test Case: `add income d/salary a/five dollars`
+   Expected: Income is not added. Error message will be displayed.
+
+### Delete Income
+
+Prerequisites: There should be at least 1 income in the list
+
+1. Test Case: `delete income 1`
+   Expected: Income is deleted. Details of deleted income is shown as a message.
+
+2. Test Case: `delete income 0`
+   Expected: Income is not deleted. Error message will be displayed.
+
+3. Test Case: `delete income`
+   Expected: Income is not deleted. Error message will be displayed.
+
+### Edit Income
+Prerequisites: There should be at least 1 income in the list
+
+1. Test Case: `edit income 1 d/hustle a/50`
+   Expected: Income is edited. Details of the edited income is shown as a message.
+
+2. Test Case: `edit income  d/ a/`
+   Expected: Income is edited. Details of the edited income is shown as a message.
+
+### List Expenses
+1. Show List of expense 
+   1. Test case: `list expense` <br/>
+   Expected (if not empty): Shows a list of all expense's description and amount
+   3. Expected (if empty): Shows nothing
+
+### Add Expense
+1. Adding an expense
+   1. Test case: `add expense d/pencil a/2` <br/>
+   2. Test case: `add expense d/drinks a/5` <br/>
+   Expected: Either expense is added to the expenseList. Can be seen via `list expense` command.
+
+### Delete Expense
+1. Deleting an expense
+   1. Prerequisites: At least 1 Expense saved; or shown when using `list expense` command
+   2. Test case: `delete expense 1` <br/>
+   Expected: The first expense is deleted from the list. Details of the deleted expense shown in the status message.
+
 
 ### Persistence
 
