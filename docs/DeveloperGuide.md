@@ -371,6 +371,33 @@ Manage loans, income, investments and expenses faster than a GUI driven app.
    3. Test case: `loan not repaid 1`
       Expected: `list loan` command shows 1st loan as outstanding
 
+### Add Investment
+
+1. Adding a new Investment
+   1. Test case: `add investment d/ monthly investment 1 a/ 100 r/ 1.22 m/ 22`</br>
+      Expected: An Investment object is added to the investmentList, can be shown with the `list investment` command
+   2. Test case: `add investment d/ monthly investment 2 a/ 50.68 r/ 1.22 m/ 15`</br>
+      Expected: An Investment object is added to the investmentList, can be shown with the `list investment` command
+
+### Delete Investment
+
+1. Deleting an Investment
+   1. Prerequisites: At least 2 investments shown when running the `list investment` command
+   2. Test case: `delete investment 1`</br>
+      Expected: The investment originally shown as investment 1 is deleted and investment 2 is now the first in the list
+
+### List Investments
+
+1. Listing all investments (empty investment list)
+   1. Prerequisites: No investment objects in the investment list or in data file
+   2. Test case: `list investment`</br>
+      Expected: Shows $0 returns for 5 years and 10 years as there is no contribution to investment returns
+
+2. Listing all investments (non-empty investment list)
+   1. Prerequisites: At least 1 investment shown when running the `list investment` command
+   2. Test case: `list investment`</br> 
+      Expected: A list of all the investments are shown in chronological order of when they were added in. The 5 year and 10 year returns of all the investments are also shown
+
 ### Persistence
 
 1. Enter any valid command and ensure it is saved by entering `list {category}`.
