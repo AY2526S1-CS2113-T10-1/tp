@@ -4,6 +4,8 @@
 
 {list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the original source as well}
 
+---
+
 ## Design & implementation
 
 {Describe the design and implementation of the product. Use UML diagrams and short code snippets where applicable.}
@@ -45,6 +47,8 @@ extends the abstract `DataManager` template to handle persistent file operations
 (Storage) from domain logic (Model) and user interface (Ui), following a **layered architecture** principle. 
 Additionally, static utility methods in the `Ui` class are used for displaying output and user prompts. Composition and 
 dependency relationships are used where appropriate to reflect ownership and usage lifetimes.
+
+---
 
 ### 2. Implementation
 
@@ -110,32 +114,36 @@ The `LoanList` class then calls the `Ui` class to print a acknowledgement messag
 
 ![EditLoanSequenceDiagram](diagrams/loan/EditLoanSequenceDiagram.png)
 
-#### 3.1 Income Features
+---
 
-##### 3.1.1 Add Income Feature
+#### 2.2 Income Features
+
+##### 2.2.1 Add Income Feature
 The Add Income feature enables users to add income.
 
 ![AddIncomeSequenceDiagram](diagrams/income/AddIncomeSequenceDiagram.png)
 
-##### 3.1.2 Delete Income Feature
+##### 2.2.2 Delete Income Feature
 The Delete Income feature enables users to delete income.
 
 ![DeleteIncomeSequenceDiagram](diagrams/income/DeleteIncomeSequenceDiagram.png)
 
-##### 3.1.3 Edit Income Feature
+##### 2.2.3 Edit Income Feature
 The Edit Income feature enables users to edit income.
 
 ![EditIncomeSequenceDiagram.png](diagrams/income/EditIncomeSequenceDiagram.png)
 
-##### 3.1.4 List Income Feature
+##### 2.2.4 List Income Feature
 The List Income feature enables users to view all incomes.
 
 ![ListIncomeSequenceDiagram.png](diagrams/income/ListIncomeSequenceDiagram.png)
 
-##### 3.1.4 List Income Overview Feature
+##### 2.2.4 List Income Overview Feature
 The List Income Overview feature enables users to view total income, total expenses and remaining income.
 
 ![ListIncomeOverviewSequenceDiagram.png](diagrams/income/ListIncomeOverviewSequenceDiagram.png)
+
+---
 
 #### 2.3 Investment Features
 
@@ -182,6 +190,8 @@ Below is the parameters that `Parser` checks during `parseDeleteExpenseCommand()
 | index           | Integer       | The index of the expense to be deleted in the ArrayList |
 
 ![AddExpense](diagrams/expense/DeleteExpenseSequenceDiagram.png)
+
+---
 
 #### 2.5 Storage Features
 
@@ -314,6 +324,9 @@ writetoFile()```. However, unlike ```writeToFile``` where the entire file is rew
 
 ![AppendToFileSequenceDiagram](./diagrams/storage/AppendToFileSequenceDiagram.png)
 
+---
+<br/>
+
 # Appendix
 ## Product scope
 ### Target user profile
@@ -406,6 +419,42 @@ Manage loans, income, investments and expenses faster than a GUI driven app.
    3. Test case: `loan not repaid 1`
       Expected: `list loan` command shows 1st loan as outstanding
 
+### Add Income
+
+1. Test Case: `add income d/salary a/100`
+   Expected: Income is added. Details of the income is shown as a message.
+
+2. Test Case: `add income`
+   Expected: Income is not added. Error message will be displayed.
+
+3. Test Case: `add income d/ a/`
+   Expected: Income is not added. Error message will be displayed.
+
+4. Test Case: `add income d/salary a/five dollars`
+   Expected: Income is not added. Error message will be displayed.
+
+### Delete Income
+
+Prerequisites: There should be at least 1 income in the list
+
+1. Test Case: `delete income 1`
+   Expected: Income is deleted. Details of deleted income is shown as a message.
+
+2. Test Case: `delete income 0`
+   Expected: Income is not deleted. Error message will be displayed.
+
+3. Test Case: `delete income`
+   Expected: Income is not deleted. Error message will be displayed.
+
+### Edit Income
+Prerequisites: There should be at least 1 income in the list
+
+1. Test Case: `edit income 1 d/hustle a/50`
+   Expected: Income is edited. Details of the edited income is shown as a message.
+
+2. Test Case: `edit income  d/ a/`
+   Expected: Income is edited. Details of the edited income is shown as a message.
+
 ### List Expenses
 1. Show List of expense 
    1. Test case: `list expense` <br/>
@@ -433,39 +482,3 @@ Manage loans, income, investments and expenses faster than a GUI driven app.
 file.
 4. Alternatively, run the program again and enter `list {category}`. Output should be the same as output list seen in 
 `Step 1`.
-
-### Add Income
-
-1. Test Case: `add income d/salary a/100`
-Expected: Income is added. Details of the income is shown as a message.
-
-2. Test Case: `add income`
-Expected: Income is not added. Error message will be displayed.
-
-3. Test Case: `add income d/ a/`
-Expected: Income is not added. Error message will be displayed.
-
-4. Test Case: `add income d/salary a/five dollars`
-Expected: Income is not added. Error message will be displayed.
-
-### Delete Income
-
-Prerequisites: There should be at least 1 income in the list
-
-1. Test Case: `delete income 1`
-Expected: Income is deleted. Details of deleted income is shown as a message.
-
-2. Test Case: `delete income 0`
-Expected: Income is not deleted. Error message will be displayed.
-
-3. Test Case: `delete income`
-Expected: Income is not deleted. Error message will be displayed.
-
-### Edit Income
-Prerequisites: There should be at least 1 income in the list
-
-1. Test Case: `edit income 1 d/hustle a/50`
-Expected: Income is edited. Details of the edited income is shown as a message.
-
-2. Test Case: `edit income  d/ a/`
-Expected: Income is edited. Details of the edited income is shown as a message.
