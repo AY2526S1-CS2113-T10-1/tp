@@ -4,6 +4,10 @@
 
 {list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the original source as well}
 
+* Followed [AB3 DG](https://se-education.org/addressbook-level3/DeveloperGuide.html) for Developer Guide format
+
+* Followed [AB3 UG](https://se-education.org/addressbook-level3/UserGuide.html) for User Guide format
+
 ---
 
 ## Design & implementation
