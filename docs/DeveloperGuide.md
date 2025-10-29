@@ -151,6 +151,38 @@ The Delete Investment feature allows the user to remove added investments. The `
 The Add Investment feature allows the user to list all the added investments as well as their overall returns. The `Ui` class is responsible for handling user input and to output an acknowledgement message. The String is passed to the `Parser` class to determine the user-requested command. `Parser` parses the String and calls the `listAllInvestments()` method in the `InvestmentList` Class. This method passes the `ArrayList` of `Investment` objects into the `printAllInvestments(...)` method of the `Ui` class. This method loops through each `Investment` object in the `ArrayList` to print their `toString()` method to the user. `InvestmentList` Class then retrieves the overall 5 year and 10 year returns of all the `Investment` objects in the `ArrayList` and calls the `Ui` class to print their values to the user.
 ![ListInvestmentSequenceDiagram](diagrams/investment/ListInvestmentSequenceDiagram.png)
 
+---
+
+#### 2.4 Expense Features
+
+##### 2.4.1 List Expense Feature
+The List Expense feature allows users to see a list of saved expenses. The `Ui` class takes in the user input as a string "UserInput". This string is used by the `Parser` class to decide which command to execute. `Parser` calls the `listExpense()` method from the `ExpenseList` class to output the expenses. `ExpenseList.listExpense()` will call the `printAllExpenses()` method from `Ui` class. `Ui.printAllExpenses()` loops through the ArrayList to output each `Expense` class's `toString()` method.
+
+![ListExpense](diagrams/expense/ListExpenseSequenceDiagram.png)
+
+##### 2.4.2 Add Expense Feature
+The Add Expense feature enables users to add their expenses. The `Ui` class takes in the user input as a string "UserInput". Once the `Parser` class check that it is the correct command, `Parser` also validates the provided description and amount using `parseAddExpenseCommand()` method. After validation, `Parser` then calls `addExpense()` method of `ExpenseList` class and adds the new `Expense`. The `ExpenseList` class then calls `printAddExpenseOutput()` method of `Ui` class which prints an acknowledgment message that the new `Expense` has been added.
+
+Below is the parameters that `Parser` checks during `parseAddExpenseCommand()`
+
+| Class Attribute | Variable Type | Relevance                            |
+|-----------------|---------------|--------------------------------------|
+| description     | String        | The short description of the expense |
+| expenseAmount   | Double        | The amount used                      |
+
+![AddExpense](diagrams/expense/AddExpenseSequenceDiagram.png)
+
+##### 2.4.3 Delete Expense Feature
+The Delete Expense feature enables users to delete their saved expenses. The `Ui` class takes in the user input as a string "UserInput". Once the `Parser` class check that it is the correct command, `Parser` also check the provided index using `parseDeleteExpenseCommand()` method. After validation, `Parser` then calls `deleteExpense()` method of `ExpenseList` class and delete the selected `Expense`. The `ExpenseList` class then calls `printDeleteExpenseOutput()` method of `Ui` class which prints an acknowledgment message that the selected `Expense` has been deleted.
+
+Below is the parameters that `Parser` checks during `parseDeleteExpenseCommand()`
+
+| Class Attribute | Variable Type | Relevance                                               |
+|-----------------|---------------|---------------------------------------------------------|
+| index           | Integer       | The index of the expense to be deleted in the ArrayList |
+
+![AddExpense](diagrams/expense/DeleteExpenseSequenceDiagram.png)
+
 #### 2.5 Storage Features
 
 ##### 2.5.1 Overview
@@ -325,48 +357,48 @@ Manage loans, income, investments and expenses faster than a GUI driven app.
 1. Initial Launch
    1. Download the jar file [here](https://github.com/AY2526S1-CS2113-T10-1/tp) into an empty folder
    2. Run the jar file by `cd` into the folder and running the `java -jar finsight.jar` command
-   3. Run the `bye' command </br>
+   3. Run the `bye` command <br/>
       Expected: Program creates empty data files in a data folder in the original folder
 
 ### List Loan
 
 1. Show List of Loans (empty)
    1. Prerequisites: no loans saved or initial launch
-   2. Test case: `list loan`</br>
+   2. Test case: `list loan`<br/>
       Expected: Shows `Total loaned: $0.00`
-</br></br>
+<br/><br/>
 2. Show List of Loans (not empty)
    1. Prerequisites: loan list is not empty
-   2. Test case: `list loan`</br>
+   2. Test case: `list loan`<br/>
       Expected: Shows a list of all loans and a Total loaned amount
 
 ### Add/Edit Loan
 
 1. Adding a new Loan
-   1. Test case: `add loan d/ loan 1 a/ 1000 r/ 10-10-2209 19:00`</br>
+   1. Test case: `add loan d/ loan 1 a/ 1000 r/ 10-10-2209 19:00`<br/>
       Expected: A loan is added to the loanList, can be shown with the `list loan` command
-   2. Test case: `add loan d/ loan 2 a/ 1000.55 r/ 11-11-2028 12:59`</br>
+   2. Test case: `add loan d/ loan 2 a/ 1000.55 r/ 11-11-2028 12:59`<br/>
       Expected: A loan is added to the loanList, can be shown with the `list loan` command
-</br></br>
+<br/><br/>
 2. Editing a Loan
    1. Prerequisites: At least 2 loans shown when running the `list loan` command
-   2. Test case: `edit loan 1 d/ edited loan 1 a/ 1000 r/ 10-10-2209 19:00`</br>
+   2. Test case: `edit loan 1 d/ edited loan 1 a/ 1000 r/ 10-10-2209 19:00`<br/>
       Expected: The first loan shown by the `list loan` command has description changed from `loan 1` to `edited loan 1`
-   3. Test case: `add loan d/ edited loan 2 a/ 1000.55 r/ 11-11-2029 12:59`</br>
+   3. Test case: `add loan d/ edited loan 2 a/ 1000.55 r/ 11-11-2029 12:59`<br/>
       Expected: The second loan shown by the `list loan` command has description changed from `loan 2` to `edited loan 2` and year of loan return date changed from `2028` to `2029`
 
 ### Delete Loan
 
 1. Deleting a Loan
    1. Prerequisites: At least 2 loans shown when running the `list loan` command
-   2. Test case: `delete loan 1`</br>
+   2. Test case: `delete loan 1` <br/>
       Expected: The loan originally shown as loan 1 is deleted and the original 2nd loan is now shown as the 1st loan
 
 ### Set Repaid/Set Not Repaid
 
 1. Set Loan to be Repaid / Not Repaid
    1. Prerequisites: At least 1 loan shown when running the `list loan` command
-   2. Test case: `loan repaid 1`</br>
+   2. Test case: `loan repaid 1` <br/>
       Expected: `list loan` command shows 1st loan as repaid
    3. Test case: `loan not repaid 1`
       Expected: `list loan` command shows 1st loan as outstanding
