@@ -259,7 +259,54 @@ Format: `bye`
 ![bye](./diagrams/screenshots/Bye.png)
 
 ### Saving the data
-FinSight data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
+
+FinSight automatically saves all data you eneter:
+
+- Expenses
+- Incomes
+- Investments
+- Loans (including repaid/not repaid status and due dates)
+
+#### Where the files are
+
+All data is stored as plain text in a folder name `data` inside the FinSight app directory:
+
+| Category    | File                  |
+|-------------|-----------------------|
+| Expenses    | `data/expense.txt`    |
+| Incomes     | `data/income.txt`     |
+| Investments | `data/investment.txt` |
+| Loans       | `loan.txt`            |
+
+> Tip: if you move the app to another computer, copy the whole `data/` folder along with it.
+
+#### When it saves
+
+- FinSight **auto-saves after every command** that changes data (add/edit/delete etc.).
+- On first run, if the `data/` folder or files don't exist, FinSight creates them automatically.
+
+#### File format
+
+- Files are **UTF-8** text; each line is one record.
+- FinSight uses `|` internally as a field separator and encodes special characters so that descriptions can safely 
+contain `|` and `%`.
+- **Recommendation**: You don't need to edit these files by hand. If you do, use a plain-text editor and keep each 
+record on a single line.
+
+#### Backing up your data
+
+1. Close FinSight.
+2. Copy the entire `data/` folder to your backup location.
+3. To restore, replace the existing `data/` folder with your backup copy.
+
+#### Moving data to another computer
+- Copy the FinSight app folder **and** the `data/` folder to the new computer. 
+- Start FinSight. Your entries will appear automatically.
+
+#### Resetting data (start fresh)
+
+- Exit FinSight and delete the `data/` folder, or rename it.
+- Start FinSight. It will create a new empty `data/` folder and files.
 
 ![savingdata](./diagrams/screenshots/DataManager.png)
 
