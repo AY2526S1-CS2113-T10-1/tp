@@ -1,4 +1,27 @@
+---
+layout: page
+title: Finsight - Developer Guide
+---
+
 # Developer Guide
+
+* [Acknowledgements](#acknowledgements)
+* [Design & implementation](#design--implementation)
+  * [Design](#1-design)
+  * [Implementations](#2-implementation)
+    * [Loan](#21-loan-features)
+    * [Income](#22-income-features)
+    * [Investment](#23-investment-features)
+    * [Expense](#24-expense-features)
+    * [Storage](#25-storage-features)
+* [Appendix](#appendix)
+  * [Product Scope](#product-scope)
+  * [User Stories](#user-stories)
+  * [Non-Functional Requirements](#non-functional-requirements)
+  * [Glossary](#glossary)
+* [Instructions for testing](#instructions-for-manual-testing)
+
+---
 
 ## Acknowledgements
 
@@ -378,7 +401,7 @@ Manage loans, income, investments and expenses faster than a GUI driven app.
 * *GUI* - Graphical User Interface
 * *UTF-8* - Unicode Transformation Format - 8 bit
 
-## Instructions for manual testing
+# Instructions for manual testing
 
 ### Launching and shutdown
 

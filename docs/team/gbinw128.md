@@ -24,6 +24,7 @@ I contributed to:
 
 ### Contributions to DG
 I contributed to:
+* list of contents
 * sequence diagram expense
 * expense implementations and manual testing
 * most of the user stories
