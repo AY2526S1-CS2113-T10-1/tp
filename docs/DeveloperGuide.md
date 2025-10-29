@@ -382,9 +382,8 @@ Manage loans, income, investments and expenses faster than a GUI driven app.
 file.
 4. Alternatively, run the program again and enter `list {category}`. Output should be the same as output list seen in 
 `Step 1`.
-### Income
 
-#### Add Income
+### Add Income
 
 1. Test Case: `add income d/salary a/100`
 Expected: Income is added. Details of the income is shown as a message.
@@ -398,7 +397,7 @@ Expected: Income is not added. Error message will be displayed.
 4. Test Case: `add income d/salary a/five dollars`
 Expected: Income is not added. Error message will be displayed.
 
-#### Delete Income
+### Delete Income
 
 Prerequisites: There should be at least 1 income in the list
 
@@ -411,7 +410,7 @@ Expected: Income is not deleted. Error message will be displayed.
 3. Test Case: `delete income`
 Expected: Income is not deleted. Error message will be displayed.
 
-#### Edit Income
+### Edit Income
 Prerequisites: There should be at least 1 income in the list
 
 1. Test Case: `edit income 1 d/hustle a/50`
