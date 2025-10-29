@@ -17,7 +17,7 @@ Parser -> Parser ++: handleCommand(...)
 Parser -> IncomeList ++: listIncomes()
 
 IncomeList -> Ui ++: printAllIncomes(incomes)
-loop i from 0 to incomes.size()
+loop incomes.size()
     Ui -> IncomeList ++: incomes.get(i:int)
     IncomeList -> Income ++: income.toString()
     return income:String

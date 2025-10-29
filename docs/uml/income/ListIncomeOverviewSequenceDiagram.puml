@@ -16,7 +16,7 @@ Parser -> Parser ++: handleCommand(...)
 
 Parser -> IncomeList ++: listIncomeOverview()
 
-loop every income in incomes
+loop incomes.size()
     IncomeList -> Income ++: income.getAmountEarned()
     return amountEarned:float
     end
@@ -28,7 +28,7 @@ return expenseList
 IncomeList -> ExpenseList ++: expenseList.getExpenses()
 return expenses
 
-loop every expense in expenses
+loop expenses.size()
     ExpenseList -> Expense ++: expense.getExpenseAmount()
     return amountEarned:float
     end
