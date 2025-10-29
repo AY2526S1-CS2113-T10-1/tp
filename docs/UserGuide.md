@@ -17,6 +17,38 @@ FinSight is a CLI-based app for managing finances such as income, expenses, loan
 
 <br/>
 
+* [Quick Start](#quick-start)
+* [Features](#features)
+* **Loans**
+    * [List loan](#list-all-loans-list-loan)
+    * [Add loan](#add-a-loan-add-loan)
+    * [Delete loan](#delete-a-loan-delete-loan)
+    * [Loan repaid](#set-loan-as-repaid-loan-repaid)
+    * [Loan not repaid](#set-loan-as-not-repaid-loan-not-repaid)
+    * [Edit loan](#edit-a-loan-edit-loan)
+* **Expense**
+    * [List expense](#list-all-expenses-list-expense)
+    * [add expense](#add-expense-add-expense)
+    * [delete expense](#delete-expense-delete-expense)
+* **Income**
+    * [list income](#list-all-income-list-income)
+    * [add income](#add-income-add-income)
+    * [delete income](#delete-income-delete-income)
+    * [edit income](#edit-income-edit-income)
+    * [list income overview](#list-income-overview-list-income-overview)
+* **Investment**
+    * [list investment](#list-all-investment-list-investment)
+    * [add investment](#add-investment-add-investment)
+    * [delete investment](#delete-investment-delete-investment)
+*  [Exiting the program](#exit-the-program-bye)
+*  [Saving the data](#saving-the-data)
+*  [FAQ](#faq)
+*  [Command Summary](#command-summary)
+
+---
+
+<br/>
+
 ## Features
 
 > [!NOTE]
@@ -34,8 +66,7 @@ FinSight is a CLI-based app for managing finances such as income, expenses, loan
 <br/>
 
 ### List all loans: `list loan`
-Prints the list of all loans onto the terminal with an index starting from 1.
-
+Prints the list of all loans onto the terminal with an index starting from 1. 
 Format: `list loan`
 
 ### Add a loan: `add loan`
@@ -165,6 +196,29 @@ Format: `edit income <INDEX> d/<DECRIPTION> a/<AMOUNT_EARNED>`
 * The `<AMOUNT_EARNED>` should be numerical.
 
 Example of usage: `edit income 1 d/hustle a/50`
+
+### List all investment: `list investment`
+Prints the list of all investment onto the terminal, with starting index of 1.
+Also prints the total returns after 5 and 10 years.
+
+Format: `list expense`
+
+### Add investment: `add investment`
+Adds an investment to the list. The investment will include a description, the monthly invested amount,
+the return rate, and the deposit date.
+
+Format:`add investment d/<DESCRIPTION> a/<AMOUNT_INVESTED_MONTHLY> r/<RETURN_RATE_PER_ANNUM> m/<DEPOSIT_DATE_EACH_MONTH>`
+
+Example of usage: `add investment d/moomoo a/1000 r/3 m/21`
+
+### Delete investment: `delete investment`
+Delete the investment from the list.
+
+Format: `delete investment <INDEX>`
+
+Example of usage: `delete investment 3`
+
+<br/>
 
 ### Exit the program: `bye`
 Saves all current data and exits the program
