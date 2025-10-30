@@ -10,9 +10,9 @@ participant ":Investment" as Investment LOGIC_COLOR_T4
 
 User -> Ui ++: list investment
 
-Ui -> Parser ++: tryCommand(...)
+Ui -> Parser ++: tryCommand(userInput)
 
-Parser -> Parser ++: handleCommand(...)
+Parser -> Parser ++: handleCommand(userInput)
 
 Parser -> InvestmentList ++: listAllInvestments()
 
@@ -25,7 +25,16 @@ loop investment.size()
     end
 return
 
+InvestmentList -> InvestmentList ++: getTotal5YearReturns()
+return returns5Years:Double
+InvestmentList -> InvestmentList ++: getTotal10YearReturns()
+return returns10Years:Double
+
 InvestmentList -> Ui ++: printInvestmentReturns(...)
+note left: Params: returns5Years, returns10Years
+
+
+
 return
 
 return
