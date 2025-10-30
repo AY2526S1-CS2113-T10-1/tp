@@ -63,7 +63,10 @@ FinSight is a CLI-based app for managing finances such as income, expenses, loan
 
 ### List all loans: `list loan`
 Prints the list of all loans onto the terminal with an index starting from 1.
+
 Format: `list loan`
+
+![loanlist](./diagrams/screenshots/LoanList.png)
 
 ### Add a loan: `add loan`
 Adds a loan to the list. The loan will include a description and the amount borrowed as well as the date and time to return the loaned amount by.
@@ -79,6 +82,8 @@ Example of usage:
 
 `add loan d/ loan 2 a/ 10.56 r/ 11-10-2056 23:59`
 
+![loanadd](./diagrams/screenshots/LoanAdd.png)
+
 ### Delete a loan: `delete loan`
 Deletes the loan at <INDEX> from the list of loan
 
@@ -91,6 +96,8 @@ Example of usage:
 `delete loan 1`
 
 `delete loan 3`
+
+![loandelete](./diagrams/screenshots/LoanDelete.png)
 
 ### Set loan as repaid: `loan repaid`
 Sets the loan at <INDEX> as repaid
@@ -105,6 +112,8 @@ Example of usage:
 
 `loan repaid 3`
 
+![loanrepaid](./diagrams/screenshots/LoanRepaid.png)
+
 ### Set loan as not repaid: `loan not repaid`
 Sets the loan at <INDEX> as not repaid
 
@@ -117,6 +126,8 @@ Example of usage:
 `loan not repaid 1`
 
 `loan not repaid 3`
+
+![loannotrepaid](./diagrams/screenshots/LoanNotRepaid.png)
 
 ### Edit a loan: `edit loan`
 Edits a loan in the list. The loan will include a description and the amount borrowed as well as the date and time to return the loaned amount by.
@@ -133,10 +144,14 @@ Example of usage:
 
 `edit loan 2 d/ loan 2 a/ 10.56 r/ 11-10-2056 23:59`
 
+![loanedit](./diagrams/screenshots/LoanEdit.png)
+
 ### List all expenses: `list expense`
 Prints the list of all expenses onto the terminal, with starting index of 1
 
 Format: `list expense`
+
+![expenselist](./diagrams/screenshots/ExpenseList.png)
 
 ### Add expense: `add expense`
 Adds an expense to the list. The expense will include a description and the amount spent.
@@ -144,6 +159,8 @@ Adds an expense to the list. The expense will include a description and the amou
 Format: `add expense d/<DECRIPTION> a/<AMOUNT_SPENT>`
 
 Example of usage: `add expense d/food a/5.50`
+
+![expenseadd](./diagrams/screenshots/ExpenseAdd.png)
 
 ### Delete expense: `delete expense`
 Deletes the expense from the list.
@@ -154,16 +171,22 @@ Format: `delete expense <INDEX>`
 
 Example of usage: `delete expense 2`
 
+![expensedelete](./diagrams/screenshots/ExpenseDelete.png)
+
 
 ### List all incomes: `list income`
 Prints the list of all incomes onto the terminal, with starting index of 1
 
 Format: `list income`
 
+![incomelist](./diagrams/screenshots/IncomeList.png)
+
 ### View income overview: `list income overview`
 Prints total income, total expenses and remaining income.
 
 Format: `list income overview`
+
+![incomelistoverview](./diagrams/screenshots/IncomeListOverview.png)
 
 ### Add income: `add income`
 Adds an income to the list. The income will include a description and the amount earned.
@@ -174,6 +197,8 @@ Format: `add income d/<DECRIPTION> a/<AMOUNT_EARNED>`
 
 Example of usage: `add income d/salary a/100`
 
+![incomeadd](./diagrams/screenshots/IncomeAdd.png)
+
 ### Delete income: `delete income`
 Deletes the income from the list.
 
@@ -182,6 +207,8 @@ Format: `delete income <INDEX>`
 * The `<INDEX>` cannot contain punctuation.
 
 Example of usage: `delete income 1`
+
+![deleteincome](./diagrams/screenshots/IncomeDelete.png)
 
 ### Edit income: `edit income`
 Edits the income at <INDEX> from the list of income.
@@ -193,11 +220,15 @@ Format: `edit income <INDEX> d/<DECRIPTION> a/<AMOUNT_EARNED>`
 
 Example of usage: `edit income 1 d/hustle a/50`
 
+![incomeedit](./diagrams/screenshots/IncomeEdit.png)
+
 ### List all investment: `list investment`
 Prints the list of all investment onto the terminal, with starting index of 1.
 Also prints the total returns after 5 and 10 years.
 
-Format: `list expense`
+Format: `list investment`
+
+![investmentlist](./diagrams/screenshots/InvestmentList.png)
 
 ### Add investment: `add investment`
 Adds an investment to the list. The investment will include a description, the monthly invested amount,
@@ -207,12 +238,16 @@ Format:`add investment d/<DESCRIPTION> a/<AMOUNT_INVESTED_MONTHLY> r/<RETURN_RAT
 
 Example of usage: `add investment d/moomoo a/1000 r/3 m/21`
 
+![investmentadd](./diagrams/screenshots/InvestmentAdd.png)
+
 ### Delete investment: `delete investment`
 Delete the investment from the list.
 
 Format: `delete investment <INDEX>`
 
 Example of usage: `delete investment 3`
+
+![investmentdelete](./diagrams/screenshots/InvestmentDelete.png)
 
 <br/>
 
@@ -221,8 +256,59 @@ Saves all current data and exits the program
 
 Format: `bye`
 
+![bye](./diagrams/screenshots/Bye.png)
+
 ### Saving the data
-FinSight data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
+
+FinSight automatically saves all data you enter:
+
+- Expenses
+- Incomes
+- Investments
+- Loans (including repaid/not repaid status and due dates)
+
+#### Where the files are
+
+All data is stored as plain text in a folder name `data` inside the FinSight app directory:
+
+| Category    | File                  |
+|-------------|-----------------------|
+| Expenses    | `data/expense.txt`    |
+| Incomes     | `data/income.txt`     |
+| Investments | `data/investment.txt` |
+| Loans       | `data/loan.txt`       |
+
+> Tip: if you move the app to another computer, copy the whole `data/` folder along with it.
+
+#### When it saves
+
+- FinSight **auto-saves after every command** that changes data (add/edit/delete etc.).
+- On first run, if the `data/` folder or files don't exist, FinSight creates them automatically.
+
+#### File format
+
+- Files are **UTF-8** text; each line is one record.
+- FinSight uses `|` internally as a field separator and encodes special characters so that descriptions can safely 
+contain `|` and `%`.
+- **Recommendation**: You don't need to edit these files by hand. If you do, use a plain-text editor and keep each 
+record on a single line.
+
+#### Backing up your data
+
+1. Close FinSight.
+2. Copy the entire `data/` folder to your backup location.
+3. To restore, replace the existing `data/` folder with your backup copy.
+
+#### Moving data to another computer
+- Copy the FinSight app folder **and** the `data/` folder to the new computer. 
+- Start FinSight. Your entries will appear automatically.
+
+#### Resetting data (start fresh)
+
+- Exit FinSight and delete the `data/` folder, or rename it.
+- Start FinSight. It will create a new empty `data/` folder and files.
+
+![savingdata](./diagrams/screenshots/DataManager.png)
 
 ---
 
