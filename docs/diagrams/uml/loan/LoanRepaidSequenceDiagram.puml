@@ -8,7 +8,7 @@ participant ":Parser" as Parser LOGIC_COLOR_T2
 participant ":LoanList" as LoanList LOGIC_COLOR_T3
 participant ":Loan" as Loan LOGIC_COLOR_T4
 
-User -> Ui ++: list loan
+User -> Ui ++: loan repaid
 
 Ui -> Parser ++: tryCommand(userInput:String)
 
