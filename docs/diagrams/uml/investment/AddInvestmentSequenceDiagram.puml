@@ -11,11 +11,12 @@ participant ":InvestDataManager" as DataManager LOGIC_COLOR_T2
 
 User -> Ui ++: add investment
 
-Ui -> Parser ++: tryCommand(...)
+Ui -> Parser ++: tryCommand(userInput)
+note right:
 
-Parser -> Parser ++: handleCommand(...)
+Parser -> Parser ++: handleCommand(userInput)
 
-Parser -> Parser ++: parseAddInvestmentCommand(...)
+Parser -> Parser ++: parseAddInvestmentCommand(userInput)
 return commandParameters:String[]
 
 create Investment
