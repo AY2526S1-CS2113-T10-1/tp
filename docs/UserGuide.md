@@ -47,7 +47,7 @@ FinSight is a CLI-based app for managing finances such as income, expenses, loan
 
 ## Features
 
-> [!NOTE]
+> ℹ️ NOTE
 > * Words in `<UPPER_CASE>` are the parameters to be supplied by the user.<br>
     e.g. in `delete loan <INDEX>`, `<INDEX>` is a parameter which can be used as `delete loan 1`.
 >

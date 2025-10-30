@@ -25,8 +25,6 @@ title: Finsight - Developer Guide
 
 ## Acknowledgements
 
-{list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the original source as well}
-
 * Followed [AB3 DG](https://se-education.org/addressbook-level3/DeveloperGuide.html) for Developer Guide format
 
 * Followed [AB3 UG](https://se-education.org/addressbook-level3/UserGuide.html) for User Guide format
@@ -37,9 +35,9 @@ title: Finsight - Developer Guide
 
 ### 1. Design
 
-> [!TIP]
+> 💡 TIPS
 >
-> The `.puml` files used to create diagrams are in the `docs/uml` folder. The diagrams can be found in the `docs/diagrams` folder. Refer to the [_PlantUML Tutorial_ at se-edu/guides](https://se-education.org/guides/tutorials/plantUml.html) to learn how to create and edit diagrams.
+> The `.puml` files used to create diagrams are in the `docs/diagrams/uml` folder. The diagrams can be found in the `docs/diagrams` folder. Refer to the [_PlantUML Tutorial_ at se-edu/guides](https://se-education.org/guides/tutorials/plantUml.html) to learn how to create and edit diagrams.
 
 Main components of the architecture
 
@@ -69,7 +67,7 @@ execution to the respective list classes.
 
 All list classes depend on a specialised data manager `ChildDataManager` (see below on persistence storage), which 
 extends the abstract `DataManager` template to handle persistent file operations. The design separates data persistence
-(Storage) from domain logic (Model) and user interface (Ui), following a **layered architecture** principle. 
+(Storage) from domain logic (Model) and user interface (Ui). 
 Additionally, static utility methods in the `Ui` class are used for displaying output and user prompts. Composition and 
 dependency relationships are used where appropriate to reflect ownership and usage lifetimes.
 
