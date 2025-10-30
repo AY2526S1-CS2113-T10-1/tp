@@ -17,7 +17,7 @@ Parser -> Parser ++: handleCommand(...)
 Parser -> InvestmentList ++: listAllInvestments()
 
 InvestmentList -> Ui ++: printAllInvestments(ArrayList<Investment>)
-loop i from 0 to Investment.size() - 1
+loop investment.size()
     Ui -> InvestmentList ++: investments.get(i:int)
     InvestmentList -> Investment ++: investment.toString()
     return investment:String
