@@ -7,6 +7,8 @@ participant ":Ui" as Ui LOGIC_COLOR_T1
 participant ":Parser" as Parser LOGIC_COLOR_T2
 participant ":IncomeList" as IncomeList LOGIC_COLOR_T3
 participant ":Income" as Income LOGIC_COLOR_T4
+participant ":ExpenseList" as ExpenseList LOGIC_COLOR_T5
+participant ":Expense" as Expense LOGIC_COLOR_T6
 
 User -> Ui ++: list income overview
 
