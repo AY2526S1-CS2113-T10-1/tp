@@ -369,20 +369,23 @@ Manage loans, income, investments and expenses faster than a GUI driven app.
 
 | Version | As a ... | I want to ...                          | So that I can ...                                                                  |
 |---------|----------|----------------------------------------|------------------------------------------------------------------------------------|
+| v1.0    | user     | see a list of all my income            | see all the income that I have added                                               |
 | v1.0    | user     | add a source of income                 | keep track of part-time jobs, scholarships, or allowances                          |
 | v1.0    | user     | edit a source of income                | edit the mistake of messing up the details of adding a source of income            |
 | v1.0    | user     | remove a source of income              | get rid of a source of income I no longer have                                     |
+| v1.0    | user     | list all expense                       | identify and manage spending patterns and adjust accordingly                       |
 | v1.0    | user     | add an expense                         | keep track of where I spent my money                                               |
 | v1.0    | user     | remove an expense                      | get rid of an expense that I input wrong                                           |
+| v1.0    | user     | list all loans                         | see the list of all my loans                                                       |
 | v1.0    | user     | add a new loan                         | keep track of all existing loans                                                   |
-| v1.0    | user     | set a loan as repaid                   | see the updated list of my current loans                                           |
-| v1.0    | user     | see total amount payable for all loans | plan for future considerations                                                     |
+| v1.0    | user     | set a loan as repaid                   | see the updated status of that loan                                                |
 | v1.0    | user     | remove a loan                          | get rid of a loan that I input wrong                                               |
 | v1.0    | user     | add an investment                      | keep track of investments made                                                     |
 | v1.0    | user     | remove an investment                   | get rid of an investment I no longer invest in                                     |
-| v2.0    | user     | see an overview of my investments      | monitor the growth of portfolios and other assets to make better choices with them |
+| v2.0    | user     | see total amount payable for all loans | plan for future considerations                                                     |
+| v2.0    | user     | set a loan as not repaid               | edit the mistake of setting it as paid wrongly                                     |
 | v2.0    | user     | edit information about a existing loan | keep track of changing details                                                     |
-| v2.0    | user     | see a list of all my income            | see all the income that I have added                                               |
+| v2.0    | user     | see an overview of my investments      | monitor the growth of portfolios and other assets to make better choices with them |
 | v2.0    | user     | see an overview of my income           | view, at a glance, what my overall income is                                       |
 
 ## Non-Functional Requirements
@@ -393,15 +396,18 @@ Manage loans, income, investments and expenses faster than a GUI driven app.
 4. Must auto-save after every state-mutating command.
 5. Must store data as *UTF-8* text files under `./data`. Line endings must be cross-platform tolerant.
 
-{More to be added}
 
 ## Glossary
 
-* *mainstream OS* - Windows, Linux, Unix, MacOS
+* *Mainstream OS* - Windows, Linux, Unix, MacOS
 * *GUI* - Graphical User Interface
 * *UTF-8* - Unicode Transformation Format - 8 bit
 
 # Instructions for manual testing
+Given below are instructions to test the app manually.
+
+> [!NOTE]
+> These instructions only provide a starting point for testers to work on; testers are expected to do more exploratory testing.
 
 ### Launching and shutdown
 
@@ -508,6 +514,33 @@ Prerequisites: There should be at least 1 income in the list
    2. Test case: `delete expense 1` <br/>
    Expected: The first expense is deleted from the list. Details of the deleted expense shown in the status message.
 
+
+### Add Investment
+
+1. Adding a new Investment
+   1. Test case: `add investment d/ monthly investment 1 a/ 100 r/ 1.22 m/ 22`</br>
+      Expected: An Investment object is added to the investmentList, can be shown with the `list investment` command
+   2. Test case: `add investment d/ monthly investment 2 a/ 50.68 r/ 1.22 m/ 15`</br>
+      Expected: An Investment object is added to the investmentList, can be shown with the `list investment` command
+
+### Delete Investment
+
+1. Deleting an Investment
+   1. Prerequisites: At least 2 investments shown when running the `list investment` command
+   2. Test case: `delete investment 1`</br>
+      Expected: The investment originally shown as investment 1 is deleted and investment 2 is now the first in the list
+
+### List Investments
+
+1. Listing all investments (empty investment list)
+   1. Prerequisites: No investment objects in the investment list or in data file
+   2. Test case: `list investment`</br>
+      Expected: Shows $0 returns for 5 years and 10 years as there is no contribution to investment returns
+
+2. Listing all investments (non-empty investment list)
+   1. Prerequisites: At least 1 investment shown when running the `list investment` command
+   2. Test case: `list investment`</br> 
+      Expected: A list of all the investments are shown in chronological order of when they were added in. The 5 year and 10 year returns of all the investments are also shown
 
 ### Persistence
 
