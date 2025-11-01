@@ -62,7 +62,7 @@ FinSight is a CLI-based app for managing finances such as income, expenses, loan
 <br/>
 
 ### List all loans: `list loan`
-Prints the list of all loans onto the terminal with an index starting from 1 as well as a total loan amount. If there are no loans, prints total amount of $0.00.
+Prints the list of all loans onto the terminal with an index starting from 1 as well as a total loan amount. If there are no loans, `There is no loans found` would be printed.
 
 Format: `list loan`
 
