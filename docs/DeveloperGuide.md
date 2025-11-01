@@ -430,16 +430,16 @@ Given below are instructions to test the app manually.
 ### Add/Edit Loan
 
 1. Adding a new Loan
-   1. Test case: `add loan d/ loan 1 a/ 1000 r/ 10-10-2209 19:00`<br/>
+   1. Test case: `add loan d/loan 1 a/1000 r/10-10-2209 19:00`<br/>
       Expected: A loan is added to the loanList, can be shown with the `list loan` command
-   2. Test case: `add loan d/ loan 2 a/ 1000.55 r/ 11-11-2028 12:59`<br/>
+   2. Test case: `add loan d/loan 2 a/1000.55 r/11-11-2028 12:59`<br/>
       Expected: A loan is added to the loanList, can be shown with the `list loan` command
 <br/><br/>
 2. Editing a Loan
    1. Prerequisites: At least 2 loans shown when running the `list loan` command
-   2. Test case: `edit loan 1 d/ edited loan 1 a/ 1000 r/ 10-10-2209 19:00`<br/>
+   2. Test case: `edit loan 1 d/edited loan 1 a/1000 r/10-10-2209 19:00` <br/>
       Expected: The first loan shown by the `list loan` command has description changed from `loan 1` to `edited loan 1`
-   3. Test case: `add loan d/ edited loan 2 a/ 1000.55 r/ 11-11-2029 12:59`<br/>
+   3. Test case: `add loan d/edited loan 2 a/1000.55 r/11-11-2029 12:59`<br/>
       Expected: The second loan shown by the `list loan` command has description changed from `loan 2` to `edited loan 2` and year of loan return date changed from `2028` to `2029`
 
 ### Delete Loan
