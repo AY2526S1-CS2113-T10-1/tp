@@ -91,12 +91,12 @@ The Add Loan feature enables users to add loans. The `Ui` class takes in the use
 | amountLoaned    | Double        | The amount loaned                         |
 | loanReturnDate  | LocalDateTime | The date and time that the loan is due by |
 
-The `LoanList` class then calls the `Ui` class to print a acknowledgement message in the form of the `toString()` method of the `Loan` class.
+The `LoanList` class then calls the `Ui` class to print an acknowledgement message in the form of the `toString()` method of the `Loan` class.
 
 ![AddLoanSequenceDiagram](diagrams/loan/AddLoanSequenceDiagram.png)
 
 ##### 2.1.3 Delete Loan Feature
-The Delete Loan feature enables the users to delete a loan. The `Ui` class takes in the user input. This String is used by the `Parser` class to decide which command to run. `Parser` validates the provided index using the `parseDeleteLoanCommand` method. `Parser` then calls the `deleteLoan()` method of the `LoanList` class which calls the `Ui` class to print a acknowledgement message using the `toString()` method of the `Loan` class before deleting the `Loan` at the given index. Below is the relevance of these attributes:
+The Delete Loan feature enables the users to delete a loan. The `Ui` class takes in the user input. This String is used by the `Parser` class to decide which command to run. `Parser` validates the provided index using the `parseDeleteLoanCommand` method. `Parser` then calls the `deleteLoan()` method of the `LoanList` class which calls the `Ui` class to print an acknowledgement message using the `toString()` method of the `Loan` class before deleting the `Loan` at the given index. Below is the relevance of these attributes:
 
 | Class Attribute | Variable Type | Relevance                              |
 |-----------------|---------------|----------------------------------------|
@@ -106,7 +106,7 @@ The Delete Loan feature enables the users to delete a loan. The `Ui` class takes
 
 
 ##### 2.1.4 Loan Repaid Feature
-The Loan Repaid feature enables the users to set a loan as repaid. The `Ui` class takes in the user input. This String is used by the `Parser` class to decide which command to run. `Parser` validates the provided index using the `parseLoanRepaidCommand` method. `Parser` then calls the `setRepaid()` method of the `LoanList` class which calls the `setRepaid()` method of the `Loan` class before calling the `Ui` class to print a acknowledgement message using the `toString()` method of the `Loan` class. Below is the relevance of these attributes:
+The Loan Repaid feature enables the users to set a loan as repaid. The `Ui` class takes in the user input. This String is used by the `Parser` class to decide which command to run. `Parser` validates the provided index using the `parseLoanRepaidCommand` method. `Parser` then calls the `setRepaid()` method of the `LoanList` class which calls the `setRepaid()` method of the `Loan` class before calling the `Ui` class to print an acknowledgement message using the `toString()` method of the `Loan` class. Below is the relevance of these attributes:
 
 | Class Attribute | Variable Type | Relevance                              |
 |-----------------|---------------|----------------------------------------|
@@ -115,7 +115,7 @@ The Loan Repaid feature enables the users to set a loan as repaid. The `Ui` clas
 ![LoanRepaidSequenceDiagram](diagrams/loan/LoanRepaidSequenceDiagram.png)
 
 ##### 2.1.5 Loan Not Repaid Feature
-The Loan Not Repaid feature enables the users to set a loan as not repaid. The `Ui` class takes in the user input. This String is used by the `Parser` class to decide which command to run. `Parser` validates the provided index using the `parseLoanNotRepaidCommand` method. `Parser` then calls the `setNotRepaid()` method of the `LoanList` class which calls the `setNotRepaid()` method of the `Loan` class before calling the `Ui` class to print a acknowledgement message using the `toString()` method of the `Loan` class. Below is the relevance of these attributes:
+The Loan Not Repaid feature enables the users to set a loan as not repaid. The `Ui` class takes in the user input. This String is used by the `Parser` class to decide which command to run. `Parser` validates the provided index using the `parseLoanNotRepaidCommand` method. `Parser` then calls the `setNotRepaid()` method of the `LoanList` class which calls the `setNotRepaid()` method of the `Loan` class before calling the `Ui` class to print an acknowledgement message using the `toString()` method of the `Loan` class. Below is the relevance of these attributes:
 
 | Class Attribute | Variable Type | Relevance                              |
 |-----------------|---------------|----------------------------------------|
@@ -124,7 +124,7 @@ The Loan Not Repaid feature enables the users to set a loan as not repaid. The `
 ![LoanNotRepaidSequenceDiagram](diagrams/loan/LoanNotRepaidSequenceDiagram.png)
 
 ##### 2.1.6 Edit Loan Feature
-The Edit Loan feature enables users to edit a existing loan. The `Ui` class takes in the user input. This String is used by the `Parser` class to decide which command to run. `Parser` validates the provided index,  description, amount and date time using the `parseEditLoanCommand` method. `Parser` then calls the `editLoan()` method of the `LoanList` class which first deletes the `Loan` at the index before creating a new `Loan` and add the given `Loan` to the ArrayList at the given index. Below is the relevance of these attributes:
+The Edit Loan feature enables users to edit an existing loan. The `Ui` class takes in the user input. This String is used by the `Parser` class to decide which command to run. `Parser` validates the provided index,  description, amount and date time using the `parseEditLoanCommand` method. `Parser` then calls the `editLoan()` method of the `LoanList` class which first deletes the `Loan` at the index before creating a new `Loan` and add the given `Loan` to the ArrayList at the given index. Below is the relevance of these attributes:
 
 | Class Attribute | Variable Type | Relevance                                 |
 |-----------------|---------------|-------------------------------------------|
@@ -133,7 +133,7 @@ The Edit Loan feature enables users to edit a existing loan. The `Ui` class take
 | amountLoaned    | Double        | The amount loaned                         |
 | loanReturnDate  | LocalDateTime | The date and time that the loan is due by |
 
-The `LoanList` class then calls the `Ui` class to print a acknowledgement message in the form of the `toString()` method of the `Loan` class.
+The `LoanList` class then calls the `Ui` class to print an acknowledgement message in the form of the `toString()` method of the `Loan` class.
 
 ![EditLoanSequenceDiagram](diagrams/loan/EditLoanSequenceDiagram.png)
 
@@ -243,7 +243,7 @@ as path and file name (```./data/{category}.txt```).
 ##### 2.5.3 Loading Data
 
 When ```tryLoad()``` is called
-1. It first call ```ensureFileExist()``` to create missing folders/files.
+1. It first calls ```ensureFileExist()``` to create missing folders/files.
 2. Read all line in UTF-8.
 3. Ignore blank lines.
 4. Passes each line into corresponding subclass's ```parseRecord(String)``` for conversion into domain objects.
@@ -371,7 +371,7 @@ Manage loans, income, investments and expenses faster than a GUI driven app.
 | v1.0    | user     | add a source of income                 | keep track of part-time jobs, scholarships, or allowances                          |
 | v1.0    | user     | edit a source of income                | edit the mistake of messing up the details of adding a source of income            |
 | v1.0    | user     | remove a source of income              | get rid of a source of income I no longer have                                     |
-| v1.0    | user     | list all expense                       | identify and manage spending patterns and adjust accordingly                       |
+| v1.0    | user     | list all expenses                      | identify and manage spending patterns and adjust accordingly                       |
 | v1.0    | user     | add an expense                         | keep track of where I spent my money                                               |
 | v1.0    | user     | remove an expense                      | get rid of an expense that I input wrong                                           |
 | v1.0    | user     | list all loans                         | see the list of all my loans                                                       |
@@ -397,7 +397,7 @@ Manage loans, income, investments and expenses faster than a GUI driven app.
 
 ## Glossary
 
-* *Mainstream OS* - Windows, Linux, Unix, MacOS
+* *Mainstream OS* - Windows, Linux, Unix, macOS
 * *GUI* - Graphical User Interface
 * *UTF-8* - Unicode Transformation Format - 8 bit
 
@@ -498,13 +498,13 @@ Prerequisites: There should be at least 1 income in the list
 1. Show List of expense 
    1. Test case: `list expense` <br/>
    Expected (if not empty): Shows a list of all expense's description and amount
-   3. Expected (if empty): Shows nothing
+   2. Expected (if empty): Shows nothing
 
 ### Add Expense
 1. Adding an expense
    1. Test case: `add expense d/pencil a/2` <br/>
    2. Test case: `add expense d/drinks a/5` <br/>
-   Expected: Either expense is added to the expenseList. Can be seen via `list expense` command.
+   Expected: Both expenses are added to the expenseList. Can be seen via `list expense` command.
 
 ### Delete Expense
 1. Deleting an expense

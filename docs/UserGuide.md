@@ -157,7 +157,7 @@ Format: `list expense`
 ### Add expense: `add expense`
 Adds an expense to the list. The expense will include a description and the amount spent.
 
-Format: `add expense d/<DECRIPTION> a/<AMOUNT_SPENT>`
+Format: `add expense d/<DESCRIPTION> a/<AMOUNT_SPENT>`
 
 Example of usage: `add expense d/food a/5.50`
 
@@ -192,7 +192,7 @@ Format: `list income overview`
 ### Add income: `add income`
 Adds an income to the list. The income will include a description and the amount earned.
 
-Format: `add income d/<DECRIPTION> a/<AMOUNT_EARNED>`
+Format: `add income d/<DESCRIPTION> a/<AMOUNT_EARNED>`
 
 * The `<AMOUNT_EARNED>` should be numerical.
 
@@ -214,7 +214,7 @@ Example of usage: `delete income 1`
 ### Edit income: `edit income`
 Edits the income at <INDEX> from the list of income.
 
-Format: `edit income <INDEX> d/<DECRIPTION> a/<AMOUNT_EARNED>`
+Format: `edit income <INDEX> d/<DESCRIPTION> a/<AMOUNT_EARNED>`
 
 * The `<INDEX>` cannot contain punctuation.
 * The `<AMOUNT_EARNED>` should be numerical.
