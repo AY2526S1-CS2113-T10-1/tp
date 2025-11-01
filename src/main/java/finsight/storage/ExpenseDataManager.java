@@ -1,6 +1,7 @@
 package finsight.storage;
 
 import finsight.expense.Expense;
+import finsight.storage.exceptions.AmountPersistCorruptedException;
 
 import java.nio.file.Path;
 
@@ -25,7 +26,7 @@ import java.nio.file.Path;
  * @since 15 Oct 2025
  */
 public class ExpenseDataManager extends DataManager<Expense, Exception> {
-
+    private static final String EXPENSE = "expense";
     /**
      * Path to the underlying data file where expense records are stored.
      */
@@ -81,13 +82,29 @@ public class ExpenseDataManager extends DataManager<Expense, Exception> {
      * @return a parsed {@link Expense} instance, or {@code null} if malformed
      */
     @Override
-    protected Expense parseRecord(String line) {
+    protected Expense parseRecord(String line) throws AmountPersistCorruptedException {
         String[] parts = line.split(FIELD_DELIMITER, SPLIT_KEEP_EMPTY_FIELDS);
         if (parts.length < 2) {
             return null;
         }
+        return parseExpense(parts);
+    }
+
+    private Expense parseExpense(String[] parts) throws AmountPersistCorruptedException {
         String description = unsanitize(parts[0]);
         String expenseAmount = parts[1];
+        double amount;
+
+        try {
+            amount = Double.parseDouble(expenseAmount);
+        } catch (NumberFormatException e) {
+            throw new AmountPersistCorruptedException(expenseAmount, EXPENSE);
+        }
+
+        if (amount <= 0) {
+            throw new AmountPersistCorruptedException(expenseAmount, EXPENSE);
+        }
+
         return new Expense(description, expenseAmount);
     }
 }

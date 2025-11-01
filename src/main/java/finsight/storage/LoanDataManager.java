@@ -37,7 +37,7 @@ import java.util.List;
  * @since 15 Oct 2025
  */
 public class LoanDataManager extends DataManager<Loan, Exception> {
-
+    private static final String LOAN = "loan";
     /**
      * Date/time pattern used when formatting and parsing {@code returnBy}.
      */
@@ -126,11 +126,11 @@ public class LoanDataManager extends DataManager<Loan, Exception> {
         try {
             amount = Double.parseDouble(loanAmount);
         } catch (NumberFormatException e) {
-            throw new AmountPersistCorruptedException(loanAmount);
+            throw new AmountPersistCorruptedException(loanAmount, LOAN);
         }
 
         if (amount <= 0) {
-            throw new AmountPersistCorruptedException(loanAmount);
+            throw new AmountPersistCorruptedException(loanAmount, LOAN);
         }
 
         try {
