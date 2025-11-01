@@ -286,7 +286,8 @@ public class Parser {
         commandParameters[1] = userInput.substring(userInput.indexOf("a/") + sizeOfSubcommand).trim();
         boolean isNegativeNumber = Double.parseDouble(commandParameters[1])<0;
 
-        boolean hasInvalidParameters = commandParameters[0].isEmpty() || commandParameters[1].isEmpty() || isNegativeNumber;
+        boolean hasInvalidParameters = commandParameters[0].isEmpty() ||
+                commandParameters[1].isEmpty() || isNegativeNumber;
 
         if (hasInvalidParameters) {
             throw new AddExpenseCommandWrongFormatException();
@@ -485,7 +486,8 @@ public class Parser {
         commandParameters[1] = userInput.substring(userInput.indexOf("a/") + sizeOfSubcommand).trim();
         boolean isNegativeNumber = Double.parseDouble(commandParameters[1])<0;
 
-        boolean hasInvalidParameters = commandParameters[0].isEmpty() || commandParameters[1].isEmpty() || isNegativeNumber;
+        boolean hasInvalidParameters = commandParameters[0].isEmpty() ||
+                commandParameters[1].isEmpty() || isNegativeNumber;
 
         if (hasInvalidParameters) {
             throw new AddIncomeCommandWrongFormatException();
