@@ -27,6 +27,7 @@ FinSight is a CLI-based app for managing finances such as income, expenses, loan
     * [list investment](#list-all-investment-list-investment)
     * [add investment](#add-investment-add-investment)
     * [delete investment](#delete-investment-delete-investment)
+*  [Help](#command-help-help)
 *  [Exiting the program](#exit-the-program-bye)
 *  [Saving the data](#saving-the-data)
 *  [FAQ](#faq)
@@ -248,6 +249,13 @@ Format: `delete investment <INDEX>`
 Example of usage: `delete investment 3`
 
 ![investmentdelete](./diagrams/screenshots/InvestmentDelete.png)
+
+<br/>
+
+### Command Help: `help`
+Shows the list of possible commands.
+
+Format: `help`
 
 <br/>
 

@@ -234,8 +234,10 @@ public class Parser {
             assert indexToDelete >= 0 && indexToDelete < Investment.numberOfInvestments;
             investmentList.deleteInvestment(indexToDelete);
 
-        } else {
+        } else if(userInput.startsWith("help")) {
             Ui.printPossibleCommands();
+        } else {
+            Ui.invalidCommandMessage();
         }
     }
 
@@ -299,9 +301,16 @@ public class Parser {
                 userInput.indexOf("a/")).trim();
         commandParameters[1] = userInput.substring(userInput.indexOf("a/") + sizeOfSubcommand).trim();
 
-        boolean hasInvalidParameters = commandParameters[0].isEmpty() || commandParameters[1].isEmpty();
+
+        boolean hasInvalidParameters = commandParameters[0].isEmpty() ||
+                commandParameters[1].isEmpty();
 
         if (hasInvalidParameters) {
+            throw new AddExpenseCommandWrongFormatException();
+        }
+
+        boolean isNegativeNumber= Double.parseDouble(commandParameters[1])<0;
+        if (isNegativeNumber) {
             throw new AddExpenseCommandWrongFormatException();
         }
 
@@ -396,6 +405,7 @@ public class Parser {
         commandParameters[1] = userInput.substring(userInput.indexOf("a/") + sizeOfSubcommand,
                 userInput.indexOf("r/")).trim();
         commandParameters[2] = userInput.substring(userInput.indexOf("r/") + sizeOfSubcommand).trim();
+
 
         boolean hasInvalidParameters = commandParameters[0].isEmpty() || commandParameters[1].isEmpty() ||
                 commandParameters[2].isEmpty();
@@ -540,9 +550,16 @@ public class Parser {
                 userInput.indexOf("a/")).trim();
         commandParameters[1] = userInput.substring(userInput.indexOf("a/") + sizeOfSubcommand).trim();
 
-        boolean hasInvalidParameters = commandParameters[0].isEmpty() || commandParameters[1].isEmpty();
+
+        boolean hasInvalidParameters = commandParameters[0].isEmpty() ||
+                commandParameters[1].isEmpty();
 
         if (hasInvalidParameters) {
+            throw new AddIncomeCommandWrongFormatException();
+        }
+
+        boolean isNegativeNumber= Double.parseDouble(commandParameters[1])<0;
+        if (isNegativeNumber) {
             throw new AddIncomeCommandWrongFormatException();
         }
 
@@ -728,6 +745,11 @@ public class Parser {
         boolean hasInvalidParameters = commandParameters[0].isEmpty() || commandParameters[1].isEmpty() ||
                 commandParameters[2].isEmpty() || commandParameters[3].isEmpty();
         if (hasInvalidParameters) {
+            throw new AddInvestmentSubcommandException();
+        }
+
+        boolean isNegativeNumber= Double.parseDouble(commandParameters[1])<0;
+        if (isNegativeNumber) {
             throw new AddInvestmentSubcommandException();
         }
 

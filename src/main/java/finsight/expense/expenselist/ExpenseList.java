@@ -35,6 +35,10 @@ public class ExpenseList {
      *
      **/
     public void listExpenses() {
+        if(expenses.isEmpty()) {
+            Ui.printEmptyExpenses();
+            return;
+        }
         Ui.printAllExpenses(expenses);
     }
 
