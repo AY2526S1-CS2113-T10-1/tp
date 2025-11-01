@@ -22,9 +22,11 @@ import finsight.income.exceptions.EditIncomeCommandIndexOutOfBoundsException;
 import finsight.income.exceptions.EditIncomeCommandWrongFormatException;
 import finsight.income.incomelist.IncomeList;
 
+import finsight.loan.exceptions.AddLoanCommandPastDateUsedException;
 import finsight.loan.exceptions.AddLoanCommandWrongFormatException;
 import finsight.loan.exceptions.DeleteLoanCommandIndexOutOfBoundsException;
 import finsight.loan.exceptions.EditLoanCommandIndexOutOfBoundsException;
+import finsight.loan.exceptions.EditLoanCommandPastDateUsedException;
 import finsight.loan.exceptions.EditLoanCommandWrongFormatException;
 import finsight.loan.exceptions.LoanRepaidCommandIndexOutOfBoundsException;
 import finsight.loan.exceptions.LoanNotRepaidCommandIndexOutOfBoundsException;
@@ -72,11 +74,12 @@ public class Parser {
         } catch (AddExpenseCommandWrongFormatException | AddInvestmentDateOutOfBoundsException |
                  AddInvestmentSubcommandException | AddInvestmentSubcommandOrderException |
                  AddInvestmentWrongNumberFormatException | AddIncomeCommandWrongFormatException |
-                 AddLoanCommandWrongFormatException | DeleteExpenseCommandIndexOutOfBoundsException |
-                 DeleteIncomeCommandIndexOutOfBoundsException | DeleteInvestmentIndexOutOfBoundsException |
-                 DeleteInvestmentMissingIndexException | DeleteInvestmentWrongNumberFormatException |
-                 DeleteLoanCommandIndexOutOfBoundsException | EditIncomeCommandWrongFormatException |
-                 EditIncomeCommandIndexOutOfBoundsException | EditLoanCommandIndexOutOfBoundsException |
+                 AddLoanCommandWrongFormatException | AddLoanCommandPastDateUsedException |
+                 DeleteExpenseCommandIndexOutOfBoundsException | DeleteIncomeCommandIndexOutOfBoundsException |
+                 DeleteInvestmentIndexOutOfBoundsException | DeleteInvestmentMissingIndexException |
+                 DeleteInvestmentWrongNumberFormatException | DeleteLoanCommandIndexOutOfBoundsException |
+                 EditIncomeCommandWrongFormatException | EditIncomeCommandIndexOutOfBoundsException |
+                 EditLoanCommandIndexOutOfBoundsException | EditLoanCommandPastDateUsedException |
                  EditLoanCommandWrongFormatException | LoanRepaidCommandIndexOutOfBoundsException |
                  LoanNotRepaidCommandIndexOutOfBoundsException | IOException e) {
             Ui.printErrorMessage(e.getMessage());
@@ -103,6 +106,7 @@ public class Parser {
      *                                                       wrong sub command order or
      *                                                       wrong format of amount field (alphabets instead of numbers)
      *                                                       or wrong format of date field
+     * @throws AddLoanCommandPastDateUsedException           If date input by user is in the past for add loan command
      * @throws DeleteExpenseCommandIndexOutOfBoundsException If delete expense command used with out-of-bounds index
      * @throws DeleteIncomeCommandIndexOutOfBoundsException  If delete income command used with non-existing index or
      *                                                       index missing
@@ -118,6 +122,7 @@ public class Parser {
      *                                                       index missing
      * @throws EditLoanCommandIndexOutOfBoundsException      If edit loan command used with non-existing index or
      *                                                       index missing or alphabets was used
+     * @throws EditLoanCommandPastDateUsedException          If date input by user is in the past for edit loan command
      * @throws EditLoanCommandWrongFormatException           If any empty fields or wrong sub command or
      *                                                       wrong sub command order or
      *                                                       wrong format of amount field (alphabets instead of numbers)
@@ -133,11 +138,12 @@ public class Parser {
             throws AddExpenseCommandWrongFormatException, AddInvestmentDateOutOfBoundsException,
             AddInvestmentSubcommandException, AddInvestmentSubcommandOrderException,
             AddInvestmentWrongNumberFormatException, AddIncomeCommandWrongFormatException,
-            AddLoanCommandWrongFormatException, DeleteExpenseCommandIndexOutOfBoundsException,
-            DeleteIncomeCommandIndexOutOfBoundsException, DeleteInvestmentIndexOutOfBoundsException,
-            DeleteInvestmentMissingIndexException, DeleteInvestmentWrongNumberFormatException,
-            DeleteLoanCommandIndexOutOfBoundsException, EditIncomeCommandWrongFormatException,
-            EditIncomeCommandIndexOutOfBoundsException, EditLoanCommandIndexOutOfBoundsException,
+            AddLoanCommandWrongFormatException, AddLoanCommandPastDateUsedException,
+            DeleteExpenseCommandIndexOutOfBoundsException, DeleteIncomeCommandIndexOutOfBoundsException,
+            DeleteInvestmentIndexOutOfBoundsException, DeleteInvestmentMissingIndexException,
+            DeleteInvestmentWrongNumberFormatException, DeleteLoanCommandIndexOutOfBoundsException,
+            EditIncomeCommandWrongFormatException, EditIncomeCommandIndexOutOfBoundsException,
+            EditLoanCommandIndexOutOfBoundsException, EditLoanCommandPastDateUsedException,
             EditLoanCommandWrongFormatException, LoanRepaidCommandIndexOutOfBoundsException,
             LoanNotRepaidCommandIndexOutOfBoundsException, IOException {
 
@@ -337,12 +343,14 @@ public class Parser {
      *
      * @param userInput String input by user
      * @return The parameters used for add loan command
-     * @throws AddLoanCommandWrongFormatException If any empty fields or wrong sub command or
-     *                                            wrong sub command order or
-     *                                            wrong format of amount field (alphabets instead of numbers) or
-     *                                            wrong format of date field
+     * @throws AddLoanCommandPastDateUsedException If date used is in the past
+     * @throws AddLoanCommandWrongFormatException  If any empty fields or wrong sub command or
+     *                                             wrong sub command order or
+     *                                             wrong format of amount field (alphabets instead of numbers) or
+     *                                             wrong format of date field
      */
-    public String[] parseAddLoanCommand(String userInput) throws AddLoanCommandWrongFormatException {
+    public String[] parseAddLoanCommand(String userInput)
+            throws AddLoanCommandPastDateUsedException, AddLoanCommandWrongFormatException {
         final int numberOfAddLoanCommandParameters = 3;
         final int sizeOfSubcommand = 2;
         DateTimeFormatter inputDateFormat = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
@@ -371,11 +379,17 @@ public class Parser {
             throw new AddLoanCommandWrongFormatException();
         }
 
+        LocalDateTime currentTime = LocalDateTime.now();
+        LocalDateTime loanReturnDate;
         try {
             Double.parseDouble(commandParameters[1]);
-            LocalDateTime.parse(commandParameters[2], inputDateFormat);
+            loanReturnDate = LocalDateTime.parse(commandParameters[2], inputDateFormat);
         } catch (DateTimeParseException | NumberFormatException e) {
             throw new AddLoanCommandWrongFormatException();
+        }
+
+        if (loanReturnDate.isBefore(currentTime)) {
+            throw new AddLoanCommandPastDateUsedException();
         }
 
         return commandParameters;
@@ -393,13 +407,15 @@ public class Parser {
      * @param userInput String input by user
      * @return The parameters used for edit loan command
      * @throws EditLoanCommandIndexOutOfBoundsException If index to edit does not exist or missing or has alphabets
+     * @throws EditLoanCommandPastDateUsedException     If date input is in the past
      * @throws EditLoanCommandWrongFormatException      If any empty fields or wrong sub command or
      *                                                  wrong sub command order or
      *                                                  wrong format of amount field (alphabets instead of numbers) or
      *                                                  wrong format of date field
      */
     public String[] parseEditLoanCommand(String userInput)
-            throws EditLoanCommandIndexOutOfBoundsException, EditLoanCommandWrongFormatException {
+            throws EditLoanCommandIndexOutOfBoundsException, EditLoanCommandPastDateUsedException,
+            EditLoanCommandWrongFormatException {
         final int sizeOfEditLoan = "edit loan".length();
         final int numberOfEditLoanCommandParameters = 4;
         final int sizeOfSubcommand = 2;
@@ -446,11 +462,17 @@ public class Parser {
             throw new EditLoanCommandWrongFormatException();
         }
 
+        LocalDateTime currentTime = LocalDateTime.now();
+        LocalDateTime loanReturnDate;
         try {
             Double.parseDouble(commandParameters[2]);
-            LocalDateTime.parse(commandParameters[3], inputDateFormat);
+            loanReturnDate = LocalDateTime.parse(commandParameters[3], inputDateFormat);
         } catch (DateTimeParseException | NumberFormatException e) {
             throw new EditLoanCommandWrongFormatException();
+        }
+
+        if (loanReturnDate.isBefore(currentTime)) {
+            throw new EditLoanCommandPastDateUsedException();
         }
 
         return commandParameters;
