@@ -126,7 +126,7 @@ final class InvestDataManagerTest {
     @Test
     void parseRecord_outOfBoundsDate_throwsException() {
         String invalidDate = "Desc|1000.00|1.0|45";
-        assertThrows(AddInvestmentDateOutOfBoundsException.class,
+        assertThrows(DayOfInvestPersistCorruptedException.class,
                 () -> dataManager.parseRecord(invalidDate));
     }
 
