@@ -1,13 +1,13 @@
 package finsight.loan.exceptions;
 
 /**
- * Exception thrown if delete loan command used with non-existing index
+ * Exception thrown if delete loan command used with invalid or non-existing index
  */
 public class DeleteLoanCommandIndexOutOfBoundsException extends Exception {
     @Override
     public String getMessage() {
-        return "Delete Loan index does not exist!!! Please try again with the format:\n" +
+        return "Delete Loan index is invalid or does not exist. Please try again with the format:\n" +
                 "delete loan <INDEX>\n" +
-                "where <INDEX> is an existing loan index shown by the 'list loan' command";
+                "where <INDEX> is an integer and is an existing loan index shown by the 'list loan' command";
     }
 }

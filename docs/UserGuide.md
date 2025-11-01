@@ -63,19 +63,19 @@ FinSight is a CLI-based app for managing finances such as income, expenses, loan
 <br/>
 
 ### List all loans: `list loan`
-Prints the list of all loans onto the terminal with an index starting from 1.
+Prints the list of all loans onto the terminal with an index starting from 1 as well as a total loan amount. If there are no loans, `There is no loans found` would be printed.
 
 Format: `list loan`
 
 ![loanlist](./diagrams/screenshots/LoanList.png)
 
 ### Add a loan: `add loan`
-Adds a loan to the list. The loan will include a description and the amount borrowed as well as the date and time to return the loaned amount by.
+Adds a loan to the list. The loan will include a description and the amount loaned as well as the date and time to return the loaned amount by.
 
-Format: `add loan d/ <DESCRIPTION> a/ <AMOUNT_BORROWED> r/ <LOAN_RETURN_DATE_AND_TIME>`
+Format: `add loan d/<DESCRIPTION> a/<AMOUNT_LOANED> r/<LOAN_RETURN_DATE_AND_TIME>`
 
-* The `<AMOUNT_BORROWED>` cannot contain punctuation and must be a positive value.
-* The `<LOAN_RETURN_DATE_AND_TIME>` must be of format (DD-MM-YYYY HH:mm).
+* The `<AMOUNT_LOANED>` can only be positive integer or float of at least 1 cent.
+* The `<LOAN_RETURN_DATE_AND_TIME>` must be of format (dd-MM-yyyy HH:mm).
 
 Example of usage:
 
@@ -90,7 +90,7 @@ Deletes the loan at <INDEX> from the list of loan
 
 Format: `delete loan <INDEX>`
 
-* The `<INDEX>` cannot contain punctuation.
+* The `<INDEX>` cannot contain punctuation and must be an existing loan index shown by the `list loan` command.
 
 Example of usage:
 
@@ -105,7 +105,7 @@ Sets the loan at <INDEX> as repaid
 
 Format: `loan repaid <INDEX>`
 
-* The `<INDEX>` cannot contain punctuation.
+* The `<INDEX>` cannot contain punctuation and must be an existing loan index shown by the `list loan` command.
 
 Example of usage:
 
@@ -120,7 +120,7 @@ Sets the loan at <INDEX> as not repaid
 
 Format: `loan not repaid <INDEX>>`
 
-* The `<INDEX>` cannot contain punctuation.
+* The `<INDEX>` cannot contain punctuation and must be an existing loan index shown by the `list loan` command.
 
 Example of usage:
 
@@ -133,10 +133,10 @@ Example of usage:
 ### Edit a loan: `edit loan`
 Edits a loan in the list. The loan will include a description and the amount borrowed as well as the date and time to return the loaned amount by.
 
-Format: `edit loan <INDEX> d/<DESCRIPTION> a/<AMOUNT_BORROWED> r/<LOAN_RETURN_DATE_AND_TIME>`
+Format: `edit loan <INDEX> d/<DESCRIPTION> a/<AMOUNT_LOANED> r/<LOAN_RETURN_DATE_AND_TIME>`
 
-* The `<INDEX>` cannot contain punctuation.
-* The `<AMOUNT_BORROWED>` cannot contain punctuation and must be a positive value.
+* The `<INDEX>` cannot contain punctuation and must be an existing loan index shown by the `list loan` command.
+* The `<AMOUNT_LOANED>` can only be positive integer or float of at least 1 cent.
 * The `<LOAN_RETURN_DATE_AND_TIME>` must be of format (dd-MM-yyyy HH:mm).
 
 Example of usage:
