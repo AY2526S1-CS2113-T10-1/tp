@@ -103,7 +103,7 @@ Example of usage:
 ### Set loan as repaid: `loan repaid`
 Sets the loan at <INDEX> as repaid
 
-Format: `loan repaid <INDEX>>`
+Format: `loan repaid <INDEX>`
 
 * The `<INDEX>` cannot contain punctuation.
 
