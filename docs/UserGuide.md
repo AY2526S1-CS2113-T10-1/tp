@@ -62,18 +62,18 @@ FinSight is a CLI-based app for managing finances such as income, expenses, loan
 <br/>
 
 ### List all loans: `list loan`
-Prints the list of all loans onto the terminal with an index starting from 1.
+Prints the list of all loans onto the terminal with an index starting from 1 as well as a total loan amount. If there are no loans, prints total amount of $0.00.
 
 Format: `list loan`
 
 ![loanlist](./diagrams/screenshots/LoanList.png)
 
 ### Add a loan: `add loan`
-Adds a loan to the list. The loan will include a description and the amount borrowed as well as the date and time to return the loaned amount by.
+Adds a loan to the list. The loan will include a description and the amount loaned as well as the date and time to return the loaned amount by.
 
-Format: `add loan d/<DESCRIPTION> a/<AMOUNT_BORROWED> r/<LOAN_RETURN_DATE_AND_TIME>`
+Format: `add loan d/<DESCRIPTION> a/<AMOUNT_LOANED> r/<LOAN_RETURN_DATE_AND_TIME>`
 
-* The `<AMOUNT_BORROWED>` cannot contain punctuation.
+* The `<AMOUNT_LOANED>` cannot contain punctuation other than a single decimal point.
 * The `<LOAN_RETURN_DATE_AND_TIME>` must be of format (dd-MM-yyyy HH:mm).
 
 Example of usage:
@@ -132,10 +132,10 @@ Example of usage:
 ### Edit a loan: `edit loan`
 Edits a loan in the list. The loan will include a description and the amount borrowed as well as the date and time to return the loaned amount by.
 
-Format: `edit loan <INDEX> d/<DESCRIPTION> a/<AMOUNT_BORROWED> r/<LOAN_RETURN_DATE_AND_TIME>`
+Format: `edit loan <INDEX> d/<DESCRIPTION> a/<AMOUNT_LOANED> r/<LOAN_RETURN_DATE_AND_TIME>`
 
 * The `<INDEX>` cannot contain punctuation.
-* The `<AMOUNT_BORROWED>` cannot contain punctuation.
+* The `<AMOUNT_LOANED>` cannot contain punctuation other than a single decimal point.
 * The `<LOAN_RETURN_DATE_AND_TIME>` must be of format (dd-MM-yyyy HH:mm).
 
 Example of usage:
