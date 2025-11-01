@@ -1,20 +1,12 @@
 package finsight.storage;
 
 import finsight.loan.Loan;
-import finsight.loan.exceptions.AddLoanCommandWrongFormatException;
 import finsight.storage.exceptions.AmountPersistCorruptedException;
 import finsight.storage.exceptions.DatePersistCorruptedException;
-import finsight.ui.Ui;
-
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Persists and retrieves {@link Loan} records from a line-oriented text file.

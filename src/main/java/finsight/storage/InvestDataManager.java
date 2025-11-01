@@ -139,7 +139,7 @@ public class InvestDataManager extends DataManager<Investment, Exception> {
         if (rate <= 0) {
             throw new ReturnRatePersistCorruptedException(rateOfReturn);
         }
-        if (day <= 0) {
+        if (day <= 0 || day > 31) {
             throw new DayOfInvestPersistCorruptedException(dayOfInvest);
         }
 
