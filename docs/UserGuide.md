@@ -74,7 +74,7 @@ Adds a loan to the list. The loan will include a description and the amount borr
 
 Format: `add loan d/ <DESCRIPTION> a/ <AMOUNT_BORROWED> r/ <LOAN_RETURN_DATE_AND_TIME>`
 
-* The `<AMOUNT_BORROWED>` cannot contain punctuation.
+* The `<AMOUNT_BORROWED>` cannot contain punctuation and must be a positive value.
 * The `<LOAN_RETURN_DATE_AND_TIME>` must be of format (DD-MM-YYYY HH:mm).
 
 Example of usage:
@@ -136,7 +136,7 @@ Edits a loan in the list. The loan will include a description and the amount bor
 Format: `edit loan <INDEX> d/<DESCRIPTION> a/<AMOUNT_BORROWED> r/<LOAN_RETURN_DATE_AND_TIME>`
 
 * The `<INDEX>` cannot contain punctuation.
-* The `<AMOUNT_BORROWED>` cannot contain punctuation.
+* The `<AMOUNT_BORROWED>` cannot contain punctuation and must be a positive value.
 * The `<LOAN_RETURN_DATE_AND_TIME>` must be of format (dd-MM-yyyy HH:mm).
 
 Example of usage:
@@ -158,6 +158,8 @@ Format: `list expense`
 Adds an expense to the list. The expense will include a description and the amount spent.
 
 Format: `add expense d/<DESCRIPTION> a/<AMOUNT_SPENT>`
+
+- `<AMOUNT_SPENT>` must be a positive value.
 
 Example of usage: `add expense d/food a/5.50`
 
@@ -194,7 +196,7 @@ Adds an income to the list. The income will include a description and the amount
 
 Format: `add income d/<DESCRIPTION> a/<AMOUNT_EARNED>`
 
-* The `<AMOUNT_EARNED>` should be numerical.
+* The `<AMOUNT_EARNED>` should be a positive numerical value.
 
 Example of usage: `add income d/salary a/100`
 
@@ -217,7 +219,7 @@ Edits the income at <INDEX> from the list of income.
 Format: `edit income <INDEX> d/<DESCRIPTION> a/<AMOUNT_EARNED>`
 
 * The `<INDEX>` cannot contain punctuation.
-* The `<AMOUNT_EARNED>` should be numerical.
+* The `<AMOUNT_EARNED>` should be a positive numerical value.
 
 Example of usage: `edit income 1 d/hustle a/50`
 
@@ -236,6 +238,8 @@ Adds an investment to the list. The investment will include a description, the m
 the return rate, and the deposit date.
 
 Format:`add investment d/<DESCRIPTION> a/<AMOUNT_INVESTED_MONTHLY> r/<RETURN_RATE_PER_ANNUM> m/<DEPOSIT_DATE_EACH_MONTH>`
+
+- `<AMOUNT_INVESTED_MONTHLY>`, `<RETURN_RATE_PER_ANNUM>`, and `<DEPOSIT_DATE_EACH_MONTH>` must be a positive numerical value.
 
 Example of usage: `add investment d/moomoo a/1000 r/3 m/21`
 
