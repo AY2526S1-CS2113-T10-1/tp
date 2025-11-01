@@ -1,7 +1,7 @@
 package finsight.loan.exceptions;
 
 /**
- * Exception thrown if loan repaid command used with non-existing index
+ * Exception thrown if loan repaid command used with invalid or non-existing index
  */
 public class LoanRepaidCommandIndexOutOfBoundsException extends Exception {
     @Override
