@@ -483,8 +483,9 @@ public class Parser {
         commandParameters[0] = userInput.substring(userInput.indexOf("d/") + sizeOfSubcommand,
                 userInput.indexOf("a/")).trim();
         commandParameters[1] = userInput.substring(userInput.indexOf("a/") + sizeOfSubcommand).trim();
+        boolean isNegativeNumber = Double.parseDouble(commandParameters[1])<0;
 
-        boolean hasInvalidParameters = commandParameters[0].isEmpty() || commandParameters[1].isEmpty();
+        boolean hasInvalidParameters = commandParameters[0].isEmpty() || commandParameters[1].isEmpty() || isNegativeNumber;
 
         if (hasInvalidParameters) {
             throw new AddIncomeCommandWrongFormatException();
@@ -668,9 +669,10 @@ public class Parser {
         commandParameters[2] = userInput.substring(userInput.indexOf("r/") + sizeOfSubcommand,
                 userInput.indexOf("m/")).trim();
         commandParameters[3] = userInput.substring(userInput.indexOf("m/") + sizeOfSubcommand).trim();
+        boolean isNegativeNumber = Double.parseDouble(commandParameters[1])<0;
 
         boolean hasInvalidParameters = commandParameters[0].isEmpty() || commandParameters[1].isEmpty() ||
-                commandParameters[2].isEmpty() || commandParameters[3].isEmpty();
+                commandParameters[2].isEmpty() || commandParameters[3].isEmpty() || isNegativeNumber;
         if (hasInvalidParameters) {
             throw new AddInvestmentSubcommandException();
         }
