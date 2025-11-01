@@ -106,7 +106,7 @@ public class LoanDataManager extends DataManager<Loan, Exception> {
     @Override
     protected Loan parseRecord(String line) throws AmountPersistCorruptedException, DatePersistCorruptedException {
         String[] parts = line.split(FIELD_DELIMITER, SPLIT_KEEP_EMPTY_FIELDS);
-        if (parts.length != 4) {
+        if (parts.length < 4) {
             return null;
         }
         boolean isRepaid = parts[0].equals("1");
