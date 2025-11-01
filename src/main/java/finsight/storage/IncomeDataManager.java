@@ -2,6 +2,7 @@ package finsight.storage;
 
 import finsight.income.Income;
 import finsight.income.exceptions.AddIncomeCommandWrongFormatException;
+import finsight.storage.exceptions.AmountPersistCorruptedException;
 
 import java.nio.file.Path;
 
@@ -25,8 +26,8 @@ import java.nio.file.Path;
  * @see DataManager
  * @since 15 Oct 2025
  */
-public class IncomeDataManager extends DataManager<Income, AddIncomeCommandWrongFormatException> {
-
+public class IncomeDataManager extends DataManager<Income, Exception> {
+    private static final String INCOME = "income";
     /**
      * Path to the file storing income records.
      */
@@ -84,13 +85,32 @@ public class IncomeDataManager extends DataManager<Income, AddIncomeCommandWrong
      *                                              into a valid {@link Income} object (e.g., invalid numeric format)
      */
     @Override
-    protected Income parseRecord(String line) throws AddIncomeCommandWrongFormatException {
+    protected Income parseRecord(String line)
+            throws AmountPersistCorruptedException, AddIncomeCommandWrongFormatException {
         String[] parts = line.split(FIELD_DELIMITER, SPLIT_KEEP_EMPTY_FIELDS);
         if (parts.length < 2) {
             return null;
         }
+
+        return parseIncome(parts);
+    }
+
+    private Income parseIncome(String[] parts)
+            throws AmountPersistCorruptedException, AddIncomeCommandWrongFormatException {
         String description = unsanitize(parts[0]);
         String incomeAmount = parts[1];
+        float amount;
+
+        try {
+            amount = Float.parseFloat(incomeAmount);
+        } catch (NumberFormatException e) {
+            throw new AmountPersistCorruptedException(incomeAmount, INCOME);
+        }
+
+        if (amount <= 0) {
+            throw new AmountPersistCorruptedException(incomeAmount, INCOME);
+        }
+
         return new Income(description, incomeAmount);
     }
 }
