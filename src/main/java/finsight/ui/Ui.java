@@ -38,12 +38,14 @@ public class Ui {
         System.out.println("Invalid command. Please use one of the following commands:");
         System.out.println("1. list loan");
         System.out.println("2. add loan d/<DESCRIPTION> a/<AMOUNT_LOANED> r/<LOAN_RETURN_DATE_AND_TIME>");
-        System.out.println("   where <LOAN_RETURN_DATE_AND_TIME> is of format 'DD-MM-YYYY HH:mm'");
+        System.out.println("   where <LOAN_RETURN_DATE_AND_TIME> is of format 'DD-MM-YYYY HH:mm' and");
+        System.out.println("   <AMOUNT_LOANED> is an integer or float of at least 1 cent");
         System.out.println("3. delete loan <INDEX>");
         System.out.println("4. loan repaid <INDEX>");
         System.out.println("5. loan not repaid <INDEX>");
         System.out.println("6. edit loan <INDEX> d/<DESCRIPTION> a/<AMOUNT_LOANED> r/<LOAN_RETURN_DATE_AND_TIME>");
-        System.out.println("   where <LOAN_RETURN_DATE_AND_TIME> is of format 'DD-MM-YYYY HH:mm'");
+        System.out.println("   where <LOAN_RETURN_DATE_AND_TIME> is of format 'DD-MM-YYYY HH:mm' and");
+        System.out.println("   <AMOUNT_LOANED> is an integer or float of at least 1 cent");
         System.out.println("7. list expense");
         System.out.println("8. add expense d/<DESCRIPTION> a/<AMOUNT_SPENT>");
         System.out.println("9. delete expense <INDEX>");
