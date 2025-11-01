@@ -8,7 +8,7 @@ participant ":Parser" as Parser LOGIC_COLOR_T2
 participant ":InvestmentList" as InvestmentList LOGIC_COLOR_T3
 participant ":InvestDataManager" as DataManager LOGIC_COLOR_T4
 
-User -> Ui ++: add investment
+User -> Ui ++: delete investment
 
 Ui -> Parser ++: tryCommand(...)
 
@@ -22,7 +22,7 @@ Parser -> InvestmentList ++: deleteInvestment(indexToDelete)
 InvestmentList -> Ui ++: printDeleteInvestmentOutput(ArrayList<Investment>,indexToDelete)
 return
 
-InvestmentList -> InvestmentList ++: remove:investment
+InvestmentList -> InvestmentList ++: removeInvestment
 return
 
 InvestmentList -> DataManager ++: writeToFile(investment)

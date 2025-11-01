@@ -1,0 +1,55 @@
+@startuml
+
+skinparam classAttributeIconSize 0
+
+object FinSight {
+--
++{static}main(args:String[]): void
+}
+object Parser {
+--
++ handleCommand(userInput:String): void
+}
+object "ModelList" as List {
+--
++ listModel():void
++ addModel(model:Model):void
++ deleteModel(model:Model):void
+}
+object Model {
++{static}numberOfModels: int
+--
+}
+object "{abstract}\n<<template>>\nDataManager<T,X>" as DM {
+--
++ tryLoad(): ArrayList<T>
++ writeToFile(List<T>): void
++ appendToFile(T): void
+}
+object "ChildDataManager" as CDM {
+--
+#formatRecord(T): String
+#parseRecord(String): T
+}
+object Ui {
+--
+}
+
+FinSight --> "1   " Parser : > creates
+Parser --> "1  " List
+List *--> "0..*  " Model
+List *--> "0..1    " CDM
+DM <|-- CDM
+CDM ..> Model
+
+Ui <.. FinSight
+Ui <.. Parser
+Ui <.. List
+Ui <.. DM
+
+note right of CDM:ChildDataManager includes:\nLoanDataManager, ExpenseDataManager,\nIncomeDataManager, InvestDataManager
+
+note left of List: ModelList includes:\nLoanList, IncomeList,\nExpenseList, InvestmentList
+
+note left of Model:Model includes: Loan, Expense,\nIncome, Investment
+@enduml

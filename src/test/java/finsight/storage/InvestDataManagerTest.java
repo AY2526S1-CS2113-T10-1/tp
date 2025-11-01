@@ -8,6 +8,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import finsight.investment.Investment;
 import finsight.investment.exceptions.AddInvestmentDateOutOfBoundsException;
 import finsight.investment.exceptions.AddInvestmentWrongNumberFormatException;
+import finsight.storage.exceptions.AmountPersistCorruptedException;
+import finsight.storage.exceptions.DayOfInvestPersistCorruptedException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
@@ -81,7 +83,8 @@ final class InvestDataManagerTest {
      */
     @Test
     void parseRecord_parsesWellFormedLine()
-            throws AddInvestmentWrongNumberFormatException, AddInvestmentDateOutOfBoundsException {
+            throws AddInvestmentWrongNumberFormatException, AddInvestmentDateOutOfBoundsException,
+            AmountPersistCorruptedException, DayOfInvestPersistCorruptedException {
         String record = "Crypto%7CFund|2000.75|1.0|10";
         Investment investment = dataManager.parseRecord(record);
 
@@ -107,12 +110,12 @@ final class InvestDataManagerTest {
 
     /**
      * Ensures {@link InvestDataManager#parseRecord(String)} throws an
-     * {@link AddInvestmentWrongNumberFormatException} if numeric fields are invalid.
+     * {@link AmountPersistCorruptedException} if numeric fields are invalid.
      */
     @Test
     void parseRecord_invalidNumberFormat_throwsException() {
         String invalidNumber = "Desc|notANumber|1.0|5";
-        assertThrows(AddInvestmentWrongNumberFormatException.class,
+        assertThrows(AmountPersistCorruptedException.class,
                 () -> dataManager.parseRecord(invalidNumber));
     }
 
@@ -123,7 +126,7 @@ final class InvestDataManagerTest {
     @Test
     void parseRecord_outOfBoundsDate_throwsException() {
         String invalidDate = "Desc|1000.00|1.0|45";
-        assertThrows(AddInvestmentDateOutOfBoundsException.class,
+        assertThrows(DayOfInvestPersistCorruptedException.class,
                 () -> dataManager.parseRecord(invalidDate));
     }
 

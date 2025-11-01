@@ -11,7 +11,7 @@ participant ":Income" as Income LOGIC_COLOR_T4
 User -> Ui ++: edit income
 Ui -> Parser ++: tryCommand(...)
 Parser -> Parser ++: handleCommand(...)
-Parser -> Parser ++: parseEditLoanCommand(...)
+Parser -> Parser ++: parseEditIncomeCommand(...)
 return commandParameters : String[]
 
 Parser -> IncomeList ++: editIncome(commandParameters[])
