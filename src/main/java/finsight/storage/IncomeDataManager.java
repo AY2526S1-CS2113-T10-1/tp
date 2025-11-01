@@ -83,6 +83,7 @@ public class IncomeDataManager extends DataManager<Income, Exception> {
      * @return a parsed {@link Income} record, or {@code null} if the line is malformed
      * @throws AddIncomeCommandWrongFormatException if the content cannot be converted
      *                                              into a valid {@link Income} object (e.g., invalid numeric format)
+     * @throws AmountPersistCorruptedException if the amount field is not numeric or ≤ 0
      */
     @Override
     protected Income parseRecord(String line)
@@ -95,6 +96,36 @@ public class IncomeDataManager extends DataManager<Income, Exception> {
         return parseIncome(parts);
     }
 
+    /**
+     * Parses a serialized income record into an {@link Income} object.
+     *
+     * <p>This method reconstructs an income entry from a tokenized data line read
+     * from persistent storage. It extracts the description and amount fields,
+     * validates the numeric correctness and positivity of the amount, and returns
+     * a corresponding {@code Income} instance.</p>
+     *
+     * <p>Specifically:
+     * <ul>
+     *   <li>The first element ({@code parts[0]}) represents the income description
+     *       and is decoded using {@link #unsanitize(String)} to restore original
+     *       special characters.</li>
+     *   <li>The second element ({@code parts[1]}) represents the income amount and
+     *       is parsed as a {@code float}.</li>
+     *   <li>If the amount is non-numeric or non-positive, an
+     *       {@link finsight.storage.exceptions.AmountPersistCorruptedException}
+     *       is thrown to indicate corrupted persisted data.</li>
+     *   <li>If any field does not conform to expected input constraints, an
+     *       {@link finsight.income.exceptions.AddIncomeCommandWrongFormatException}
+     *       may be thrown during {@link Income} construction.</li>
+     * </ul>
+     *
+     * @param parts the tokenized fields of a serialized income record,
+     *              expected to contain the description and amount in that order
+     * @return a valid {@link Income} object parsed from the provided fields
+     * @throws AmountPersistCorruptedException if the amount is not numeric or ≤ 0
+     * @throws AddIncomeCommandWrongFormatException if the reconstructed record
+     *                                              fails domain-level validation
+     */
     private Income parseIncome(String[] parts)
             throws AmountPersistCorruptedException, AddIncomeCommandWrongFormatException {
         String description = unsanitize(parts[0]);

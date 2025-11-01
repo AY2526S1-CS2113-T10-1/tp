@@ -91,6 +91,9 @@ public class InvestDataManager extends DataManager<Investment, Exception> {
      * @return a parsed {@link Investment} instance, or {@code null} if malformed
      * @throws AddInvestmentWrongNumberFormatException if the amount field cannot be parsed as a valid number
      * @throws AddInvestmentDateOutOfBoundsException   if the day of month is not within valid bounds (1–31)
+     * @throws AmountPersistCorruptedException         if amount field is not numeric or less than 0
+     * @throws DayOfInvestPersistCorruptedException    if field is not within valid bounds (1-31)
+     * @throws ReturnRatePersistCorruptedException     if field is not numeric or less than 0
      */
     @Override
     protected Investment parseRecord(String line)
@@ -104,6 +107,39 @@ public class InvestDataManager extends DataManager<Investment, Exception> {
         return parseInvestment(parts);
     }
 
+    /**
+     * Parses a serialized investment record into an {@link Investment} object.
+     *
+     * <p>This method reconstructs an investment entry from a tokenized line read
+     * from persistent storage. It extracts and validates each field to ensure that
+     * the investment data is numerically valid and within logical bounds before
+     * creating an {@code Investment} instance.</p>
+     *
+     * <p>Specifically:
+     * <ul>
+     *   <li>The first element ({@code parts[0]}) represents the investment description
+     *       and is restored using {@link #unsanitize(String)} to recover any encoded
+     *       delimiters.</li>
+     *   <li>The second element ({@code parts[1]}) represents the investment amount,
+     *       parsed as a {@code double} and validated to be positive.</li>
+     *   <li>The third element ({@code parts[2]}) represents the rate of return,
+     *       parsed as a {@code double} and validated to be positive.</li>
+     *   <li>The fourth element ({@code parts[3]}) represents the day of investment,
+     *       parsed as an {@code int} and validated to be within the range {@code 1–31}.</li>
+     *   <li>If any field is non-numeric, negative, zero, or out of bounds, a corresponding
+     *       persistence-related exception is thrown to signal corrupted stored data.</li>
+     * </ul>
+     *
+     * @param parts the tokenized fields of a serialized investment record, expected to contain
+     *              description, amount, rate of return, and day of investment in order
+     * @return a valid {@link Investment} object constructed from the provided fields
+     * @throws AmountPersistCorruptedException         if the investment amount is not numeric or ≤ 0
+     * @throws ReturnRatePersistCorruptedException     if the rate of return is not numeric or ≤ 0
+     * @throws DayOfInvestPersistCorruptedException    if the day of investment is non-numeric or out of range
+     *                                                 (≤ 0 or > 31)
+     * @throws AddInvestmentWrongNumberFormatException if the reconstructed record violates format constraints
+     * @throws AddInvestmentDateOutOfBoundsException   if the reconstructed record specifies an invalid date bound
+     */
     private Investment parseInvestment(String[] parts)
             throws AmountPersistCorruptedException, DayOfInvestPersistCorruptedException,
             AddInvestmentDateOutOfBoundsException, AddInvestmentWrongNumberFormatException,

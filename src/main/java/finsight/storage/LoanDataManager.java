@@ -94,6 +94,8 @@ public class LoanDataManager extends DataManager<Loan, Exception> {
      *
      * @param line serialized line from the data file
      * @return parsed {@link Loan}, or {@code null} if the line is malformed
+     * @throws AmountPersistCorruptedException if the amount is not numeric or ≤ 0
+     * @throws DatePersistCorruptedException if the due date cannot be parsed using the expected format
      */
     @Override
     protected Loan parseRecord(String line) throws AmountPersistCorruptedException, DatePersistCorruptedException {
@@ -109,6 +111,34 @@ public class LoanDataManager extends DataManager<Loan, Exception> {
         return loan;
     }
 
+    /**
+     * Parses a serialized loan record into a {@link Loan} object.
+     *
+     * <p>This method reconstructs a loan entry from its serialized string fields
+     * obtained from persistent storage. It performs field extraction, type parsing,
+     * and validation to ensure the loan data is numerically and temporally valid
+     * before constructing a {@code Loan} instance.</p>
+     *
+     * <p>Specifically:
+     * <ul>
+     *   <li>The second element ({@code parts[1]}) represents the loan description
+     *       and is decoded via {@link #unsanitize(String)} to restore original characters.</li>
+     *   <li>The third element ({@code parts[2]}) represents the loan amount, which
+     *       is parsed as a {@code double} and validated to be positive.</li>
+     *   <li>The fourth element ({@code parts[3]}) represents the due date/time,
+     *       which is parsed using {@link #FORMATTER} to ensure it matches the
+     *       expected {@code dd-MM-yyyy HH:mm} format.</li>
+     *   <li>If any parsing or validation fails, an appropriate persistence-related
+     *       exception is thrown to indicate corrupted stored data.</li>
+     * </ul>
+     *
+     * @param parts the tokenized fields of a serialized loan record, expected to contain
+     *              a repaid flag, description, amount, and due date in that order
+     * @return a valid {@link Loan} object created from the provided fields
+     *
+     * @throws AmountPersistCorruptedException if the amount is not numeric or ≤ 0
+     * @throws DatePersistCorruptedException if the due date cannot be parsed using the expected format
+     */
     private Loan parseLoan(String[] parts) throws AmountPersistCorruptedException, DatePersistCorruptedException {
         String description = unsanitize(parts[1]);
         String loanAmount = parts[2];

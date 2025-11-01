@@ -90,6 +90,27 @@ public class ExpenseDataManager extends DataManager<Expense, Exception> {
         return parseExpense(parts);
     }
 
+    /**
+     * Parses a serialized expense record into an {@link Expense} object.
+     *
+     * <p>This method extracts the description and amount fields from the given
+     * array of string parts, performs numeric validation, and constructs an
+     * {@code Expense} instance if the data is valid.</p>
+     *
+     * <p>Specifically:
+     * <ul>
+     *   <li>The first element ({@code parts[0]}) is unsanitized and treated as the expense description.</li>
+     *   <li>The second element ({@code parts[1]}) is parsed as a {@code double} amount.</li>
+     *   <li>If the amount is non-numeric or non-positive, an
+     *       {@link finsight.storage.exceptions.AmountPersistCorruptedException}
+     *       is thrown to indicate corrupted persisted data.</li>
+     * </ul>
+     *
+     * @param parts the tokenized fields of a serialized expense line, expected to contain
+     *              the description and amount in that order
+     * @return a valid {@link Expense} object created from the given parts
+     * @throws AmountPersistCorruptedException if the amount field is not numeric or ≤ 0
+     */
     private Expense parseExpense(String[] parts) throws AmountPersistCorruptedException {
         String description = unsanitize(parts[0]);
         String expenseAmount = parts[1];

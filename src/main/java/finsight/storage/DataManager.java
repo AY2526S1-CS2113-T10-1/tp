@@ -70,14 +70,25 @@ public abstract class DataManager<T, X extends Exception> {
     protected abstract String formatRecord(T record);
 
     /**
-     * Loads and parses all records from the data file into a list.
-     * Automatically skips empty lines and ensures that the file exists.
+     * Loads all records from the data file in a fault-tolerant manner.
      *
-     * @return a list of parsed records
-     * @throws IOException if an I/O error occurs while reading the file
-     * @throws X           if parsing any record fails
+     * <p>This method reads every line from the data file, parses each into its corresponding
+     * record object using {@link #parseRecord(String)}, and collects all successfully parsed
+     * records into a list. It handles corrupted or malformed entries gracefully by:
+     * <ul>
+     *   <li>Skipping blank or empty lines,</li>
+     *   <li>Printing malformed records (e.g., missing fields), and</li>
+     *   <li>Printing corrupted records that throw exceptions during parsing.</li>
+     * </ul>
+     *
+     * <p>Each skipped line is reported via {@link finsight.ui.Ui#printErrorMessage(String)}
+     * with its line number and content to assist in identifying data issues. This ensures that
+     * the load process continues for valid records instead of terminating prematurely.</p>
+     *
+     * @return a list containing all successfully parsed records; possibly empty if none are valid
+     * @throws IOException if an I/O error occurs while accessing the data file
      */
-    private ArrayList<T> load() throws IOException, X {
+    private ArrayList<T> load() throws IOException {
         ensureFileExist();
         List<String> lines = Files.readAllLines(dataFilePath(), StandardCharsets.UTF_8);
         ArrayList<T> records = new ArrayList<>(lines.size());
