@@ -181,6 +181,16 @@ public class Ui {
         System.out.println("Total loaned: $" + String.format("%.2f", totalLoaned));
         System.out.print(SPACING);
     }
+
+    /**
+     * Prints a reminder if loan to add / to be edited into already exists in the list
+     *
+     * @param description Description of the loan to add / to be edited into
+     */
+    public static void printLoanAlreadyInListReminder(String description) {
+        System.out.print(SPACING);
+        System.out.println("Reminder: \"" + description + "\" is already in the list.");
+    }
     // @@author
 
     /**

@@ -311,6 +311,21 @@ public class Parser {
     //@@ author Emannuel-Tan
 
     /**
+     * Checks if the loan description already exists in LoanList
+     * If found, output a reminder
+     * If not found, no additional output
+     * @param description Description of the loan to add / to be edited into
+     */
+    public void checkIfLoanAlreadyInList(String description) {
+        for (int i = 0; i < Loan.numberOfLoans; i++) {
+            if (loanList.getLoans().get(i).getDescription().equals(description)) {
+                Ui.printLoanAlreadyInListReminder(description);
+                break;
+            }
+        }
+    }
+
+    /**
      * Returns the index to delete if index exists,
      * else throws exception
      *
@@ -389,6 +404,7 @@ public class Parser {
             throw new AddLoanCommandWrongFormatException();
         }
 
+        checkIfLoanAlreadyInList(commandParameters[0]);
         LocalDateTime currentTime = LocalDateTime.now();
         LocalDateTime loanReturnDate;
         double amountLoaned;
@@ -477,6 +493,7 @@ public class Parser {
             throw new EditLoanCommandWrongFormatException();
         }
 
+        checkIfLoanAlreadyInList(commandParameters[1]);
         LocalDateTime currentTime = LocalDateTime.now();
         LocalDateTime loanReturnDate;
         double amountLoaned;

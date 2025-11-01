@@ -18,9 +18,11 @@ import finsight.investment.Investment;
 import finsight.investment.investmentlist.InvestmentList;
 
 import finsight.loan.Loan;
+import finsight.loan.exceptions.AddLoanCommandInvalidAmountException;
 import finsight.loan.exceptions.AddLoanCommandWrongFormatException;
 import finsight.loan.exceptions.DeleteLoanCommandIndexOutOfBoundsException;
 import finsight.loan.exceptions.EditLoanCommandIndexOutOfBoundsException;
+import finsight.loan.exceptions.EditLoanCommandInvalidAmountException;
 import finsight.loan.exceptions.EditLoanCommandWrongFormatException;
 import finsight.loan.exceptions.LoanRepaidCommandIndexOutOfBoundsException;
 import finsight.loan.exceptions.LoanNotRepaidCommandIndexOutOfBoundsException;
@@ -70,7 +72,7 @@ public class ParserTest {
     // @@author Emannuel-Tan
     @Test
     void parseAddLoanCommand_aSubcommandBeforeDSubcommand_exceptionThrown() {
-        String inputTestString = "add loan a/ 1000 d/ loan r/ 10-10-2026 19:00";
+        String inputTestString = "add loan a/ 1000 d/ loan r/ 10-10-2126 19:00";
 
         assertThrows(AddLoanCommandWrongFormatException.class,
                 () -> parser.parseAddLoanCommand(inputTestString));
@@ -78,7 +80,7 @@ public class ParserTest {
 
     @Test
     void parseAddLoanCommand_rSubcommandBeforeASubcommand_exceptionThrown() {
-        String inputTestString = "add loan r/ 10-10-2026 19:00 d/ loan a/ 1000";
+        String inputTestString = "add loan r/ 10-10-2126 19:00 d/ loan a/ 1000";
 
         assertThrows(AddLoanCommandWrongFormatException.class,
                 () -> parser.parseAddLoanCommand(inputTestString));
@@ -86,7 +88,7 @@ public class ParserTest {
 
     @Test
     void parseAddLoanCommand_rSubcommandBeforeDSubcommand_exceptionThrown() {
-        String inputTestString = "add loan r/ 10-10-2026 19:00 d/ loan a/1000";
+        String inputTestString = "add loan r/ 10-10-2126 19:00 d/ loan a/1000";
 
         assertThrows(AddLoanCommandWrongFormatException.class,
                 () -> parser.parseAddLoanCommand(inputTestString));
@@ -94,7 +96,7 @@ public class ParserTest {
 
     @Test
     void parseAddLoanCommand_missingDescription_exceptionThrown() {
-        String inputTestString = "add loan d/ a/ 1000 r/ 10-10-2026 19:00";
+        String inputTestString = "add loan d/ a/ 1000 r/ 10-10-2126 19:00";
 
         assertThrows(AddLoanCommandWrongFormatException.class,
                 () -> parser.parseAddLoanCommand(inputTestString));
@@ -102,7 +104,7 @@ public class ParserTest {
 
     @Test
     void parseAddLoanCommand_missingAmount_exceptionThrown() {
-        String inputTestString = "add loan d/ loan a/ r/ 10-10-2026 19:00";
+        String inputTestString = "add loan d/ loan a/ r/ 10-10-2126 19:00";
 
         assertThrows(AddLoanCommandWrongFormatException.class,
                 () -> parser.parseAddLoanCommand(inputTestString));
@@ -118,7 +120,7 @@ public class ParserTest {
 
     @Test
     void parseAddLoanCommand_missingASubcommand_exceptionThrown() {
-        String inputTestString = "add loan d/ loan 1000 r/ 10-10-2026 19:00";
+        String inputTestString = "add loan d/ loan 1000 r/ 10-10-2126 19:00";
 
         assertThrows(AddLoanCommandWrongFormatException.class,
                 () -> parser.parseAddLoanCommand(inputTestString));
@@ -126,7 +128,7 @@ public class ParserTest {
 
     @Test
     void parseAddLoanCommand_missingDSubcommand_exceptionThrown() {
-        String inputTestString = "add loan loan a/ 1000 r/ 10-10-2026 19:00";
+        String inputTestString = "add loan loan a/ 1000 r/ 10-10-2126 19:00";
 
         assertThrows(AddLoanCommandWrongFormatException.class,
                 () -> parser.parseAddLoanCommand(inputTestString));
@@ -134,7 +136,7 @@ public class ParserTest {
 
     @Test
     void parseAddLoanCommand_missingRSubcommand_exceptionThrown() {
-        String inputTestString = "add loan d/ loan a/ 1000 10-10-2026 19:00";
+        String inputTestString = "add loan d/ loan a/ 1000 10-10-2126 19:00";
 
         assertThrows(AddLoanCommandWrongFormatException.class,
                 () -> parser.parseAddLoanCommand(inputTestString));
@@ -142,7 +144,7 @@ public class ParserTest {
 
     @Test
     void parseAddLoanCommand_dateWrongFormat_exceptionThrown() {
-        String inputTestString = "add loan d/ loan a/ 1000 r/ 10-10-2026";
+        String inputTestString = "add loan d/ loan a/ 1000 r/ 10-10-2126";
 
         assertThrows(AddLoanCommandWrongFormatException.class,
                 () -> parser.parseAddLoanCommand(inputTestString));
@@ -150,15 +152,35 @@ public class ParserTest {
 
     @Test
     void parseAddLoanCommand_amountContainsAlphabets_exceptionThrown() {
-        String inputTestString = "add loan d/ loan a/ a r/ 10-10-2026 19:00";
+        String inputTestString = "add loan d/ loan a/ a r/ 10-10-2126 19:00";
 
         assertThrows(AddLoanCommandWrongFormatException.class,
                 () -> parser.parseAddLoanCommand(inputTestString));
     }
 
+    /**
+     * Tests if add loan command is used with
+     * 1. amount > 0 and < 0.01
+     * 2. amount = 0
+     * 3. amount < 0
+     */
+    @Test
+    void parseAddLoanCommand_amountLesserThanOneCent_exceptionThrown() {
+        String inputTestStringSmallAmount = "add loan d/loan a/0.001 r/10-10-2126 19:00";
+        String inputTestStringZeroAmount = "add loan d/loan a/0 r/10-10-2126 19:00";
+        String inputTestStringNegativeAmount = "add loan d/loan a/-1 r/10-10-2126 19:00";
+
+        assertThrows(AddLoanCommandInvalidAmountException.class,
+                () -> parser.parseAddLoanCommand(inputTestStringSmallAmount));
+        assertThrows(AddLoanCommandInvalidAmountException.class,
+                () -> parser.parseAddLoanCommand(inputTestStringZeroAmount));
+        assertThrows(AddLoanCommandInvalidAmountException.class,
+                () -> parser.parseAddLoanCommand(inputTestStringNegativeAmount));
+    }
+
     @Test
     void parseAddLoanCommand_correctInputs_noExceptionThrown() {
-        String inputTestString = "add loan d/ loan a/ 1000 r/ 10-10-2026 19:00";
+        String inputTestString = "add loan d/ loan a/ 1000 r/ 10-10-2126 19:00";
 
         assertDoesNotThrow(() -> parser.parseAddLoanCommand(inputTestString));
     }
@@ -182,7 +204,7 @@ public class ParserTest {
     @Test
     void parseDeleteLoanCommand_indexGreaterThanAmountOfLoans_exceptionThrown()
             throws AddLoanCommandWrongFormatException, IOException {
-        loanList.addLoan(new Loan("1", "1000", "12-12-2025 19:00"));
+        loanList.addLoan(new Loan("1", "1000", "12-12-2126 19:00"));
         String inputTestString = "delete loan 2";
 
         assertThrows(DeleteLoanCommandIndexOutOfBoundsException.class,
@@ -192,7 +214,7 @@ public class ParserTest {
     @Test
     void parseDeleteLoanCommand_correctIndex_noExceptionThrown()
             throws AddLoanCommandWrongFormatException, IOException {
-        loanList.addLoan(new Loan("1", "1000", "12-12-2025 19:00"));
+        loanList.addLoan(new Loan("1", "1000", "12-12-2126 19:00"));
         String inputTestString = "delete loan 1";
 
         assertDoesNotThrow(() -> parser.parseDeleteLoanCommand(inputTestString));
@@ -249,7 +271,7 @@ public class ParserTest {
     @Test
     void parseLoanRepaidCommand_indexGreaterThanAmountOfLoans_exceptionThrown()
             throws AddLoanCommandWrongFormatException, IOException {
-        loanList.addLoan(new Loan("1", "1000", "12-12-2025 19:00"));
+        loanList.addLoan(new Loan("1", "1000", "12-12-2126 19:00"));
         String inputTestString = "loan repaid 2";
 
         assertThrows(LoanRepaidCommandIndexOutOfBoundsException.class,
@@ -259,7 +281,7 @@ public class ParserTest {
     @Test
     void parseLoanRepaidCommand_correctIndex_noExceptionThrown()
             throws AddLoanCommandWrongFormatException, IOException {
-        loanList.addLoan(new Loan("1", "1000", "12-12-2025 19:00"));
+        loanList.addLoan(new Loan("1", "1000", "12-12-2126 19:00"));
         String inputTestString = "loan repaid 1";
 
         assertDoesNotThrow(() -> parser.parseLoanRepaidCommand(inputTestString));
@@ -300,7 +322,7 @@ public class ParserTest {
     @Test
     void parseLoanNotRepaidCommand_indexGreaterThanAmountOfLoans_exceptionThrown()
             throws AddLoanCommandWrongFormatException, IOException {
-        loanList.addLoan(new Loan("1", "1000", "12-12-2025 19:00"));
+        loanList.addLoan(new Loan("1", "1000", "12-12-2126 19:00"));
         String inputTestString = "loan not repaid 2";
 
         assertThrows(LoanNotRepaidCommandIndexOutOfBoundsException.class,
@@ -310,7 +332,7 @@ public class ParserTest {
     @Test
     void parseLoanNotRepaidCommand_correctIndex_noExceptionThrown()
             throws AddLoanCommandWrongFormatException, IOException {
-        loanList.addLoan(new Loan("1", "1000", "12-12-2025 19:00"));
+        loanList.addLoan(new Loan("1", "1000", "12-12-2126 19:00"));
         String inputTestString = "loan not repaid 1";
 
         assertDoesNotThrow(() -> parser.parseLoanNotRepaidCommand(inputTestString));
@@ -318,8 +340,8 @@ public class ParserTest {
 
     @Test
     void parseEditLoanCommand_indexContainsAlphabets_exceptionThrown() throws IOException {
-        loanList.addLoan(new Loan("1", "1000", "12-12-2025 18:00"));
-        String inputTestString = "edit loan a d/ loan a/ 1000 r/ 10-10-2026 19:00";
+        loanList.addLoan(new Loan("1", "1000", "12-12-2126 18:00"));
+        String inputTestString = "edit loan a d/ loan a/ 1000 r/ 10-10-2126 19:00";
 
         assertThrows(EditLoanCommandIndexOutOfBoundsException.class,
                 () -> parser.parseEditLoanCommand(inputTestString));
@@ -327,8 +349,8 @@ public class ParserTest {
 
     @Test
     void parseEditLoanCommand_zeroIndex_exceptionThrown() throws IOException {
-        loanList.addLoan(new Loan("1", "1000", "12-12-2025 18:00"));
-        String inputTestString = "edit loan 0 d/ loan a/ 1000 r/ 10-10-2026 19:00";
+        loanList.addLoan(new Loan("1", "1000", "12-12-2126 18:00"));
+        String inputTestString = "edit loan 0 d/ loan a/ 1000 r/ 10-10-2126 19:00";
 
         assertThrows(EditLoanCommandIndexOutOfBoundsException.class,
                 () -> parser.parseEditLoanCommand(inputTestString));
@@ -336,8 +358,8 @@ public class ParserTest {
 
     @Test
     void parseEditLoanCommand_negativeIndex_exceptionThrown() throws IOException {
-        loanList.addLoan(new Loan("1", "1000", "12-12-2025 18:00"));
-        String inputTestString = "edit loan -1 d/ loan a/ 1000 r/ 10-10-2026 19:00";
+        loanList.addLoan(new Loan("1", "1000", "12-12-2126 18:00"));
+        String inputTestString = "edit loan -1 d/ loan a/ 1000 r/ 10-10-2126 19:00";
 
         assertThrows(EditLoanCommandIndexOutOfBoundsException.class,
                 () -> parser.parseEditLoanCommand(inputTestString));
@@ -345,8 +367,8 @@ public class ParserTest {
 
     @Test
     void parseEditLoanCommand_indexGreaterThanAmountOfLoans_exceptionThrown() throws IOException {
-        loanList.addLoan(new Loan("1", "1000", "12-12-2025 19:00"));
-        String inputTestString = "edit loan 2 d/ loan a/ 1000 r/ 10-10-2026 19:00";
+        loanList.addLoan(new Loan("1", "1000", "12-12-2126 19:00"));
+        String inputTestString = "edit loan 2 d/ loan a/ 1000 r/ 10-10-2126 19:00";
 
         assertThrows(EditLoanCommandIndexOutOfBoundsException.class,
                 () -> parser.parseEditLoanCommand(inputTestString));
@@ -354,8 +376,8 @@ public class ParserTest {
 
     @Test
     void parseEditLoanCommand_missingIndex_exceptionThrown() throws IOException {
-        loanList.addLoan(new Loan("1", "1000", "12-12-2025 18:00"));
-        String inputTestString = "edit loan d/ loan a/ 1000 r/ 10-10-2026 19:00";
+        loanList.addLoan(new Loan("1", "1000", "12-12-2126 18:00"));
+        String inputTestString = "edit loan d/ loan a/ 1000 r/ 10-10-2126 19:00";
 
         assertThrows(EditLoanCommandIndexOutOfBoundsException.class,
                 () -> parser.parseEditLoanCommand(inputTestString));
@@ -363,8 +385,8 @@ public class ParserTest {
 
     @Test
     void parseEditLoanCommand_aSubcommandBeforeDSubcommand_exceptionThrown() throws IOException {
-        loanList.addLoan(new Loan("1", "1000", "12-12-2025 18:00"));
-        String inputTestString = "edit loan 1 a/ 1000 d/ loan r/ 10-10-2026 19:00";
+        loanList.addLoan(new Loan("1", "1000", "12-12-2126 18:00"));
+        String inputTestString = "edit loan 1 a/ 1000 d/ loan r/ 10-10-2126 19:00";
 
         assertThrows(EditLoanCommandWrongFormatException.class,
                 () -> parser.parseEditLoanCommand(inputTestString));
@@ -372,8 +394,8 @@ public class ParserTest {
 
     @Test
     void parseEditLoanCommand_rSubcommandBeforeASubcommand_exceptionThrown() throws IOException {
-        loanList.addLoan(new Loan("1", "1000", "12-12-2025 18:00"));
-        String inputTestString = "edit loan 1 r/ 10-10-2026 19:00 d/ loan a/ 1000";
+        loanList.addLoan(new Loan("1", "1000", "12-12-2126 18:00"));
+        String inputTestString = "edit loan 1 r/ 10-10-2126 19:00 d/ loan a/ 1000";
 
         assertThrows(EditLoanCommandWrongFormatException.class,
                 () -> parser.parseEditLoanCommand(inputTestString));
@@ -381,8 +403,8 @@ public class ParserTest {
 
     @Test
     void parseEditLoanCommand_rSubcommandBeforeDSubcommand_exceptionThrown() throws IOException {
-        loanList.addLoan(new Loan("1", "1000", "12-12-2025 18:00"));
-        String inputTestString = "edit loan 1 r/ 10-10-2026 19:00 d/ loan a/1000";
+        loanList.addLoan(new Loan("1", "1000", "12-12-2126 18:00"));
+        String inputTestString = "edit loan 1 r/ 10-10-2126 19:00 d/ loan a/1000";
 
         assertThrows(EditLoanCommandWrongFormatException.class,
                 () -> parser.parseEditLoanCommand(inputTestString));
@@ -390,8 +412,8 @@ public class ParserTest {
 
     @Test
     void parseEditLoanCommand_missingDescription_exceptionThrown() throws IOException {
-        loanList.addLoan(new Loan("1", "1000", "12-12-2025 18:00"));
-        String inputTestString = "edit loan 1 d/ a/ 1000 r/ 10-10-2026 19:00";
+        loanList.addLoan(new Loan("1", "1000", "12-12-2126 18:00"));
+        String inputTestString = "edit loan 1 d/ a/ 1000 r/ 10-10-2126 19:00";
 
         assertThrows(EditLoanCommandWrongFormatException.class,
                 () -> parser.parseEditLoanCommand(inputTestString));
@@ -399,8 +421,8 @@ public class ParserTest {
 
     @Test
     void parseEditLoanCommand_missingAmount_exceptionThrown() throws IOException {
-        loanList.addLoan(new Loan("1", "1000", "12-12-2025 18:00"));
-        String inputTestString = "edit loan 1 d/ loan a/ r/ 10-10-2026 19:00";
+        loanList.addLoan(new Loan("1", "1000", "12-12-2126 18:00"));
+        String inputTestString = "edit loan 1 d/ loan a/ r/ 10-10-2126 19:00";
 
         assertThrows(EditLoanCommandWrongFormatException.class,
                 () -> parser.parseEditLoanCommand(inputTestString));
@@ -408,7 +430,7 @@ public class ParserTest {
 
     @Test
     void parseEditLoanCommand_missingDateTime_exceptionThrown() throws IOException {
-        loanList.addLoan(new Loan("1", "1000", "12-12-2025 18:00"));
+        loanList.addLoan(new Loan("1", "1000", "12-12-2126 18:00"));
         String inputTestString = "edit loan 1 d/ loan a/ 1000 r/";
 
         assertThrows(EditLoanCommandWrongFormatException.class,
@@ -417,8 +439,8 @@ public class ParserTest {
 
     @Test
     void parseEditLoanCommand_missingASubcommand_exceptionThrown() throws IOException {
-        loanList.addLoan(new Loan("1", "1000", "12-12-2025 18:00"));
-        String inputTestString = "edit loan 1 d/ loan 1000 r/ 10-10-2026 19:00";
+        loanList.addLoan(new Loan("1", "1000", "12-12-2126 18:00"));
+        String inputTestString = "edit loan 1 d/ loan 1000 r/ 10-10-2126 19:00";
 
         assertThrows(EditLoanCommandWrongFormatException.class,
                 () -> parser.parseEditLoanCommand(inputTestString));
@@ -426,8 +448,8 @@ public class ParserTest {
 
     @Test
     void parseEditLoanCommand_missingDSubcommand_exceptionThrown() throws IOException {
-        loanList.addLoan(new Loan("1", "1000", "12-12-2025 18:00"));
-        String inputTestString = "edit loan 1 loan a/ 1000 r/ 10-10-2026 19:00";
+        loanList.addLoan(new Loan("1", "1000", "12-12-2126 18:00"));
+        String inputTestString = "edit loan 1 loan a/ 1000 r/ 10-10-2126 19:00";
 
         assertThrows(EditLoanCommandWrongFormatException.class,
                 () -> parser.parseEditLoanCommand(inputTestString));
@@ -435,8 +457,8 @@ public class ParserTest {
 
     @Test
     void parseEditLoanCommand_missingRSubcommand_exceptionThrown() throws IOException {
-        loanList.addLoan(new Loan("1", "1000", "12-12-2025 18:00"));
-        String inputTestString = "edit loan 1 d/ loan a/ 1000 10-10-2026 19:00";
+        loanList.addLoan(new Loan("1", "1000", "12-12-2126 18:00"));
+        String inputTestString = "edit loan 1 d/ loan a/ 1000 10-10-2126 19:00";
 
         assertThrows(EditLoanCommandWrongFormatException.class,
                 () -> parser.parseEditLoanCommand(inputTestString));
@@ -444,8 +466,8 @@ public class ParserTest {
 
     @Test
     void parseEditLoanCommand_dateWrongFormat_exceptionThrown() throws IOException {
-        loanList.addLoan(new Loan("1", "1000", "12-12-2025 18:00"));
-        String inputTestString = "edit loan 1 d/ loan a/ 1000 r/ 10-10-2026";
+        loanList.addLoan(new Loan("1", "1000", "12-12-2126 18:00"));
+        String inputTestString = "edit loan 1 d/ loan a/ 1000 r/ 10-10-2126";
 
         assertThrows(EditLoanCommandWrongFormatException.class,
                 () -> parser.parseEditLoanCommand(inputTestString));
@@ -453,17 +475,38 @@ public class ParserTest {
 
     @Test
     void parseEditLoanCommand_amountContainsAlphabets_exceptionThrown() throws IOException {
-        loanList.addLoan(new Loan("1", "1000", "12-12-2025 18:00"));
-        String inputTestString = "edit loan 1 d/ loan a/ a r/ 10-10-2026 19:00";
+        loanList.addLoan(new Loan("1", "1000", "12-12-2126 18:00"));
+        String inputTestString = "edit loan 1 d/ loan a/ a r/ 10-10-2126 19:00";
 
         assertThrows(EditLoanCommandWrongFormatException.class,
                 () -> parser.parseEditLoanCommand(inputTestString));
     }
 
+    /**
+     * Tests if edit loan command is used with
+     * 1. amount > 0 and < 0.01
+     * 2. amount = 0
+     * 3. amount < 0
+     */
+    @Test
+    void parseEditLoanCommand_amountLesserThanOneCent_exceptionThrown() throws IOException {
+        loanList.addLoan(new Loan("1", "1000", "12-12-2126 18:00"));
+        String inputTestStringSmallAmount = "edit loan 1 d/loan a/0.001 r/10-10-2126 19:00";
+        String inputTestStringZeroAmount = "edit loan 1 d/loan a/0 r/10-10-2126 19:00";
+        String inputTestStringNegativeAmount = "edit loan 1 d/loan a/-1 r/10-10-2126 19:00";
+
+        assertThrows(EditLoanCommandInvalidAmountException.class,
+                () -> parser.parseEditLoanCommand(inputTestStringSmallAmount));
+        assertThrows(EditLoanCommandInvalidAmountException.class,
+                () -> parser.parseEditLoanCommand(inputTestStringZeroAmount));
+        assertThrows(EditLoanCommandInvalidAmountException.class,
+                () -> parser.parseEditLoanCommand(inputTestStringNegativeAmount));
+    }
+
     @Test
     void parseEditLoanCommand_correctInputs_noExceptionThrown() throws IOException {
-        loanList.addLoan(new Loan("1", "1000", "12-12-2025 18:00"));
-        String inputTestString = "edit loan 1 d/ loan a/ 1000 r/ 10-10-2026 19:00";
+        loanList.addLoan(new Loan("1", "1000", "12-12-2126 18:00"));
+        String inputTestString = "edit loan 1 d/ loan a/ 1000 r/ 10-10-2126 19:00";
 
         assertDoesNotThrow(() -> parser.parseEditLoanCommand(inputTestString));
     }
@@ -622,7 +665,7 @@ public class ParserTest {
     @Test
     void tryCommand_addLoan_noExceptionThrown()
             throws AddLoanCommandWrongFormatException, IOException {
-        String inputTestString = "add loan d/ 1 a/ 1000 r/ 12-12-2025 19:00";
+        String inputTestString = "add loan d/ 1 a/ 1000 r/ 12-12-2126 19:00";
 
         assertDoesNotThrow(() -> parser.tryCommand(inputTestString));
         loanList.deleteLoan(0);
@@ -657,7 +700,7 @@ public class ParserTest {
     @Test
     void tryCommand_deleteLoan_noExceptionThrown()
             throws AddLoanCommandWrongFormatException, IOException {
-        loanList.addLoan(new Loan("1", "1000", "12-12-2025 19:00"));
+        loanList.addLoan(new Loan("1", "1000", "12-12-2126 19:00"));
         String inputTestString = "delete loan 1";
 
         assertDoesNotThrow(() -> parser.tryCommand(inputTestString));
@@ -674,7 +717,7 @@ public class ParserTest {
     @Test
     void tryCommand_setLoanRepaid_noExceptionThrown()
             throws AddLoanCommandWrongFormatException, IOException {
-        loanList.addLoan(new Loan("1", "1000", "12-12-2025 19:00"));
+        loanList.addLoan(new Loan("1", "1000", "12-12-2126 19:00"));
         String inputTestString = "loan repaid 1";
 
         assertDoesNotThrow(() -> parser.tryCommand(inputTestString));
