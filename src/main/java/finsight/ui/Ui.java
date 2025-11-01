@@ -58,7 +58,8 @@ public class Ui {
         System.out.println("\t15. list investment");
         System.out.println("\t16. add investment d/<DESCRIPTION> a/<AMOUNT_INVESTED> m/<DEPOSIT_DATE_EACH_MONTH>");
         System.out.println("\t17. delete investment <INDEX>");
-        System.out.println("18. bye");
+        System.out.println("18. help");
+        System.out.println("19. bye");
         System.out.print(SPACING);
     }
 

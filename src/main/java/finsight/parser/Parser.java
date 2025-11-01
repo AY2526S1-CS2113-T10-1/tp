@@ -388,11 +388,6 @@ public class Parser {
             throw new AddLoanCommandWrongFormatException();
         }
 
-        boolean isNegativeNumber= Double.parseDouble(commandParameters[1])<0;
-        if (isNegativeNumber) {
-            throw new AddLoanCommandWrongFormatException();
-        }
-
         return commandParameters;
     }
 
