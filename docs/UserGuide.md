@@ -89,7 +89,7 @@ Deletes the loan at <INDEX> from the list of loan
 
 Format: `delete loan <INDEX>`
 
-* The `<INDEX>` cannot contain punctuation.
+* The `<INDEX>` cannot contain punctuation and must be an existing loan index shown by the `list loan` command.
 
 Example of usage:
 
@@ -104,7 +104,7 @@ Sets the loan at <INDEX> as repaid
 
 Format: `loan repaid <INDEX>>`
 
-* The `<INDEX>` cannot contain punctuation.
+* The `<INDEX>` cannot contain punctuation and must be an existing loan index shown by the `list loan` command.
 
 Example of usage:
 
@@ -119,7 +119,7 @@ Sets the loan at <INDEX> as not repaid
 
 Format: `loan not repaid <INDEX>>`
 
-* The `<INDEX>` cannot contain punctuation.
+* The `<INDEX>` cannot contain punctuation and must be an existing loan index shown by the `list loan` command.
 
 Example of usage:
 
@@ -134,7 +134,7 @@ Edits a loan in the list. The loan will include a description and the amount bor
 
 Format: `edit loan <INDEX> d/<DESCRIPTION> a/<AMOUNT_LOANED> r/<LOAN_RETURN_DATE_AND_TIME>`
 
-* The `<INDEX>` cannot contain punctuation.
+* The `<INDEX>` cannot contain punctuation and must be an existing loan index shown by the `list loan` command.
 * The `<AMOUNT_LOANED>` can only be positive integer or float.
 * The `<LOAN_RETURN_DATE_AND_TIME>` must be of format (dd-MM-yyyy HH:mm).
 
