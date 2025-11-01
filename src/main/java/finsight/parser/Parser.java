@@ -220,8 +220,10 @@ public class Parser {
             assert indexToDelete >= 0 && indexToDelete < Investment.numberOfInvestments;
             investmentList.deleteInvestment(indexToDelete);
 
-        } else {
+        } else if(userInput.startsWith("help")) {
             Ui.printPossibleCommands();
+        } else {
+            Ui.invalidCommandMessage();
         }
     }
 

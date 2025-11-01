@@ -35,26 +35,29 @@ public class Ui {
      */
     public static void printPossibleCommands() {
         System.out.print(SPACING);
-        System.out.println("Invalid command. Please use one of the following commands:");
-        System.out.println("1. list loan");
-        System.out.println("2. add loan d/<DESCRIPTION> a/<AMOUNT_LOANED> r/<LOAN_RETURN_DATE_AND_TIME>");
-        System.out.println("   where <LOAN_RETURN_DATE_AND_TIME> is of format 'DD-MM-YYYY HH:mm'");
-        System.out.println("3. delete loan <INDEX>");
-        System.out.println("4. loan repaid <INDEX>");
-        System.out.println("5. loan not repaid <INDEX>");
-        System.out.println("6. edit loan <INDEX> d/<DESCRIPTION> a/<AMOUNT_LOANED> r/<LOAN_RETURN_DATE_AND_TIME>");
-        System.out.println("   where <LOAN_RETURN_DATE_AND_TIME> is of format 'DD-MM-YYYY HH:mm'");
-        System.out.println("7. list expense");
-        System.out.println("8. add expense d/<DESCRIPTION> a/<AMOUNT_SPENT>");
-        System.out.println("9. delete expense <INDEX>");
-        System.out.println("10. list income");
-        System.out.println("11. add income d/<DESCRIPTION> a/<AMOUNT_EARNED>");
-        System.out.println("12. delete income <INDEX>");
-        System.out.println("13. edit income <INDEX> d/<DESCRIPTION> a/<AMOUNT_EARNED>");
-        System.out.println("14. list income overview");
-        System.out.println("15. list investment");
-        System.out.println("16. add investment d/<DESCRIPTION> a/<AMOUNT_INVESTED> m/<DEPOSIT_DATE_EACH_MONTH>");
-        System.out.println("17. delete investment <INDEX>");
+        System.out.println("LOAN");
+        System.out.println("\t1. list loan");
+        System.out.println("\t2. add loan d/<DESCRIPTION> a/<AMOUNT_LOANED> r/<LOAN_RETURN_DATE_AND_TIME>");
+        System.out.println("\t   where <LOAN_RETURN_DATE_AND_TIME> is of format 'DD-MM-YYYY HH:mm'");
+        System.out.println("\t3. delete loan <INDEX>");
+        System.out.println("\t4. loan repaid <INDEX>");
+        System.out.println("\t5. loan not repaid <INDEX>");
+        System.out.println("\t6. edit loan <INDEX> d/<DESCRIPTION> a/<AMOUNT_LOANED> r/<LOAN_RETURN_DATE_AND_TIME>");
+        System.out.println("\t   where <LOAN_RETURN_DATE_AND_TIME> is of format 'DD-MM-YYYY HH:mm'");
+        System.out.println("EXPENSE");
+        System.out.println("\t7. list expense");
+        System.out.println("\t8. add expense d/<DESCRIPTION> a/<AMOUNT_SPENT>");
+        System.out.println("\t9. delete expense <INDEX>");
+        System.out.println("INCOME");
+        System.out.println("\t10. list income");
+        System.out.println("\t11. add income d/<DESCRIPTION> a/<AMOUNT_EARNED>");
+        System.out.println("\t12. delete income <INDEX>");
+        System.out.println("\t13. edit income <INDEX> d/<DESCRIPTION> a/<AMOUNT_EARNED>");
+        System.out.println("\t14. list income overview");
+        System.out.println("INVESTMENT");
+        System.out.println("\t15. list investment");
+        System.out.println("\t16. add investment d/<DESCRIPTION> a/<AMOUNT_INVESTED> m/<DEPOSIT_DATE_EACH_MONTH>");
+        System.out.println("\t17. delete investment <INDEX>");
         System.out.println("18. bye");
         System.out.print(SPACING);
     }
@@ -355,6 +358,12 @@ public class Ui {
     public static void printEmptyInvestment() {
         System.out.print(SPACING);
         System.out.println("There is no investment found");
+        System.out.print(SPACING);
+    }
+
+    public static void invalidCommandMessage() {
+        System.out.print(SPACING);
+        System.out.println("Invalid Command. Use `help` to show all available commands");
         System.out.print(SPACING);
     }
 }
