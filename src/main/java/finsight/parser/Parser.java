@@ -402,7 +402,7 @@ public class Parser {
         if (loanReturnDate.isBefore(currentTime)) {
             throw new AddLoanCommandPastDateUsedException();
         }
-        if (amountLoaned <= 0.0) {
+        if (amountLoaned < 0.01) {
             throw new AddLoanCommandInvalidAmountException();
         }
 
@@ -490,7 +490,7 @@ public class Parser {
         if (loanReturnDate.isBefore(currentTime)) {
             throw new EditLoanCommandPastDateUsedException();
         }
-        if (amountLoaned <= 0.0) {
+        if (amountLoaned < 0.01) {
             throw new EditLoanCommandInvalidAmountException();
         }
 

@@ -73,7 +73,7 @@ Adds a loan to the list. The loan will include a description and the amount loan
 
 Format: `add loan d/<DESCRIPTION> a/<AMOUNT_LOANED> r/<LOAN_RETURN_DATE_AND_TIME>`
 
-* The `<AMOUNT_LOANED>` can only be positive integer or float.
+* The `<AMOUNT_LOANED>` can only be positive integer or float of at least 1 cent.
 * The `<LOAN_RETURN_DATE_AND_TIME>` must be of format (dd-MM-yyyy HH:mm).
 
 Example of usage:
@@ -135,7 +135,7 @@ Edits a loan in the list. The loan will include a description and the amount bor
 Format: `edit loan <INDEX> d/<DESCRIPTION> a/<AMOUNT_LOANED> r/<LOAN_RETURN_DATE_AND_TIME>`
 
 * The `<INDEX>` cannot contain punctuation and must be an existing loan index shown by the `list loan` command.
-* The `<AMOUNT_LOANED>` can only be positive integer or float.
+* The `<AMOUNT_LOANED>` can only be positive integer or float of at least 1 cent.
 * The `<LOAN_RETURN_DATE_AND_TIME>` must be of format (dd-MM-yyyy HH:mm).
 
 Example of usage:
