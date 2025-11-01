@@ -1,6 +1,7 @@
 package finsight.storage;
 
 import finsight.expense.Expense;
+import finsight.storage.exceptions.AmountPersistCorruptedException;
 
 import java.nio.file.Path;
 
@@ -25,7 +26,7 @@ import java.nio.file.Path;
  * @since 15 Oct 2025
  */
 public class ExpenseDataManager extends DataManager<Expense, Exception> {
-
+    private static final String EXPENSE = "expense";
     /**
      * Path to the underlying data file where expense records are stored.
      */
@@ -81,13 +82,50 @@ public class ExpenseDataManager extends DataManager<Expense, Exception> {
      * @return a parsed {@link Expense} instance, or {@code null} if malformed
      */
     @Override
-    protected Expense parseRecord(String line) {
+    protected Expense parseRecord(String line) throws AmountPersistCorruptedException {
         String[] parts = line.split(FIELD_DELIMITER, SPLIT_KEEP_EMPTY_FIELDS);
         if (parts.length < 2) {
             return null;
         }
+        return parseExpense(parts);
+    }
+
+    /**
+     * Parses a serialized expense record into an {@link Expense} object.
+     *
+     * <p>This method extracts the description and amount fields from the given
+     * array of string parts, performs numeric validation, and constructs an
+     * {@code Expense} instance if the data is valid.</p>
+     *
+     * <p>Specifically:
+     * <ul>
+     *   <li>The first element ({@code parts[0]}) is unsanitized and treated as the expense description.</li>
+     *   <li>The second element ({@code parts[1]}) is parsed as a {@code double} amount.</li>
+     *   <li>If the amount is non-numeric or non-positive, an
+     *       {@link finsight.storage.exceptions.AmountPersistCorruptedException}
+     *       is thrown to indicate corrupted persisted data.</li>
+     * </ul>
+     *
+     * @param parts the tokenized fields of a serialized expense line, expected to contain
+     *              the description and amount in that order
+     * @return a valid {@link Expense} object created from the given parts
+     * @throws AmountPersistCorruptedException if the amount field is not numeric or ≤ 0
+     */
+    private Expense parseExpense(String[] parts) throws AmountPersistCorruptedException {
         String description = unsanitize(parts[0]);
         String expenseAmount = parts[1];
+        double amount;
+
+        try {
+            amount = Double.parseDouble(expenseAmount);
+        } catch (NumberFormatException e) {
+            throw new AmountPersistCorruptedException(expenseAmount, EXPENSE);
+        }
+
+        if (amount <= 0) {
+            throw new AmountPersistCorruptedException(expenseAmount, EXPENSE);
+        }
+
         return new Expense(description, expenseAmount);
     }
 }

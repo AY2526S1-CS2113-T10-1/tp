@@ -7,6 +7,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import finsight.loan.Loan;
+import finsight.storage.exceptions.AmountPersistCorruptedException;
+import finsight.storage.exceptions.DatePersistCorruptedException;
+import finsight.storage.exceptions.DayOfInvestPersistCorruptedException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
@@ -87,7 +90,8 @@ final class LoanDataManagerTest {
      * line, sets repayment status based on the encoded flag, and unsanitizes fields.
      */
     @Test
-    void parseRecord_parseWellFormedLine_andSetsRepaidStatus() {
+    void parseRecord_parseWellFormedLine_andSetsRepaidStatus()
+            throws AmountPersistCorruptedException, DatePersistCorruptedException {
         String record = "1|Eat%7CPoop|69.126|10-10-2025 23:59";
         Loan loan = dataManager.parseRecord(record);
 
@@ -102,7 +106,8 @@ final class LoanDataManagerTest {
      * Verifies not-repaid parsing and field values for a valid input line.
      */
     @Test
-    void parseRecord_parsesNotRepaid_andFields() {
+    void parseRecord_parsesNotRepaid_andFields()
+            throws AmountPersistCorruptedException, DayOfInvestPersistCorruptedException {
         String record = "0|Buy Poop|200|10-10-2025 00:00";
 
         Loan loan = dataManager.parseRecord(record);
@@ -119,7 +124,8 @@ final class LoanDataManagerTest {
      * can skip invalid records gracefully.
      */
     @Test
-    void parseRecord_returnsNull_whenFieldCountIsWrong() {
+    void parseRecord_returnsNull_whenFieldCountIsWrong()
+            throws AmountPersistCorruptedException, DatePersistCorruptedException {
         String record = "0|not enough|field";
         Loan loan = dataManager.parseRecord(record);
 
@@ -187,10 +193,15 @@ final class LoanDataManagerTest {
     }
 
     /**
-     * Ensures {@link LoanDataManager#tryLoad()} returns an empty list if any record
-     * causes a parsing exception during bulk load, preserving fault tolerance.
+     * Verifies that {@link LoanDataManager#tryLoad()} skips corrupted records
+     * while successfully loading valid ones from the same data file.
      *
-     * @throws IOException if writing the malformed test file fails
+     * <p>This test writes two records: one valid loan entry and one malformed entry
+     * with non-numeric and invalid date fields. The method under test should
+     * load only the valid record and skip the corrupted one, demonstrating
+     * fault-tolerant behavior during bulk load operations.</p>
+     *
+     * @throws IOException if an I/O error occurs while writing the test data file
      */
     @Test
     void tryLoad_returnsEmpty_onParsingFailure() throws IOException {
@@ -199,6 +210,6 @@ final class LoanDataManagerTest {
                 "0|Poop Brain|no number|invalid Date", StandardCharsets.UTF_8);
 
         var records = dataManager.tryLoad();
-        assertTrue(records.isEmpty(), "Any parse exception during load should return new List");
+        assertTrue(records.size() == 1, "Any parse exception during load will be skipped.");
     }
 }

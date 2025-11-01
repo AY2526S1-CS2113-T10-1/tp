@@ -134,18 +134,23 @@ final class DataManagerTest {
     }
 
     /**
-     * Verifies that {@link DataManager#tryLoad()} returns an empty list
-     * when a parse error occurs and does not propagate exceptions,
-     * preserving the contract of fault-tolerant reads.
+     * Verifies that {@link DataManager#tryLoad()} loads only valid records
+     * when encountering partially corrupted data files.
      *
-     * @throws IOException if test file write fails
+     * <p>Specifically, this test writes two lines into the data file: one valid
+     * record ("ok") and one invalid record ("___PARSE_ERROR___"). The test then
+     * calls {@code tryLoad()} and asserts that only the valid record is returned,
+     * confirming that the method correctly skips over malformed entries instead
+     * of aborting the entire load process.</p>
+     *
+     * @throws IOException if an I/O error occurs while writing to the temporary data file
      */
     @Test
-    void tryLoad_returnsEmpty_onAnyParseError() throws IOException {
+    void tryLoad_returnOnlyValid_onAnyParseError() throws IOException {
         Files.writeString(dataFile, "ok\n___PARSE_ERROR___\n", StandardCharsets.UTF_8);
 
         var records = testDataManager.tryLoad();
-        assertTrue(records.isEmpty(), "Contract: swallow error, print via Ui, return empty");
+        assertTrue(records.size() == 1);
     }
 
     /**

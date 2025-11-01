@@ -103,7 +103,7 @@ Example of usage:
 ### Set loan as repaid: `loan repaid`
 Sets the loan at <INDEX> as repaid
 
-Format: `loan repaid <INDEX>>`
+Format: `loan repaid <INDEX>`
 
 * The `<INDEX>` cannot contain punctuation and must be an existing loan index shown by the `list loan` command.
 
@@ -141,9 +141,9 @@ Format: `edit loan <INDEX> d/<DESCRIPTION> a/<AMOUNT_LOANED> r/<LOAN_RETURN_DATE
 
 Example of usage:
 
-`edit loan 1 d/ loan 1 a/ 10000 r/ 10-10-2026 19:00`
+`edit loan 1 d/loan 1 a/10000 r/10-10-2026 19:00`
 
-`edit loan 2 d/ loan 2 a/ 10.56 r/ 11-10-2056 23:59`
+`edit loan 2 d/loan 2 a/10.56 r/11-10-2056 23:59`
 
 ![loanedit](./diagrams/screenshots/LoanEdit.png)
 
@@ -157,7 +157,9 @@ Format: `list expense`
 ### Add expense: `add expense`
 Adds an expense to the list. The expense will include a description and the amount spent.
 
-Format: `add expense d/<DECRIPTION> a/<AMOUNT_SPENT>`
+Format: `add expense d/<DESCRIPTION> a/<AMOUNT_SPENT>`
+
+- `<AMOUNT_SPENT>` must be a positive value.
 
 Example of usage: `add expense d/food a/5.50`
 
@@ -192,9 +194,9 @@ Format: `list income overview`
 ### Add income: `add income`
 Adds an income to the list. The income will include a description and the amount earned.
 
-Format: `add income d/<DECRIPTION> a/<AMOUNT_EARNED>`
+Format: `add income d/<DESCRIPTION> a/<AMOUNT_EARNED>`
 
-* The `<AMOUNT_EARNED>` should be numerical.
+* The `<AMOUNT_EARNED>` should be a positive numerical value.
 
 Example of usage: `add income d/salary a/100`
 
@@ -214,10 +216,10 @@ Example of usage: `delete income 1`
 ### Edit income: `edit income`
 Edits the income at <INDEX> from the list of income.
 
-Format: `edit income <INDEX> d/<DECRIPTION> a/<AMOUNT_EARNED>`
+Format: `edit income <INDEX> d/<DESCRIPTION> a/<AMOUNT_EARNED>`
 
 * The `<INDEX>` cannot contain punctuation.
-* The `<AMOUNT_EARNED>` should be numerical.
+* The `<AMOUNT_EARNED>` should be a positive numerical value.
 
 Example of usage: `edit income 1 d/hustle a/50`
 
@@ -236,6 +238,10 @@ Adds an investment to the list. The investment will include a description, the m
 the return rate, and the deposit date.
 
 Format:`add investment d/<DESCRIPTION> a/<AMOUNT_INVESTED_MONTHLY> r/<RETURN_RATE_PER_ANNUM> m/<DEPOSIT_DATE_EACH_MONTH>`
+
+- `<AMOUNT_INVESTED_MONTHLY>` and `<RETURN_RATE_PER_ANNUM>` must be positive, non-zero numeric values. They may be 
+specified as either integer or floating-point (double) types.
+- `<DEPOSIT_DATE_EACH_MONTH>` must be positive, non-zero numeric values and must be specified as an integer.
 
 Example of usage: `add investment d/moomoo a/1000 r/3 m/21`
 
@@ -337,11 +343,11 @@ record on a single line.
 | Action                 | Format, Examples                                                                                                                                                       |
 |------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | List Loans             | `list loan`                                                                                                                                                            |
-| Add a Loan             | `add loan d/<DESCRIPTION> a/<AMOUNT_LOANED> r/<LOAN_RETURN_DATE_AND_TIME>`<br/> e.g. `add loan d/ loan1 a/10.55 r/ 10-10-2056 23:59`                                   |
+| Add a Loan             | `add loan d/<DESCRIPTION> a/<AMOUNT_LOANED> r/<LOAN_RETURN_DATE_AND_TIME>`<br/> e.g. `add loan d/loan1 a/10.55 r/10-10-2056 23:59`                                     |
 | Delete a Loan          | `delete loan <INDEX>`<br/> e.g. `delete loan 1`                                                                                                                        |
 | Set Loan as Repaid     | `loan repaid <INDEX>`<br/> e.g. `loan repaid 1`                                                                                                                        |
 | Set Loan as Not Repaid | `loan not repaid <INDEX>`<br/> e.g. `loan not repaid 1`                                                                                                                |
-| Edit a Loan            | `edit loan <INDEX> d/<DESCRIPTION> a/<AMOUNT_LOANED> r/<LOAN_RETURN_DATE_AND_TIME>`<br/> e.g. `edit loan 1 d/ loan1 a/10.55 r/ 10-10-2056 23:59`                       |
+| Edit a Loan            | `edit loan <INDEX> d/<DESCRIPTION> a/<AMOUNT_LOANED> r/<LOAN_RETURN_DATE_AND_TIME>`<br/> e.g. `edit loan 1 d/loan1 a/10.55 r/10-10-2056 23:59`                         |
 | List Expense           | `list expense`                                                                                                                                                         |
 | Add an Expense         | `add expense d/<DESCRIPTION> a/<AMOUNT_SPEND>`<br/> e.g. `add expense d/food a/6`                                                                                      |
 | Delete An Expense      | `delete expense <INDEX>`<br/> e.g. `delete expense 2`                                                                                                                  |

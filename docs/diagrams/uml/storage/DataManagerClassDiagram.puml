@@ -3,7 +3,8 @@
 
 skinparam classAttributeIconSize 0
 
-object "{abstract}\nDataManager<T,X>" {
+object "{abstract}\n<<template>>\nDataManager<T,X>" as DM {
+--
 + tryLoad(): ArrayList<T>
 + writeToFile(List<T>): void
 + appendToFile(T): void
@@ -19,11 +20,12 @@ object "{abstract}\nDataManager<T,X>" {
 }
 
 object ChildDataManager {
+--
 # parseRecord(String): T
 # formatRecord(T): String
 # dataFilePath(): Path
 }
 
 note right of ChildDataManager: ChildDataManager includes:\nLoanDataManager, ExpenseDataManager,\nIncomeDataManager, InvestDataManager
-"{abstract}\nDataManager<T,X>" <|-- ChildDataManager
+DM <|-- ChildDataManager
 @enduml
