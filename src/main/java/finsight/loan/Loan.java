@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 public class Loan {
     public static int numberOfLoans = 0;
     protected static DateTimeFormatter inputDateFormat = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
-    protected static DateTimeFormatter outputDateFormat = DateTimeFormatter.ofPattern("yyyy MMM dd, hh:mm a");
+    protected static DateTimeFormatter outputDateFormat = DateTimeFormatter.ofPattern("dd MMM yyyy, HH:mm");
     protected String description;
     protected Double amountLoaned;
     protected boolean isRepaid;
@@ -43,7 +43,13 @@ public class Loan {
     public String toString() {
         String outputString = "[";
 
-        outputString += (isRepaid) ? "repaid]" : "outstanding]";
+        if (isRepaid) {
+            outputString += "repaid]";
+        } else if (loanReturnDate.isBefore(LocalDateTime.now())) {
+            outputString += "OVERDUE]";
+        } else {
+            outputString += "outstanding]";
+        }
 
         outputString += "\nDescription: " + description;
         outputString += "\nAmount: $" + String.format("%.2f", amountLoaned);

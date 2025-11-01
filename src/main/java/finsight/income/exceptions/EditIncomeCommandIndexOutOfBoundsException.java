@@ -6,7 +6,7 @@ package finsight.income.exceptions;
 public class EditIncomeCommandIndexOutOfBoundsException extends Exception {
     @Override
     public String getMessage() {
-        return "Edit Income index does not exist!!! Please try again with the format:\n" +
+        return "Edit Income index does not exist. Please try again with the format:\n" +
                 "edit income <INDEX> d/ <DESCRIPTION> a/ <AMOUNT_EARNED>\n" +
                 "where <INDEX> is a existing income index shown by the 'list income' command";
     }
