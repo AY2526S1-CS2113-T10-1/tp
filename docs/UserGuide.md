@@ -239,7 +239,9 @@ the return rate, and the deposit date.
 
 Format:`add investment d/<DESCRIPTION> a/<AMOUNT_INVESTED_MONTHLY> r/<RETURN_RATE_PER_ANNUM> m/<DEPOSIT_DATE_EACH_MONTH>`
 
-- `<AMOUNT_INVESTED_MONTHLY>`, `<RETURN_RATE_PER_ANNUM>`, and `<DEPOSIT_DATE_EACH_MONTH>` must be a positive numerical value.
+- `<AMOUNT_INVESTED_MONTHLY>` and `<RETURN_RATE_PER_ANNUM>` must be positive, non-zero numeric values. They may be 
+specified as either integer or floating-point (double) types.
+- `<DEPOSIT_DATE_EACH_MONTH>` must be positive, non-zero numeric values and must be specified as an integer.
 
 Example of usage: `add investment d/moomoo a/1000 r/3 m/21`
 
