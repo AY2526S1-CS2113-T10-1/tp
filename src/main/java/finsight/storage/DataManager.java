@@ -101,12 +101,34 @@ public abstract class DataManager<T, X extends Exception> {
      * @return a list of records, or an empty list if loading fails
      */
     public final ArrayList<T> tryLoad() {
+        ArrayList<T> records = new ArrayList<>();
         try {
-            return load();
+            ensureFileExist();
+            List<String> lines = Files.readAllLines(dataFilePath(), StandardCharsets.UTF_8);
+            for (int i = 0; i < lines.size(); i++) {
+                String line = lines.get(i);
+
+                if (line == null || line.isEmpty()) {
+                    continue;
+                }
+
+                try {
+                    T record = parseRecord(line);
+                    if (record != null) {
+                        records.add(record);
+                    } else {
+                        Ui.printErrorMessage("Skipping malformed record at line " + (i + 1) + ": " + line);
+                    }
+                } catch (Exception e) {
+                    Ui.printErrorMessage("Skipping corrupted record at line " + (i + 1) + ": " + line
+                            + "\n" + e.getMessage());
+                }
+            }
         } catch (Exception e) {
             Ui.printErrorMessage(e.getMessage());
-            return new ArrayList<>();
         }
+
+        return records;
     }
 
     /**

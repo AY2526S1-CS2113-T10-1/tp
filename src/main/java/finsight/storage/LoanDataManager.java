@@ -2,9 +2,19 @@ package finsight.storage;
 
 import finsight.loan.Loan;
 import finsight.loan.exceptions.AddLoanCommandWrongFormatException;
+import finsight.storage.exceptions.AmountPersistCorruptedException;
+import finsight.storage.exceptions.DatePersistCorruptedException;
+import finsight.ui.Ui;
 
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.nio.file.Path;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Persists and retrieves {@link Loan} records from a line-oriented text file.
@@ -26,7 +36,7 @@ import java.time.format.DateTimeFormatter;
  * @author Royden Lim Yi Ren
  * @since 15 Oct 2025
  */
-public class LoanDataManager extends DataManager<Loan, AddLoanCommandWrongFormatException> {
+public class LoanDataManager extends DataManager<Loan, Exception> {
 
     /**
      * Date/time pattern used when formatting and parsing {@code returnBy}.
@@ -94,21 +104,41 @@ public class LoanDataManager extends DataManager<Loan, AddLoanCommandWrongFormat
      * @return parsed {@link Loan}, or {@code null} if the line is malformed
      */
     @Override
-    protected Loan parseRecord(String line) {
+    protected Loan parseRecord(String line) throws AmountPersistCorruptedException, DatePersistCorruptedException {
         String[] parts = line.split(FIELD_DELIMITER, SPLIT_KEEP_EMPTY_FIELDS);
         if (parts.length != 4) {
             return null;
         }
         boolean isRepaid = parts[0].equals("1");
+        Loan loan = parseLoan(parts);
+        if (isRepaid) {
+            loan.setRepaid();
+        }
+        return loan;
+    }
+
+    private Loan parseLoan(String[] parts) throws AmountPersistCorruptedException, DatePersistCorruptedException {
         String description = unsanitize(parts[1]);
         String loanAmount = parts[2];
         String returnBy = parts[3];
-        Loan loan = new Loan(description, loanAmount, returnBy);
-        if (isRepaid) {
-            loan.setRepaid();
-        } else {
-            loan.setNotRepaid();
+        double amount;
+
+        try {
+            amount = Double.parseDouble(loanAmount);
+        } catch (NumberFormatException e) {
+            throw new AmountPersistCorruptedException(loanAmount);
         }
-        return loan;
+
+        if (amount <= 0) {
+            throw new AmountPersistCorruptedException(loanAmount);
+        }
+
+        try {
+            LocalDateTime.parse(returnBy, FORMATTER);
+        } catch (DateTimeParseException e) {
+            throw new DatePersistCorruptedException(returnBy);
+        }
+
+        return new Loan(description, loanAmount, returnBy);
     }
 }
