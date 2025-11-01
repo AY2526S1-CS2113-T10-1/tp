@@ -516,9 +516,11 @@ Prerequisites: There should be at least 1 income in the list
 ### Add Investment
 
 1. Adding a new Investment
-   1. Test case: `add investment d/ monthly investment 1 a/ 100 r/ 1.22 m/ 22`</br>
+   1. Test case: `add investment d/ monthly investment 1 a/ 100 r/ 1.22 m/ 22`
+
       Expected: An Investment object is added to the investmentList, can be shown with the `list investment` command
-   2. Test case: `add investment d/ monthly investment 2 a/ 50.68 r/ 1.22 m/ 15`</br>
+   2. Test case: `add investment d/ monthly investment 2 a/ 50.68 r/ 1.22 m/ 15`
+
       Expected: An Investment object is added to the investmentList, can be shown with the `list investment` command
 
 ### Delete Investment
