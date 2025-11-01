@@ -13,7 +13,8 @@ import java.time.LocalDateTime;
  */
 public class Loan {
     public static int numberOfLoans = 0;
-    protected static DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+    protected static DateTimeFormatter inputDateFormat = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+    protected static DateTimeFormatter outputDateFormat = DateTimeFormatter.ofPattern("dd MMM yyyy, HH:mm");
     protected String description;
     protected Double amountLoaned;
     protected boolean isRepaid;
@@ -30,7 +31,7 @@ public class Loan {
         this.description = description;
         isRepaid = false;
         this.amountLoaned = Double.parseDouble(amountLoanedString);
-        this.loanReturnDate = LocalDateTime.parse(loanReturnDateString, dateTimeFormatter);
+        this.loanReturnDate = LocalDateTime.parse(loanReturnDateString, inputDateFormat);
     }
 
     /**
@@ -46,7 +47,7 @@ public class Loan {
 
         outputString += "\nDescription: " + description;
         outputString += "\nAmount: $" + String.format("%.2f", amountLoaned);
-        outputString += "\nRepayment Deadline: " + loanReturnDate.format(dateTimeFormatter).toUpperCase();
+        outputString += "\nRepayment Deadline: " + loanReturnDate.format(outputDateFormat).toUpperCase();
 
         return outputString;
     }
