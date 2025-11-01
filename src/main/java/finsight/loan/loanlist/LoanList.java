@@ -43,6 +43,10 @@ public class LoanList {
      * Calls the Ui class to print all tasks
      */
     public void listLoans() {
+        if(loans.isEmpty()) {
+            Ui.printEmptyLoans();
+            return;
+        }
         Ui.printAllLoans(loans);
     }
 

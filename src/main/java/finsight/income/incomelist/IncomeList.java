@@ -91,6 +91,10 @@ public class IncomeList {
      * Lists all Incomes
      */
     public void listIncomes() {
+        if(incomes.isEmpty()) {
+            Ui.printEmptyIncome();
+            return;
+        }
         Ui.printAllIncomes(incomes);
     }
 

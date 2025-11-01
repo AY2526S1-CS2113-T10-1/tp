@@ -334,4 +334,27 @@ public class Ui {
         System.out.print(SPACING);
     }
 
+    public static void printEmptyExpenses() {
+        System.out.print(SPACING);
+        System.out.println("There is no expenses found");
+        System.out.print(SPACING);
+    }
+
+    public static void printEmptyLoans() {
+        System.out.print(SPACING);
+        System.out.println("There is no loans found");
+        System.out.print(SPACING);
+    }
+
+    public static void printEmptyIncome() {
+        System.out.print(SPACING);
+        System.out.println("There is no income found");
+        System.out.print(SPACING);
+    }
+
+    public static void printEmptyInvestment() {
+        System.out.print(SPACING);
+        System.out.println("There is no investment found");
+        System.out.print(SPACING);
+    }
 }
