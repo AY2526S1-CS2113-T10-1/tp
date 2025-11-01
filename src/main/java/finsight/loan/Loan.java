@@ -43,7 +43,13 @@ public class Loan {
     public String toString() {
         String outputString = "[";
 
-        outputString += (isRepaid) ? "repaid]" : "outstanding]";
+        if (isRepaid) {
+            outputString += "repaid]";
+        } else if (loanReturnDate.isBefore(LocalDateTime.now())) {
+            outputString += "OVERDUE]";
+        } else {
+            outputString += "outstanding]";
+        }
 
         outputString += "\nDescription: " + description;
         outputString += "\nAmount: $" + String.format("%.2f", amountLoaned);
