@@ -19,10 +19,12 @@ import finsight.investment.investmentlist.InvestmentList;
 
 import finsight.loan.Loan;
 import finsight.loan.exceptions.AddLoanCommandInvalidAmountException;
+import finsight.loan.exceptions.AddLoanCommandPastDateUsedException;
 import finsight.loan.exceptions.AddLoanCommandWrongFormatException;
 import finsight.loan.exceptions.DeleteLoanCommandIndexOutOfBoundsException;
 import finsight.loan.exceptions.EditLoanCommandIndexOutOfBoundsException;
 import finsight.loan.exceptions.EditLoanCommandInvalidAmountException;
+import finsight.loan.exceptions.EditLoanCommandPastDateUsedException;
 import finsight.loan.exceptions.EditLoanCommandWrongFormatException;
 import finsight.loan.exceptions.LoanRepaidCommandIndexOutOfBoundsException;
 import finsight.loan.exceptions.LoanNotRepaidCommandIndexOutOfBoundsException;
@@ -176,6 +178,14 @@ public class ParserTest {
                 () -> parser.parseAddLoanCommand(inputTestStringZeroAmount));
         assertThrows(AddLoanCommandInvalidAmountException.class,
                 () -> parser.parseAddLoanCommand(inputTestStringNegativeAmount));
+    }
+
+    @Test
+    void parseAddLoanCommand_pastDateUsed_exceptionThrown() {
+        String inputTestString= "add loan d/loan a/0.001 r/10-10-2024 19:00";
+
+        assertThrows(AddLoanCommandPastDateUsedException.class,
+                () -> parser.parseAddLoanCommand(inputTestString));
     }
 
     @Test
@@ -501,6 +511,15 @@ public class ParserTest {
                 () -> parser.parseEditLoanCommand(inputTestStringZeroAmount));
         assertThrows(EditLoanCommandInvalidAmountException.class,
                 () -> parser.parseEditLoanCommand(inputTestStringNegativeAmount));
+    }
+
+    @Test
+    void parseEditLoanCommand_pastDateUsed_exceptionThrown() throws IOException {
+        loanList.addLoan(new Loan("1", "1000", "12-12-2126 18:00"));
+        String inputTestString= "edit loan 1 d/loan a/0.001 r/10-10-2024 19:00";
+
+        assertThrows(EditLoanCommandPastDateUsedException.class,
+                () -> parser.parseEditLoanCommand(inputTestString));
     }
 
     @Test
