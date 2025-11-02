@@ -8,7 +8,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.PrintStream;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -94,12 +96,12 @@ final class DataManagerTest {
      */
     @Test
     void tryLoad_skipsEmptyLines_andUnsanitizes() throws IOException {
-        Files.writeString(dataFile, "\nfirst\n\nsecond%7Ctwo\n", StandardCharsets.UTF_8);
+        Files.writeString(dataFile, "\nfirst|first\n\nsecond%7Ctwo|second\n", StandardCharsets.UTF_8);
 
         var records = testDataManager.tryLoad();
         assertEquals(2, records.size());
-        assertEquals("first", records.get(0).testValue);
-        assertEquals("second|two", records.get(1).testValue);
+        assertEquals("first|first", records.get(0).testValue);
+        assertEquals("second|two|second", records.get(1).testValue);
     }
 
     /**
@@ -133,6 +135,24 @@ final class DataManagerTest {
         assertEquals("literal=%25token|1", records.get(1).testValue);
     }
 
+    @Test
+    void test() throws IOException {
+        Files.writeString(dataFile, "Null\n", StandardCharsets.UTF_8);
+        PrintStream originalOut = System.out;
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outputStream));
+
+
+        try {
+            var records = testDataManager.tryLoad();
+            String printed = outputStream.toString();
+            assertTrue(records.isEmpty(), "Malformed records should be skipped");
+            assertTrue(printed.contains("Skipping malformed record (missing fields) at line 1: Null"));
+        } finally {
+            System.setOut(originalOut);
+        }
+    }
+
     /**
      * Verifies that {@link DataManager#tryLoad()} loads only valid records
      * when encountering partially corrupted data files.
@@ -147,10 +167,10 @@ final class DataManagerTest {
      */
     @Test
     void tryLoad_returnOnlyValid_onAnyParseError() throws IOException {
-        Files.writeString(dataFile, "ok\n___PARSE_ERROR___\n", StandardCharsets.UTF_8);
+        Files.writeString(dataFile, "ok|ok\n___PARSE_ERROR___|error\n", StandardCharsets.UTF_8);
 
         var records = testDataManager.tryLoad();
-        assertTrue(records.size() == 1);
+        assertEquals(1, records.size());
     }
 
     /**

@@ -18,7 +18,7 @@ return indexToDelete:int
 
 Parser -> ExpenseList ++: deleteExpense(indexToDelete:int)
 ExpenseList -> Ui ++: printDeleteExpenseOutput(indexToDelete:int)
-Ui -> Expense ++ : expense.toString()
+Ui -> ExpenseList ++: expenses.toString()
 return
 return
 

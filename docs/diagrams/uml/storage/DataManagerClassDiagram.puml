@@ -3,6 +3,8 @@
 
 skinparam classAttributeIconSize 0
 
+show {abstract}
+
 object "{abstract}\n<<template>>\nDataManager<T,X>" as DM {
 --
 + tryLoad(): ArrayList<T>

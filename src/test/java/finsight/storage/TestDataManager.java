@@ -82,8 +82,12 @@ final class TestDataManager extends DataManager<TestRecord, Exception> {
      */
     @Override
     protected TestRecord parseRecord(String line) throws IOException {
-        if (line.equals("___PARSE_ERROR___")) {
+        if (line.contains("___PARSE_ERROR___")) {
             throw new IOException("Forced Parse error");
+        }
+        String[] parts = line.split("\\|", -1);
+        if (parts.length < 2) {
+            return null;
         }
         return new TestRecord(unsanitize(line));
     }

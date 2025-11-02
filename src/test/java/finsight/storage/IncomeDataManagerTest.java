@@ -116,8 +116,14 @@ final class IncomeDataManagerTest {
      * is invalid.
      */
     @Test
-    void parseRecord_invalidAmount_throwsException() {
+    void parseIncome_throwsException_onNonNumericAmount() {
         String record = "Desc|x.y";
+        assertThrows(AmountPersistCorruptedException.class, () -> dataManager.parseRecord(record));
+    }
+
+    @Test
+    void parseIncome_throwsException_onInvalidIncomeAmount() {
+        String record = "Income|0";
         assertThrows(AmountPersistCorruptedException.class, () -> dataManager.parseRecord(record));
     }
 
