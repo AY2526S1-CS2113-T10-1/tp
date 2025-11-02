@@ -20,13 +20,12 @@ public class UiTest {
     @Test
     void getNextLine_leadingSpaces_spacesRemoved() {
         String inputString = "    Hello World\n";
-        String expectedString = "hello world";
+        String expectedString = "Hello World";
 
         ByteArrayInputStream testInput = new ByteArrayInputStream(inputString.getBytes());
         System.setIn(testInput);
 
-        Ui ui = new Ui();
-        String actualString = ui.getNextLine();
+        String actualString = Ui.getNextLine();
 
         assertEquals(expectedString, actualString);
     }
@@ -34,13 +33,12 @@ public class UiTest {
     @Test
     void getNextLine_trailingSpaces_spacesRemoved() {
         String inputString = "Hello World    \n";
-        String expectedString = "hello world";
+        String expectedString = "Hello World";
 
         ByteArrayInputStream testInput = new ByteArrayInputStream(inputString.getBytes());
         System.setIn(testInput);
 
-        Ui ui = new Ui();
-        String actualString = ui.getNextLine();
+        String actualString = Ui.getNextLine();
 
         assertEquals(expectedString, actualString);
     }
@@ -48,13 +46,12 @@ public class UiTest {
     @Test
     void getNextLine_leadingAndTrailingSpaces_spacesRemoved() {
         String inputString = "    Hello World    \n";
-        String expectedString = "hello world";
+        String expectedString = "Hello World";
 
         ByteArrayInputStream testInput = new ByteArrayInputStream(inputString.getBytes());
         System.setIn(testInput);
 
-        Ui ui = new Ui();
-        String actualString = ui.getNextLine();
+        String actualString = Ui.getNextLine();
 
         assertEquals(expectedString, actualString);
     }
