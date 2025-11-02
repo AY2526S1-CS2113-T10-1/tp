@@ -71,7 +71,7 @@ public class Ui {
      * @return User Input
      */
     public static String getNextLine() {
-        return input.nextLine().trim().toLowerCase();
+        return input.nextLine().trim();
     }
 
     /**
@@ -378,7 +378,7 @@ public class Ui {
         System.out.print(SPACING);
     }
 
-    public static void invalidCommandMessage() {
+    public static void printInvalidCommandMessage() {
         System.out.print(SPACING);
         System.out.println("Invalid Command. Use `help` to show all available commands");
         System.out.print(SPACING);

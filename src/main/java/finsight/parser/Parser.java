@@ -155,89 +155,90 @@ public class Parser {
             EditLoanCommandWrongFormatException, LoanRepaidCommandIndexOutOfBoundsException,
             LoanNotRepaidCommandIndexOutOfBoundsException, IOException {
 
-        if (userInput.startsWith("list loan")) {
+        if (userInput.toLowerCase().startsWith("list loan")) {
             loanList.listLoans();
 
-        } else if (userInput.startsWith("add loan")) {
+        } else if (userInput.toLowerCase().startsWith("add loan")) {
             String[] commandParameters = parseAddLoanCommand(userInput);
             assert (!commandParameters[0].isEmpty() && !commandParameters[1].isEmpty()
                     && !commandParameters[2].isEmpty());
             loanList.addLoan(new Loan(commandParameters[0], commandParameters[1], commandParameters[2]));
 
-        } else if (userInput.startsWith("delete loan")) {
+        } else if (userInput.toLowerCase().startsWith("delete loan")) {
             int indexToDelete = parseDeleteLoanCommand(userInput);
             assert (indexToDelete >= 0 && indexToDelete < Loan.numberOfLoans);
             loanList.deleteLoan(indexToDelete);
 
-        } else if (userInput.startsWith("loan repaid")) {
+        } else if (userInput.toLowerCase().startsWith("loan repaid")) {
             int indexToSetRepaid = parseLoanRepaidCommand(userInput);
             assert (indexToSetRepaid >= 0 && indexToSetRepaid < Loan.numberOfLoans);
             loanList.setRepaid(indexToSetRepaid);
 
-        } else if (userInput.startsWith("loan not repaid")) {
+        } else if (userInput.toLowerCase().startsWith("loan not repaid")) {
             int indexToSetNotRepaid = parseLoanNotRepaidCommand(userInput);
             assert (indexToSetNotRepaid >= 0 && indexToSetNotRepaid < Loan.numberOfLoans);
             loanList.setNotRepaid(indexToSetNotRepaid);
 
-        } else if (userInput.startsWith("edit loan")) {
+        } else if (userInput.toLowerCase().startsWith("edit loan")) {
             String[] commandParameters = parseEditLoanCommand(userInput);
             assert (!commandParameters[0].isEmpty() && !commandParameters[1].isEmpty()
                     && !commandParameters[2].isEmpty() && !commandParameters[3].isEmpty());
             loanList.editLoan(commandParameters);
 
-        } else if (userInput.startsWith("add income")) {
+        } else if (userInput.toLowerCase().startsWith("add income")) {
             String[] commandParameters = parseAddIncomeCommand(userInput);
             assert (!commandParameters[0].isEmpty() && !commandParameters[1].isEmpty());
             incomeList.addIncome(new Income(commandParameters[0], commandParameters[1]));
 
-        } else if (userInput.startsWith("delete income")) {
+        } else if (userInput.toLowerCase().startsWith("delete income")) {
             int indexToDelete = parseDeleteIncomeCommand(userInput);
             assert (indexToDelete >= 0 && indexToDelete < Income.numberOfIncomes);
             incomeList.deleteIncome(indexToDelete);
 
-        } else if (userInput.startsWith("edit income")) {
+        } else if (userInput.toLowerCase().startsWith("edit income")) {
             String[] commandParameters = parseEditIncomeCommand(userInput);
             assert (!commandParameters[0].isEmpty() && !commandParameters[1].isEmpty()
                     && !commandParameters[2].isEmpty());
             incomeList.editIncome(commandParameters[0], commandParameters[1], commandParameters[2]);
 
-        } else if (userInput.startsWith("list income overview")) {
+        } else if (userInput.toLowerCase().startsWith("list income overview")) {
             incomeList.listIncomeOverview();
 
-        } else if (userInput.startsWith("list income")) {
+        } else if (userInput.toLowerCase().startsWith("list income")) {
             incomeList.listIncomes();
 
-        } else if (userInput.startsWith("list expense")) {
+        } else if (userInput.toLowerCase().startsWith("list expense")) {
             expenseList.listExpenses();
 
-        } else if (userInput.startsWith("add expense")) {
+        } else if (userInput.toLowerCase().startsWith("add expense")) {
             String[] commandParameters = parseAddExpenseCommand(userInput);
             assert (!commandParameters[0].isEmpty() && !commandParameters[1].isEmpty()
                     && !commandParameters[2].isEmpty());
             expenseList.addExpense(new Expense(commandParameters[0], commandParameters[1]));
 
-        } else if (userInput.startsWith("delete expense")) {
+        } else if (userInput.toLowerCase().startsWith("delete expense")) {
             int indexToDelete = parseDeleteExpenseCommand(userInput);
             assert (indexToDelete >= 0 && indexToDelete < Expense.numberOfExpenses);
             expenseList.deleteExpense(indexToDelete);
 
-        } else if (userInput.startsWith("list investment")) {
+        } else if (userInput.toLowerCase().startsWith("list investment")) {
             investmentList.listAllInvestments();
 
-        } else if (userInput.startsWith("add investment")) {
+        } else if (userInput.toLowerCase().startsWith("add investment")) {
             String[] commandParameters = parseAddInvestmentCommand(userInput);
             investmentList.addInvestment(new Investment(commandParameters[0],
                     commandParameters[1], commandParameters[2], commandParameters[3]));
 
-        } else if (userInput.startsWith("delete investment")) {
+        } else if (userInput.toLowerCase().startsWith("delete investment")) {
             int indexToDelete = parseDeleteInvestmentCommand(userInput);
             assert indexToDelete >= 0 && indexToDelete < Investment.numberOfInvestments;
             investmentList.deleteInvestment(indexToDelete);
 
-        } else if(userInput.startsWith("help")) {
+        } else if(userInput.toLowerCase().startsWith("help")) {
             Ui.printPossibleCommands();
+
         } else {
-            Ui.invalidCommandMessage();
+            Ui.printInvalidCommandMessage();
         }
     }
 
