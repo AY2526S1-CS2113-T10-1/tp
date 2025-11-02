@@ -254,7 +254,10 @@ Delete the investment from the list.
 
 Format: `delete investment <INDEX_TO_DELETE>`
 
-Example of usage: `delete investment 3`
+- `<INDEX_TO_DELETE>` must be a positive, non-zero integer that should span the investments in the list. Use the 
+`list investment` command to view the respective integer values corresponding to the investments that are in the list.
+
+Example of usage: `delete investment 3` (if there are 3 or more investments in the list)
 
 ![investmentdelete](./diagrams/screenshots/InvestmentDelete.png)
 
