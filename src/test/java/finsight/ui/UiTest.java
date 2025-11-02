@@ -25,7 +25,8 @@ public class UiTest {
         ByteArrayInputStream testInput = new ByteArrayInputStream(inputString.getBytes());
         System.setIn(testInput);
 
-        String actualString = Ui.getNextLine();
+        Ui ui = new Ui();
+        String actualString = ui.getNextLine();
 
         assertEquals(expectedString, actualString);
     }
@@ -38,7 +39,8 @@ public class UiTest {
         ByteArrayInputStream testInput = new ByteArrayInputStream(inputString.getBytes());
         System.setIn(testInput);
 
-        String actualString = Ui.getNextLine();
+        Ui ui = new Ui();
+        String actualString = ui.getNextLine();
 
         assertEquals(expectedString, actualString);
     }
@@ -51,7 +53,8 @@ public class UiTest {
         ByteArrayInputStream testInput = new ByteArrayInputStream(inputString.getBytes());
         System.setIn(testInput);
 
-        String actualString = Ui.getNextLine();
+        Ui ui = new Ui();
+        String actualString = ui.getNextLine();
 
         assertEquals(expectedString, actualString);
     }
