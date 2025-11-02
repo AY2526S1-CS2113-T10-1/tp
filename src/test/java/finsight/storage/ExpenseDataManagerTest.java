@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
 import finsight.expense.Expense;
+import finsight.storage.exceptions.AmountPersistCorruptedException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
@@ -70,7 +71,7 @@ final class ExpenseDataManagerTest {
      * a well-formed, sanitized line into an {@link Expense} with unsanitized fields.
      */
     @Test
-    void parseRecord_parseWellFormedLine() {
+    void parseRecord_parseWellFormedLine() throws AmountPersistCorruptedException {
         String record = "Poop%7CFood%25|1234.69";
         Expense expense = dataManager.parseRecord(record);
 
@@ -85,7 +86,7 @@ final class ExpenseDataManagerTest {
      * delimiter or minimum number of parts.
      */
     @Test
-    void parseRecord_invalidFormat() {
+    void parseRecord_invalidFormat() throws AmountPersistCorruptedException {
         String record = "Invalid Format";
         Expense expense = dataManager.parseRecord(record);
 

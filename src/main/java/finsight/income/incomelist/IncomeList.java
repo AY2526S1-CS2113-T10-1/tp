@@ -78,19 +78,24 @@ public class IncomeList {
      * @param description  Description of income
      * @param amountEarned Amount earned
      */
-    public void editIncome(String indexToEdit, String description, String amountEarned) {
+    public void editIncome(String indexToEdit, String description, String amountEarned) throws IOException {
         logger.log(Level.INFO,"entered edit income function");
         incomes.get(Integer.parseInt(indexToEdit) - 1).setDescription(description);
         incomes.get(Integer.parseInt(indexToEdit) - 1).setAmountEarned(Float.parseFloat(amountEarned));
 
         Ui.printEditIncomeOutput(incomes, Integer.parseInt(indexToEdit) - 1);
         logger.log(Level.INFO,"income edited");
+        dataManager.writeToFile(incomes);
     }
 
     /**
      * Lists all Incomes
      */
     public void listIncomes() {
+        if(incomes.isEmpty()) {
+            Ui.printEmptyIncome();
+            return;
+        }
         Ui.printAllIncomes(incomes);
     }
 

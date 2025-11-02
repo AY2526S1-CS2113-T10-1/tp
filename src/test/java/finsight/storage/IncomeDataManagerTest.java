@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import finsight.income.Income;
 import finsight.income.exceptions.AddIncomeCommandWrongFormatException;
+import finsight.storage.exceptions.AmountPersistCorruptedException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
@@ -82,7 +83,8 @@ final class IncomeDataManagerTest {
      * @throws AddIncomeCommandWrongFormatException if parsing unexpectedly fails
      */
     @Test
-    void parseRecord_parseWellFormedLine() throws AddIncomeCommandWrongFormatException {
+    void parseRecord_parseWellFormedLine()
+            throws AddIncomeCommandWrongFormatException, AmountPersistCorruptedException {
         String record = "Food%7CTip%257C|12.5";
         Income income = dataManager.parseRecord(record);
 
@@ -100,7 +102,8 @@ final class IncomeDataManagerTest {
      *         other than malformed format
      */
     @Test
-    void parseRecord_invalidFormat_returnsNull() throws AddIncomeCommandWrongFormatException {
+    void parseRecord_invalidFormat_returnsNull()
+            throws AddIncomeCommandWrongFormatException, AmountPersistCorruptedException {
         String record = "Invalid Format";
         Income income = dataManager.parseRecord(record);
 
@@ -109,13 +112,13 @@ final class IncomeDataManagerTest {
 
     /**
      * Verifies that {@link IncomeDataManager#parseRecord(String)} throws an
-     * {@link AddIncomeCommandWrongFormatException} when the numeric amount field
+     * {@link AmountPersistCorruptedException} when the numeric amount field
      * is invalid.
      */
     @Test
     void parseRecord_invalidAmount_throwsException() {
         String record = "Desc|x.y";
-        assertThrows(AddIncomeCommandWrongFormatException.class, () -> dataManager.parseRecord(record));
+        assertThrows(AmountPersistCorruptedException.class, () -> dataManager.parseRecord(record));
     }
 
     /**

@@ -22,9 +22,13 @@ import finsight.income.exceptions.EditIncomeCommandIndexOutOfBoundsException;
 import finsight.income.exceptions.EditIncomeCommandWrongFormatException;
 import finsight.income.incomelist.IncomeList;
 
+import finsight.loan.exceptions.AddLoanCommandInvalidAmountException;
+import finsight.loan.exceptions.AddLoanCommandPastDateUsedException;
 import finsight.loan.exceptions.AddLoanCommandWrongFormatException;
 import finsight.loan.exceptions.DeleteLoanCommandIndexOutOfBoundsException;
 import finsight.loan.exceptions.EditLoanCommandIndexOutOfBoundsException;
+import finsight.loan.exceptions.EditLoanCommandInvalidAmountException;
+import finsight.loan.exceptions.EditLoanCommandPastDateUsedException;
 import finsight.loan.exceptions.EditLoanCommandWrongFormatException;
 import finsight.loan.exceptions.LoanRepaidCommandIndexOutOfBoundsException;
 import finsight.loan.exceptions.LoanNotRepaidCommandIndexOutOfBoundsException;
@@ -72,11 +76,13 @@ public class Parser {
         } catch (AddExpenseCommandWrongFormatException | AddInvestmentDateOutOfBoundsException |
                  AddInvestmentSubcommandException | AddInvestmentSubcommandOrderException |
                  AddInvestmentWrongNumberFormatException | AddIncomeCommandWrongFormatException |
+                 AddLoanCommandInvalidAmountException | AddLoanCommandPastDateUsedException |
                  AddLoanCommandWrongFormatException | DeleteExpenseCommandIndexOutOfBoundsException |
                  DeleteIncomeCommandIndexOutOfBoundsException | DeleteInvestmentIndexOutOfBoundsException |
                  DeleteInvestmentMissingIndexException | DeleteInvestmentWrongNumberFormatException |
                  DeleteLoanCommandIndexOutOfBoundsException | EditIncomeCommandWrongFormatException |
                  EditIncomeCommandIndexOutOfBoundsException | EditLoanCommandIndexOutOfBoundsException |
+                 EditLoanCommandInvalidAmountException | EditLoanCommandPastDateUsedException |
                  EditLoanCommandWrongFormatException | LoanRepaidCommandIndexOutOfBoundsException |
                  LoanNotRepaidCommandIndexOutOfBoundsException | IOException e) {
             Ui.printErrorMessage(e.getMessage());
@@ -98,7 +104,10 @@ public class Parser {
      * @throws AddInvestmentWrongNumberFormatException       If add investment command has subcommands whose values
      *                                                       are not numeric
      * @throws AddIncomeCommandWrongFormatException          If add income command has empty fields, incorrect format
-     *                                                       or incorrect sub commands
+     *                                                       or incorrect sub command
+     * @throws AddLoanCommandInvalidAmountException          If add loan command is used with negative or
+     *                                                       zero amount loaned
+     * @throws AddLoanCommandPastDateUsedException           If date input by user is in the past for add loan command
      * @throws AddLoanCommandWrongFormatException            If any empty fields or wrong sub command or
      *                                                       wrong sub command order or
      *                                                       wrong format of amount field (alphabets instead of numbers)
@@ -118,6 +127,9 @@ public class Parser {
      *                                                       index missing
      * @throws EditLoanCommandIndexOutOfBoundsException      If edit loan command used with non-existing index or
      *                                                       index missing or alphabets was used
+     * @throws EditLoanCommandInvalidAmountException         If edit loan command is used with negative or
+     *                                                       zero amount loaned
+     * @throws EditLoanCommandPastDateUsedException          If date input by user is in the past for edit loan command
      * @throws EditLoanCommandWrongFormatException           If any empty fields or wrong sub command or
      *                                                       wrong sub command order or
      *                                                       wrong format of amount field (alphabets instead of numbers)
@@ -133,95 +145,100 @@ public class Parser {
             throws AddExpenseCommandWrongFormatException, AddInvestmentDateOutOfBoundsException,
             AddInvestmentSubcommandException, AddInvestmentSubcommandOrderException,
             AddInvestmentWrongNumberFormatException, AddIncomeCommandWrongFormatException,
+            AddLoanCommandInvalidAmountException, AddLoanCommandPastDateUsedException,
             AddLoanCommandWrongFormatException, DeleteExpenseCommandIndexOutOfBoundsException,
             DeleteIncomeCommandIndexOutOfBoundsException, DeleteInvestmentIndexOutOfBoundsException,
             DeleteInvestmentMissingIndexException, DeleteInvestmentWrongNumberFormatException,
             DeleteLoanCommandIndexOutOfBoundsException, EditIncomeCommandWrongFormatException,
             EditIncomeCommandIndexOutOfBoundsException, EditLoanCommandIndexOutOfBoundsException,
+            EditLoanCommandInvalidAmountException, EditLoanCommandPastDateUsedException,
             EditLoanCommandWrongFormatException, LoanRepaidCommandIndexOutOfBoundsException,
             LoanNotRepaidCommandIndexOutOfBoundsException, IOException {
 
-        if (userInput.startsWith("list loan")) {
+        if (userInput.toLowerCase().startsWith("list loan")) {
             loanList.listLoans();
 
-        } else if (userInput.startsWith("add loan")) {
+        } else if (userInput.toLowerCase().startsWith("add loan")) {
             String[] commandParameters = parseAddLoanCommand(userInput);
             assert (!commandParameters[0].isEmpty() && !commandParameters[1].isEmpty()
                     && !commandParameters[2].isEmpty());
             loanList.addLoan(new Loan(commandParameters[0], commandParameters[1], commandParameters[2]));
 
-        } else if (userInput.startsWith("delete loan")) {
+        } else if (userInput.toLowerCase().startsWith("delete loan")) {
             int indexToDelete = parseDeleteLoanCommand(userInput);
             assert (indexToDelete >= 0 && indexToDelete < Loan.numberOfLoans);
             loanList.deleteLoan(indexToDelete);
 
-        } else if (userInput.startsWith("loan repaid")) {
+        } else if (userInput.toLowerCase().startsWith("loan repaid")) {
             int indexToSetRepaid = parseLoanRepaidCommand(userInput);
             assert (indexToSetRepaid >= 0 && indexToSetRepaid < Loan.numberOfLoans);
             loanList.setRepaid(indexToSetRepaid);
 
-        } else if (userInput.startsWith("loan not repaid")) {
+        } else if (userInput.toLowerCase().startsWith("loan not repaid")) {
             int indexToSetNotRepaid = parseLoanNotRepaidCommand(userInput);
             assert (indexToSetNotRepaid >= 0 && indexToSetNotRepaid < Loan.numberOfLoans);
             loanList.setNotRepaid(indexToSetNotRepaid);
 
-        } else if (userInput.startsWith("edit loan")) {
+        } else if (userInput.toLowerCase().startsWith("edit loan")) {
             String[] commandParameters = parseEditLoanCommand(userInput);
             assert (!commandParameters[0].isEmpty() && !commandParameters[1].isEmpty()
                     && !commandParameters[2].isEmpty() && !commandParameters[3].isEmpty());
             loanList.editLoan(commandParameters);
 
-        } else if (userInput.startsWith("add income")) {
+        } else if (userInput.toLowerCase().startsWith("add income")) {
             String[] commandParameters = parseAddIncomeCommand(userInput);
             assert (!commandParameters[0].isEmpty() && !commandParameters[1].isEmpty());
             incomeList.addIncome(new Income(commandParameters[0], commandParameters[1]));
 
-        } else if (userInput.startsWith("delete income")) {
+        } else if (userInput.toLowerCase().startsWith("delete income")) {
             int indexToDelete = parseDeleteIncomeCommand(userInput);
             assert (indexToDelete >= 0 && indexToDelete < Income.numberOfIncomes);
             incomeList.deleteIncome(indexToDelete);
 
-        } else if (userInput.startsWith("edit income")) {
+        } else if (userInput.toLowerCase().startsWith("edit income")) {
             String[] commandParameters = parseEditIncomeCommand(userInput);
             assert (!commandParameters[0].isEmpty() && !commandParameters[1].isEmpty()
                     && !commandParameters[2].isEmpty());
             incomeList.editIncome(commandParameters[0], commandParameters[1], commandParameters[2]);
 
-        } else if (userInput.startsWith("list income overview")) {
+        } else if (userInput.toLowerCase().startsWith("list income overview")) {
             incomeList.listIncomeOverview();
 
-        } else if (userInput.startsWith("list income")) {
+        } else if (userInput.toLowerCase().startsWith("list income")) {
             incomeList.listIncomes();
 
-        } else if (userInput.startsWith("list expense")) {
+        } else if (userInput.toLowerCase().startsWith("list expense")) {
             expenseList.listExpenses();
 
-        } else if (userInput.startsWith("add expense")) {
+        } else if (userInput.toLowerCase().startsWith("add expense")) {
             String[] commandParameters = parseAddExpenseCommand(userInput);
             assert (!commandParameters[0].isEmpty() && !commandParameters[1].isEmpty()
                     && !commandParameters[2].isEmpty());
             expenseList.addExpense(new Expense(commandParameters[0], commandParameters[1]));
 
-        } else if (userInput.startsWith("delete expense")) {
+        } else if (userInput.toLowerCase().startsWith("delete expense")) {
             int indexToDelete = parseDeleteExpenseCommand(userInput);
             assert (indexToDelete >= 0 && indexToDelete < Expense.numberOfExpenses);
             expenseList.deleteExpense(indexToDelete);
 
-        } else if (userInput.startsWith("list investment")) {
+        } else if (userInput.toLowerCase().startsWith("list investment")) {
             investmentList.listAllInvestments();
 
-        } else if (userInput.startsWith("add investment")) {
+        } else if (userInput.toLowerCase().startsWith("add investment")) {
             String[] commandParameters = parseAddInvestmentCommand(userInput);
             investmentList.addInvestment(new Investment(commandParameters[0],
                     commandParameters[1], commandParameters[2], commandParameters[3]));
 
-        } else if (userInput.startsWith("delete investment")) {
+        } else if (userInput.toLowerCase().startsWith("delete investment")) {
             int indexToDelete = parseDeleteInvestmentCommand(userInput);
             assert indexToDelete >= 0 && indexToDelete < Investment.numberOfInvestments;
             investmentList.deleteInvestment(indexToDelete);
 
-        } else {
+        } else if(userInput.toLowerCase().startsWith("help")) {
             Ui.printPossibleCommands();
+
+        } else {
+            Ui.printInvalidCommandMessage();
         }
     }
 
@@ -285,9 +302,16 @@ public class Parser {
                 userInput.indexOf("a/")).trim();
         commandParameters[1] = userInput.substring(userInput.indexOf("a/") + sizeOfSubcommand).trim();
 
-        boolean hasInvalidParameters = commandParameters[0].isEmpty() || commandParameters[1].isEmpty();
+
+        boolean hasInvalidParameters = commandParameters[0].isEmpty() ||
+                commandParameters[1].isEmpty();
 
         if (hasInvalidParameters) {
+            throw new AddExpenseCommandWrongFormatException();
+        }
+
+        boolean isNegativeNumber= Double.parseDouble(commandParameters[1])<0;
+        if (isNegativeNumber) {
             throw new AddExpenseCommandWrongFormatException();
         }
 
@@ -295,6 +319,21 @@ public class Parser {
     }
 
     //@@ author Emannuel-Tan
+
+    /**
+     * Checks if the loan description already exists in LoanList
+     * If found, output a reminder
+     * If not found, no additional output
+     * @param description Description of the loan to add / to be edited into
+     */
+    public void checkIfLoanAlreadyInList(String description) {
+        for (int i = 0; i < Loan.numberOfLoans; i++) {
+            if (loanList.getLoans().get(i).getDescription().equals(description)) {
+                Ui.printLoanAlreadyInListReminder(description);
+                break;
+            }
+        }
+    }
 
     /**
      * Returns the index to delete if index exists,
@@ -337,12 +376,16 @@ public class Parser {
      *
      * @param userInput String input by user
      * @return The parameters used for add loan command
-     * @throws AddLoanCommandWrongFormatException If any empty fields or wrong sub command or
-     *                                            wrong sub command order or
-     *                                            wrong format of amount field (alphabets instead of numbers) or
-     *                                            wrong format of date field
+     * @throws AddLoanCommandInvalidAmountException If amount loaned is negative or zero
+     * @throws AddLoanCommandPastDateUsedException  If date used is in the past
+     * @throws AddLoanCommandWrongFormatException   If any empty fields or wrong sub command or
+     *                                              wrong sub command order or
+     *                                              wrong format of amount field (alphabets instead of numbers) or
+     *                                              wrong format of date field
      */
-    public String[] parseAddLoanCommand(String userInput) throws AddLoanCommandWrongFormatException {
+    public String[] parseAddLoanCommand(String userInput)
+            throws AddLoanCommandInvalidAmountException, AddLoanCommandPastDateUsedException,
+            AddLoanCommandWrongFormatException {
         final int numberOfAddLoanCommandParameters = 3;
         final int sizeOfSubcommand = 2;
         DateTimeFormatter inputDateFormat = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
@@ -364,6 +407,7 @@ public class Parser {
                 userInput.indexOf("r/")).trim();
         commandParameters[2] = userInput.substring(userInput.indexOf("r/") + sizeOfSubcommand).trim();
 
+
         boolean hasInvalidParameters = commandParameters[0].isEmpty() || commandParameters[1].isEmpty() ||
                 commandParameters[2].isEmpty();
 
@@ -371,11 +415,22 @@ public class Parser {
             throw new AddLoanCommandWrongFormatException();
         }
 
+        checkIfLoanAlreadyInList(commandParameters[0]);
+        LocalDateTime currentTime = LocalDateTime.now();
+        LocalDateTime loanReturnDate;
+        double amountLoaned;
         try {
-            Double.parseDouble(commandParameters[1]);
-            LocalDateTime.parse(commandParameters[2], inputDateFormat);
+            amountLoaned = Double.parseDouble(commandParameters[1]);
+            loanReturnDate = LocalDateTime.parse(commandParameters[2], inputDateFormat);
         } catch (DateTimeParseException | NumberFormatException e) {
             throw new AddLoanCommandWrongFormatException();
+        }
+
+        if (loanReturnDate.isBefore(currentTime)) {
+            throw new AddLoanCommandPastDateUsedException();
+        }
+        if (amountLoaned < 0.01) {
+            throw new AddLoanCommandInvalidAmountException();
         }
 
         return commandParameters;
@@ -393,13 +448,16 @@ public class Parser {
      * @param userInput String input by user
      * @return The parameters used for edit loan command
      * @throws EditLoanCommandIndexOutOfBoundsException If index to edit does not exist or missing or has alphabets
+     * @throws EditLoanCommandInvalidAmountException    If amount loaned is negative or zero
+     * @throws EditLoanCommandPastDateUsedException     If date input is in the past
      * @throws EditLoanCommandWrongFormatException      If any empty fields or wrong sub command or
      *                                                  wrong sub command order or
      *                                                  wrong format of amount field (alphabets instead of numbers) or
      *                                                  wrong format of date field
      */
     public String[] parseEditLoanCommand(String userInput)
-            throws EditLoanCommandIndexOutOfBoundsException, EditLoanCommandWrongFormatException {
+            throws EditLoanCommandIndexOutOfBoundsException, EditLoanCommandInvalidAmountException,
+            EditLoanCommandPastDateUsedException, EditLoanCommandWrongFormatException {
         final int sizeOfEditLoan = "edit loan".length();
         final int numberOfEditLoanCommandParameters = 4;
         final int sizeOfSubcommand = 2;
@@ -446,11 +504,22 @@ public class Parser {
             throw new EditLoanCommandWrongFormatException();
         }
 
+        checkIfLoanAlreadyInList(commandParameters[1]);
+        LocalDateTime currentTime = LocalDateTime.now();
+        LocalDateTime loanReturnDate;
+        double amountLoaned;
         try {
-            Double.parseDouble(commandParameters[2]);
-            LocalDateTime.parse(commandParameters[3], inputDateFormat);
+            amountLoaned = Double.parseDouble(commandParameters[2]);
+            loanReturnDate = LocalDateTime.parse(commandParameters[3], inputDateFormat);
         } catch (DateTimeParseException | NumberFormatException e) {
             throw new EditLoanCommandWrongFormatException();
+        }
+
+        if (loanReturnDate.isBefore(currentTime)) {
+            throw new EditLoanCommandPastDateUsedException();
+        }
+        if (amountLoaned < 0.01) {
+            throw new EditLoanCommandInvalidAmountException();
         }
 
         return commandParameters;
@@ -482,9 +551,16 @@ public class Parser {
                 userInput.indexOf("a/")).trim();
         commandParameters[1] = userInput.substring(userInput.indexOf("a/") + sizeOfSubcommand).trim();
 
-        boolean hasInvalidParameters = commandParameters[0].isEmpty() || commandParameters[1].isEmpty();
+
+        boolean hasInvalidParameters = commandParameters[0].isEmpty() ||
+                commandParameters[1].isEmpty();
 
         if (hasInvalidParameters) {
+            throw new AddIncomeCommandWrongFormatException();
+        }
+
+        boolean isNegativeNumber= Double.parseDouble(commandParameters[1])<0;
+        if (isNegativeNumber) {
             throw new AddIncomeCommandWrongFormatException();
         }
 
@@ -670,6 +746,11 @@ public class Parser {
         boolean hasInvalidParameters = commandParameters[0].isEmpty() || commandParameters[1].isEmpty() ||
                 commandParameters[2].isEmpty() || commandParameters[3].isEmpty();
         if (hasInvalidParameters) {
+            throw new AddInvestmentSubcommandException();
+        }
+
+        boolean isNegativeNumber= Double.parseDouble(commandParameters[1])<0;
+        if (isNegativeNumber) {
             throw new AddInvestmentSubcommandException();
         }
 

@@ -41,6 +41,10 @@ public class InvestmentList {
      * Displays all the investments in the list by calling Ui class
      */
     public void listAllInvestments() {
+        if(investmentList.isEmpty()) {
+            Ui.printEmptyInvestment();
+            return;
+        }
         Ui.printAllInvestments(this.investmentList);
         Ui.printInvestmentReturns(String.format("%.2f",getTotal5YearReturns()),
                 String.format("%.2f",getTotal10YearReturns()));
