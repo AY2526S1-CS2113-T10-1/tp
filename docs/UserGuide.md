@@ -241,7 +241,9 @@ Format:`add investment d/<DESCRIPTION> a/<AMOUNT_INVESTED_MONTHLY> r/<RETURN_RAT
 
 - `<AMOUNT_INVESTED_MONTHLY>` and `<RETURN_RATE_PER_ANNUM>` must be positive, non-zero numeric values. They may be 
 specified as either integer or floating-point (double) types.
-- `<DEPOSIT_DATE_EACH_MONTH>` must be positive, non-zero numeric values and must be specified as an integer.
+- `<DEPOSIT_DATE_EACH_MONTH>` must be positive, non-zero numeric values and must be specified as an integer. It must
+span between 1 and 31. It is recommended that a date between 1 and 28 is chosen instead as all months in the Gregorian
+calendar have a minimum of 28 days.
 
 Example of usage: `add investment d/moomoo a/1000 r/3 m/21`
 
@@ -250,9 +252,12 @@ Example of usage: `add investment d/moomoo a/1000 r/3 m/21`
 ### Delete investment: `delete investment`
 Delete the investment from the list.
 
-Format: `delete investment <INDEX>`
+Format: `delete investment <INDEX_TO_DELETE>`
 
-Example of usage: `delete investment 3`
+- `<INDEX_TO_DELETE>` must be a positive, non-zero integer that should span the investments in the list. Use the 
+`list investment` command to view the respective integer values corresponding to the investments that are in the list.
+
+Example of usage: `delete investment 3` (if there are 3 or more investments in the list)
 
 ![investmentdelete](./diagrams/screenshots/InvestmentDelete.png)
 
@@ -358,5 +363,5 @@ record on a single line.
 | Edit a Income          | `edit income <INDEX> d/<DESCRIPTION> a/<AMOUNT_EARNED>`<br/> e.g. `edit income 1 d/hustle a/50`                                                                        |
 | List Investments       | `list investment`                                                                                                                                                      |
 | Add an Investment      | `add investment d/<DESCRIPTION> a/<AMOUNT_INVESTED_MONTHLY> r/<RETURN_RATE_PER_ANNUM> m/<DEPOSIT_DATE_EACH_MONTH>`<br/> e.g. `add investment d/moomoo a/1000 r/3 m/21` |
-| Delete an Investment   | `delete investment <INDEX>`<br/> e.g. `delete investment 3`                                                                                                            |
+| Delete an Investment   | `delete investment <INDEX_TO_DELETE>`<br/> e.g. `delete investment 3`                                                                                                  |
 | Exit Program           | `bye`                                                                                                                                                                  |

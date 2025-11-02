@@ -58,7 +58,8 @@ public class Ui {
         System.out.println("\t14. list income overview");
         System.out.println("INVESTMENT");
         System.out.println("\t15. list investment");
-        System.out.println("\t16. add investment d/<DESCRIPTION> a/<AMOUNT_INVESTED> m/<DEPOSIT_DATE_EACH_MONTH>");
+        System.out.println("\t16. add investment d/<DESCRIPTION> a/<AMOUNT_INVESTED> " +
+                "r/<RETURN_RATE_PER_ANNUM> m/<DEPOSIT_DATE_EACH_MONTH>");
         System.out.println("\t17. delete investment <INDEX>");
         System.out.println("18. help");
         System.out.println("19. bye");
