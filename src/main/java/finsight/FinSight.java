@@ -9,13 +9,13 @@ import finsight.ui.Ui;
 
 /**
  * <h1>FinSight</h1>
- * FinSight is a
+ * FinSight is a CLI-based app for managing finances such as income, expenses, loans and investments.
  *
  * @author Emannuel Tan Jing Yue
  * @author Lai Kai Jie Jeremy
  * @author L'kesh Nair
  * @author Goh Bin Wee
- * @version 1.0
+ * @version 2.1
  * @since 2025-10-08
  */
 public class FinSight {

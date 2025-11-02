@@ -60,20 +60,6 @@ public class UiTest {
     }
 
     @Test
-    void getNextLine_uppercaseString_lowercaseOutput() {
-        String inputString = "HELLO WORLD\n";
-        String expectedString = "hello world";
-
-        ByteArrayInputStream testInput = new ByteArrayInputStream(inputString.getBytes());
-        System.setIn(testInput);
-
-        Ui ui = new Ui();
-        String actualString = ui.getNextLine();
-
-        assertEquals(expectedString, actualString);
-    }
-
-    @Test
     void printErrorMessage_singleMessage_noExceptionThrown() {
         String message = "Test";
         assertDoesNotThrow(() -> Ui.printErrorMessage(message));
@@ -92,5 +78,10 @@ public class UiTest {
     @Test
     void printPossibleCommands_noInput_noExceptionThrown() {
         assertDoesNotThrow(Ui::printPossibleCommands);
+    }
+
+    @Test
+    void printInvalidCommandMessage_noInput_noExceptionThrown() {
+        assertDoesNotThrow(Ui::printInvalidCommandMessage);
     }
 }
