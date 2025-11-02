@@ -70,7 +70,7 @@ Format: `list loan`
 ![loanlist](./diagrams/screenshots/LoanList.png)
 
 ### Add a loan: `add loan`
-Adds a loan to the list. The loan will include a description and the amount loaned as well as the date and time to return the loaned amount by.
+Adds a loan to the list. The loan will include a description and the amount loaned as well as the date and time to return the loaned amount by. No Time Zone is assumed and date and time will not change with location.
 
 Format: `add loan d/<DESCRIPTION> a/<AMOUNT_LOANED> r/<LOAN_RETURN_DATE_AND_TIME>`
 
@@ -131,7 +131,7 @@ Example of usage:
 ![loannotrepaid](./diagrams/screenshots/LoanNotRepaid.png)
 
 ### Edit a loan: `edit loan`
-Edits a loan in the list. The loan will include a description and the amount borrowed as well as the date and time to return the loaned amount by.
+Edits a loan in the list. The loan will include a description and the amount borrowed as well as the date and time to return the loaned amount by. No Time Zone is assumed and date and time will not change with location.
 
 Format: `edit loan <INDEX> d/<DESCRIPTION> a/<AMOUNT_LOANED> r/<LOAN_RETURN_DATE_AND_TIME>`
 
