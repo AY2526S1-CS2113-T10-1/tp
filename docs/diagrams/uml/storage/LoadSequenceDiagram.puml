@@ -4,6 +4,7 @@ title Sequence: DataManager.load()
 participant ":ChildDataManager" as CDM
 participant ":Files" as Files
 participant ":ArrayList" as AL
+participant ":Ui" as Ui
 
 -> CDM: load()
 activate CDM
@@ -23,20 +24,36 @@ create AL
 CDM -> AL
 
 loop for each line in lines
-    opt line == null OR line.isEmpty()
-        CDM -> CDM: continue
-    end
+    opt line != null OR !line.isEmpty()
+        note over Files: Sequence diagram unable to show 'continue' so inverting the condition is done\nto show sequence. Intuitively, code has lesser nesting compared to this diagram.\n(Prof approved)
 
-    CDM -> CDM: parseRecord
-    activate CDM
-    return record: T
+        alt try parseRecord
 
-    opt record != null
-        CDM -> AL: add()
-        activate AL
-        return
+            CDM -> CDM: parseRecord()
+            activate CDM
+            return record: T
+
+            alt record != null
+                CDM -> AL: add()
+                activate AL
+                return
+            else
+                note over Files: Error message: Skipping malformed record (missing fields) at line {line number}.
+                CDM -> Ui: printErrorMessage(...)
+                activate Ui
+                return
+            end
+
+        else parseRecord throws exception
+            note over Files: Error message: Skipping corrupted record at line {line number}
+            CDM -> Ui: printErrorMessage(...)
+            activate Ui
+            return
+        end
     end
 end
+
+
 
 return records: ArrayList<T>
 @enduml
