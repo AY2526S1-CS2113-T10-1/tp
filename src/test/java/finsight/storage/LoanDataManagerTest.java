@@ -3,6 +3,7 @@ package finsight.storage;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
@@ -210,6 +211,24 @@ final class LoanDataManagerTest {
                 "0|Poop Brain|no number|invalid Date", StandardCharsets.UTF_8);
 
         var records = dataManager.tryLoad();
-        assertTrue(records.size() == 1, "Any parse exception during load will be skipped.");
+        assertEquals(1, records.size(), "Any parse exception during load will be skipped.");
+    }
+
+    @Test
+    void parseLoan_throwsException_onNonNumericAmount() {
+        String record = "0|Loan|x|10-10-2025 23:59";
+        assertThrows(AmountPersistCorruptedException.class, () -> dataManager.parseRecord(record));
+    }
+
+    @Test
+    void parseLoan_throwsException_onInvalidLoanAmount() {
+        String record = "0|Loan|0|10-10-2025 23:59";
+        assertThrows(AmountPersistCorruptedException.class, () -> dataManager.parseRecord(record));
+    }
+
+    @Test
+    void parseLoan_throwsException_onInvalidLoanReturnDate() {
+        String record = "0|Loan|10|10-10-2025";
+        assertThrows(DatePersistCorruptedException.class, () -> dataManager.parseRecord(record));
     }
 }
