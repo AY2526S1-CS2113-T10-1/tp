@@ -232,15 +232,13 @@ It encapsulates all **low-level file I/O** responsibilities such as:
 This allows child class (e.g., ```LoanDataManager```, ```IncomeDataManager```) to focus purely on **domain-specific 
 parsing logic**.
 
-##### 2.5.2 Class Diagram
-
 ![DataManagerClassDiagram](./diagrams/storage/DataManagerClassDiagram.png)
 
 **Design Principle**: Follows **Template Method pattern**, ensuring each subclass only defines its own record formatting
 rules while sharing consistent I/O logic. The abstract methods allow subclasses to fill in the data-specific steps such 
 as path and file name (```./data/{category}.txt```).
 
-##### 2.5.3 Loading Data
+##### 2.5.2 Loading Data
 
 When ```tryLoad()``` is called
 1. It first calls ```ensureFileExist()``` to create missing folders/files.
@@ -252,7 +250,7 @@ When ```tryLoad()``` is called
 
 ![LoadSequenceDiagram](./diagrams/storage/LoadSequenceDiagram.png)
 
-##### 2.5.4 Writing and Appending Data
+##### 2.5.3 Writing and Appending Data
 
 Two operations are supported:
 
@@ -268,7 +266,7 @@ StandardCopyOption.REPLACE_EXISTING,
 StandardCopyOption.ATOMIC_MOVE);
 ```
 
-##### 2.5.5 File Safety Utilities
+##### 2.5.4 File Safety Utilities
 
 `ensureParentDir()` expects to find folder `data` in current directory. Method creates directory if missing.
 
@@ -292,7 +290,7 @@ Restored: "Lunch | Promo 50%"
 This ensures that no field content breaks the delimiter structure and that user data is always preserved exactly as 
 entered.
 
-##### 2.5.6 Writing to storage
+##### 2.5.5 Writing to storage
 
 ```writeToFile()``` is called whenever there are edits or deletion to the data. It first ensures that path to the file 
 exist and is valid. A temporary file will be created with the new list of records written into it. Then, the original 
@@ -339,7 +337,7 @@ returns to the client and the data file now contains the latest version of all s
 
 ![WriteToFileSequenceDiagram](./diagrams/storage/WriteToFileSequenceDiagram.png)
 
-##### 2.5.7 Adding new record to file
+##### 2.5.6 Adding new record to file
 
 ```appendToFile()``` is called when a new record is added to the file. The file preparation is identical to ```
 writetoFile()```. However, unlike ```writeToFile``` where the entire file is rewritten and replaced, this method using 

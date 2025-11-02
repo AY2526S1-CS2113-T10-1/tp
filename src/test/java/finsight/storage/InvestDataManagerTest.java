@@ -10,6 +10,7 @@ import finsight.investment.exceptions.AddInvestmentDateOutOfBoundsException;
 import finsight.investment.exceptions.AddInvestmentWrongNumberFormatException;
 import finsight.storage.exceptions.AmountPersistCorruptedException;
 import finsight.storage.exceptions.DayOfInvestPersistCorruptedException;
+import finsight.storage.exceptions.ReturnRatePersistCorruptedException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
@@ -166,5 +167,44 @@ final class InvestDataManagerTest {
         assertEquals("Bonds", second.getDescription());
         assertEquals(1500.25, second.getInvestmentAmount());
         assertEquals(20, second.getInvestmentDateOfMonth());
+    }
+
+    @Test
+    void parseInvestment_throwsException_onNonNumericInvestAmount() {
+        String record = "ETF|a|1|1";
+        assertThrows(AmountPersistCorruptedException.class, () -> dataManager.parseRecord(record));
+    }
+
+    @Test
+    void parseInvestment_throwsException_onNonNumericInvestmentRate() {
+        String record = "ETF|1|a|2";
+        assertThrows(ReturnRatePersistCorruptedException.class, () -> dataManager.parseRecord(record));
+    }
+
+    @Test
+    void parseInvestment_throwsException_onNonNumericInvestmentDate() {
+        String record = "ETF|1|2|a";
+        assertThrows(DayOfInvestPersistCorruptedException.class, () -> dataManager.parseRecord(record));
+    }
+
+    @Test
+    void parseInvestment_throwsException_onInvalidAmount() {
+        String record = "ETF|0|2|3";
+        assertThrows(AmountPersistCorruptedException.class, () -> dataManager.parseRecord(record));
+    }
+
+    @Test
+    void parseInvestment_throwsException_onInvalidInvestmentRate() {
+        String record = "ETF|1|-2|3";
+        assertThrows(ReturnRatePersistCorruptedException.class, () -> dataManager.parseRecord(record));
+    }
+
+    @Test
+    void parseInvestment_throwsException_onInvalidInvestmentDate() {
+        String record = "ETF|1|2|0";
+        String record2 = "ETF|1|2|32";
+
+        assertThrows(DayOfInvestPersistCorruptedException.class, () -> dataManager.parseRecord(record));
+        assertThrows(DayOfInvestPersistCorruptedException.class, () -> dataManager.parseRecord(record2));
     }
 }
