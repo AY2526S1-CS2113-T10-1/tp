@@ -458,41 +458,49 @@ Given below are instructions to test the app manually.
    3. Test case: `loan not repaid 1`
       Expected: `list loan` command shows 1st loan as outstanding
 
+### List Income
+
+1. Show List of Income
+    1. Prerequisites: no incomes saved or initial launch
+    2. Test case: `list incomes`<br/>
+       Expected: Shows `There is no income found`
+       <br/><br/>
+2. Show List of Income
+    1. Prerequisites: income list is not empty
+    2. Test case: `list income`<br/>
+       Expected: Shows a list of all income with description and amount earned
+
 ### Add Income
 
-1. Test Case: `add income d/salary a/100`
-   Expected: Income is added. Details of the income is shown as a message.
-
-2. Test Case: `add income`
-   Expected: Income is not added. Error message will be displayed.
-
-3. Test Case: `add income d/ a/`
-   Expected: Income is not added. Error message will be displayed.
-
-4. Test Case: `add income d/salary a/five dollars`
-   Expected: Income is not added. Error message will be displayed.
+1. Adding an Income
+   1. Test Case: `add income d/salary a/100`
+      Expected: Income is added. Details of the income is shown as a message.
+   2. Test Case: `add income`
+      Expected: Income is not added. Error message will be displayed.
+   3. Test Case: `add income d/ a/`
+      Expected: Income is not added. Error message will be displayed.
+   4. Test Case: `add income d/salary a/five dollars`
+      Expected: Income is not added. Error message will be displayed.
 
 ### Delete Income
 
-Prerequisites: There should be at least 1 income in the list
-
-1. Test Case: `delete income 1`
-   Expected: Income is deleted. Details of deleted income is shown as a message.
-
-2. Test Case: `delete income 0`
-   Expected: Income is not deleted. Error message will be displayed.
-
-3. Test Case: `delete income`
-   Expected: Income is not deleted. Error message will be displayed.
+1. Deleting an Income 
+   1. Prerequisites: There should be at least 1 income in the list 
+   2. Test Case: `delete income 1`
+      Expected: Income is deleted. Details of deleted income is shown as a message.
+   3. Test Case: `delete income 0`
+      Expected: Income is not deleted. Error message will be displayed.
+   4. Test Case: `delete income`
+      Expected: Income is not deleted. Error message will be displayed.
 
 ### Edit Income
-Prerequisites: There should be at least 1 income in the list
 
-1. Test Case: `edit income 1 d/hustle a/50`
-   Expected: Income is edited. Details of the edited income is shown as a message.
-
-2. Test Case: `edit income  d/ a/`
-   Expected: Income is edited. Details of the edited income is shown as a message.
+1. Editing an Income
+   1. Prerequisites: There should be at least 1 income in the list 
+   2. Test Case: `edit income 1 d/hustle a/50`
+   Expected: Income is edited. Details of the edited income is shown as a message. 
+   3. Test Case: `edit income  d/ a/`
+   Expected: Income is not edited. Error message will be displayed.
 
 ### List Expenses
 1. Show List of expense 
