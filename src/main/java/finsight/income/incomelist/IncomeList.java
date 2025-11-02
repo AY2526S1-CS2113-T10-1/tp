@@ -8,8 +8,6 @@ import finsight.ui.Ui;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Contains a ArrayList of Income class and manipulate it
