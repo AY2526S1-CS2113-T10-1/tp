@@ -539,7 +539,7 @@ Given below are instructions to test the app manually.
 1. Listing all investments (empty investment list)
    1. Prerequisites: No investment objects in the investment list or in data file
    2. Test case: `list investment` <br/>
-      Expected: Shows $0 returns for 5 years and 10 years as there is no contribution to investment returns
+      Expected (if empty): Shows `There is no investments found`
 
 2. Listing all investments (non-empty investment list)
    1. Prerequisites: At least 1 investment shown when running the `list investment` command

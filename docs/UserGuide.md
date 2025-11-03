@@ -149,7 +149,7 @@ Example of usage:
 ![loanedit](./diagrams/screenshots/LoanEdit.png)
 
 ### List all expenses: `list expense`
-Prints the list of all expenses onto the terminal, with starting index of 1
+Prints the list of all expenses onto the terminal, with starting index of 1. Prints total expenses at the end. If there are no expenses, `There is no expenses found` would be printed instead.
 
 Format: `list expense`
 
@@ -179,7 +179,8 @@ Example of usage: `delete expense 2`
 
 
 ### List all incomes: `list income`
-Prints the list of all incomes onto the terminal, with starting index of 1
+Prints the list of all incomes onto the terminal, with starting index of 1.
+If there are no income, `There is no income found` would be printed instead.
 
 Format: `list income`
 
@@ -229,6 +230,7 @@ Example of usage: `edit income 1 d/hustle a/50`
 ### List all investment: `list investment`
 Prints the list of all investment onto the terminal, with starting index of 1.
 Also prints the total returns after 5 and 10 years.
+If there are no investment, `There is no investment found` would be printed instead.
 
 Format: `list investment`
 
