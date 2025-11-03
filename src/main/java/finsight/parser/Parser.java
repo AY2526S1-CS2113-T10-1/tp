@@ -796,9 +796,9 @@ public class Parser {
                 !userInput.contains("a/") ||
                 !userInput.contains("r/") ||
                 !userInput.contains("m/");
-        boolean hasValidSubcommandOrder = (userInput.indexOf("d/") < userInput.indexOf("a/") &&
-                (userInput.indexOf("r/") < userInput.indexOf("m/")) &&
-                (userInput.indexOf("a/") < userInput.indexOf("r/")));
+        boolean hasValidSubcommandOrder = (userInput.indexOf("d/") < userInput.lastIndexOf("a/") &&
+                (userInput.lastIndexOf("r/") < userInput.lastIndexOf("m/")) &&
+                (userInput.lastIndexOf("a/") < userInput.lastIndexOf("r/")));
         if (hasInvalidSubcommand) {
             throw new AddInvestmentSubcommandException();
         }
