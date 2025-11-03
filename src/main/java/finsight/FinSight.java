@@ -23,16 +23,13 @@ public class FinSight {
      * Main entry-point for the FinSight application.
      */
     public static void main(String[] args) {
-        ExpenseList expenseList = new ExpenseList();
-        IncomeList incomeList = new IncomeList();
-        InvestmentList investmentList = new InvestmentList();
-        LoanList loanList = new LoanList();
-        Parser parser = new Parser(expenseList, incomeList, investmentList, loanList);
+        Ui ui = new Ui();
+        Parser parser = new Parser(new ExpenseList(), new IncomeList(), new InvestmentList(), new LoanList());
 
         Ui.printWelcomeMessage();
 
         String userInput = Ui.getNextLine();
-        while (!userInput.startsWith("bye")) {
+        while (!userInput.toLowerCase().startsWith("bye")) {
             parser.tryCommand(userInput);
             userInput = Ui.getNextLine();
         }

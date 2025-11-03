@@ -67,5 +67,3 @@ UML contributions include `FinSightArchitecture`, `FinsightClassDiagram`, `DataM
 
 - Link to PRs reviewed [here](https://github.com/AY2526S1-CS2113-T10-1/tp/pulls?q=is%3Apr+is%3Aclosed+reviewed-by%3Aroydenlyr+).
 - Helped team member resolve their issues [#176](https://github.com/AY2526S1-CS2113-T10-1/tp/pull/176).
-
-### Contributions beyond the project team

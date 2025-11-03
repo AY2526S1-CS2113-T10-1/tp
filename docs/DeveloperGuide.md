@@ -3,7 +3,7 @@ layout: page
 title: Finsight - Developer Guide
 ---
 
-# Developer Guide
+# FinSight Developer Guide
 
 * [Acknowledgements](#acknowledgements)
 * [Design & implementation](#design--implementation)
@@ -402,7 +402,7 @@ Manage loans, income, investments and expenses faster than a GUI driven app.
 # Instructions for manual testing
 Given below are instructions to test the app manually.
 
-> [!NOTE]
+> ℹ️ NOTE <br/>
 > These instructions only provide a starting point for testers to work on; testers are expected to do more exploratory testing.
 
 ### Launching and shutdown
@@ -418,7 +418,7 @@ Given below are instructions to test the app manually.
 1. Show List of Loans (empty)
    1. Prerequisites: no loans saved or initial launch
    2. Test case: `list loan`<br/>
-      Expected: Shows `Total loaned: $0.00`
+      Expected: Shows `There is no loans found`
 <br/><br/>
 2. Show List of Loans (not empty)
    1. Prerequisites: loan list is not empty
@@ -453,17 +453,17 @@ Given below are instructions to test the app manually.
    1. Prerequisites: At least 1 loan shown when running the `list loan` command
    2. Test case: `loan repaid 1` <br/>
       Expected: `list loan` command shows 1st loan as repaid
-   3. Test case: `loan not repaid 1`
+   3. Test case: `loan not repaid 1` <br/>
       Expected: `list loan` command shows 1st loan as outstanding
 
 ### List Income
 
-1. Show List of Income
+1. Show List of Income (empty)
     1. Prerequisites: no incomes saved or initial launch
     2. Test case: `list incomes`<br/>
        Expected: Shows `There is no income found`
        <br/><br/>
-2. Show List of Income
+2. Show List of Income (not empty)
     1. Prerequisites: income list is not empty
     2. Test case: `list income`<br/>
        Expected: Shows a list of all income with description and amount earned
@@ -471,40 +471,40 @@ Given below are instructions to test the app manually.
 ### Add Income
 
 1. Adding an Income
-   1. Test Case: `add income d/salary a/100`
+   1. Test Case: `add income d/salary a/100` <br/>
       Expected: Income is added. Details of the income is shown as a message.
-   2. Test Case: `add income`
+   2. Test Case: `add income` <br/>
       Expected: Income is not added. Error message will be displayed.
-   3. Test Case: `add income d/ a/`
+   3. Test Case: `add income d/ a/` <br/>
       Expected: Income is not added. Error message will be displayed.
-   4. Test Case: `add income d/salary a/five dollars`
+   4. Test Case: `add income d/salary a/five dollars` <br/>
       Expected: Income is not added. Error message will be displayed.
 
 ### Delete Income
 
 1. Deleting an Income 
    1. Prerequisites: There should be at least 1 income in the list 
-   2. Test Case: `delete income 1`
+   2. Test Case: `delete income 1` <br/>
       Expected: Income is deleted. Details of deleted income is shown as a message.
-   3. Test Case: `delete income 0`
+   3. Test Case: `delete income 0` <br/>
       Expected: Income is not deleted. Error message will be displayed.
-   4. Test Case: `delete income`
+   4. Test Case: `delete income` <br/>
       Expected: Income is not deleted. Error message will be displayed.
 
 ### Edit Income
 
 1. Editing an Income
    1. Prerequisites: There should be at least 1 income in the list 
-   2. Test Case: `edit income 1 d/hustle a/50`
+   2. Test Case: `edit income 1 d/hustle a/50` <br/>
    Expected: Income is edited. Details of the edited income is shown as a message. 
-   3. Test Case: `edit income  d/ a/`
+   3. Test Case: `edit income  d/ a/` <br/>
    Expected: Income is not edited. Error message will be displayed.
 
 ### List Expenses
 1. Show List of expense 
    1. Test case: `list expense` <br/>
-   Expected (if not empty): Shows a list of all expense's description and amount
-   2. Expected (if empty): Shows nothing
+   Expected (if not empty): Shows a list of all expense's description and amount <br/>
+   Expected (if empty): Shows `There is no expenses found`
 
 ### Add Expense
 1. Adding an expense
@@ -522,28 +522,28 @@ Given below are instructions to test the app manually.
 ### Add Investment
 
 1. Adding a new Investment
-   1. Test case: `add investment d/ monthly investment 1 a/ 100 r/ 1.22 m/ 22`
+   1. Test case: `add investment d/ monthly investment 1 a/ 100 r/ 1.22 m/ 22` <br/>
       Expected: An Investment object is added to the investmentList, can be shown with the `list investment` command
-   2. Test case: `add investment d/ monthly investment 2 a/ 50.68 r/ 1.22 m/ 15`
+   2. Test case: `add investment d/ monthly investment 2 a/ 50.68 r/ 1.22 m/ 15` <br/>
       Expected: An Investment object is added to the investmentList, can be shown with the `list investment` command
 
 ### Delete Investment
 
 1. Deleting an Investment
    1. Prerequisites: At least 2 investments shown when running the `list investment` command
-   2. Test case: `delete investment 1`</br>
+   2. Test case: `delete investment 1` <br/>
       Expected: The investment originally shown as investment 1 is deleted and investment 2 is now the first in the list
 
 ### List Investments
 
 1. Listing all investments (empty investment list)
    1. Prerequisites: No investment objects in the investment list or in data file
-   2. Test case: `list investment`</br>
+   2. Test case: `list investment` <br/>
       Expected: Shows $0 returns for 5 years and 10 years as there is no contribution to investment returns
 
 2. Listing all investments (non-empty investment list)
    1. Prerequisites: At least 1 investment shown when running the `list investment` command
-   2. Test case: `list investment`</br> 
+   2. Test case: `list investment` <br/> 
       Expected: A list of all the investments are shown in chronological order of when they were added in. The 5 year and 10 year returns of all the investments are also shown
 
 ### Persistence
