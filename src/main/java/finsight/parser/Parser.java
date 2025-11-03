@@ -290,7 +290,7 @@ public class Parser {
         String[] commandParameters = new String[numberOfAddExpenseCommandParameters];
 
         boolean hasInvalidSubcommand = !userInput.contains("d/") || !userInput.contains("a/");
-        boolean hasInvalidSubcommandOrder = (userInput.indexOf("a/") < userInput.indexOf("d/"));
+        boolean hasInvalidSubcommandOrder = (userInput.lastIndexOf("a/") < userInput.indexOf("d/"));
 
         if (hasInvalidSubcommand || hasInvalidSubcommandOrder) {
             throw new AddExpenseCommandWrongFormatException();
@@ -396,9 +396,9 @@ public class Parser {
 
         boolean hasInvalidSubcommand = !userInput.contains("d/") || !userInput.contains("a/") ||
                 !userInput.contains("r/");
-        boolean hasInvalidSubcommandOrder = (userInput.indexOf("a/") < userInput.indexOf("d/")) ||
-                (userInput.indexOf("r/") < userInput.indexOf("a/")) ||
-                (userInput.indexOf("r/") < userInput.indexOf("d/"));
+        boolean hasInvalidSubcommandOrder = (userInput.lastIndexOf("a/") < userInput.indexOf("d/")) ||
+                (userInput.lastIndexOf("r/") < userInput.lastIndexOf("a/")) ||
+                (userInput.lastIndexOf("r/") < userInput.indexOf("d/"));
 
         if (hasInvalidSubcommand || hasInvalidSubcommandOrder) {
             throw new AddLoanCommandWrongFormatException();
@@ -468,9 +468,9 @@ public class Parser {
 
         boolean hasInvalidSubcommand = !userInput.contains("d/") || !userInput.contains("a/") ||
                 !userInput.contains("r/");
-        boolean hasInvalidSubcommandOrder = (userInput.indexOf("a/") < userInput.indexOf("d/")) ||
-                (userInput.indexOf("r/") < userInput.indexOf("a/")) ||
-                (userInput.indexOf("r/") < userInput.indexOf("d/"));
+        boolean hasInvalidSubcommandOrder = (userInput.lastIndexOf("a/") < userInput.indexOf("d/")) ||
+                (userInput.lastIndexOf("r/") < userInput.lastIndexOf("a/")) ||
+                (userInput.lastIndexOf("r/") < userInput.indexOf("d/"));
 
         if (hasInvalidSubcommand || hasInvalidSubcommandOrder) {
             throw new EditLoanCommandWrongFormatException();
@@ -543,7 +543,7 @@ public class Parser {
         String[] commandParameters = new String[numberOfAddIncomeCommandParameters];
 
         boolean hasInvalidSubcommand = !userInput.contains("d/") || !userInput.contains("a/");
-        boolean hasInvalidSubcommandOrder = (userInput.indexOf("a/") < userInput.indexOf("d/"));
+        boolean hasInvalidSubcommandOrder = (userInput.lastIndexOf("a/") < userInput.indexOf("d/"));
 
         if (hasInvalidSubcommand || hasInvalidSubcommandOrder) {
             throw new AddIncomeCommandWrongFormatException();
@@ -625,7 +625,7 @@ public class Parser {
         String[] commandParameters = new String[numberOfAddIncomeCommandParameters];
 
         boolean hasInvalidSubcommand = !userInput.contains("d/") || !userInput.contains("a/");
-        boolean hasInvalidSubcommandOrder = (userInput.indexOf("a/") < userInput.indexOf("d/"));
+        boolean hasInvalidSubcommandOrder = (userInput.lastIndexOf("a/") < userInput.indexOf("d/"));
 
         if (hasInvalidSubcommand || hasInvalidSubcommandOrder) {
             throw new EditIncomeCommandWrongFormatException();
