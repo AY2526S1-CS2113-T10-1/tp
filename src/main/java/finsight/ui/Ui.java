@@ -21,7 +21,7 @@ public class Ui {
     // Create Constants
     protected static final int LENGTH_OF_SPACING = 80;
     protected static final String SPACING = "-".repeat(LENGTH_OF_SPACING) + "\n";
-    protected static Scanner input;
+    protected static Scanner input = new Scanner(System.in);
 
     /**
      * Constructor
@@ -272,11 +272,17 @@ public class Ui {
      */
     public static void printAllExpenses(ArrayList<Expense> expenses) {
         System.out.print(SPACING);
+        Double totalExpense = 0.0;
         for (int i = 0; i < expenses.size(); i++) {
             System.out.println("Expense " + (i + 1) + ":");
             System.out.println(expenses.get(i).toString());
             System.out.print(SPACING);
+
+            totalExpense += expenses.get(i).getExpenseAmount();
         }
+        System.out.println("Total expenses: $" + String.format("%.2f", totalExpense));
+        System.out.print(SPACING);
+
     }
 
     /**
