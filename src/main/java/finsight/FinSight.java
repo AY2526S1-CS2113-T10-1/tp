@@ -31,10 +31,8 @@ public class FinSight {
         String userInput = Ui.getNextLine();
         while (!userInput.toLowerCase().startsWith("bye")) {
             parser.tryCommand(userInput);
-
             userInput = Ui.getNextLine();
         }
-
         Ui.printByeMessage();
     }
 }

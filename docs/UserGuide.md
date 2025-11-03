@@ -45,7 +45,7 @@ FinSight is a CLI-based app for managing finances such as income, expenses, loan
 4. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar finsight.jar` command to run the application.
 5. Type the command into the terminal and press Enter to execute it. Any input given that is not a correct command will be rejected.
 6. Use the `help` command to show all possible commands.
-6. Refer to the [Features](#features) below for details of each command.
+7. Refer to the [Features](#features) below for details of each command.
 
 ## Features
 
@@ -119,7 +119,7 @@ Example of usage:
 ### Set loan as not repaid: `loan not repaid`
 Sets the loan at <INDEX> as not repaid
 
-Format: `loan not repaid <INDEX>>`
+Format: `loan not repaid <INDEX>`
 
 * The `<INDEX>` cannot contain punctuation and must be an existing loan index shown by the `list loan` command.
 
@@ -358,7 +358,7 @@ record on a single line.
 | Edit a Loan            | `edit loan <INDEX> d/<DESCRIPTION> a/<AMOUNT_LOANED> r/<LOAN_RETURN_DATE_AND_TIME>`<br/> e.g. `edit loan 1 d/loan1 a/10.55 r/10-10-2056 23:59`                         |
 | List Expense           | `list expense`                                                                                                                                                         |
 | Add an Expense         | `add expense d/<DESCRIPTION> a/<AMOUNT_SPEND>`<br/> e.g. `add expense d/food a/6`                                                                                      |
-| Delete An Expense      | `delete expense <INDEX>`<br/> e.g. `delete expense 2`                                                                                                                  |
+| Delete an Expense      | `delete expense <INDEX>`<br/> e.g. `delete expense 2`                                                                                                                  |
 | List Income            | `list income`                                                                                                                                                          |
 | View Income Overview   | `list income overview`                                                                                                                                                 |
 | Add Income             | `add income d/<DESCRIPTION> a/<AMOUNT_EARNED>`<br/> e.g. `add income d/salary a/100`                                                                                   |
@@ -367,4 +367,5 @@ record on a single line.
 | List Investments       | `list investment`                                                                                                                                                      |
 | Add an Investment      | `add investment d/<DESCRIPTION> a/<AMOUNT_INVESTED_MONTHLY> r/<RETURN_RATE_PER_ANNUM> m/<DEPOSIT_DATE_EACH_MONTH>`<br/> e.g. `add investment d/moomoo a/1000 r/3 m/21` |
 | Delete an Investment   | `delete investment <INDEX_TO_DELETE>`<br/> e.g. `delete investment 3`                                                                                                  |
+| View all Commands      | `help`                                                                                                                                                                 |
 | Exit Program           | `bye`                                                                                                                                                                  |
