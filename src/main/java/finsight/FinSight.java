@@ -23,7 +23,6 @@ public class FinSight {
      * Main entry-point for the FinSight application.
      */
     public static void main(String[] args) {
-        Ui ui = new Ui();
         ExpenseList expenseList = new ExpenseList();
         IncomeList incomeList = new IncomeList();
         InvestmentList investmentList = new InvestmentList();
@@ -35,10 +34,8 @@ public class FinSight {
         String userInput = Ui.getNextLine();
         while (!userInput.startsWith("bye")) {
             parser.tryCommand(userInput);
-
             userInput = Ui.getNextLine();
         }
-
         Ui.printByeMessage();
     }
 }
