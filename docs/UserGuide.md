@@ -45,7 +45,7 @@ FinSight is a CLI-based app for managing finances such as income, expenses, loan
 4. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar finsight.jar` command to run the application.
 5. Type the command into the terminal and press Enter to execute it. Any input given that is not a correct command will be rejected.
 6. Use the `help` command to show all possible commands.
-6. Refer to the [Features](#features) below for details of each command.
+7. Refer to the [Features](#features) below for details of each command.
 
 ## Features
 
@@ -119,7 +119,7 @@ Example of usage:
 ### Set loan as not repaid: `loan not repaid`
 Sets the loan at <INDEX> as not repaid
 
-Format: `loan not repaid <INDEX>>`
+Format: `loan not repaid <INDEX>`
 
 * The `<INDEX>` cannot contain punctuation and must be an existing loan index shown by the `list loan` command.
 
