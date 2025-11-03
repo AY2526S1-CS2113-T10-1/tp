@@ -259,9 +259,9 @@ public class Ui {
      */
     public static void printIncomeOverview(float totalIncome, float totalExpense) {
         System.out.print(SPACING);
-        System.out.println("Total Income: $ " + totalIncome);
-        System.out.println("Total Expense: $ " + totalExpense);
-        System.out.println("Remaining Income: $ " + (totalIncome - totalExpense));
+        System.out.println("Total Income: $ " + String.format("%.2f", totalIncome));
+        System.out.println("Total Expense: $ " + String.format("%.2f", totalExpense));
+        System.out.println("Remaining Income: $ " + String.format("%.2f", totalIncome - totalExpense));
         System.out.print(SPACING);
     }
 
