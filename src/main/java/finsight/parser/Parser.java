@@ -284,8 +284,7 @@ public class Parser {
      * @return The parameters used for add expense command
      * @throws AddExpenseCommandWrongFormatException If any empty fields or wrong sub command or wrong sub command order
      */
-    public String[] parseAddExpenseCommand(String userInput) throws
-            AddExpenseCommandWrongFormatException {
+    public String[] parseAddExpenseCommand(String userInput) throws AddExpenseCommandWrongFormatException {
         final int numberOfAddExpenseCommandParameters = 2;
         final int sizeOfSubcommand = 2;
         String[] commandParameters = new String[numberOfAddExpenseCommandParameters];
@@ -308,7 +307,13 @@ public class Parser {
             throw new AddExpenseCommandWrongFormatException();
         }
 
-        boolean isNegativeNumber= Double.parseDouble(commandParameters[1])<0;
+        try {
+            Double.parseDouble(commandParameters[1]);
+        } catch (NumberFormatException e) {
+            throw new AddExpenseCommandWrongFormatException();
+        }
+
+        boolean isNegativeNumber= Double.parseDouble(commandParameters[1]) < 0;
         if (isNegativeNumber) {
             throw new AddExpenseCommandWrongFormatException();
         }
@@ -555,7 +560,13 @@ public class Parser {
             throw new AddIncomeCommandWrongFormatException();
         }
 
-        boolean isNegativeNumber= Double.parseDouble(commandParameters[1])<0;
+        try {
+            Double.parseDouble(commandParameters[1]);
+        } catch (NumberFormatException e) {
+            throw new AddIncomeCommandWrongFormatException();
+        }
+
+        boolean isNegativeNumber= Double.parseDouble(commandParameters[1]) < 0;
         if (isNegativeNumber) {
             throw new AddIncomeCommandWrongFormatException();
         }
@@ -722,7 +733,8 @@ public class Parser {
      * @throws AddInvestmentSubcommandException If the required parameters inserted by the user are missing or empty
      */
     public String[] parseAddInvestmentCommand(String userInput)
-            throws AddInvestmentSubcommandException, AddInvestmentSubcommandOrderException {
+            throws AddInvestmentSubcommandException, AddInvestmentSubcommandOrderException,
+            AddInvestmentWrongNumberFormatException {
         final int numberOfAddInvestmentCommandParameters = 4;
         final int sizeOfSubcommand = 2;
         String[] commandParameters = new String[numberOfAddInvestmentCommandParameters];
@@ -743,7 +755,13 @@ public class Parser {
             throw new AddInvestmentSubcommandException();
         }
 
-        boolean isNegativeNumber= Double.parseDouble(commandParameters[1])<0;
+        try {
+            Double.parseDouble(commandParameters[1]);
+        } catch (NumberFormatException e) {
+            throw new AddInvestmentWrongNumberFormatException();
+        }
+
+        boolean isNegativeNumber= Double.parseDouble(commandParameters[1]) < 0;
         if (isNegativeNumber) {
             throw new AddInvestmentSubcommandException();
         }

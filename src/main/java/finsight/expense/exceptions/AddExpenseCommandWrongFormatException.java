@@ -12,6 +12,6 @@ public class AddExpenseCommandWrongFormatException extends RuntimeException {
     public String getMessage() {
         return "Add Expense Command is in the wrong format. Please try again with the format:\n" +
                 "\tadd expense d/<DESCRIPTION> a/<AMOUNT_SPENT>\n" +
-                "where <EXPENDED_AMOUNT> is only numbers" ;
+                "where <AMOUNT_SPENT> is only numbers";
     }
 }

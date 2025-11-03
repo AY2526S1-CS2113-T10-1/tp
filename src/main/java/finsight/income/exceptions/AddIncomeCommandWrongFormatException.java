@@ -7,6 +7,7 @@ public class AddIncomeCommandWrongFormatException extends Exception {
     @Override
     public String getMessage() {
         return "Add Income Command is in the wrong format. Please try again with the format:\n" +
-                "add income d/<DESCRIPTION> a/<AMOUNT_EARNED>";
+                "\tadd income d/<DESCRIPTION> a/<AMOUNT_EARNED>\n" +
+                "where <AMOUNT_EARNED> is only numbers";
     }
 }
