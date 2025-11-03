@@ -47,7 +47,7 @@ public class Investment {
             double parsedInvestAmount = Double.parseDouble(investmentAmount);
             double parsedReturnRate = Double.parseDouble(returnRate);
             int parsedInvestmentDateOfMonth = Integer.parseInt(investmentDateOfMonth);
-            if (parsedInvestAmount <= 0 || parsedReturnRate < 0.0) {
+            if (parsedInvestAmount <= 0 || parsedReturnRate <= 0.0) {
                 throw new AddInvestmentWrongNumberFormatException();
             }
             if (parsedInvestmentDateOfMonth < 1 || parsedInvestmentDateOfMonth > 31) {

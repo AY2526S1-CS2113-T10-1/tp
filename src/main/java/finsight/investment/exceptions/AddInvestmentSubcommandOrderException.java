@@ -5,6 +5,6 @@ public class AddInvestmentSubcommandOrderException extends Exception {
         return "Add Investment Command is using the wrong format. Please try again with this format:\n" +
                 "\tadd investment d/<DESCRIPTION> a/<AMOUNT_INVESTED_MONTHLY> r/<RETURN_RATE_PER_ANNUM> " +
                 "m/<DEPOSIT_DATE_EACH_MONTH> \nwhere <DEPOSIT_DATE_EACH_MONTH> is an integer and " +
-                "<AMOUNT_INVESTED_MONTHLY> and <RETURN_RATE_PER_ANNUM> are doubles";
+                "<AMOUNT_INVESTED_MONTHLY> and <RETURN_RATE_PER_ANNUM> are non-zero doubles";
     }
 }
