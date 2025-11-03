@@ -296,7 +296,7 @@ public class Parser {
             throw new AddExpenseCommandWrongFormatException();
         }
 
-        commandParameters[0] = userInput.substring(userInput.lastIndexOf("d/") + sizeOfSubcommand,
+        commandParameters[0] = userInput.substring(userInput.indexOf("d/") + sizeOfSubcommand,
                 userInput.lastIndexOf("a/")).trim();
         commandParameters[1] = userInput.substring(userInput.lastIndexOf("a/") + sizeOfSubcommand).trim();
 
@@ -313,7 +313,7 @@ public class Parser {
             throw new AddExpenseCommandWrongFormatException();
         }
 
-        boolean isNegativeNumber= Double.parseDouble(commandParameters[1]) < 0;
+        boolean isNegativeNumber= Double.parseDouble(commandParameters[1]) <= 0;
         if (isNegativeNumber) {
             throw new AddExpenseCommandWrongFormatException();
         }
@@ -404,7 +404,7 @@ public class Parser {
             throw new AddLoanCommandWrongFormatException();
         }
 
-        commandParameters[0] = userInput.substring(userInput.lastIndexOf("d/") + sizeOfSubcommand,
+        commandParameters[0] = userInput.substring(userInput.indexOf("d/") + sizeOfSubcommand,
                 userInput.lastIndexOf("a/")).trim();
         commandParameters[1] = userInput.substring(userInput.lastIndexOf("a/") + sizeOfSubcommand,
                 userInput.lastIndexOf("r/")).trim();
@@ -493,7 +493,7 @@ public class Parser {
         }
 
         commandParameters[0] = indexToEditString;
-        commandParameters[1] = userInput.substring(userInput.lastIndexOf("d/") + sizeOfSubcommand,
+        commandParameters[1] = userInput.substring(userInput.indexOf("d/") + sizeOfSubcommand,
                 userInput.lastIndexOf("a/")).trim();
         commandParameters[2] = userInput.substring(userInput.lastIndexOf("a/") + sizeOfSubcommand,
                 userInput.lastIndexOf("r/")).trim();
@@ -549,7 +549,7 @@ public class Parser {
             throw new AddIncomeCommandWrongFormatException();
         }
 
-        commandParameters[0] = userInput.substring(userInput.lastIndexOf("d/") + sizeOfSubcommand,
+        commandParameters[0] = userInput.substring(userInput.indexOf("d/") + sizeOfSubcommand,
                 userInput.lastIndexOf("a/")).trim();
         commandParameters[1] = userInput.substring(userInput.lastIndexOf("a/") + sizeOfSubcommand).trim();
 
@@ -566,7 +566,7 @@ public class Parser {
             throw new AddIncomeCommandWrongFormatException();
         }
 
-        boolean isNegativeNumber= Double.parseDouble(commandParameters[1]) < 0;
+        boolean isNegativeNumber= Double.parseDouble(commandParameters[1]) <= 0;
         if (isNegativeNumber) {
             throw new AddIncomeCommandWrongFormatException();
         }
@@ -642,9 +642,20 @@ public class Parser {
         }
 
         commandParameters[0] = indexToEdit;
-        commandParameters[1] = userInput.substring(userInput.lastIndexOf("d/") + sizeOfSubcommand,
+        commandParameters[1] = userInput.substring(userInput.indexOf("d/") + sizeOfSubcommand,
                 userInput.lastIndexOf("a/")).trim();
         commandParameters[2] = userInput.substring(userInput.lastIndexOf("a/") + sizeOfSubcommand).trim();
+
+        try {
+            Double.parseDouble(commandParameters[2]);
+        } catch (NumberFormatException e) {
+            throw new EditIncomeCommandWrongFormatException();
+        }
+
+        boolean isNegativeNumber= Double.parseDouble(commandParameters[2]) <= 0;
+        if (isNegativeNumber) {
+            throw new EditIncomeCommandWrongFormatException();
+        }
 
         boolean hasInvalidParameters = commandParameters[0].isEmpty() || commandParameters[1].isEmpty() ||
                 commandParameters[2].isEmpty();
@@ -741,7 +752,7 @@ public class Parser {
 
         addInvestmentInputValidation(userInput);
         // 0 - description, 1 - amount, 2 - return rate, 3 - date of month
-        commandParameters[0] = userInput.substring(userInput.lastIndexOf("d/") + sizeOfSubcommand,
+        commandParameters[0] = userInput.substring(userInput.indexOf("d/") + sizeOfSubcommand,
                 userInput.lastIndexOf("a/")).trim();
         commandParameters[1] = userInput.substring(userInput.lastIndexOf("a/") + sizeOfSubcommand,
                 userInput.lastIndexOf("r/")).trim();
@@ -761,9 +772,9 @@ public class Parser {
             throw new AddInvestmentWrongNumberFormatException();
         }
 
-        boolean isNegativeNumber= Double.parseDouble(commandParameters[1]) < 0;
+        boolean isNegativeNumber= Double.parseDouble(commandParameters[1]) <= 0;
         if (isNegativeNumber) {
-            throw new AddInvestmentSubcommandException();
+            throw new AddInvestmentWrongNumberFormatException();
         }
 
         return commandParameters;
