@@ -38,13 +38,13 @@ public class Ui {
         System.out.println("LOAN");
         System.out.println("\t1. list loan");
         System.out.println("\t2. add loan d/<DESCRIPTION> a/<AMOUNT_LOANED> r/<LOAN_RETURN_DATE_AND_TIME>");
-        System.out.println("\t   where <LOAN_RETURN_DATE_AND_TIME> is of format 'DD-MM-YYYY HH:mm' and");
+        System.out.println("\t   where <LOAN_RETURN_DATE_AND_TIME> is of format 'dd-MM-yyyy HH:mm' and");
         System.out.println("\t   <AMOUNT_LOANED> is an integer or float of at least 1 cent");
         System.out.println("\t3. delete loan <INDEX>");
         System.out.println("\t4. loan repaid <INDEX>");
         System.out.println("\t5. loan not repaid <INDEX>");
         System.out.println("\t6. edit loan <INDEX> d/<DESCRIPTION> a/<AMOUNT_LOANED> r/<LOAN_RETURN_DATE_AND_TIME>");
-        System.out.println("\t   where <LOAN_RETURN_DATE_AND_TIME> is of format 'DD-MM-YYYY HH:mm' and");
+        System.out.println("\t   where <LOAN_RETURN_DATE_AND_TIME> is of format 'dd-MM-yyyy HH:mm' and");
         System.out.println("\t   <AMOUNT_LOANED> is an integer or float of at least 1 cent");
         System.out.println("EXPENSE");
         System.out.println("\t7. list expense");
@@ -259,9 +259,9 @@ public class Ui {
      */
     public static void printIncomeOverview(float totalIncome, float totalExpense) {
         System.out.print(SPACING);
-        System.out.println("Total Income: $ " + totalIncome);
-        System.out.println("Total Expense: $ " + totalExpense);
-        System.out.println("Remaining Income: $ " + (totalIncome - totalExpense));
+        System.out.println("Total Income: $ " + String.format("%.2f", totalIncome));
+        System.out.println("Total Expense: $ " + String.format("%.2f", totalExpense));
+        System.out.println("Remaining Income: $ " + String.format("%.2f", totalIncome - totalExpense));
         System.out.print(SPACING);
     }
 

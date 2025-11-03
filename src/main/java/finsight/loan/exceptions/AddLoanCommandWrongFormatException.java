@@ -9,6 +9,6 @@ public class AddLoanCommandWrongFormatException extends Exception {
         return "Add Loan Command is in the wrong format. Please try again with the format:\n" +
                 "add loan d/<DESCRIPTION> a/<AMOUNT_LOANED> r/<LOAN_RETURN_DATE_AND_TIME>\n" +
                 "where <LOAN_RETURN_DATE_AND_TIME> is of format 'dd-MM-yyyy HH:mm' and\n" +
-                "<AMOUNT_LOANED> is only positive integer or float";
+                "<AMOUNT_LOANED> is only positive integer or float of at least 1 cent";
     }
 }

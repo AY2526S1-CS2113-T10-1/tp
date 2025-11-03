@@ -297,11 +297,9 @@ public class Parser {
             throw new AddExpenseCommandWrongFormatException();
         }
 
-
-        commandParameters[0] = userInput.substring(userInput.indexOf("d/") + sizeOfSubcommand,
-                userInput.indexOf("a/")).trim();
-        commandParameters[1] = userInput.substring(userInput.indexOf("a/") + sizeOfSubcommand).trim();
-
+        commandParameters[0] = userInput.substring(userInput.lastIndexOf("d/") + sizeOfSubcommand,
+                userInput.lastIndexOf("a/")).trim();
+        commandParameters[1] = userInput.substring(userInput.lastIndexOf("a/") + sizeOfSubcommand).trim();
 
         boolean hasInvalidParameters = commandParameters[0].isEmpty() ||
                 commandParameters[1].isEmpty();
@@ -401,12 +399,11 @@ public class Parser {
             throw new AddLoanCommandWrongFormatException();
         }
 
-        commandParameters[0] = userInput.substring(userInput.indexOf("d/") + sizeOfSubcommand,
-                userInput.indexOf("a/")).trim();
-        commandParameters[1] = userInput.substring(userInput.indexOf("a/") + sizeOfSubcommand,
-                userInput.indexOf("r/")).trim();
-        commandParameters[2] = userInput.substring(userInput.indexOf("r/") + sizeOfSubcommand).trim();
-
+        commandParameters[0] = userInput.substring(userInput.lastIndexOf("d/") + sizeOfSubcommand,
+                userInput.lastIndexOf("a/")).trim();
+        commandParameters[1] = userInput.substring(userInput.lastIndexOf("a/") + sizeOfSubcommand,
+                userInput.lastIndexOf("r/")).trim();
+        commandParameters[2] = userInput.substring(userInput.lastIndexOf("r/") + sizeOfSubcommand).trim();
 
         boolean hasInvalidParameters = commandParameters[0].isEmpty() || commandParameters[1].isEmpty() ||
                 commandParameters[2].isEmpty();
@@ -491,11 +488,11 @@ public class Parser {
         }
 
         commandParameters[0] = indexToEditString;
-        commandParameters[1] = userInput.substring(userInput.indexOf("d/") + sizeOfSubcommand,
-                userInput.indexOf("a/")).trim();
-        commandParameters[2] = userInput.substring(userInput.indexOf("a/") + sizeOfSubcommand,
-                userInput.indexOf("r/")).trim();
-        commandParameters[3] = userInput.substring(userInput.indexOf("r/") + sizeOfSubcommand).trim();
+        commandParameters[1] = userInput.substring(userInput.lastIndexOf("d/") + sizeOfSubcommand,
+                userInput.lastIndexOf("a/")).trim();
+        commandParameters[2] = userInput.substring(userInput.lastIndexOf("a/") + sizeOfSubcommand,
+                userInput.lastIndexOf("r/")).trim();
+        commandParameters[3] = userInput.substring(userInput.lastIndexOf("r/") + sizeOfSubcommand).trim();
 
         boolean hasInvalidParameters = commandParameters[1].isEmpty() || commandParameters[2].isEmpty() ||
                 commandParameters[3].isEmpty();
@@ -547,10 +544,9 @@ public class Parser {
             throw new AddIncomeCommandWrongFormatException();
         }
 
-        commandParameters[0] = userInput.substring(userInput.indexOf("d/") + sizeOfSubcommand,
-                userInput.indexOf("a/")).trim();
-        commandParameters[1] = userInput.substring(userInput.indexOf("a/") + sizeOfSubcommand).trim();
-
+        commandParameters[0] = userInput.substring(userInput.lastIndexOf("d/") + sizeOfSubcommand,
+                userInput.lastIndexOf("a/")).trim();
+        commandParameters[1] = userInput.substring(userInput.lastIndexOf("a/") + sizeOfSubcommand).trim();
 
         boolean hasInvalidParameters = commandParameters[0].isEmpty() ||
                 commandParameters[1].isEmpty();
@@ -635,9 +631,9 @@ public class Parser {
         }
 
         commandParameters[0] = indexToEdit;
-        commandParameters[1] = userInput.substring(userInput.indexOf("d/") + sizeOfSubcommand,
-                userInput.indexOf("a/")).trim();
-        commandParameters[2] = userInput.substring(userInput.indexOf("a/") + sizeOfSubcommand).trim();
+        commandParameters[1] = userInput.substring(userInput.lastIndexOf("d/") + sizeOfSubcommand,
+                userInput.lastIndexOf("a/")).trim();
+        commandParameters[2] = userInput.substring(userInput.lastIndexOf("a/") + sizeOfSubcommand).trim();
 
         boolean hasInvalidParameters = commandParameters[0].isEmpty() || commandParameters[1].isEmpty() ||
                 commandParameters[2].isEmpty();
@@ -675,7 +671,6 @@ public class Parser {
             throw new LoanRepaidCommandIndexOutOfBoundsException();
         }
 
-
         if (indexToSetRepaid < 0 || indexToSetRepaid >= Loan.numberOfLoans) {
             throw new LoanRepaidCommandIndexOutOfBoundsException();
         }
@@ -707,7 +702,6 @@ public class Parser {
             throw new LoanNotRepaidCommandIndexOutOfBoundsException();
         }
 
-
         if (indexToSetNotRepaid < 0 || indexToSetNotRepaid >= Loan.numberOfLoans) {
             throw new LoanNotRepaidCommandIndexOutOfBoundsException();
         }
@@ -735,13 +729,13 @@ public class Parser {
 
         addInvestmentInputValidation(userInput);
         // 0 - description, 1 - amount, 2 - return rate, 3 - date of month
-        commandParameters[0] = userInput.substring(userInput.indexOf("d/") + sizeOfSubcommand,
-                userInput.indexOf("a/")).trim();
-        commandParameters[1] = userInput.substring(userInput.indexOf("a/") + sizeOfSubcommand,
-                userInput.indexOf("r/")).trim();
-        commandParameters[2] = userInput.substring(userInput.indexOf("r/") + sizeOfSubcommand,
-                userInput.indexOf("m/")).trim();
-        commandParameters[3] = userInput.substring(userInput.indexOf("m/") + sizeOfSubcommand).trim();
+        commandParameters[0] = userInput.substring(userInput.lastIndexOf("d/") + sizeOfSubcommand,
+                userInput.lastIndexOf("a/")).trim();
+        commandParameters[1] = userInput.substring(userInput.lastIndexOf("a/") + sizeOfSubcommand,
+                userInput.lastIndexOf("r/")).trim();
+        commandParameters[2] = userInput.substring(userInput.lastIndexOf("r/") + sizeOfSubcommand,
+                userInput.lastIndexOf("m/")).trim();
+        commandParameters[3] = userInput.substring(userInput.lastIndexOf("m/") + sizeOfSubcommand).trim();
 
         boolean hasInvalidParameters = commandParameters[0].isEmpty() || commandParameters[1].isEmpty() ||
                 commandParameters[2].isEmpty() || commandParameters[3].isEmpty();

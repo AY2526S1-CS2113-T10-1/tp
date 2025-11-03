@@ -3,6 +3,7 @@ package finsight.storage;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import finsight.expense.Expense;
 import finsight.storage.exceptions.AmountPersistCorruptedException;
@@ -78,6 +79,18 @@ final class ExpenseDataManagerTest {
         assertNotNull(expense);
         assertEquals("Poop|Food%", expense.getDescription());
         assertEquals("1234.69", expense.getExpenseAmount().toString());
+    }
+
+    @Test
+    void parseExpense_throwsException_onNonNumericAmount() {
+        String record = "Expense|a";
+        assertThrows(AmountPersistCorruptedException.class, () -> dataManager.parseRecord(record));
+    }
+
+    @Test
+    void parseExpense_throwsException_onInvalidExpenseAmount() {
+        String record = "Expense|0";
+        assertThrows(AmountPersistCorruptedException.class, () -> dataManager.parseRecord(record));
     }
 
     /**
