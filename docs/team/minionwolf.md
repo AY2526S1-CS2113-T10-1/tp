@@ -26,10 +26,13 @@ Users can delete an income if they made a mistake.
 Users can edit an income when they have inputted wrong details.
 
 ### Contributions to UG
-I contributed to all the income parts and command summary for income.
+1. Added all income commands in the command list table
+2. Added all income description and format
 
 ### Contributions to DG
-I contributed to all the sequence diagrams and instructions for manual testing for income.
+1. Added all income sequence diagram and their description
+2. Added all income user stories into the table
+3. Added all instructions for manual testing for income
 
 ### PR Review Contributions
 [View here](https://github.com/AY2526S1-CS2113-T10-1/tp/pulls?q=is%3Apr+is%3Aclosed+reviewed-by%3A%40me)

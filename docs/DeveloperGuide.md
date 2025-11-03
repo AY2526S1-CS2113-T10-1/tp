@@ -142,27 +142,27 @@ The `LoanList` class then calls the `Ui` class to print an acknowledgement messa
 #### 2.2 Income Features
 
 ##### 2.2.1 Add Income Feature
-The Add Income feature enables users to add income.
+The Add Income feature enables users to add income. The `Ui` class takes in the user input. This String is used by the `Parser` class to decide which command to run. `Parser` validates the provided description and amount using the `parseAddIncomeCommand` method. `Parser` then calls the `addIncome()` method of the `IncomeList` class which creates and add the given `Income` if valid.
 
 ![AddIncomeSequenceDiagram](diagrams/income/AddIncomeSequenceDiagram.png)
 
 ##### 2.2.2 Delete Income Feature
-The Delete Income feature enables users to delete income.
+The Delete Income feature enables users to delete income. The `Ui` class takes in the user input. This String is used by the `Parser` class to decide which command to run. `Parser` validates the provided index using the `parseDeleteIncomeCommand` method. `Parser` then calls the `deleteIncome()` method of the `IncomeList` class which calls the `Ui` class to print an acknowledgement message using the `toString()` method of the `Income` class before deleting the `Income` at the given index.
 
 ![DeleteIncomeSequenceDiagram](diagrams/income/DeleteIncomeSequenceDiagram.png)
 
 ##### 2.2.3 Edit Income Feature
-The Edit Income feature enables users to edit income.
+The Edit Income feature enables users to edit income. The `Ui` class takes in the user input. This String is used by the `Parser` class to decide which command to run. `Parser` validates the provided index,  description and amount using the `parseEditIncomeCommand` method. `Parser` then calls the `editIncome()` method of the `IncomeList` class. It then calls the `toString()` method, `setDescription` method and `setAmountEarned` method from `Income`.
 
 ![EditIncomeSequenceDiagram.png](diagrams/income/EditIncomeSequenceDiagram.png)
 
 ##### 2.2.4 List Income Feature
-The List Income feature enables users to view all incomes.
+The List Income feature enables users to view all incomes. The `Ui` class takes in the user input. This String is used by the `Parser` class to decide which command to run. `Parser` calls the `listIncomes()` method from the `IncomeList` class to output the incomes. `IncomeList` then calls the `Ui` class to output the incomes, giving it the ArrayList of Incomes. `Ui` class loops through the ArrayList to output each `Income` class's `toString()` method.
 
 ![ListIncomeSequenceDiagram.png](diagrams/income/ListIncomeSequenceDiagram.png)
 
 ##### 2.2.5 List Income Overview Feature
-The List Income Overview feature enables users to view total income, total expenses and remaining income.
+The List Income Overview feature enables users to view total income, total expenses and remaining income. The `Ui` class takes in the user input. This String is used by the `Parser` class to decide which command to run. `Parser` calls the `listIncomeOverview()` method from the `IncomeList` class. It loops the size of ArrayList of incomes. `IncomeList` then calls `getAmountEarned()` method from `Income` class which returns the amount. A new `ExpenseList` class is created. `IncomeList` calls `getExpense()` method from `ExpenseList` class and returns expense list. It loops the size of ArrayList of expenses. `ExpenseList` calls `getExpenseAmount` from `Expense` and returns the amount.
 
 ![ListIncomeOverviewSequenceDiagram.png](diagrams/income/ListIncomeOverviewSequenceDiagram.png)
 

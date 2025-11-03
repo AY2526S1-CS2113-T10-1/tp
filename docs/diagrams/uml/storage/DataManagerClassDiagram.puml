@@ -14,11 +14,9 @@ object "{abstract}\n<<template>>\nDataManager<T,X>" as DM {
 # ensureParentDir(): void
 # sanitize(String): String
 # unsanitize(String): String
-
-..{abstract}..
-# parseRecord(String): T {abstract}
-# formatRecord(T): String {abstract}
-# dataFilePath(): Path {abstract}
+# parseRecord(String): T { abstract }
+# formatRecord(T): String { abstract }
+# dataFilePath(): Path { abstract }
 }
 
 object ChildDataManager {
