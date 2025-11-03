@@ -23,7 +23,6 @@ public class FinSight {
      * Main entry-point for the FinSight application.
      */
     public static void main(String[] args) {
-        Ui ui = new Ui();
         Parser parser = new Parser(new ExpenseList(), new IncomeList(), new InvestmentList(), new LoanList());
 
         Ui.printWelcomeMessage();
