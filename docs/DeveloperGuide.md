@@ -57,7 +57,7 @@ disk through specialised `DataManager` subclasses.
 * `Model`: Represents the in-memory state of the application. It contains domain objects operations such as add, delete,
  edit etc.
 
-![FinsightClassDiagram](./diagrams/FinSightArchitecture.png)
+![FinSightArchitecture](./diagrams/FinSightArchitecture.png)
 
 The figure above illustrates the overall class structure of **Finsight**. The Finsight class serves as the entry point 
 of the application and depends on the `Ui`, `Parser`, and the four domain lists (`ExpenseList`, `IncomeList`, 
