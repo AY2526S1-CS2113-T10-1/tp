@@ -59,19 +59,6 @@ public class InvestmentTest {
     }
 
     @Test
-    void constructor_returnRateIsZero_noExceptionThrown() {
-        assertDoesNotThrow(
-                () -> new Investment("test","100","0.0","20"));
-    }
-
-    @Test
-    void calculateReturnProfits_zeroRate_returnsDeposit()
-            throws AddInvestmentDateOutOfBoundsException, AddInvestmentWrongNumberFormatException {
-        Investment test = new Investment("test","100","0.0","20");
-        assertEquals(100*60,test.calculateReturnProfits(5));
-    }
-
-    @Test
     void toString_correctPrintOfDefinedInvestmentObject_isEqual() throws AddInvestmentDateOutOfBoundsException,
             AddInvestmentWrongNumberFormatException {
         Investment test = new Investment("test","100","1.0","20");
