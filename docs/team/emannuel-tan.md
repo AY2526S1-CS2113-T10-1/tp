@@ -6,7 +6,7 @@ FinSight is a CLI-based app for managing finances such as income, expenses, loan
 
 ### Summary of Contributions
 
-- Code Contributed can be found at [Reposense link](https://nus-cs2113-ay2526s1.github.io/tp-dashboard/?search=emannuel-tan&breakdown=true&sort=groupTitle%20dsc&sortWithin=title&since=2025-09-19T00%3A00%3A00&timeframe=commit&mergegroup=&groupSelect=groupByRepos&checkedFileTypes=docs~functional-code~test-code~other&filteredFileName=)
+- Code Contributed can be found [here](https://nus-cs2113-ay2526s1.github.io/tp-dashboard/?search=emannuel-tan&breakdown=true&sort=groupTitle%20dsc&sortWithin=title&since=2025-09-19T00%3A00%3A00&timeframe=commit&mergegroup=&groupSelect=groupByRepos&checkedFileTypes=docs~functional-code~test-code~other&filteredFileName=)
 
 
 - Features Implemented:
@@ -29,6 +29,7 @@ FinSight is a CLI-based app for managing finances such as income, expenses, loan
   4. Added Documentation for all loan related commands [#39](https://github.com/AY2526S1-CS2113-T10-1/tp/pull/39), [#78](https://github.com/AY2526S1-CS2113-T10-1/tp/pull/78)
   5. Update FAQ [#39](https://github.com/AY2526S1-CS2113-T10-1/tp/pull/39)
   6. Update Cheatsheet of commands for loan related commands [#39](https://github.com/AY2526S1-CS2113-T10-1/tp/pull/39), [#78](https://github.com/AY2526S1-CS2113-T10-1/tp/pull/78)
+  7. Update Screenshots of commands between `v2.0` and `v2.1` [#179](https://github.com/AY2526S1-CS2113-T10-1/tp/pull/179)
  
 
 - Contributions to the DG
@@ -48,8 +49,5 @@ FinSight is a CLI-based app for managing finances such as income, expenses, loan
 
 
 - Review/mentoring Contributions
-  1. Reviewed [#14](https://github.com/AY2526S1-CS2113-T10-1/tp/pull/14), [#19](https://github.com/AY2526S1-CS2113-T10-1/tp/pull/19), [#20](https://github.com/AY2526S1-CS2113-T10-1/tp/pull/20), [#25](https://github.com/AY2526S1-CS2113-T10-1/tp/pull/25), [#46](https://github.com/AY2526S1-CS2113-T10-1/tp/pull/46), [#54](https://github.com/AY2526S1-CS2113-T10-1/tp/pull/54), [#61](https://github.com/AY2526S1-CS2113-T10-1/tp/pull/61), [#89](https://github.com/AY2526S1-CS2113-T10-1/tp/pull/89), [#96](https://github.com/AY2526S1-CS2113-T10-1/tp/pull/96)
+  1. Reviewed [#14](https://github.com/AY2526S1-CS2113-T10-1/tp/pull/14), [#19](https://github.com/AY2526S1-CS2113-T10-1/tp/pull/19), [#20](https://github.com/AY2526S1-CS2113-T10-1/tp/pull/20), [#25](https://github.com/AY2526S1-CS2113-T10-1/tp/pull/25), [#46](https://github.com/AY2526S1-CS2113-T10-1/tp/pull/46), [#54](https://github.com/AY2526S1-CS2113-T10-1/tp/pull/54), [#61](https://github.com/AY2526S1-CS2113-T10-1/tp/pull/61), [#89](https://github.com/AY2526S1-CS2113-T10-1/tp/pull/89), [#96](https://github.com/AY2526S1-CS2113-T10-1/tp/pull/96), [#102](https://github.com/AY2526S1-CS2113-T10-1/tp/pull/102), [#103](https://github.com/AY2526S1-CS2113-T10-1/tp/pull/103), [#105](https://github.com/AY2526S1-CS2113-T10-1/tp/pull/105), [#106](https://github.com/AY2526S1-CS2113-T10-1/tp/pull/106), [#107](https://github.com/AY2526S1-CS2113-T10-1/tp/pull/107), [#171](https://github.com/AY2526S1-CS2113-T10-1/tp/pull/171)
   2. Helped Team Members whenever they requested for help on telegram, via Discord voice call
-
-
-- Contributions beyond the project team
