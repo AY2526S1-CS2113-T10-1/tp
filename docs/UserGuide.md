@@ -1,4 +1,4 @@
-# User Guide
+# FinSight User Guide
 
 ## Introduction
 
@@ -43,7 +43,8 @@ FinSight is a CLI-based app for managing finances such as income, expenses, loan
 2. Download the latest version of `FinSight` from [here](https://github.com/AY2526S1-CS2113-T10-1/tp).
 3. Copy the file to the folder you want to use as the home folder for FinSight.
 4. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar finsight.jar` command to run the application.
-5. Type the command into the terminal and press Enter to execute it. Any input given that is not a correct command will show all possible commands.
+5. Type the command into the terminal and press Enter to execute it. Any input given that is not a correct command will be rejected.
+6. Use the `help` command to show all possible commands.
 6. Refer to the [Features](#features) below for details of each command.
 
 ## Features
@@ -56,14 +57,14 @@ FinSight is a CLI-based app for managing finances such as income, expenses, loan
     e.g. if the command specifies `d/<DESCRIPTION> a/<AMOUNT>`, the exact order must be followed for the command to work.
 >
 > * Extraneous parameters for commands that do not take in parameters (such as `list loan`, `list expense`, `list investment`, `list income` and `bye`) will be ignored.<br>
-    e.g. if the command specifies `bye 123`, it will be interpreted as `bye`.
+    e.g. if the command specifies `bye 123` or `byes`, it will be interpreted as `bye`.
 >
 > * If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
 
 <br/>
 
 ### List all loans: `list loan`
-Prints the list of all loans onto the terminal with an index starting from 1 as well as a total loan amount. If there are no loans, `There is no loans found` would be printed.
+Prints the list of all loans onto the terminal with an index starting from 1 as well as a total loan amount. If there are no loans, `There is no loans found` would be printed instead. If the loan's repayment date has passed, the status would show as `OVERDUE`.
 
 Format: `list loan`
 
@@ -75,13 +76,13 @@ Adds a loan to the list. The loan will include a description and the amount loan
 Format: `add loan d/<DESCRIPTION> a/<AMOUNT_LOANED> r/<LOAN_RETURN_DATE_AND_TIME>`
 
 * The `<AMOUNT_LOANED>` can only be positive integer or float of at least 1 cent.
-* The `<LOAN_RETURN_DATE_AND_TIME>` must be of format (dd-MM-yyyy HH:mm).
+* The `<LOAN_RETURN_DATE_AND_TIME>` must be of format (dd-MM-yyyy HH:mm) and cannot be in the past.
 
 Example of usage:
 
-`add loan d/ loan 1 a/ 10000 r/ 10-10-2026 19:00`
+`add loan d/loan 1 a/10000 r/10-10-2126 19:00`
 
-`add loan d/ loan 2 a/ 10.56 r/ 11-10-2056 23:59`
+`add loan d/loan 2 a/10.56 r/11-10-2056 23:59`
 
 ![loanadd](./diagrams/screenshots/LoanAdd.png)
 
@@ -137,7 +138,7 @@ Format: `edit loan <INDEX> d/<DESCRIPTION> a/<AMOUNT_LOANED> r/<LOAN_RETURN_DATE
 
 * The `<INDEX>` cannot contain punctuation and must be an existing loan index shown by the `list loan` command.
 * The `<AMOUNT_LOANED>` can only be positive integer or float of at least 1 cent.
-* The `<LOAN_RETURN_DATE_AND_TIME>` must be of format (dd-MM-yyyy HH:mm).
+* The `<LOAN_RETURN_DATE_AND_TIME>` must be of format (dd-MM-yyyy HH:mm) and cannot be in the past.
 
 Example of usage:
 
@@ -268,6 +269,8 @@ Shows the list of possible commands.
 
 Format: `help`
 
+![help](./diagrams/screenshots/Help.png)
+
 <br/>
 
 ### Exit the program: `bye`
@@ -297,7 +300,7 @@ All data is stored as plain text in a folder name `data` inside the FinSight app
 | Investments | `data/investment.txt` |
 | Loans       | `data/loan.txt`       |
 
-> Tip: if you move the app to another computer, copy the whole `data/` folder along with it.
+> 💡Tip: if you move the app to another computer, copy the whole `data/` folder along with it.
 
 #### When it saves
 
