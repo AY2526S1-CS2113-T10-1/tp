@@ -28,8 +28,8 @@ object "{abstract}\n<<template>>\nDataManager<T,X>" as DM {
 }
 object "ChildDataManager" as CDM {
 --
-#formatRecord(T): String { abstract }
-#parseRecord(String): T { abstract }
+#formatRecord(T): String
+#parseRecord(String): T
 }
 object Ui {
 --
